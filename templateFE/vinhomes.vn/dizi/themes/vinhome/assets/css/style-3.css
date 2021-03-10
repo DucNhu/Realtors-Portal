@@ -1,0 +1,954 @@
+/*========== COMMON ==========*/
+.lg-outer{
+    z-index: 999999;
+    opacity: 1;
+}
+.lg-backdrop{
+    z-index: 999998;
+}
+.lg-outer .lg-thumb{
+    margin: 0 auto;
+}
+.modal-dialog .modal-content .modal-header button:after{
+    display: none;
+}
+#modal-gallery .modal-header h4{
+    padding-right: 40px;
+}
+#top-menu{
+    position: absolute;
+    top: 70px;
+    left: 0;
+    right: 0;
+    z-index: 99990;
+    background: #fff;
+}
+#top-menu.fixed{
+    top:0;
+    padding-top: 15px;
+}
+#top-menu>a{
+    text-align: center;
+    font-weight: bold;
+    font-size: 20px;
+    color: #cc9036;
+    position: relative;
+    margin-bottom: 30px;
+    display: block;
+}
+#top-menu>a:before{
+    content: "";
+    position: absolute;
+    bottom: -30px;
+    width: 15px;
+    transform: rotate(45deg) translateX(-18px);
+    border-top: 2px solid #cc9036;
+    left: 50%;
+    transition: all 0.1s;
+}
+#top-menu>a:after{
+    content: "";
+    position: absolute;
+    bottom: -30px;
+    width: 15px;
+    right: 50%;
+    border-top: 2px solid #cc9036;
+    transform: rotate(-45deg) translateX(18px);
+    transition: all 0.1s;
+}
+#top-menu>a[aria-expanded="true"]:after{
+    transform: rotate(45deg) translateX(18px);
+    bottom: -9px;
+}
+#top-menu>a[aria-expanded="true"]:before{
+    transform: rotate(-45deg) translateX(-18px);
+    bottom: -9px;
+}
+
+#menu-project-mobile{
+    white-space: inherit;
+    max-height: 99999px;
+    overflow: hidden;
+    margin-top: 30px;
+    padding: 0 15px;
+    margin-bottom: 30px;
+}
+#menu-project-mobile li:last-child{
+    border-bottom: none;
+}
+#menu-project-mobile li{
+    width: 100%;
+    padding:  15px 0;
+    border-bottom: 1px solid #eee;
+}
+#menu-project-mobile li a{
+    color: #333;
+    text-transform: none;
+    font-size: 16px;
+}
+#modal-gallery{
+    background-color: #000;
+    z-index: 9999999;
+
+}
+#khu-do-thi-khac{
+    margin: 0 auto;
+    border: 1px solid #eee;
+    width: 310px;
+    position: absolute;
+    top: 66px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 9;
+}
+#khu-do-thi-khac li{
+    width: 100%;
+    padding: 10px 20px 10px 20px;
+    text-align: left;
+    background: #fff;
+    border-bottom: 1px solid #eee;
+}
+
+#khu-do-thi-khac li:hover{
+    background-color: #f7f7f7;
+}
+
+#khu-do-thi-khac li a{
+    color: #333333;
+    display: block;
+}
+
+#modal-gallery .owl-next, #modal-gallery .owl-prev{
+    color: #ffffff;
+    font-size: 30px;
+    left: -100px;
+    width: 50px;
+    background-color: transparent;
+}
+
+#modal-gallery .owl-next{
+    right: -100px;
+    left: auto;
+}
+#counter-slide{
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    text-align: center;
+    color: #ffffff;
+    font-size: 16px;
+    z-index: 10000;
+}
+#modal-gallery .modal-dialog{
+    width: 100%;
+    margin: 0;
+    border-radius: 0;
+    background: #000;
+}
+#modal-gallery .modal-content{
+    background: #000;
+    border-radius: 0;
+}
+#modal-gallery .modal-header{
+    border: none;
+}
+#modal-gallery .modal-header h4{
+    color: #ffffff;
+    font-weight: bold;
+}
+#modal-gallery .modal-body{
+    color: #ffffff;
+    padding-top: 50px;
+}
+#modal-gallery .modal-body h3{
+    font-size: 16px;
+    font-weight: 400;
+    text-align: center;
+}
+#modal-gallery .gallery-carousel{
+    margin: 0 auto;
+}
+#khu-do-thi-hoan-thien {
+    font-family: Arial;
+    color: #333;
+}
+#modal-gallery button .icon-bar {
+    display: block;
+    width: 30px;
+    height: 2px;
+    margin: 5px 0;
+    border-radius: 1px;
+    background: #fff;
+}
+#modal-gallery button.close{
+    opacity: 1;
+}
+#modal-gallery button .icon-bar:nth-child(1) {
+    webkit-transform: translateY(9px) rotate(45deg);
+    -ms-transform: translateY(9px) rotate(45deg);
+    transform: translateY(9px) rotate(45deg);
+}
+#modal-gallery button .icon-bar:nth-child(2) {
+    opacity: 0;
+}
+#modal-gallery button .icon-bar:nth-child(3) {
+    width: 100%;
+    -webkit-transform: translateY(-5px) rotate(-45deg);
+    -ms-transform: translateY(-5px) rotate(-45deg);
+    transform: translateY(-5px) rotate(-45deg);
+}
+
+#khu-do-thi-hoan-thien .header-content{
+    background: #ffffff;
+}
+#khu-do-thi-hoan-thien .bottom-banner img{
+    box-shadow: 5px rgba(0,0,0,0.5);
+}
+
+#khu-do-thi-hoan-thien .bottom-banner .pull-left h1{
+    margin-bottom: 35px;
+}
+#more-info{
+    margin-bottom: 80px;
+}
+#more-info:after{
+    content: "";
+    position: absolute;
+    width: 100px;
+    border: 1px solid #000;
+    transform: translateX(-50%);
+    left: 50%;
+    bottom: -50px;
+}
+#more-info p{
+    font-weight: bold;
+    font-size: 16px;
+    margin-bottom: 0;
+}
+/*========== BANNER ==========*/
+#khu-do-thi-hoan-thien {
+    color: #333;
+    font-size: 16px;
+}
+
+#khu-do-thi-hoan-thien .banner-bds-detail .bottom-banner .pull-right {
+    padding-bottom: 10px;
+}
+
+#khu-do-thi-hoan-thien .banner-bds-detail .bottom-banner {
+    padding-bottom: 0;
+}
+
+#khu-do-thi-hoan-thien .bottom-banner p{
+    color: #fff;
+    text-transform: uppercase;
+    margin-bottom: 0;
+}
+#khu-do-thi-hoan-thien .bottom-banner h2{
+    margin: 0;
+}
+#khu-do-thi-hoan-thien .owl-carousel .owl-dots {
+    margin-top: 10px;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+}
+
+#khu-do-thi-hoan-thien .menu-project{
+    border-bottom: 1px solid #ebebeb;
+}
+#top-menu .menu-project{
+    border: none;
+}
+
+#khu-do-thi-hoan-thien .banner {
+    padding-top: 30px;
+}
+
+#khu-do-thi-hoan-thien .banner h1 {
+    color: #cc9036;
+    margin-top: 0;
+    font-size: 20px;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 0;
+}
+
+#khu-do-thi-hoan-thien .banner .down-banner {
+    color: #cc9036;
+    font-size: 30px;
+}
+
+#khu-do-thi-hoan-thien .banner .banner-imgage {
+    position: relative;
+}
+
+#khu-do-thi-hoan-thien .banner .banner-imgage img:first-child {
+    width: 100%;
+}
+
+#khu-do-thi-hoan-thien .banner .banner-imgage .banner-logo {
+    position: absolute;
+    left: 50%;
+    bottom: -7%;
+    transform: translateX(-50%);
+    width: 25%;
+    -webkit-box-shadow: 0px 5px 16px -1px rgba(0, 0, 0, 0.75);
+    -moz-box-shadow: 0px 5px 16px -1px rgba(0, 0, 0, 0.75);
+    box-shadow: 0px 5px 16px -1px rgba(0, 0, 0, 0.75);
+}
+
+#khu-do-thi-hoan-thien .banner .banner-imgage .banner-info-tb {
+    display: none;
+}
+
+#khu-do-thi-hoan-thien .banner .banner-info {
+    margin-top: 40px;
+    margin-bottom: 55px;
+    text-align: center;
+    position: relative;
+}
+
+#khu-do-thi-hoan-thien .banner .banner-info span {
+    display: block;
+}
+
+#khu-do-thi-hoan-thien .passage {
+    font-style: italic;
+    text-align: center;
+    position: relative;
+    margin-bottom: 100px;
+    font-weight: bold;
+}
+
+
+#khu-do-thi-hoan-thien #passage::after {
+    content: "";
+    position: absolute;
+    width: 100px;
+    border: 1px solid #000;
+    transform: translateX(-50%);
+    left: 50%;
+    bottom: 70px;
+}
+
+#khu-do-thi-hoan-thien .overview {
+    margin-bottom: 60px;
+}
+
+#khu-do-thi-hoan-thien .overview h2 {
+    font-weight: bold;
+    text-align: center;
+    margin-top: 0;
+}
+#khu-do-thi-hoan-thien .overview .img-map img{
+    width: 100%;
+}
+#khu-do-thi-hoan-thien .overview .img-map {
+    /*
+    margin: 30px 0;
+    padding: 0;
+    */
+    float: right;
+    margin: 15px 0 15px 0;
+}
+
+#khu-do-thi-hoan-thien .utilities {
+    margin-bottom: 40px;
+}
+
+#khu-do-thi-hoan-thien .utilities .utilities-header, #khu-do-thi-hoan-thien .community .community-header {
+    margin: 0 auto 20px;
+    float: left;
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+#khu-do-thi-hoan-thien .utilities .utilities-header h2, #khu-do-thi-hoan-thien .enjoy-life h2 {
+    font-weight: bold;
+    margin-top: 0;
+    margin-bottom: 0;
+    text-align: left;
+    position: relative;
+}
+
+#khu-do-thi-hoan-thien .enjoy-life h2 {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+#khu-do-thi-hoan-thien .utilities .utilities-header span {
+    padding-left: 30px;
+    position: relative;
+}
+
+#khu-do-thi-hoan-thien .utilities {
+    position: relative;
+}
+
+#khu-do-thi-hoan-thien .utilities .item span {
+    position: absolute;
+    bottom: 10px;
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+    width: 50%;
+    text-align: center;
+    text-transform: uppercase;
+    background: #191214;
+    color: #fff;
+    padding: 10px 15px;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+#khu-do-thi-hoan-thien .enjoy-life {
+    margin-bottom: 40px;
+}
+
+/*#khu-do-thi-hoan-thien .enjoy-life h2:before {
+    content: " ";
+    position: absolute;
+    top: 3px;
+    background-image: url("../images/left-quote-1.png");
+    background-size: contain;
+    width: 14px;
+    height: 14px;
+    background-repeat: no-repeat;
+    left: 10px;
+}*/
+
+/*#khu-do-thi-hoan-thien .enjoy-life h2:after {
+    content: " ";
+    background-size: contain;
+    width: 14px;
+    height: 14px;
+    background-repeat: no-repeat;
+    background-image: url("../images/right-quote-1.png");
+    position: absolute;
+    top: 3px;
+    right: 30px;
+}*/
+
+#khu-do-thi-hoan-thien .enjoy-life .apartment-item {
+    position: relative;
+}
+
+#khu-do-thi-hoan-thien .enjoy-life .apartment-item span {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    text-transform: uppercase;
+    background: #191214;
+    color: #fff;
+    padding: 5px 15px;
+    font-weight: bold;
+}
+
+#khu-do-thi-hoan-thien .enjoy-life .apartment-tb {
+    display: none;
+    grid-template-rows: auto auto;
+    width: 100%;
+}
+
+#khu-do-thi-hoan-thien .community {
+    margin-bottom: 0;
+}
+
+#khu-do-thi-hoan-thien .community .community-gallery h3 {
+    font-weight: 500;
+}
+
+#khu-do-thi-hoan-thien .community .community-gallery span {
+    color: #adadad;
+}
+
+#khu-do-thi-hoan-thien .community .community-header h2 {
+    font-weight: bold;
+    text-align: left;
+    margin: 0;
+}
+
+#khu-do-thi-hoan-thien .community .community-header span {
+    padding-left: 30px;
+    position: relative;
+}
+
+#khu-do-thi-hoan-thien .community .community-header span::before, #khu-do-thi-hoan-thien .utilities .utilities-header span:before {
+    content: "";
+    position: absolute;
+    width: 20px;
+    left: 0;
+    top: 50%;
+    border: 1px solid #a67c52;
+    margin-left: 5px;
+}
+
+#khu-do-thi-hoan-thien .community .community-carousel {
+    margin-top: 20px;
+    /*margin-left: -20px;*/
+}
+
+#khu-do-thi-hoan-thien .community .community-carousel h3 {
+    font-size: 18px;
+    font-weight: 500;
+    margin-bottom: 5px;
+    margin-top: 0;
+}
+
+#khu-do-thi-hoan-thien .community .community-carousel .item {
+    border: 1px solid #e8e8e8;
+    cursor: pointer;
+}
+#khu-do-thi-hoan-thien .community .community-carousel .item figure{
+    width: 100%;
+    height: 300px;
+    overflow: hidden;
+}
+
+#khu-do-thi-hoan-thien .community .community-carousel .item figure img {
+    display: block;
+    width: auto;
+    max-width: 999999px;
+    margin: 0 auto;
+    height: 100%;
+}
+
+#khu-do-thi-hoan-thien .community .community-carousel .item div {
+    padding: 15px 20px 15px 20px;
+}
+
+#khu-do-thi-hoan-thien .community .community-carousel .item div span {
+    color: #adadad;
+    font-size: 12px;
+}
+
+#khu-do-thi-hoan-thien .community .community-carousel .owl-item {
+    width: 300px !important;
+}
+
+#khu-do-thi-hoan-thien .community .community-carousel .owl-stage-outer {
+    margin-left: -28px;
+}
+
+#khu-do-thi-hoan-thien .quote {
+    /*padding: 15px;*/
+    margin-bottom: 50px;
+    position: relative;
+}
+
+/*#khu-do-thi-hoan-thien .quote::before {
+    content: "";
+    max-width: 17px;
+    width: 20px;
+    height: 20px;
+    position: absolute;
+    background-image: url(../images/left-quote-2.png);
+    background-size: contain;
+    background-repeat: no-repeat;
+    left: -5px;
+}
+
+#khu-do-thi-hoan-thien .quote::after {
+    content: "";
+    max-width: 17px;
+    width: 20px;
+    height: 20px;
+    position: absolute;
+    background-image: url(../images/right-quote-2.png);
+    background-size: contain;
+    background-repeat: no-repeat;
+    right: 10px;
+    bottom: 5px;
+}*/
+
+#khu-do-thi-hoan-thien .btn-more {
+    text-transform: uppercase;
+    color: #cc9036;
+    font-weight: 500;
+    border: 2px solid #cc9036;
+    padding: 20px 30px;
+    background: none;
+    width: 310px;
+}
+#khu-do-thi-hoan-thien .btn-more:focus{
+    outline: none;
+    box-shadow: none;
+}
+#khu-do-thi-hoan-thien .last-content img{
+    width: 100%;
+}
+
+.content-post ul {
+    display: block;
+    list-style-type: disc;
+    -webkit-margin-before: 1em;
+    -webkit-margin-after: 1em;
+    -webkit-margin-start: 0px;
+    -webkit-margin-end: 0px;
+    -webkit-padding-start: 40px;
+}
+
+.content-post li {
+    display: list-item;
+    text-align: -webkit-match-parent;
+}
+
+.content-post ol ul, ul ol, ul ul, ol ol {
+    -webkit-margin-before: 0px;
+    -webkit-margin-after: 0px;
+}
+
+.content-post ul ul, ol ul {
+    list-style-type: circle;
+}
+
+.content-post ol ol ul, ol ul ul, ul ol ul, ul ul ul {
+    list-style-type: square;
+}
+
+figure.image img {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+figure.align-left {
+    float: left;
+}
+
+figure.align-right {
+    float: right;
+}
+
+figure.image figcaption {
+    margin: 6px 8px 6px 8px;
+    text-align: center;
+}
+
+@media (max-width: 320px){
+    #khu-do-thi-hoan-thien .community .community-carousel .owl-item{
+        width: 250px !important;
+    }
+}
+.lg-outer .lg-thumb-item.active, .lg-outer .lg-thumb-item:hover{
+    border-color: #cc9036;
+}
+@media (max-width: 1000px) {
+    .banner-ttdt {
+        display: none;
+    }
+}
+
+.box { margin: 10px; }
+
+#videoBox {
+  /*border: 10px solid #212223;*/
+  transition: 0.5s;
+  padding-top: 56.25%;
+}
+
+video {
+  width: 100%;
+  vertical-align: bottom;
+}
+
+#videoBox.in { 
+    animation: ac 1s; 
+    padding-top: 0;
+}
+
+#videoBox.out {
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  width: 320px;
+  height: 210px;
+  z-index: 999;
+  animation: an 0.5s;
+  padding-top: 56.25%;
+}
+
+@media (min-width: 768px) {
+    #khu-do-thi-hoan-thien .banner-bds-detail .bottom-banner .pull-right {
+        padding-bottom: 0;
+    }
+
+    #khu-do-thi-hoan-thien .banner-bds-detail .bottom-banner {
+        padding-bottom: 30px;
+    }
+
+    #khu-do-thi-hoan-thien .community {
+        margin-bottom: 30px;
+    }
+
+    #khu-do-thi-hoan-thien .bottom-banner img{
+        box-shadow: none;
+    }
+    #khu-do-thi-hoan-thien .banner {
+        padding-top: 0;
+    }
+
+    #khu-do-thi-hoan-thien .banner .text-center, #khu-do-thi-hoan-thien .banner h1 {
+        display: none;
+    }
+
+    #khu-do-thi-hoan-thien .banner .banner-imgage .banner-logo {
+        left: 20px;
+        transform: none;
+    }
+    #khu-do-thi-hoan-thien .overview .img-map{
+        margin: 0;
+    }
+
+    #khu-do-thi-hoan-thien .banner .banner-imgage .banner-logo .banner-box {
+        position: relative;
+    }
+
+    #khu-do-thi-hoan-thien .banner .banner-imgage .banner-logo .banner-box .banner-info-tb {
+        display: block;
+        position: absolute;
+        left: 110%;
+        bottom: 20%;
+        width: 200%;
+        color: #fff;
+    }
+
+    #khu-do-thi-hoan-thien .banner .banner-imgage .banner-logo .banner-box .banner-info-tb span {
+        display: block;
+        font-weight: bold;
+        text-transform: uppercase;
+        font-size: 20px;
+    }
+
+    #khu-do-thi-hoan-thien .banner .banner-imgage .banner-logo .banner-box .banner-info-tb span:nth-child(2) {
+        font-size: 30px;
+    }
+
+    #khu-do-thi-hoan-thien .banner .banner-info {
+        display: none;
+    }
+
+    #khu-do-thi-hoan-thien .passage {
+        padding: 40px;
+        font-size: 18px;
+        margin-bottom: 60px;
+    }
+
+    #khu-do-thi-hoan-thien .passage::after {
+        display: none;
+    }
+
+    #khu-do-thi-hoan-thien .overview h2 {
+        font-size: 36px;
+        margin-bottom: 35px;
+        margin-top: 30px;
+    }
+
+    #khu-do-thi-hoan-thien .overview .txt-du-an p {
+        margin-bottom: 20px;
+        padding:0 50px;
+    }
+
+    #khu-do-thi-hoan-thien .enjoy-life h2 {
+        font-size: 36px;
+        max-width: 100%;
+        text-align: left;
+        padding: 0 50px;
+        width: fit-content;
+        margin: 0;
+        margin-bottom: 20px;
+    }
+    #khu-do-thi-hoan-thien .enjoy-life h2:before{
+        left: 30px;
+    }
+    #khu-do-thi-hoan-thien .enjoy-life .apartment-carousel {
+        display: none;
+    }
+
+    #khu-do-thi-hoan-thien .enjoy-life .apartment-tb {
+        display: block;
+        grid-template-columns: auto auto;
+    }
+
+    #khu-do-thi-hoan-thien .enjoy-life .apartment-tb .apartment-tb-item {
+        position: relative;
+        padding: 3px;
+    }
+
+    #khu-do-thi-hoan-thien .enjoy-life .apartment-tb .apartment-tb-item:nth-child(odd) {
+        padding-left: 0;
+    }
+
+    #khu-do-thi-hoan-thien .enjoy-life .apartment-tb .apartment-tb-item:nth-child(even) {
+        padding-right: 0;
+    }
+
+    #khu-do-thi-hoan-thien .enjoy-life .apartment-tb .apartment-tb-item span {
+        position: absolute;
+        text-transform: uppercase;
+        bottom: 3px;
+        left: 3px;
+        background: #191214;
+        color: #fff;
+        padding: 10px 20px;
+        font-weight: bold;
+        font-size: 14px;
+    }
+
+    #khu-do-thi-hoan-thien .enjoy-life .apartment-tb img {
+        width: 100%;
+    }
+
+    #khu-do-thi-hoan-thien .utilities .utilities-header h2 {
+        font-size: 36px;
+        text-align: left;
+        padding: 0;
+    }
+    #khu-do-thi-hoan-thien .enjoy-life p{
+        padding: 0 50px;
+        margin-bottom: 30px;
+    }
+    #khu-do-thi-hoan-thien .utilities .utilities-header, #khu-do-thi-hoan-thien .community .community-header{
+        width: 100%;
+        padding-left: 160px;
+    }
+    #khu-do-thi-hoan-thien .utilities .utilities-header span {
+        font-size: 24px;
+    }
+    #khu-do-thi-hoan-thien .utilities p{
+        padding: 0 50px;
+        margin-bottom: 30px;
+    }
+
+    #khu-do-thi-hoan-thien .community h2 {
+        font-size: 40px;
+    }
+    #khu-do-thi-hoan-thien .community .community-header span{
+        padding-left: 75px;
+    }
+    #khu-do-thi-hoan-thien .community .community-header span::before{
+        display: none;
+    }
+    #khu-do-thi-hoan-thien .community .community-carousel h3 {
+        font-size: 18px;
+        line-height: 24px;
+        margin: 0;
+    }
+
+
+    #khu-do-thi-hoan-thien .community .community-carousel .owl-item {
+        width: 300px !important;
+    }
+
+    #khu-do-thi-hoan-thien .community .community-carousel {
+        margin-left: -35px;
+    }
+    #khu-do-thi-hoan-thien .passage::before{
+        display: none;
+    }
+
+    #khu-do-thi-hoan-thien .community p{
+        padding: 0 50px;
+    }
+    #khu-do-thi-hoan-thien .quote {
+        padding: 15px 100px;
+    }
+    #khu-do-thi-hoan-thien .quote::after{
+        right: 80px;
+    }
+    #khu-do-thi-hoan-thien .quote::before{
+        left: 65px;
+    }
+    #khu-do-thi-hoan-thien .utilities .item span {
+        width: fit-content;
+    }
+}
+
+@media (min-width: 1024px) {
+    .utility-carousel .owl-next, .utility-carousel .owl-prev{
+        left: 50px;
+        background: transparent;
+        font-size: 50px;
+        text-indent: 0;
+        padding-bottom: 20px;
+    }
+    .utility-carousel .owl-next{
+        right: 50px;
+        left: auto;
+    }
+    .utility-carousel .item{
+        position: relative;
+    }
+    .utility-carousel .item:before{
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        content: " ";
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        background: rgba(0,0,0,0.4);
+    }
+    .utility-carousel .owl-item.active.center .item:before{
+        display: none;
+    }
+    #khu-do-thi-hoan-thien .community .community-carousel .owl-item {
+        width: auto !important;
+    }
+    #khu-do-thi-hoan-thien .banner .banner-imgage .banner-logo .banner-box .banner-info-tb{
+        bottom: 35%;
+    }
+    #khu-do-thi-hoan-thien .banner .banner-imgage .banner-logo{
+        width: auto;
+    }
+    #khu-do-thi-hoan-thien .utilities .utilities-header, #khu-do-thi-hoan-thien .community .community-header {
+        margin: 0 auto 20px;
+        width: fit-content;
+        padding: 0;
+    }
+    #khu-do-thi-hoan-thien .enjoy-life .apartment-tb{
+        padding: 0 50px;
+        margin-bottom: 30px;
+    }
+    #khu-do-thi-hoan-thien .community .community-header span {
+        padding-left: 50px;
+        line-height: 30px;
+    }
+    #khu-do-thi-hoan-thien .community .community-carousel .owl-item {
+        width: 300px !important;
+    }
+    #khu-do-thi-hoan-thien .passage{
+        margin-top: 0;
+    }
+    #modal-gallery .gallery-carousel{
+        max-width: 400px;
+
+    }
+    #khu-do-thi-hoan-thien #passage::after {
+        bottom: 65px;
+    }
+
+    #khu-do-thi-hoan-thien .overview .img-map {
+        /*padding: 0 50px 0 15px;*/
+        width: 60%;
+        padding: 0 50px 5px 15px;        
+    }
+
+    #khu-do-thi-hoan-thien .community .community-carousel .item figure {
+        height: 300px;
+    }
+
+    #khu-do-thi-hoan-thien .community .community-carousel {
+        margin: 0;
+    }
+}
+
+#holdon-overlay {
+    z-index: 999998;
+}
+
+/*# sourceMappingURL=style-3.css.map */
