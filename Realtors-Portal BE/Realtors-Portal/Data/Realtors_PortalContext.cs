@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Realtors_Portal.Models;
+using Realtors_Portal.Models.Customer;
 
 namespace Realtors_Portal.Data
 {
@@ -15,5 +16,11 @@ namespace Realtors_Portal.Data
         }
 
         public DbSet<Realtors_Portal.Models.test> test { get; set; }
+
+        public DbSet<Realtors_Portal.Models.Agent> Agent { get; set; }
+
+        public DbSet<Realtors_Portal.Models.Seller> Seller { get; set; }
+
+        public DbSet<Realtors_Portal.Models.Customer.User> User { get; set; }
     }
 }

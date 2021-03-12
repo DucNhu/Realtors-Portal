@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Pc\\Documents\\GitHub\\ProjectIII\\Realtors-Portal\\Realtors-Portal\\Realtors-Portal\\Realtors-Portal.csproj": {}
+    "C:\\Users\\Pc\\Documents\\GitHub\\ProjectIII\\Realtors-Portal\\Realtors-Portal BE\\Realtors-Portal\\Realtors-Portal.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Pc\\Documents\\GitHub\\ProjectIII\\Realtors-Portal\\Realtors-Portal\\Realtors-Portal\\Realtors-Portal.csproj": {
+    "C:\\Users\\Pc\\Documents\\GitHub\\ProjectIII\\Realtors-Portal\\Realtors-Portal BE\\Realtors-Portal\\Realtors-Portal.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Pc\\Documents\\GitHub\\ProjectIII\\Realtors-Portal\\Realtors-Portal\\Realtors-Portal\\Realtors-Portal.csproj",
+        "projectUniqueName": "C:\\Users\\Pc\\Documents\\GitHub\\ProjectIII\\Realtors-Portal\\Realtors-Portal BE\\Realtors-Portal\\Realtors-Portal.csproj",
         "projectName": "Realtors-Portal",
-        "projectPath": "C:\\Users\\Pc\\Documents\\GitHub\\ProjectIII\\Realtors-Portal\\Realtors-Portal\\Realtors-Portal\\Realtors-Portal.csproj",
+        "projectPath": "C:\\Users\\Pc\\Documents\\GitHub\\ProjectIII\\Realtors-Portal\\Realtors-Portal BE\\Realtors-Portal\\Realtors-Portal.csproj",
         "packagesPath": "C:\\Users\\Pc\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Pc\\Documents\\GitHub\\ProjectIII\\Realtors-Portal\\Realtors-Portal\\Realtors-Portal\\obj\\",
+        "outputPath": "C:\\Users\\Pc\\Documents\\GitHub\\ProjectIII\\Realtors-Portal\\Realtors-Portal BE\\Realtors-Portal\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
@@ -64,6 +64,10 @@
             "Microsoft.AspNetCore.Identity.EntityFrameworkCore": {
               "target": "Package",
               "version": "[3.1.10, )"
+            },
+            "Microsoft.AspNetCore.Identity.UI": {
+              "target": "Package",
+              "version": "[5.0.0, )"
             },
             "Microsoft.AspNetCore.Mvc.NewtonsoftJson": {
               "target": "Package",
