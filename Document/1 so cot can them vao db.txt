@@ -1,3 +1,0 @@
-Cần thêm cột "giảm giá" ở bảng package, các gói giảm giá để thu hút người mua
-
-Cần thêm cột "Trạng thái" ở sellertable, AgentTable để kích hoạt tài khoản or đại ly
