@@ -1,25 +1,18 @@
-﻿using Microsoft.AspNetCore.Builder;
+﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
-using Microsoft.OpenApi.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore;
-using Realtors_Portal.Data;
-using Realtors_Portal.Authentication;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
-using System.Text;
+using Microsoft.OpenApi.Models;
 using Newtonsoft.Json.Serialization;
 using Realtors_Portal.Configuration;
+using Realtors_Portal.Data;
+using System;
+using System.Text;
 
 namespace Realtors_Portal
 {
@@ -41,7 +34,7 @@ namespace Realtors_Portal
             {
                 c.AddPolicy("AllowOrigin", options => options.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
             });
-
+            //services.AddScoped<ICustomerService, TestService>();
             //Json Serializer
             services.AddControllersWithViews()
                 .AddNewtonsoftJson(options =>
@@ -50,59 +43,50 @@ namespace Realtors_Portal
             AddNewtonsoftJson(options => options.SerializerSettings.ContractResolver = new DefaultContractResolver());
 
             services.AddControllers();
-            //services.Configure<JwtConfig>(Configuration.GetSection("JwtConfig"));
-            //services.AddDbContext<Realtors_PortalContext>(options =>
-            //options.UseSqlite(Configuration.GetConnectionString("RealtorsConnect")));
+            services.Configure<JwtConfig>(Configuration.GetSection("JwtConfig"));
+
+            services.AddDbContext<Realtors_PortalContext>(options =>
+                 options.UseSqlServer(Configuration.GetConnectionString("RealtorsConnect")));
+
+
 
             // Add Authentication
-            //services.AddAuthentication(options =>
-            //{
-            //    options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-            //    options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-            //    options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
-            //})
-            //.AddJwtBearer(jwt => {
-            //    var key = Encoding.ASCII.GetBytes(Configuration["JwtConfig:Secret"]);
+            services.AddAuthentication(options =>
+            {
+                options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+                options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
+            })
+            .AddJwtBearer(jwt =>
+            {
+                var key = Encoding.ASCII.GetBytes(Configuration["JwtConfig:Secret"]);
 
-            //    jwt.SaveToken = true;
-            //    jwt.TokenValidationParameters = new TokenValidationParameters
-            //    {
-            //        ValidateIssuerSigningKey = true,
-            //        IssuerSigningKey = new SymmetricSecurityKey(key),
-            //        ValidateIssuer = false,
-            //        ValidateAudience = false,
-            //        ValidateLifetime = true,
-            //        RequireExpirationTime = false,
-            //        ClockSkew = TimeSpan.Zero
-            //    };
-            // });
-            //services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
-            //            .AddEntityFrameworkStores<Realtors_PortalContext>();
+                jwt.SaveToken = true;
+                jwt.TokenValidationParameters = new TokenValidationParameters
+                {
+                    ValidateIssuerSigningKey = true,
+                    IssuerSigningKey = new SymmetricSecurityKey(key),
+                    ValidateIssuer = false,
+                    ValidateAudience = false,
+                    ValidateLifetime = true,
+                    RequireExpirationTime = false,
+                    //ClockSkew = TimeSpan.Zero
+                };
+            });
+            services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
+                        .AddEntityFrameworkStores<Realtors_PortalContext>();
 
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Realtors_Portal", Version = "v1" });
             });
+       
 
 
-
-
-
-            services.AddDbContext<Realtors_PortalContext>(options =>
-                    options.UseSqlServer(Configuration.GetConnectionString("RealtorsConnect")));
-
-            
-
-
-            services.AddDbContext<ApplicationDbContext>(options =>
-                    options.UseSqlServer(Configuration.GetConnectionString("RealtorsConnect")));
-            services.AddIdentity<ApplicationUser, IdentityRole>()
-                .AddEntityFrameworkStores<ApplicationDbContext>()
-                .AddDefaultTokenProviders();
-
-
-            
+            //Connect DB
+            //services.AddDbContext<Realtors_PortalContext>(options =>
+            //        options.UseSqlServer(Configuration.GetConnectionString("RealtorsConnect")));
             // Adding Jwt Bearer
             //.AddJwtBearer(options =>
             //{
@@ -132,7 +116,7 @@ namespace Realtors_Portal
             app.UseHttpsRedirection();
 
             app.UseRouting();
-
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>

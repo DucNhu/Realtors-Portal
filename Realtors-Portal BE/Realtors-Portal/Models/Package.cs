@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Realtors_Portal.Models.Customer
 {
-    [Table("Package")]
+    //[Table("Package")]
     public class Package
     {
         //[Key]
@@ -11,15 +11,16 @@ namespace Realtors_Portal.Models.Customer
         public int PackageID { get; set; }
         //[Required]
         public string PackageName { get; set; }
-        //[Required]
+        //[Required]   
         public decimal Price { get; set; }
         public decimal PromotionPrice { get; set; }
         
         public string PackageTitle { get; set; }
         public string PackageDesciption { get; set; }
+        public int NumberOfAds { get; set; }
 
         public string PackageAvatar { get; set; }
-        public int PackageExpiry { get; set; } // hạn của 1 gói package (30 days, 1 month,...)
-
+        public int NumberOfMember { get; set; } 
+        public int NumberOfMonth { get; set; }
     }
 }
