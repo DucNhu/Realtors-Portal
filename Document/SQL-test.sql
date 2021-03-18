@@ -12,8 +12,8 @@ create table agent(AgentID int identity
 
 insert into agent values ('AgentName', 'AgentAddress', 'AgentPhone', 'AgentEmail', 0 ,'AgentAvatar', 'AgentDateCreate', 1)
 
-select * from agent
-
+select * from dbo.User
+select * from Admin
 --Seller 
 create table seller(SellID
  int identity

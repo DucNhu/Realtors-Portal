@@ -1,37 +1,48 @@
-﻿//using System.ComponentModel.DataAnnotations;
-//using System.ComponentModel.DataAnnotations.Schema;
+﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
-//namespace Realtors_Portal.Models.Customer
-//{
-//    //[Table("User")]
-//    public class User
-//    {
-//        //[Key]
-//        //[DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-//        public int id { get; set; }
+namespace Realtors_Portal.Models.Customer
+{
+    public class User
+    {
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public int id { get; set; }
 
-//        public string Name { get; set; }
-//        //[Required]
-//        public string UserName { get; set; }
-//        //[Rkequired]
-//        public string Password { get; set; }
+        [Required(ErrorMessage = "Name is required")]
+        public string Name { get; set; }
 
-//        public string IndentificationNumber { get; set; }
+        [Required]
+        [EmailAddress]
+        public string Email { get; set; }
 
-//        public string Address { get; set; }
-//        //[Required]
-//        public string Phone { get; set; }
-//        //[Required]
-//        public string Email { get; set; }
+        [Required(ErrorMessage = "pass is required")]
+        public string Password { get; set; }
 
-//        public string Avatar { get; set; }
+        [Required(ErrorMessage = "chung minh thu is required")]
+        [MaxLength(12)]
 
-//        //[Required]
-//        public int Active { get; set; }
-//        public int ProductID { get; set; }
-//        public int ppID { get; set; }
+        public string IndentificationNumber { get; set; }
+
+        public string Address { get; set; }
+
+        [Phone]
+        [Required(ErrorMessage = "phone is required")]
+
+        public string Phone { get; set; }
+        [Required(ErrorMessage = "email is required")]
+
         
 
-        
-//    }
-//}
+        public string Avatar { get; set; }
+
+        [Required(ErrorMessage = "ACtive is required")]
+        public int Active { get; set; }
+
+        public int ProductID { get; set; }
+        public int ppID { get; set; }
+
+        public string User_type { get; set; }
+
+    }
+}

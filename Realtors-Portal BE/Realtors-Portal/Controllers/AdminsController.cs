@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Realtors_Portal.Data;
 using Realtors_Portal.Models.Customer;
+using Realtors_Portal.Models.DTOs.Requests;
 
 namespace Realtors_Portal.Controllers
 {

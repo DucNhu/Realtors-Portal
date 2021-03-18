@@ -1,42 +1,99 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Options;
-using Microsoft.IdentityModel.Tokens;
-using Realtors_Portal.Configuration;
-using Realtors_Portal.Models.DTOs.Requests;
-using Realtors_Portal.Models.DTOs.Responses;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
+using Microsoft.IdentityModel.Tokens;
+using Realtors_Portal.Configuration;
+using Realtors_Portal.Data;
+using Realtors_Portal.Models.Customer;
+using Realtors_Portal.Models.DTOs.Requests;
+using Realtors_Portal.Models.DTOs.Responses;
 
 namespace Realtors_Portal.Controllers
 {
-    [Route("api/[controller]")] // api/authManagement
+    [Route("api/[controller]")]
     [ApiController]
-    public class AuthManagementController : ControllerBase
+    public class UsersController : ControllerBase
     {
+        private readonly Realtors_PortalContext _context;
         private readonly UserManager<IdentityUser> _userManager;
         private readonly JwtConfig _jwtConfig;
 
-        public AuthManagementController(
-            UserManager<IdentityUser> userManager,
-            IOptionsMonitor<JwtConfig> optionsMonitor)
+        public UsersController(Realtors_PortalContext context, UserManager<IdentityUser> userManager, IOptionsMonitor<JwtConfig> optionsMonitor)
         {
+            _context = context;
             _userManager = userManager;
             _jwtConfig = optionsMonitor.CurrentValue;
         }
 
-        [HttpPost]
-        [Route("Register")]
-        public async Task<IActionResult> Register([FromBody] UserRegistrationDto user)
+        // GET: api/Users
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<User>>> GetUser()
         {
+            return await _context.User.ToListAsync();
+        }
+
+        // GET: api/Users/5
+        [HttpGet("{id}")]
+        public async Task<ActionResult<User>> GetUser(int id)
+        {
+            var user = await _context.User.FindAsync(id);
+
+            if (user == null)
+            {
+                return NotFound();
+            }
+            return user;
+        }
+
+        // PUT: api/Users/5
+        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
+        [HttpPut("{id}")]
+        public async Task<IActionResult> PutUser(int id, User user)
+        {
+            if (id != user.id)
+            {
+                return BadRequest();
+            }
+
+            _context.Entry(user).State = EntityState.Modified;
+
+            try
+            {
+                await _context.SaveChangesAsync();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!UserExists(id))
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    throw;
+                }
+            }
+
+            return NoContent();
+        }
+
+        // POST: api/Users
+        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
+        [HttpPost]
+        [Route("register")]
+        public async Task<ActionResult<User>> register([FromBody] User user)
+        {    
             if (ModelState.IsValid)
             {
+                
                 // We can utilise the model
                 var existingUser = await _userManager.FindByEmailAsync(user.Email);
 
@@ -51,17 +108,26 @@ namespace Realtors_Portal.Controllers
                     });
                 }
 
-                var newUser = new IdentityUser() { Email = user.Email };
+                var newUser = new IdentityUser()
+                {
+                    Email = user.Email,
+                    UserName = user.Email,
+                };
                 var isCreated = await _userManager.CreateAsync(newUser, user.Password);
                 if (isCreated.Succeeded)
                 {
+                    _context.User.Add(user);
+                    await _context.SaveChangesAsync();
+                    var create = CreatedAtAction("GetUser", new { id = user.id }, user);
+
                     var jwtToken = GenerateJwtToken(newUser);
 
                     return Ok(new RegistrationResponse()
                     {
+                        Infor = create,
                         Success = true,
                         Token = jwtToken
-                    });
+                    }); ;
                 }
                 else
                 {
@@ -79,13 +145,17 @@ namespace Realtors_Portal.Controllers
                         "Invalid payload"
                     },
                 Success = false
-            });
+            }); 
         }
+
+
 
         [HttpPost]
         [Route("Login")]
         public async Task<IActionResult> Login([FromBody] UserLoginRequest user)
         {
+            //var userbyid = await _context.User.FindAsync(id);
+
             if (ModelState.IsValid)
             {
                 var existingUser = await _userManager.FindByEmailAsync(user.Email);
@@ -102,7 +172,7 @@ namespace Realtors_Portal.Controllers
                 }
 
                 var isCorrect = await _userManager.CheckPasswordAsync(existingUser, user.Password);
-
+                var userbyid = await _context.User.SingleOrDefaultAsync(x => x.Email == user.Email);
                 if (!isCorrect)
                 {
                     return BadRequest(new RegistrationResponse()
@@ -118,7 +188,7 @@ namespace Realtors_Portal.Controllers
 
                 return Ok(new RegistrationResponse()
                 {
-                    //User_type = "admin",
+                    Infor = userbyid,
                     Success = true,
                     Token = jwtToken
                 });
@@ -131,6 +201,28 @@ namespace Realtors_Portal.Controllers
                     },
                 Success = false
             });
+        }
+
+
+        // DELETE: api/Users/5
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteUser(int id)
+        {
+            var user = await _context.User.FindAsync(id);
+            if (user == null)
+            {
+                return NotFound();
+            }
+
+            _context.User.Remove(user);
+            await _context.SaveChangesAsync();
+
+            return NoContent();
+        }
+
+        private bool UserExists(int id)
+        {
+            return _context.User.Any(e => e.id == id);
         }
 
         private string GenerateJwtToken(IdentityUser user)

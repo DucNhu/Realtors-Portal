@@ -1,4 +1,5 @@
 ﻿using Realtors_Portal.Configuration;
+using Realtors_Portal.Models.Customer;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,7 +9,6 @@ namespace Realtors_Portal.Models.DTOs.Responses
 {
     public class RegistrationResponse : AuthResult
     {
-        public string User_type { get; set; }
-
+        public object Infor { get; set; }
     }
 }
