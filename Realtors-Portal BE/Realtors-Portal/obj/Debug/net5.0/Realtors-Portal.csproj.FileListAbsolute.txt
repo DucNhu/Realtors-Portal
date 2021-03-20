@@ -178,6 +178,7 @@ C:\Users\Pc\Documents\GitHub\ProjectIII\Realtors-Portal\Realtors-Portal\Realtors
 C:\Users\Pc\Documents\GitHub\ProjectIII\Realtors-Portal\Realtors-Portal\Realtors-Portal\bin\Debug\net5.0\Newtonsoft.Json.Bson.dll
 C:\Users\Pc\Documents\GitHub\ProjectIII\Realtors-Portal\Realtors-Portal BE\Realtors-Portal\bin\Debug\net5.0\appsettings.Development.json
 C:\Users\Pc\Documents\GitHub\ProjectIII\Realtors-Portal\Realtors-Portal BE\Realtors-Portal\bin\Debug\net5.0\appsettings.json
+C:\Users\Pc\Documents\GitHub\ProjectIII\Realtors-Portal\Realtors-Portal BE\Realtors-Portal\bin\Debug\net5.0\Realtors-Portal.StaticWebAssets.xml
 C:\Users\Pc\Documents\GitHub\ProjectIII\Realtors-Portal\Realtors-Portal BE\Realtors-Portal\bin\Debug\net5.0\Realtors-Portal.exe
 C:\Users\Pc\Documents\GitHub\ProjectIII\Realtors-Portal\Realtors-Portal BE\Realtors-Portal\bin\Debug\net5.0\Realtors-Portal.deps.json
 C:\Users\Pc\Documents\GitHub\ProjectIII\Realtors-Portal\Realtors-Portal BE\Realtors-Portal\bin\Debug\net5.0\Realtors-Portal.runtimeconfig.json
@@ -191,6 +192,8 @@ C:\Users\Pc\Documents\GitHub\ProjectIII\Realtors-Portal\Realtors-Portal BE\Realt
 C:\Users\Pc\Documents\GitHub\ProjectIII\Realtors-Portal\Realtors-Portal BE\Realtors-Portal\bin\Debug\net5.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
 C:\Users\Pc\Documents\GitHub\ProjectIII\Realtors-Portal\Realtors-Portal BE\Realtors-Portal\bin\Debug\net5.0\Microsoft.AspNetCore.Authentication.OpenIdConnect.dll
 C:\Users\Pc\Documents\GitHub\ProjectIII\Realtors-Portal\Realtors-Portal BE\Realtors-Portal\bin\Debug\net5.0\Microsoft.AspNetCore.Identity.EntityFrameworkCore.dll
+C:\Users\Pc\Documents\GitHub\ProjectIII\Realtors-Portal\Realtors-Portal BE\Realtors-Portal\bin\Debug\net5.0\Microsoft.AspNetCore.Identity.UI.Views.V4.dll
+C:\Users\Pc\Documents\GitHub\ProjectIII\Realtors-Portal\Realtors-Portal BE\Realtors-Portal\bin\Debug\net5.0\Microsoft.AspNetCore.Identity.UI.dll
 C:\Users\Pc\Documents\GitHub\ProjectIII\Realtors-Portal\Realtors-Portal BE\Realtors-Portal\bin\Debug\net5.0\Microsoft.AspNetCore.JsonPatch.dll
 C:\Users\Pc\Documents\GitHub\ProjectIII\Realtors-Portal\Realtors-Portal BE\Realtors-Portal\bin\Debug\net5.0\Microsoft.AspNetCore.Mvc.NewtonsoftJson.dll
 C:\Users\Pc\Documents\GitHub\ProjectIII\Realtors-Portal\Realtors-Portal BE\Realtors-Portal\bin\Debug\net5.0\Microsoft.AspNetCore.Razor.Language.dll
@@ -348,7 +351,4 @@ C:\Users\Pc\Documents\GitHub\ProjectIII\Realtors-Portal\Realtors-Portal BE\Realt
 C:\Users\Pc\Documents\GitHub\ProjectIII\Realtors-Portal\Realtors-Portal BE\Realtors-Portal\obj\Debug\net5.0\ref\Realtors-Portal.dll
 C:\Users\Pc\Documents\GitHub\ProjectIII\Realtors-Portal\Realtors-Portal BE\Realtors-Portal\obj\Debug\net5.0\Realtors-Portal.pdb
 C:\Users\Pc\Documents\GitHub\ProjectIII\Realtors-Portal\Realtors-Portal BE\Realtors-Portal\obj\Debug\net5.0\Realtors-Portal.genruntimeconfig.cache
-C:\Users\Pc\Documents\GitHub\ProjectIII\Realtors-Portal\Realtors-Portal BE\Realtors-Portal\bin\Debug\net5.0\Realtors-Portal.StaticWebAssets.xml
-C:\Users\Pc\Documents\GitHub\ProjectIII\Realtors-Portal\Realtors-Portal BE\Realtors-Portal\bin\Debug\net5.0\Microsoft.AspNetCore.Identity.UI.Views.V4.dll
-C:\Users\Pc\Documents\GitHub\ProjectIII\Realtors-Portal\Realtors-Portal BE\Realtors-Portal\bin\Debug\net5.0\Microsoft.AspNetCore.Identity.UI.dll
 C:\Users\Pc\Documents\GitHub\ProjectIII\Realtors-Portal\Realtors-Portal BE\Realtors-Portal\obj\Debug\net5.0\Realtors-Portal.csprojAssemblyReference.cache

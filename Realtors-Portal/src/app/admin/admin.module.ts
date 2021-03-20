@@ -3,11 +3,17 @@ import { CommonModule } from '@angular/common';
 import { AdminComponent } from './admin.component';
 import { AdminRoutingModule } from './admin-routing.module';
 import { BehaviorSubject, Observable } from 'rxjs';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+
+import { NavigationComponent } from './component/navigation/navigation.component';
+import { ProjectControllComponent } from './dashboard/project-controll/project-controll.component';
+import { HeaderComponent } from './component/header/header.component';
 @NgModule({
-  declarations: [AdminComponent],
+  declarations: [AdminComponent, NavigationComponent, ProjectControllComponent, HeaderComponent],
   imports: [
     CommonModule,
-    AdminRoutingModule
+    AdminRoutingModule,
+    FormsModule, ReactiveFormsModule,
   ]
 })
 export class AdminModule { 

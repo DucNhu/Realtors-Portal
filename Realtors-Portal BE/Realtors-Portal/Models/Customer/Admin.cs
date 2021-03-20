@@ -24,6 +24,5 @@ namespace Realtors_Portal.Models.Customer
         public string Avatar { get; set; }
         [MaxLength(100)]
         public string Role { get; set; }
-        public string Token { get; set; }
     }
 }

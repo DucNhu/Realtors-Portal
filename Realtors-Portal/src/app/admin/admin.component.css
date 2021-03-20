@@ -1,0 +1,76 @@
+/*
+    Frame + imge
+    Table
+    Box Active
+    Alert Css
+*/
+/* Frame + imge */
+.angular-property-image {
+    position: relative;
+    padding-bottom: 50px;
+    padding-left: 50px;
+}
+
+.angular-property-image .img-fluid {
+    position: absolute;
+    top: 0;
+    height: 100%;
+    width: 100%;
+    left: 0;
+    object-fit: cover;
+}
+/* END  Frame + imge */
+
+/* Table */
+.angular-thead tr th {
+    font-weight: 600;
+    color: #b5b5c3 !important;
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1rem;
+}
+.th-active span {
+    padding: 0.2rem 0.75rem;
+    border-radius: 10px;
+}
+/* END Table */
+
+/* Box Active */
+.active {
+    color: #3699ff;
+    background-color: #e1f0ff;
+}
+.viewhome {
+    color: #1bc5bd;
+    background-color: #c9f7f5;
+}
+.suspended {
+    color: #f64e60;
+    background-color: #ffe2e5;
+}
+
+/* END Box Active */
+
+/* Alert Css */
+.alert-group {
+    position: fixed;
+    right: 0;
+    z-index: 99;
+}
+.alert-group > div {
+    color: white;
+    margin-right: 20px;
+}
+
+.alert-group > div[class*="alert"] {
+    animation: alertAnimation 1 4s forwards ease;
+}
+@keyframes alertAnimation {
+    0% {
+        opacity: 0.8;
+    }
+    100% {
+        opacity: 0;
+    }
+}
+/* End alert Css */

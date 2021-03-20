@@ -66,7 +66,7 @@ export class UserRegisterComponent implements OnInit {
       "active": 0,
       "productID": 0,
       "ppID": 0,
-      "user_type": "user"
+      "user_type": "admin"
     }
 
     if (this.listDataEmail.length > 0) {

@@ -6,7 +6,6 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./browse-category.component.css']
 })
 export class BrowseCategoryComponent implements OnInit {
-
   constructor() { }
 
   ngOnInit(): void {
