@@ -52,7 +52,8 @@ export class UserRegisterComponent implements OnInit {
     console.log(val);
     this.register(val);
   }
-  errorEmailUnique;
+  error;
+  alertSuccess
   register(val) {
 
     let data = {
@@ -69,57 +70,56 @@ export class UserRegisterComponent implements OnInit {
       "user_type": "admin"
     }
 
-    if (this.listDataEmail.length > 0) {
-      for (let i = 0; i < this.listDataEmail.length; i++) {
-        console.log(this.listDataEmail[i]);
+    // if (this.listDataEmail.length > 0) {
+    //   for (let i = 0; i < this.listDataEmail.length; i++) {
+    //     console.log(this.listDataEmail[i]);
 
-        if (val.email == this.listDataEmail[i].Email) {
-          this.errorEmailUnique = "Email has been used";
-          console.log(this.errorEmailUnique);
-          break;
-        }
+    //     if (val.email == this.listDataEmail[i].Email) {
+    //       this.errorEmailUnique = "Email has been used";
+    //       console.log(this.errorEmailUnique);
+    //       break;
+    //     }
 
-        else if (i == this.listDataEmail.length - 1) {
-          if (val.email == this.listDataEmail[i].Email) {
-            this.errorEmailUnique = "Email has been used";
-            console.log(this.errorEmailUnique);
-            break;
-          }
-          else {
-            this.userService.register(data).subscribe(
-              data => {
-                this.listDataEmail.push(data)
-                console.log(data);
-                console.log("OK crate");
-              },
+    //     else if (i == this.listDataEmail.length - 1) {
+    //       if (val.email == this.listDataEmail[i].Email) {
+    //         this.errorEmailUnique = "Email has been used";
+    //         console.log(this.errorEmailUnique);
+    //         break;
+    //       }
+    //       else {
+    //         this.userService.register(data).subscribe(
+    //           data => {
+    //             this.listDataEmail.push(data)
+    //             console.log(data);
+    //             console.log("OK crate");
+    //           },
 
-              err => {
-                this.errorEmailUnique = "Email has been used";
-                console.log('HTTP Error', err)
-              }
+    //           err => {
+    //             this.errorEmailUnique = "Email has been used";
+    //             console.log('HTTP Error', err)
+    //           }
 
-            )
-          }
+    //         )
+    //       }
 
-        }
-      }
-    }
+    //     }
+    //   }
+    // }
 
-    else if (this.listDataEmail.length == 0) {      
+    // else if (this.listDataEmail.length == 0) {      
       this.userService.register(data).subscribe(
         data => {
-          this.listDataEmail.push(data)
-          console.log(data);
-          console.log("OK crate");
+          this.error = '';
+          this.alertSuccess = '';
         },
 
         err => {
-          this.errorEmailUnique = "Email has been used";
-          console.log('HTTP Error', err)
+          this.error = err.error.Errors;
+          console.log('HTTP Error', err.error.Errors)
         }
 
       )
-    }    
+    // }    
   }
 
 

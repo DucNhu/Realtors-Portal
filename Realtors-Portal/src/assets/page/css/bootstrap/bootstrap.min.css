@@ -2488,7 +2488,7 @@ fieldset:disabled a.btn {
 }
 .btn-success {
     color: #fff;
-    background-color: #28a745;
+    background-color: white;
     border-color: #28a745;
 }
 .btn-success:hover {
@@ -2772,7 +2772,7 @@ fieldset:disabled a.btn {
 .btn-outline-success.disabled,
 .btn-outline-success:disabled {
     color: #28a745;
-    background-color: transparent;
+    background-color: #28a74647;
 }
 .btn-outline-success:not(:disabled):not(.disabled).active,
 .btn-outline-success:not(:disabled):not(.disabled):active,

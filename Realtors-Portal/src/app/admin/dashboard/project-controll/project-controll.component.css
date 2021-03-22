@@ -1,19 +1,23 @@
+::-webkit-scrollbar { display: none; width: 0px;}
+
+
 .select-img .angular-property-image {
     padding-bottom: 50%;
 }
 
 .select--banner {
+    margin: 0;
     z-index: 1;
-    color: white;
+    color: #ffffffd1;
     text-shadow: 0px 0px 1px #000000;
-    height: 100%;
     width: 100%;
-    /* line-height: 200px; */
-    /* transform: translateY(50%); */
+    height: 100%;
+
     text-align: center;
     cursor: pointer;
     font-size: 20px;
     left: 0;
+    bottom: 0;
 }
 .overflowX-auto {
     overflow-x: auto;

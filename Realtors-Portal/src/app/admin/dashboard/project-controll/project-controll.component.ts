@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ProjectService } from '../../../@core/mock/project.service';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { NgForm } from '@angular/forms';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-project-controll',
@@ -14,62 +15,66 @@ export class ProjectControllComponent implements OnInit {
   listCategies = [
     {
       id: 1,
-      title: "category 1"
+      Title: "Biệt Thự"
     },
     {
       id: 2,
-      title: "category 2"
+      Title: "Chung cư"
     },
     {
       id: 3,
-      title: "category 3"
+      Title: "Khách sạn"
     }
   ];
   listLevelActive = [
     {
       lvl: 0,
-      title: "Suspended"
+      Title: "Suspended",
+      selected: true
     },
     {
       lvl: 1,
-      title: "Active"
+      Title: "Active",
+      selected: false
     },
     {
       lvl: 2,
-      title: "View home"
+      Title: "View home",
+      selected: false
     }
   ]
   DataFormProjectEdit = {
-    are: "",
-    categoryID: undefined,
-    city: "",
-    country: "",
-    district: "",
-    id: 0,
-    imageBannerName: "158974392_210254662.jpg",
-    imageBannerSrc: "https://localhost:44338/Images/",
-    imageFile: File,
-    imageLibID: undefined,
-    location: "",
-    price: undefined,
-    projectName: "",
-    sellerID: undefined,
-    sqft: undefined,
-    description: "",
-    levelActive: undefined,
-    title: ""
+    Are: "",
+    CategoryID: undefined,
+    City: "",
+    Country: "",
+    District: "",
+    ID: 10,
+    ImageBannerName: "158974392_210254662.jpg",
+    ImageBannerSrc: "https://localhost:44338/Images/",
+    ImageFile: File,
+    ImageLibID: undefined,
+    Location: "",
+    Price: undefined,
+    ProjectName: "",
+    SellerID: undefined,
+    Sqft: undefined,
+    Description: "",
+    LevelActive: undefined,
+    Title: ""
   };
 
   idLength;
   // END khai bao bien
   constructor(
     private FormBuilder: FormBuilder,
-    private _ProjectService: ProjectService
+    private _ProjectService: ProjectService,
+    private http: HttpClient
   ) { }
 
   ngOnInit(): void {
     this.getAllProject();
-    this.ValidatorForm();
+    this.ValidatorForm(); 
   }
 
   // ======== CRUD ============
@@ -91,42 +96,114 @@ export class ProjectControllComponent implements OnInit {
 
   // function CreateProject:
   dataImage;
-  CreateProject(val) {
-    // val.id = ++this.idLength; // set id tự tăg    
-    // str => int
-    console.log(val);
+  // CreateProject(val) {
+  //   // val.id = ++this.idLength; // set id tự tăg    
+  //   // str => int
+  //   console.log(val);
+  //   val.ImageFile = null; // tạm sét avâtrr == null
+  //   // val.CategoryID = parseInt(val.CategoryID);
+  //   // val.SellerID = parseInt(val.SellerID);
+  //   // val.LevelActive = parseInt(val.LevelActive);
+  //   // Create imge
+  //   // const formData: FormData = new FormData();
+  //   // formData.append('ImageFile', this.dataImage, this.dataImage.name);
+  //   // this._ProjectService.UpdatePhotoBanner(this.dataImage).subscribe(data => {
+  //   //   console.log(data);
+  //   // })
+  //   this._ProjectService.CreateProj(val).subscribe(
+  //     data => {
+  //       this.listProject.unshift(val);
+  //       console.log(this.listProject);
+        
+  //       this.Alert_successFunction("Create Success");
+  //     },
+  //     error => {
+  //       // val.id = --this.idLength; // set id tự tăg
+  //       this.Alert_dangerFunction("Error Create")
+  //     }
+  //   )
+  // }
+
+  //  ======== Test up image 
+  selectedFile: File = null;
+  CreateProject(data) {
+    console.log(data);
     
-    val.categoryID = parseInt(val.categoryID);
-    val.sellerID = parseInt(val.sellerID);
-    val.levelActive = parseInt(val.levelActive);
-    // Create imge
-    // const formData: FormData = new FormData();
-    // formData.append('imageFile', this.dataImage, this.dataImage.name);
-    // this._ProjectService.UpdatePhotoBanner(this.dataImage).subscribe(data => {
-    //   console.log(data);
-    // })
-    this._ProjectService.CreateProj(val).subscribe(
-      data => {
-        this.listProject.unshift(val);
-        this.Alert_successFunction("Create Success");
-      },
-      error => {
-        // val.id = --this.idLength; // set id tự tăg
-        this.Alert_dangerFunction("Error Create")
-      }
-    )
+    const formData = new FormData();
+    formData.append('CategoryID', data.CategoryID);
+    formData.append('SellerID', data.SellerID);
+    formData.append('ProjectName', data.categoProjectNameryID);
+    formData.append('Title', data.Title);
+    formData.append('Description', data.Description);
+    formData.append('Location', data.Location);
+    formData.append('Country', data.Country);
+    formData.append('City', data.City);
+    formData.append('District', data.District);
+    formData.append('Are', data.Are);
+    formData.append('Price', data.Price);
+    formData.append('Sqft', data.Sqft);
+    formData.append('ImageFile', this.dataImage);
+    formData.append('ImageLibID', data.ImageLibID);
+    formData.append('ImageBannerName', data.ImageBannerName);
+    formData.append('ImageBannerSrc', data.ImageBannerSrc);
+    formData.append('LevelActive', data.LevelActive);
+
+    this._ProjectService.CreateProj(formData)
+      .subscribe(res => {
+        alert('Uploaded!!');
+      });
+
   }
+  //  ============ End test
+
+  
   // Function update Image
-  upPhoto(event) {
-    this.dataImage = event.target.files[0];
+  box_iconDeleleteAvatar = "http://adevaes.com/wp-content/uploads/2016/11/26102015122159AMaboutus-default-banner.jpg"; // default  banner img
+  upPhoto(e) {
+    this.dataImage = e.target.files[0];
+
+    if (e.target.files) { // Check File true : false
+      var reader = new FileReader(); // DOM
+      reader.readAsDataURL(e.target.files[0]);
+      reader.onload = (event: any) => {
+        this.box_iconDeleleteAvatar = event.target.result;
+      }
+    }
   }
 
+  afuConfig = {
+    uploadAPI: {
+      url: "https://example-file-upload-api"
+    }
+  };
+
   // Function Edit Project
-  UpdateProject(val) {
-    this._ProjectService.UpdateProj(val).subscribe(
+  UpdateProject(data) {
+    console.log(data);
+    
+    const formData = new FormData();
+    formData.append('ID', data.ID);
+    formData.append('CategoryID', data.CategoryID);
+    formData.append('SellerID', data.SellerID);
+    formData.append('ProjectName', data.categoProjectNameryID);
+    formData.append('Title', data.Title);
+    formData.append('Description', data.Description);
+    formData.append('Location', data.Location);
+    formData.append('Country', data.Country);
+    formData.append('City', data.City);
+    formData.append('District', data.District);
+    formData.append('Are', data.Are);
+    formData.append('Price', data.Price);
+    formData.append('Sqft', data.Sqft);
+    formData.append('ImageFile', this.dataImage);
+    formData.append('ImageLibID', data.ImageLibID);
+    formData.append('ImageBannerName', data.ImageBannerName);
+    formData.append('ImageBannerSrc', data.ImageBannerSrc);
+    formData.append('LevelActive', data.LevelActive);
+    this._ProjectService.UpdateProj(formData).subscribe(
       data => {
         this.Alert_successFunction("Update Success");
-        this.findIndexEdit(val)
+        // this.findIndexEdit(val)
       },
       error => {
         this.Alert_dangerFunction("Error Update")
@@ -156,7 +233,6 @@ export class ProjectControllComponent implements OnInit {
         error => {
           this.Alert_dangerFunction("Error Delete")
         });
-      
     }
   }
 
@@ -164,8 +240,6 @@ export class ProjectControllComponent implements OnInit {
     let i = -1;
     this.listProject.forEach(element => {
       i++;
-      console.log(element);
-      
       if (element.ID == id) {
         this.listProject.splice(i, 1)
         return i;
@@ -178,63 +252,74 @@ export class ProjectControllComponent implements OnInit {
   // GetDataCheckisAddorEdit
   GetDataCheckisAddorEdit(bl, val) {
     if (bl) {
+      // this.GetDataEditorAdd(val);
+      return this.isAddProjectForm = true;
+    }
+    else {      
       this.GetDataEditorAdd(val);
       return this.isAddProjectForm = false;
     }
-    else {
-      this.GetDataEditorAdd(val);
-      return this.isAddProjectForm = true;
-    }
-
   }
 
   // Function Validator Form
   formValidator: FormGroup;
   ValidatorForm() {
     this.formValidator = this.FormBuilder.group({
-      are: [''],
-      categoryID: [0],
-      city: [''],
+      Are: ['Are', [Validators.required]],
+      CategoryID: [0, [Validators.required]],
+      City: ['City', [Validators.required]],
 
-      country: [''],
-      district: [''],
-      id: [0],
+      Country: ['Country', [Validators.required]],
+      District: ['District', [Validators.required]],
+      ID: [0],
 
-      imageFile: [''],
-      location: [''],
+      ImageFile: [''],
+      Location: ['Location', [Validators.required]],
 
-      price: [''],
-      projectName: [''],
-      sellerID: [''],
+      Price: [0, [Validators.required]],
+      SellerID: [0],
 
-      sqft: [''],
+      ProjectName: ['ProjectName', [Validators.required]],
+      Sqft: [0, [Validators.required]],
 
-      description: [''],
-      levelActive: [''],
+      Description: ['Description', [Validators.required]],
+      LevelActive: [[Validators.required]],
 
-      title: [''],
-      imageLibID: [''],
-      imageBannerName: [''],
-      imageBannerSrc: [''],
+      Title: ['Title', [Validators.required]],
+      ImageLibID: [0],
+      ImageBannerName: ['ImageBannerName'],
+      ImageBannerSrc: ['ImageBannerSrc'],
 
     })
   }
-  get projectName() { return this.formValidator.get('projectName') }
-  // get price() { return this.formValidator.get('price') }
+  get ProjectName() { return this.formValidator.get('ProjectName') }
+  // get Price() { return this.formValidator.get('Price') }
 
   GetDataEditorAdd(val) {
-    // this.formValidator.controls.id.patchValue(val.id);
+    
+    this.formValidator.controls.ProjectName.patchValue(val.ProjectName);
+    this.formValidator.controls.Are.patchValue(val.Are);
+    this.formValidator.controls.CategoryID.patchValue(val.CategoryID);
 
-    // this.formValidator.controls.email.patchValue(val.email);
-    // this.formValidator.controls.address.patchValue(val.address);
-    // this.formValidator.controls.fullName.patchValue(val.fullName);
+    this.formValidator.controls.City.patchValue(val.City);
+    this.formValidator.controls.Country.patchValue(val.Country);
+    this.formValidator.controls.District.patchValue(val.District);
 
-    // this.formValidator.controls.skill.patchValue(val.skill);
-    // this.formValidator.controls.project.patchValue(val.project);
-    // this.formValidator.controls.birthday.patchValue(val.birthday);
+    this.formValidator.controls.ID.patchValue(val.ID);
+    this.formValidator.controls.ImageFile.patchValue(val.ImageFile);
+    this.formValidator.controls.Location.patchValue(val.Location);
 
-    // this.formValidator.controls.fileAvatar.patchValue(val.fileAvatar);
-    // this.formValidator.controls.phone.patchValue(val.phone);
+    this.formValidator.controls.Price.patchValue(val.Price);
+    this.formValidator.controls.SellerID.patchValue(val.SellerID);
+    this.formValidator.controls.Sqft.patchValue(val.Sqft);
+
+    this.formValidator.controls.Description.patchValue(val.Description);
+    this.formValidator.controls.LevelActive.patchValue(val.LevelActive);
+    this.formValidator.controls.Title.patchValue(val.Title);
+
+    this.formValidator.controls.ImageLibID.patchValue(val.ImageLibID);
+    this.formValidator.controls.ImageBannerName.patchValue(val.ImageBannerName);
+    this.formValidator.controls.ImageBannerSrc.patchValue(val.ImageBannerSrc);
   }
 
 
@@ -286,7 +371,7 @@ export class ProjectControllComponent implements OnInit {
   // checkValidForm
   checkValidForm(val) {
     switch (val) {
-      case "price": console.log(this.formValidator.controls.price);
+      case "Price": console.log(this.formValidator.controls.Price);
 
     }
   }

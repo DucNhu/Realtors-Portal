@@ -31,13 +31,13 @@ namespace Realtors_Portal.Controllers
             return await _context.project.
                 Select(x => new home()
                 {
-                    
+
                     ID = x.ID,
                     CategoryID = x.CategoryID,
                     SellerID = x.SellerID,
                     Sqft = x.Sqft,
-                    description = x.description,
-                    title = x.title,
+                    Description = x.Description,
+                    Title = x.Title,
                     ProjectName = x.ProjectName,
                     Location = x.Location,
                     Country = x.Country,
@@ -47,7 +47,7 @@ namespace Realtors_Portal.Controllers
                     Price = x.Price,
                     ImageBannerName = x.ImageBannerName,
                     ImageBannerSrc = String.Format("{0}://{1}{2}/Images/{3}", Request.Scheme, Request.Host, Request.PathBase, x.ImageBannerSrc),
-                    levelActive = x.levelActive
+                    LevelActive = x.LevelActive
                 }).ToListAsync();
         }
 
@@ -106,12 +106,25 @@ namespace Realtors_Portal.Controllers
         [HttpPost]
         public async Task<ActionResult<home>> Postproject([FromForm] home project)
         {
-            //project.ImageBannerName = await SaveImage(project.ImageFile);
+            project.ImageBannerName = await SaveImage(project.ImageFile);
             _context.project.Add(project);
             await _context.SaveChangesAsync();
 
             return CreatedAtAction("Getproject", new { id = project.ID }, project);
         }
+
+
+        // Api Image
+        //[HttpPost]
+        //[Route("imagePost")]
+        //public async Task<ActionResult<home>> PostImage([FromForm] home project)
+        //{
+        //    project.ImageBannerName = await SaveImage(project.ImageFile);
+
+        //    return CreatedAtAction("Getproject", new { id = project.ID }, project);
+        //}
+
+        // End Api Image
 
         // DELETE: api/projects/5
         [HttpDelete("{id}")]
@@ -137,18 +150,33 @@ namespace Realtors_Portal.Controllers
             return _context.project.Any(e => e.ID == id);
         }
 
-        //[NonAction]
-        //public async Task<string> SaveImage(IFormFile imageFile)
+        [NonAction]
+        public async Task<string> SaveImage(IFormFile imageFile)
+        {
+            string imageName = new string(Path.GetFileNameWithoutExtension(imageFile.FileName).Take(10).ToArray()).Replace(' ', '-');
+            imageName = imageName + DateTime.Now.ToString("yymmssfff") + Path.GetExtension(imageFile.FileName);
+            var imagePath = Path.Combine(_hostEnvironment.ContentRootPath, "Images", imageName);
+            using (var fileStream = new FileStream(imagePath, FileMode.Create))
+            {
+                await imageFile.CopyToAsync(fileStream);
+            }
+            return imageName;
+        }
+
+        //[HttpPost]
+        //[Route("SaveFile")]
+        //public async Task<string> SaveImage([FromForm] home project)
         //{
-        //    string imageName = new string(Path.GetFileNameWithoutExtension(imageFile.FileName).Take(10).ToArray()).Replace(' ', '-');
-        //    imageName = imageName + DateTime.Now.ToString("yymmssfff") + Path.GetExtension(imageFile.FileName);
+        //    string imageName = new string(Path.GetFileNameWithoutExtension(project.ImageFile.FileName).Take(10).ToArray()).Replace(' ', '-');
+        //    imageName = imageName + DateTime.Now.ToString("yymmssfff") + Path.GetExtension(project.ImageFile.FileName);
         //    var imagePath = Path.Combine(_hostEnvironment.ContentRootPath, "Images", imageName);
         //    using (var fileStream = new FileStream(imagePath, FileMode.Create))
         //    {
-        //        await imageFile.CopyToAsync(fileStream);
+        //        await project.ImageFile.CopyToAsync(fileStream);
         //    }
         //    return imageName;
         //}
+
         [NonAction]
         public void DeleteImage(string imageName)
         {
@@ -177,7 +205,7 @@ namespace Realtors_Portal.Controllers
 
             catch (Exception)
             {
-                return new JsonResult("oh no ");
+                return new JsonResult("line 180 funtion SaveFile()");
             }
         }
     }

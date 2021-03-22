@@ -21,6 +21,7 @@
     "@angular/router": "~11.0.5",
     "@ckeditor/ckeditor5-angular": "^2.0.1",
     "@kolkov/angular-editor": "^1.1.4",
+    "angular-file-uploader": "^7.0.3",
     "ng2-ckeditor": "^1.3.3",
     "ngx-editor": "^8.1.0",
     "rxjs": "~6.6.0",

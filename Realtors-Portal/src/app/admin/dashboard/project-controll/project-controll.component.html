@@ -25,7 +25,7 @@
         </div>
         <div class="ml-auto">
             <button class="button-add btn btn-link dropdown-toggle dropdown-toggle-split m-0 p-0" data-toggle="modal"
-                data-target="#modal-form-AddEdit" (click)="GetDataCheckisAddorEdit(false, DataFormProjectEdit)">
+                data-target="#modal-form-AddEdit" (click)="GetDataCheckisAddorEdit(true, DataFormProjectEdit)">
                 <span class="icon icon-sm icon-gray">
                     <i class="fa fa-plus-circle fa-fw mr-1"></i>
                     Add Project
@@ -38,7 +38,7 @@
         <table class="table table-hover">
             <thead class="angular-thead">
                 <tr>
-                    <th>id</th>
+                    <!-- <th>id</th> -->
                     <th>Name</th>
                     <th>Image</th>
                     <th>Location</th>
@@ -52,20 +52,12 @@
                 </tr>
             </thead>
             <tbody>
-                <!-- "ID": 6,
-                "CategoryID": 0,
-                "SellerID": 0,
-                "title": "ProjectName",
-                "description": "ProjectName", -->
-                <!-- "Sqft": 12,
-                "ImageLibID": 0,
-                "imageFile": null-->
                 <tr *ngFor="let p of listProject">
-                    <th>{{ p.ID }}</th>
+                    <!-- <th>{{ p.ID }}</th> -->
                     <td>{{ p.ProjectName }}</td>
                     <td>
                         <div class="angular-property-image bg-overlay-gradient-04">
-                            <img [src]="p.ImageBannerSrc + p.ImageBannerName" [alt]="p.ImageBannerName"
+                            <img [src]="box_iconDeleleteAvatar" [alt]="p.ImageBannerName"
                                 class="img-fluid">
                         </div>
                     </td>
@@ -78,7 +70,7 @@
 
                     <td>{{p.Price}}</td>
                     <th class="th-active">
-                        <div [ngSwitch]="p.levelActive">
+                        <div [ngSwitch]="p.LevelActive">
                             <div *ngSwitchCase="0">
                                 <span class="suspended rounded">Suspended</span>
                             </div>
@@ -87,33 +79,26 @@
                             <div *ngSwitchDefault><span class="suspended">Error</span></div>
                         </div>
                     </th>
-                    <!-- Active BOX-->
+                    <!-- Action BOX-->
                     <td>
                         <div class="dropdown">
                             <button class="btn p-0 dropdown-toggle" type="button" id="dropdownMenu2"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <i class="fas fa-lg fa-fw me-2 fa-ellipsis-h"></i>
                             </button>
-                            <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
-                                <button class="dropdown-item" type="button">
-                                    <i class="far fa-eye"></i>
-                                    <span class="ml-1">
-                                        Detail
-                                    </span>
-                                </button>
-                                <button class="dropdown-item" type="button" data-toggle="modal"
-                                    data-target="#modal-form-AddEdit" (click)="GetDataCheckisAddorEdit(true,p)">
-                                    <i class="far fa-lg fa-fw me-2 fa-edit"></i>
-                                    <span class="ml-1">
-                                        Edit
-                                    </span>
-                                </button>
-                                <button class="dropdown-item" type="button" (click)="DeleteEmPloyee(p.ID)">
-                                    <i class="far fa-trash-alt"></i>
-                                    <span class="ml-1">
-                                        Delete
-                                    </span>
-                                </button>
+                            <div class="dropdown-menu p-0" aria-labelledby="dropdownMenu2">
+                                <div class="d-flex box-action">
+                                    <button class="dropdown-item view" type="button">
+                                        <i class="far fa-eye"></i>
+                                    </button>
+                                    <button class="dropdown-item detail" type="button" data-toggle="modal" data-target="#modal-form-AddEdit"
+                                        (click)="GetDataCheckisAddorEdit(false,p)">
+                                        <i class="far fa-lg fa-fw me-2 fa-edit"></i>
+                                    </button>
+                                    <button class="dropdown-item delete" type="button" (click)="DeleteEmPloyee(p.ID)">
+                                        <i class="far fa-trash-alt"></i>
+                                    </button>
+                                </div>
                             </div>
                         </div>
                     </td>
@@ -138,7 +123,7 @@
                 <div class="py-4">
                     <div class="d-flex justify-content-between w-100 flex-wrap">
                         <div class="mb-3 mb-lg-0">
-                            <h2 class="title pl-4">{{isAddProjectForm ? 'Add Project' : 'Edit Project'}}</h2>
+                            <h2 class="Title pl-4">{{isAddProjectForm ? 'Add Project' : 'Edit Project'}}</h2>
                         </div>
                     </div>
                 </div>
@@ -148,120 +133,107 @@
                         <div class="card border-light shadow-sm components-section">
                             <div class="card-body">
                                 <form #AddEditEmployeeForm="ngForm" [formGroup]="formValidator">
-                                    <input type="hidden" class="form-control" name="id" formControlName="id">
+                                    <input type="hidden" class="form-control" name="ID" formControlName="ID">
                                     <div class="row mb-4">
                                         <div class="col-lg-4 col-sm-6">
-                                            <div class="mb-4">
-                                                <label>Project Name</label>
-                                                <input type="text" class="form-control" name="projectName"
-                                                    formControlName="projectName"
-                                                    (blur)="checkValidForm('projectName')"
-                                                    [ngClass]="{'is-valid': projectName.touched == true && !projectName.invalid == true}"
-                                                    [ngClass]="{'is-invalid': projectName.touched && !projectName.invalid == false}">
-                                                <small class="form-text text-muted text-danger"
-                                                    *ngIf="projectName.touched && projectName.errors">
-                                                    Enter your project name, pls
-                                                </small>
-                                            </div>
+
                                             <!-- Price -->
                                             <div class="mb-4">
                                                 <label for="Price">Price</label>
-                                                <input type="number" class="form-control" name="price" formControlName="price"
-                                                    (blur)="checkValidForm('price')">
+                                                <input type="number" class="form-control" name="Price"
+                                                    formControlName="Price" (blur)="checkValidForm('Price')">
                                             </div>
                                             <!-- Category -->
                                             <div class="mb-4">
                                                 <label for="Category">Category</label>
                                                 <!-- <input type="number" name="CategoryID" formControlName="CategoryID" id="Category"> -->
-                                                <select class="form-select" name="categoryID" formControlName="categoryID">
-                                                    <option value="0">Nothing</option>
-                                                    <option *ngFor="let category of listCategies"
-                                                        [value]="category.id">
-                                                        {{category.title}}
+                                                <select class="form-select form-control"
+                                                    formControlName="CategoryID" name="CategoryID">
+                                                    <option *ngFor="let category of listCategies" [value]="category.id">
+                                                        {{category.Title}}
                                                     </option>
                                                 </select>
                                             </div>
                                             <!-- By Seller -->
                                             <div class="mb-4">
                                                 <label for="SellerID">By Seller</label>
-                                                <input type="number" class="form-control" name="sellerID" formControlName="sellerID"
-                                                    (blur)="checkValidForm('sellerID')">
+                                                <input type="number" class="form-control" name="SellerID"
+                                                    formControlName="SellerID" (blur)="checkValidForm('SellerID')">
                                             </div>
-                                            <!-- Country -->
-                                            <div class="mb-4">
-                                                <label for="Country">Country</label>
-                                                <input type="text" class="form-control" name="country" formControlName="country" (blur)="checkValidForm('country')">
-                                            </div>
-                                            <!-- City  -->
-                                            <div class="mb-4">
-                                                <label for="City">City</label>
-                                                <input type="text" class="form-control" name="city" formControlName="city" (blur)="checkValidForm('city')">
-                                            </div>
-                                            <!-- District  -->
-                                            <div class="mb-4">
-                                                <label for="District">District</label>
-                                                <input type="text" class="form-control" name="district" formControlName="district" (blur)="checkValidForm('district')">
-                                            </div>
-                                            <!-- Are  -->
-                                            <div class="mb-4">
-                                                <label for="Are">Are</label>
-                                                <input type="text" class="form-control" name="are" formControlName="are" (blur)="checkValidForm('are')">
-                                            </div>
+
                                             <!-- Sqft  -->
                                             <div class="mb-4">
                                                 <label for="Sqft">Sqft</label>
-                                                <input type="number" class="form-control" name="sqft" formControlName="sqft" (blur)="checkValidForm('sqft')">
+                                                <input type="number" class="form-control" name="Sqft"
+                                                    formControlName="Sqft" (blur)="checkValidForm('Sqft')">
                                             </div>
                                             <!-- ImageLibID  -->
                                             <div class="mb-4">
                                                 <label for="ImageLibID">ImageLibID</label>
-                                                <input type="number" class="form-control" name="imageLibID" formControlName="imageLibID" (blur)="checkValidForm('imageLibID')">
+                                                <input type="number" class="form-control" name="ImageLibID" 
+                                                    formControlName="ImageLibID" (blur)="checkValidForm('ImageLibID')">
                                             </div>
                                             <!-- ImageBannerName  -->
                                             <div class="mb-4">
                                                 <label for="ImageBannerName">ImageBannerName</label>
-                                                <input type="text" class="form-control" name="imageBannerName" formControlName="imageBannerName" (blur)="checkValidForm('imageBannerName')">
+                                                <input type="text" class="form-control" name="ImageBannerName"
+                                                    formControlName="ImageBannerName"
+                                                    (blur)="checkValidForm('ImageBannerName')">
                                             </div>
                                             <!-- ImageBannerSrc  -->
                                             <div class="mb-4">
                                                 <label for="ImageBannerSrc">ImageBannerSrc</label>
-                                                <input type="text" class="form-control" name="imageBannerSrc" formControlName="imageBannerSrc" (blur)="checkValidForm('imageBannerSrc')">
+                                                <input type="text" class="form-control" name="ImageBannerSrc"
+                                                    formControlName="ImageBannerSrc"
+                                                    (blur)="checkValidForm('ImageBannerSrc')">
                                             </div>
-                                            <!-- levelActive  -->
+                                            <!-- LevelActive  -->
                                             <div class="mb-4">
-                                                <label for="levelActive">levelActive</label>
-                                                <select class="form-select" name="levelActive" formControlName="levelActive">
-                                                    <option value="Nothing">Nothing</option>
-                                                    <option *ngFor="let lvl of listLevelActive" [value]="lvl.lvl">
-                                                        {{lvl.title}}
+                                                <label for="LevelActive">LevelActive</label>
+                                                <select class="form-select form-control" name="LevelActive"
+                                                    formControlName="LevelActive">
+                                                    <option *ngFor="let lvl of listLevelActive" [value]="lvl.lvl" [selected]="lvl.lvl == formValidator.controls.LevelActive.value" >
+                                                        {{lvl.Title}}
                                                     </option>
                                                 </select>
+                                            </div>
+
+                                        </div>
+                                        <!-- midder form -->
+                                        <div class="col-lg-4 col-sm-6">
+                                            <div class="mb-4">
+                                                <label>Project Name</label>
+                                                <input type="text" class="form-control" name="ProjectName"
+                                                    formControlName="ProjectName"
+                                                    (blur)="checkValidForm('ProjectName')">
+
                                             </div>
                                             <!-- Select banner -->
                                             <div class="mb-3 select-img">
                                                 <div class="angular-property-image bg-overlay-gradient-04">
-                                                    <label for="imageFile"
+                                                    <label for="ImageFile"
                                                         class="position-absolute select--banner">Select banner</label>
-                                                    <input type="file" name="imageFile" id="imageFile" class="d-none" accept="image/*"
-                                                        formControlName="imageFile" (change)="upPhoto($event)">
-                                                    <img src="http://themes.potenzaglobalsolutions.com/html/real-villa/images/avatar/01.jpg"
+                                                    <input type="file" name="ImageFile" id="ImageFile" class="d-none"
+                                                        accept="image/*" formControlName="ImageFile"
+                                                        (change)="upPhoto($event)">
+                                                    <img [src]="box_iconDeleleteAvatar" [alt]="box_iconDeleleteAvatar"
                                                         class="img-fluid">
                                                 </div>
+                                           
                                             </div>
                                             <!-- Title -->
                                             <div class="mb-4">
                                                 <label for="address">Title</label>
-                                                <input type="text" class="form-control" name="title" formControlName="title"
-                                                    (blur)="checkValidForm('title')">
+                                                <input type="text" class="form-control" name="Title"
+                                                    formControlName="Title" (blur)="checkValidForm('Title')">
                                             </div>
-
+                                            <div class="mb-4">
+                                                <label for="">Description</label>
+                                                <textarea name="Description" formControlName="Description" rows="5"
+                                                    class="w-100 form-control"></textarea>
+                                            </div>
                                         </div>
-                                        <!-- Description -->
-                                        <div class="col-lg-4 col-sm-6">
-                                            <label for="">Description</label>
-                                            <textarea name="description" formControlName="description"
-                                                class="w-100 h-100"></textarea>
-                                        </div>
+                                        <!-- Adress -->
                                         <div class="col-lg-4 col-sm-6">
 
                                             <div class="form-file mb-3">
@@ -269,17 +241,40 @@
                                                     <span class="form-file-text">Location</span>
                                                 </label>
 
-                                                <input type="text" class="form-control" name="location"
-                                                    formControlName="location">
+                                                <input type="text" class="form-control" name="Location"
+                                                    formControlName="Location">
                                             </div>
-
+                                            <!-- Country -->
+                                            <div class="mb-4">
+                                                <label for="Country">Country</label>
+                                                <input type="text" class="form-control" name="Country"
+                                                    formControlName="Country" (blur)="checkValidForm('Country')">
+                                            </div>
+                                            <!-- City  -->
+                                            <div class="mb-4">
+                                                <label for="City">City</label>
+                                                <input type="text" class="form-control" name="City"
+                                                    formControlName="City" (blur)="checkValidForm('City')">
+                                            </div>
+                                            <!-- District  -->
+                                            <div class="mb-4">
+                                                <label for="District">District</label>
+                                                <input type="text" class="form-control" name="District"
+                                                    formControlName="District" (blur)="checkValidForm('District')">
+                                            </div>
+                                            <!-- Are  -->
+                                            <div class="mb-4">
+                                                <label for="Are">Are</label>
+                                                <input type="text" class="form-control" name="Are" formControlName="Are"
+                                                    (blur)="checkValidForm('Are')">
+                                            </div>
                                         </div>
 
                                         <div class="col-12">
                                             <button type="submit"
-                                                class="btn btn-success btn-outline-success text-white d-block mx-auto"
+                                                class="btn btn-success btn-outline-success d-block mx-auto"
                                                 (click)="isAddProjectForm ? CreateProject(formValidator.value) : UpdateProject(formValidator.value)"
-                                                data-dismiss="modal" aria-label="Close" 
+                                                data-dismiss="modal" aria-label="Close"
                                                 [disabled]="formValidator.status == 'INVALID'">
                                                 Sumit
                                             </button>

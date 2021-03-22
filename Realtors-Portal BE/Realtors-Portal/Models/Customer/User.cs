@@ -36,7 +36,7 @@ namespace Realtors_Portal.Models.Customer
 
         public string Avatar { get; set; }
 
-        [Required(ErrorMessage = "ACtive is required")]
+        [Required(ErrorMessage = "Active is required")]
         public int Active { get; set; }
 
         public int ProductID { get; set; }

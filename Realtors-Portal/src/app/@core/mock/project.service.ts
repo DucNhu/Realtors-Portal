@@ -16,17 +16,39 @@ export class ProjectService {
   }
 
   CreateProj(val) {
+    // const test = {
+    //   "ID": 0,
+    //   "CategoryID": 0,
+    //   "SellerID": 0,
+    //   "ProjectName": "null",
+    //   "Title": "null",
+    //   "Description": "null",
+    //   "Location": "null",
+    //   "Country": "null",
+    //   "City": "null",
+    //   "District": "null",
+    //   "Are": "null",
+    //   "Price": 0,
+    //   "Sqft": 0,
+    //   "ImageLibID": 0,
+    //   "ImageFile": null,
+    //   "ImageBannerName": "null",
+    //   "ImageBannerSrc": "null",
+    //   "LevelActive": 0
+    // }
+    console.log(val);
+    
     return this.http.post(environment.apiUrl + 'projects', val)
   }
 
-  UpdatePhotoBanner(val: any) {
-    console.log(val);
-    
-    return this.http.post(environment.apiUrl + "projects/savefile", val)
-  }
+  // UpdatePhotoBanner(val: any) {
+  //   console.log(val);
 
-  UpdateProj(val) {
-    return this.http.put(environment.apiUrl + 'projects', val)
+  //   return this.http.post(environment.apiUrl + "projects/savefile", val)
+  // }
+
+  UpdateProj(val) {    
+    return this.http.put(environment.apiUrl + `projects/${val.ID}`, val)
   }
 
   deleteProj(val) {

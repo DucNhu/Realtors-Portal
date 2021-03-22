@@ -23,10 +23,10 @@ namespace Realtors_Portal.Models
         public string ProjectName { get; set; }
         
         //[Required]
-        public string title { get; set; }
+        public string Title { get; set; }
 
         //[Required]
-        public string description { get; set; }
+        public string Description { get; set; }
 
         //[Required]
         [MaxLength(100)]
@@ -69,7 +69,7 @@ namespace Realtors_Portal.Models
         public string ImageBannerSrc { get; set; }
 
         //[Required]
-        public int levelActive { get; set; }
+        public int LevelActive { get; set; }
 
 
         //INFORs another

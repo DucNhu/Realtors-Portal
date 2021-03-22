@@ -1,14 +1,25 @@
 /*
+bs4
     Frame + imge
     Table
     Box Active
     Alert Css
 */
+/* ======= BS4 ======= */
+.form-control {
+    font-weight: normal;
+    color: var(--gray);
+}
+
+.form-control:focus {
+    box-shadow: 0px 0px 5px rgb(80 132 234 / 34%);
+    border-color: transparent
+}
+/* ======= BS4 ======= */
 /* Frame + imge */
 .angular-property-image {
     position: relative;
-    padding-bottom: 50px;
-    padding-left: 50px;
+    padding-bottom: 100%
 }
 
 .angular-property-image .img-fluid {
@@ -35,7 +46,7 @@
 }
 /* END Table */
 
-/* Box Active */
+/* Box Active, Action */
 .active {
     color: #3699ff;
     background-color: #e1f0ff;
@@ -49,7 +60,22 @@
     background-color: #ffe2e5;
 }
 
-/* END Box Active */
+
+/*  Action */
+.box-action button {
+    padding: 0.55rem 1.5rem;
+}
+
+.box-action button.view {
+    color: #1abc9c;
+}
+.box-action button.detail {
+    color: #3498db;
+}
+.box-action button.delete {
+    color: #e74c3c;
+}
+/* END Box Active, Action */
 
 /* Alert Css */
 .alert-group {

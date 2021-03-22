@@ -12,3 +12,4 @@ namespace Realtors_Portal.Models.DTOs.Requests
         public string Password { get; set; }
     }
 }
+ 
