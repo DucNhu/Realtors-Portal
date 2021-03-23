@@ -71,7 +71,6 @@ namespace Realtors_Portal.Models
         //[Required]
         public int LevelActive { get; set; }
 
-
         //INFORs another
 
     }

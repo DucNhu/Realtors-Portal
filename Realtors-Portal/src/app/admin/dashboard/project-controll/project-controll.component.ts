@@ -74,12 +74,13 @@ export class ProjectControllComponent implements OnInit {
 
   ngOnInit(): void {
     this.getAllProject();
-    this.ValidatorForm(); 
+    this.ValidatorForm();
   }
 
   // ======== CRUD ============
   listProject = [];
   containData;
+  getIdLength = 0;
   // Get All project
   getAllProject() {
     this._ProjectService.getAllProj().subscribe(
@@ -88,6 +89,7 @@ export class ProjectControllComponent implements OnInit {
         console.log(this.listProject);
 
         this.containData.forEach(e => {
+          this.getIdLength = e.ID;
           this.listProject.unshift(e);
         });
       }
@@ -96,43 +98,12 @@ export class ProjectControllComponent implements OnInit {
 
   // function CreateProject:
   dataImage;
-  // CreateProject(val) {
-  //   // val.id = ++this.idLength; // set id tự tăg    
-  //   // str => int
-  //   console.log(val);
-  //   val.ImageFile = null; // tạm sét avâtrr == null
-  //   // val.CategoryID = parseInt(val.CategoryID);
-  //   // val.SellerID = parseInt(val.SellerID);
-  //   // val.LevelActive = parseInt(val.LevelActive);
-  //   // Create imge
-  //   // const formData: FormData = new FormData();
-  //   // formData.append('ImageFile', this.dataImage, this.dataImage.name);
-  //   // this._ProjectService.UpdatePhotoBanner(this.dataImage).subscribe(data => {
-  //   //   console.log(data);
-  //   // })
-  //   this._ProjectService.CreateProj(val).subscribe(
-  //     data => {
-  //       this.listProject.unshift(val);
-  //       console.log(this.listProject);
-        
-  //       this.Alert_successFunction("Create Success");
-  //     },
-  //     error => {
-  //       // val.id = --this.idLength; // set id tự tăg
-  //       this.Alert_dangerFunction("Error Create")
-  //     }
-  //   )
-  // }
-
-  //  ======== Test up image 
   selectedFile: File = null;
   CreateProject(data) {
-    console.log(data);
-    
     const formData = new FormData();
     formData.append('CategoryID', data.CategoryID);
     formData.append('SellerID', data.SellerID);
-    formData.append('ProjectName', data.categoProjectNameryID);
+    formData.append('ProjectName', data.ProjectName);
     formData.append('Title', data.Title);
     formData.append('Description', data.Description);
     formData.append('Location', data.Location);
@@ -150,16 +121,20 @@ export class ProjectControllComponent implements OnInit {
 
     this._ProjectService.CreateProj(formData)
       .subscribe(res => {
-        alert('Uploaded!!');
+        data.ID = this.getIdLength++;
+        this.listProject.unshift(data);
+        this.resetImageArray()
       });
-
   }
-  //  ============ End test
-
-  
+  resetImageArray() { // because update in array
+    this.listProject[length].ImageBannerSrc = '';
+    this.listProject[length].ImageBannerName = ''; // reset not loop
+    this.listProject[length].ImageBannerName = this.box_iconDeleleteAvatar;
+    this.box_iconDeleleteAvatar = '';
+  }
   // Function update Image
   box_iconDeleleteAvatar = "http://adevaes.com/wp-content/uploads/2016/11/26102015122159AMaboutus-default-banner.jpg"; // default  banner img
-  upPhoto(e) {
+  upPhoto(e) { // Update image when select file
     this.dataImage = e.target.files[0];
 
     if (e.target.files) { // Check File true : false
@@ -179,13 +154,11 @@ export class ProjectControllComponent implements OnInit {
 
   // Function Edit Project
   UpdateProject(data) {
-    console.log(data);
-    
     const formData = new FormData();
     formData.append('ID', data.ID);
     formData.append('CategoryID', data.CategoryID);
     formData.append('SellerID', data.SellerID);
-    formData.append('ProjectName', data.categoProjectNameryID);
+    formData.append('ProjectName', data.ProjectName);
     formData.append('Title', data.Title);
     formData.append('Description', data.Description);
     formData.append('Location', data.Location);
@@ -198,12 +171,12 @@ export class ProjectControllComponent implements OnInit {
     formData.append('ImageFile', this.dataImage);
     formData.append('ImageLibID', data.ImageLibID);
     formData.append('ImageBannerName', data.ImageBannerName);
-    formData.append('ImageBannerSrc', data.ImageBannerSrc);
+    formData.append('https://localhost:44338/', data.ImageBannerSrc);
     formData.append('LevelActive', data.LevelActive);
-    this._ProjectService.UpdateProj(formData).subscribe(
-      data => {
+    this._ProjectService.UpdateProj(data.ID, formData).subscribe(
+      val => {
         this.Alert_successFunction("Update Success");
-        // this.findIndexEdit(val)
+        this.findIndexEdit(data)
       },
       error => {
         this.Alert_dangerFunction("Error Update")
@@ -214,9 +187,10 @@ export class ProjectControllComponent implements OnInit {
   findIndexEdit(val) {
     let i = -1;
     this.listProject.forEach(element => {
-      i++;
-      if (element.id == val.id) {
-        this.listProject.splice(i, 1, val)
+      i++;      
+      if (element.ID == val.ID) {
+        this.listProject.splice(i, 1, val);
+        this.resetImageArray();
         return i;
       }
     });
@@ -241,7 +215,8 @@ export class ProjectControllComponent implements OnInit {
     this.listProject.forEach(element => {
       i++;
       if (element.ID == id) {
-        this.listProject.splice(i, 1)
+        this.listProject.splice(i, 1);
+        
         return i;
       }
     });
@@ -249,13 +224,13 @@ export class ProjectControllComponent implements OnInit {
   // ======== END CRUD ============
 
   isAddProjectForm;
-  // GetDataCheckisAddorEdit
+  // GetDataCheckisAddorEdit: true ? add : edit
   GetDataCheckisAddorEdit(bl, val) {
     if (bl) {
       // this.GetDataEditorAdd(val);
       return this.isAddProjectForm = true;
     }
-    else {      
+    else {
       this.GetDataEditorAdd(val);
       return this.isAddProjectForm = false;
     }
@@ -293,10 +268,9 @@ export class ProjectControllComponent implements OnInit {
     })
   }
   get ProjectName() { return this.formValidator.get('ProjectName') }
-  // get Price() { return this.formValidator.get('Price') }
 
   GetDataEditorAdd(val) {
-    
+    this.box_iconDeleleteAvatar = val.ImageBannerSrc + '/' + val.ImageBannerName;
     this.formValidator.controls.ProjectName.patchValue(val.ProjectName);
     this.formValidator.controls.Are.patchValue(val.Are);
     this.formValidator.controls.CategoryID.patchValue(val.CategoryID);

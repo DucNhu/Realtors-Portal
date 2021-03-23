@@ -38,7 +38,7 @@
         <table class="table table-hover">
             <thead class="angular-thead">
                 <tr>
-                    <!-- <th>id</th> -->
+                    <th>id</th>
                     <th>Name</th>
                     <th>Image</th>
                     <th>Location</th>
@@ -53,11 +53,11 @@
             </thead>
             <tbody>
                 <tr *ngFor="let p of listProject">
-                    <!-- <th>{{ p.ID }}</th> -->
+                    <th>{{ p.ID }}</th>
                     <td>{{ p.ProjectName }}</td>
                     <td>
                         <div class="angular-property-image bg-overlay-gradient-04">
-                            <img [src]="box_iconDeleleteAvatar" [alt]="p.ImageBannerName"
+                            <img [src]="p.ImageBannerSrc + p.ImageBannerName" [alt]="p.ImageBannerName"
                                 class="img-fluid">
                         </div>
                     </td>
@@ -70,7 +70,7 @@
 
                     <td>{{p.Price}}</td>
                     <th class="th-active">
-                        <div [ngSwitch]="p.LevelActive">
+                        <div [ngSwitch]="p.LevelActive" class="box-active">
                             <div *ngSwitchCase="0">
                                 <span class="suspended rounded">Suspended</span>
                             </div>
@@ -168,22 +168,22 @@
                                                     formControlName="Sqft" (blur)="checkValidForm('Sqft')">
                                             </div>
                                             <!-- ImageLibID  -->
-                                            <div class="mb-4">
+                                            <div class="mb-4 d-none">
                                                 <label for="ImageLibID">ImageLibID</label>
-                                                <input type="number" class="form-control" name="ImageLibID" 
+                                                <input type="number" class="form-control" name="ImageLibID" value="0"
                                                     formControlName="ImageLibID" (blur)="checkValidForm('ImageLibID')">
                                             </div>
                                             <!-- ImageBannerName  -->
-                                            <div class="mb-4">
+                                            <div class="mb-4 d-none">
                                                 <label for="ImageBannerName">ImageBannerName</label>
-                                                <input type="text" class="form-control" name="ImageBannerName"
+                                                <input type="text" class="form-control" name="ImageBannerName" value="ImageBannerName"
                                                     formControlName="ImageBannerName"
                                                     (blur)="checkValidForm('ImageBannerName')">
                                             </div>
                                             <!-- ImageBannerSrc  -->
-                                            <div class="mb-4">
+                                            <div class="mb-4 d-none">
                                                 <label for="ImageBannerSrc">ImageBannerSrc</label>
-                                                <input type="text" class="form-control" name="ImageBannerSrc"
+                                                <input type="text" class="form-control" name="ImageBannerSrc" value="https://localhost:44338/"
                                                     formControlName="ImageBannerSrc"
                                                     (blur)="checkValidForm('ImageBannerSrc')">
                                             </div>

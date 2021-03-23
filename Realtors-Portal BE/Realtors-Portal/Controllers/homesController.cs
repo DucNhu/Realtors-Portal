@@ -75,11 +75,11 @@ namespace Realtors_Portal.Controllers
                 return BadRequest();
             }
 
-            //if (project.ImageFile != null)
-            //{
-            //    DeleteImage(project.ImageBannerName);
-            //    project.ImageBannerName = await SaveImage(project.ImageFile);
-            //}
+            if (project.ImageFile != null)
+            {
+                DeleteImage(project.ImageBannerName);
+                project.ImageBannerName = await SaveImage(project.ImageFile);
+            }
             _context.Entry(project).State = EntityState.Modified;
 
             try
