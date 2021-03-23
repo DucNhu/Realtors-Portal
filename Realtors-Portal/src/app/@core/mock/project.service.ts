@@ -47,8 +47,8 @@ export class ProjectService {
   //   return this.http.post(environment.apiUrl + "projects/savefile", val)
   // }
 
-  UpdateProj(val) {    
-    return this.http.put(environment.apiUrl + `projects/${val.ID}`, val)
+  UpdateProj(id, val) {        
+    return this.http.put(environment.apiUrl + 'projects/' + id, val)
   }
 
   deleteProj(val) {
