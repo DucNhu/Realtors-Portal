@@ -12,6 +12,7 @@ import { environment } from '../../../@core/models/Environment';
 export class ProjectControllComponent implements OnInit {
   // Khai bao bien
   html: '';
+
   listCategies = [
     {
       id: 1,
@@ -48,39 +49,39 @@ export class ProjectControllComponent implements OnInit {
     {
       id: 3,
       Title: "Location1",
-      selected: true,
-      active : true
+
+      active: true
     },
     {
       id: 1,
       Title: "Location1",
-      selected: true,
-      active : true
+
+      active: true
     },
     {
       id: 2,
       Title: "Location1",
-      selected: true,
-      active : true
+
+      active: true
     },
   ]
   listAre = [
     {
       id: 3,
       Title: "Location1",
-      selected: true,
+
       active: true
     },
     {
       id: 1,
       Title: "Location1",
-      selected: true,
+
       active: true
     },
     {
       id: 2,
       Title: "Location1",
-      selected: true,
+
       active: true
     },
   ]
@@ -88,19 +89,19 @@ export class ProjectControllComponent implements OnInit {
     {
       id: 3,
       Title: "Location1",
-      selected: true,
+
       active: true
     },
     {
       id: 1,
       Title: "Location1",
-      selected: true,
+
       active: true
     },
     {
       id: 2,
       Title: "Location1",
-      selected: true,
+
       active: true
     },
   ]
@@ -108,19 +109,19 @@ export class ProjectControllComponent implements OnInit {
     {
       id: 3,
       Title: "Location1",
-      selected: true,
+
       active: true
     },
     {
       id: 1,
       Title: "Location1",
-      selected: true,
+
       active: true
     },
     {
       id: 2,
       Title: "Location1",
-      selected: true,
+
       active: true
     },
   ]
@@ -128,19 +129,19 @@ export class ProjectControllComponent implements OnInit {
     {
       id: 3,
       Title: "Location1",
-      selected: true,
+
       active: true
     },
     {
       id: 1,
       Title: "Location1",
-      selected: true,
+
       active: true
     },
     {
       id: 2,
       Title: "Location1",
-      selected: true,
+
       active: true
     },
   ]
@@ -176,6 +177,8 @@ export class ProjectControllComponent implements OnInit {
   ngOnInit(): void {
     this.getAllProject();
     this.ValidatorForm();
+
+
   }
 
   // ======== CRUD ============
@@ -202,12 +205,16 @@ export class ProjectControllComponent implements OnInit {
   dataImage;
   selectedFile: File = null;
   CreateProject(data) {
-    
+    data.ID = 0;
     console.log(data);
-    
+
+    data.ImageBannerName = this.DataFormProjectEdit.ImageBannerName;
     this._ProjectService.CreateProj(data)
       .subscribe(res => {
-        data.ID = this.getIdLength++;
+        this.upPhoto(); // Insert Image
+        data.ID = this.listProject[length].ID += 1;
+        data.ImageBannerSrc = '';
+        data.ImageBannerName = this.DefaultandNewAvatar;
         this.listProject.unshift(data);
         this.resetImageArray();
         this.Alert_successFunction("Created done");
@@ -216,57 +223,50 @@ export class ProjectControllComponent implements OnInit {
   resetImageArray() { // because update in array
     this.listProject[length].ImageBannerSrc = '';
     this.listProject[length].ImageBannerName = ''; // reset not loop
-    this.listProject[length].ImageBannerName = this.box_iconDeleleteAvatar;
-    this.box_iconDeleleteAvatar = '';
+    this.listProject[length].ImageBannerName = this.DefaultandNewAvatar;
+    this.DefaultandNewAvatar = '';
   }
   // Function update Image
-  box_iconDeleleteAvatar = "http://adevaes.com/wp-content/uploads/2016/11/26102015122159AMaboutus-default-banner.jpg"; // default  banner img
-  upPhoto(e) { // Update image when select file
-    this.dataImage = e.target.files[0];
+  DefaultandNewAvatar = "http://adevaes.com/wp-content/uploads/2016/11/26102015122159AMaboutus-default-banner.jpg"; // default  banner img
+
+  // Update Image when select change
+  myInfor;
+  onSelectFile(e) {
+    this.dataImage = e.target.files.item(0);
+    console.log(this.dataImage.name);
+    let dateNow = new Date();
 
     if (e.target.files) { // Check File true : false
       var reader = new FileReader(); // DOM
       reader.readAsDataURL(e.target.files[0]);
       reader.onload = (event: any) => {
-        this.box_iconDeleleteAvatar = event.target.result;
+        this.DataFormProjectEdit.ImageBannerName = dateNow.getTime() + this.dataImage.name;
+        this.DefaultandNewAvatar = event.target.result;
       }
     }
   }
+  upPhoto() {
+    const formData: FormData = new FormData();
 
-  afuConfig = {
-    uploadAPI: {
-      url: "https://example-file-upload-api"
-    }
-  };
+    formData.append('ImageFile', this.dataImage, this.DataFormProjectEdit.ImageBannerName);
+
+    this._ProjectService.UpdatePhotoBanner(formData).subscribe(() => {
+      // console.log(data);
+      // this.myInfor.Avatar = data
+    })
+  }
 
   // Function Edit Project
   upgrade = false;
   UpdateProject(data) {
-    this.upgrade = true;
-    
-    const formData = new FormData();
-    formData.append('ID', data.ID);
-    formData.append('CategoryID', data.CategoryID);
-    formData.append('SellerID', data.SellerID);
-    formData.append('ProjectName', data.ProjectName);
-    formData.append('Title', data.Title);
-    formData.append('Description', data.Description);
-    formData.append('Location', data.Location);
-    formData.append('Country', data.Country);
-    formData.append('City', data.City);
-    formData.append('District', data.District);
-    formData.append('Are', data.Are);
-    formData.append('Price', data.Price);
-    formData.append('Sqft', data.Sqft);
-    formData.append('ImageFile', this.dataImage);
-    formData.append('ImageLibID', data.ImageLibID);
-    formData.append('ImageBannerName', data.ImageBannerName);
-    formData.append('https://localhost:44338/', data.ImageBannerSrc);
-    formData.append('LevelActive', data.LevelActive);
-    this._ProjectService.UpdateProj(data.ID, formData).subscribe(
+    console.log(data);
+
+    data.ImageBannerName = this.DataFormProjectEdit.ImageBannerName;
+    this._ProjectService.UpdateProj(data.ID, data).subscribe(
       val => {
+        this.upPhoto();
         this.Alert_successFunction("Update Success");
-        this.EditById(data)
+        this.EditByIdInArray(data)
       },
       error => {
         this.Alert_dangerFunction("Error Update")
@@ -274,20 +274,19 @@ export class ProjectControllComponent implements OnInit {
     );
   }
 
-  EditById(val) {
+  EditByIdInArray(val) {
     console.log(val);
-    
+
     let i = -1;
     this.listProject.forEach(element => {
-      i++;      
-      
+      i++;
+
       if (element.ID == val.ID) {
         val.ImageBannerSrc = '';
-        val.ImageBannerName = this.box_iconDeleleteAvatar;
+        val.ImageBannerName = this.DefaultandNewAvatar;
         this.listProject.splice(i, 1, val);
         // this.resetImageArray();
       }
-      console.log(i);
     });
   }
 
@@ -311,7 +310,7 @@ export class ProjectControllComponent implements OnInit {
       i++;
       if (element.ID == id) {
         this.listProject.splice(i, 1);
-        
+
         return i;
       }
     });
@@ -326,6 +325,8 @@ export class ProjectControllComponent implements OnInit {
       return this.isAddProjectForm = true;
     }
     else {
+      console.log(val);
+
       this.GetDataEditorAdd(val);
       return this.isAddProjectForm = false;
     }
@@ -343,7 +344,6 @@ export class ProjectControllComponent implements OnInit {
       District: ['District', [Validators.required]],
       ID: [0],
 
-      ImageFile: [''],
       Location: ['Location', [Validators.required]],
 
       Price: [0, [Validators.required]],
@@ -358,16 +358,15 @@ export class ProjectControllComponent implements OnInit {
       Title: ['Title', [Validators.required]],
       ImageLibID: [0],
       ImageBannerName: ['ImageBannerName'],
-      ImageBannerSrc: ['ImageBannerSrc'],
-
+      ImageFile: ['']
     })
   }
   get ProjectName() { return this.formValidator.get('ProjectName') }
 
   GetDataEditorAdd(val) {
     console.log(val);
-    
-    this.box_iconDeleleteAvatar = val.ImageBannerSrc + '/' + val.ImageBannerName;
+
+    this.DefaultandNewAvatar = this.DefaultandNewAvatar;
     this.formValidator.controls.ProjectName.patchValue(val.ProjectName);
     this.formValidator.controls.Are.patchValue(val.Are);
     this.formValidator.controls.CategoryID.patchValue(val.CategoryID);
@@ -390,7 +389,7 @@ export class ProjectControllComponent implements OnInit {
 
     this.formValidator.controls.ImageLibID.patchValue(val.ImageLibID);
     this.formValidator.controls.ImageBannerName.patchValue(val.ImageBannerName);
-    this.formValidator.controls.ImageBannerSrc.patchValue(val.ImageBannerSrc);
+    // this.formValidator.controls.ImageBannerSrc.patchValue(val.ImageBannerSrc);
   }
 
 

@@ -19,11 +19,9 @@ export class ProjectService {
     return this.http.post(environment.apiUrl + 'projects', val)
   }
 
-  // UpdatePhotoBanner(val: any) {
-  //   console.log(val);
-
-  //   return this.http.post(environment.apiUrl + "projects/savefile", val)
-  // }
+  UpdatePhotoBanner(val) {
+    return this.http.post(environment.apiUrl + "projects/savefile", val)
+  }
 
   UpdateProj(id, val) {        
     return this.http.put(environment.apiUrl + 'projects/' + id, val)

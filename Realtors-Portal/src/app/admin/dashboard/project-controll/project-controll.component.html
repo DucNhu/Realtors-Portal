@@ -180,13 +180,7 @@
                                                     value="ImageBannerName" formControlName="ImageBannerName"
                                                     (blur)="checkValidForm('ImageBannerName')">
                                             </div>
-                                            <!-- ImageBannerSrc  -->
-                                            <div class="mb-4 d-none">
-                                                <label for="ImageBannerSrc">ImageBannerSrc</label>
-                                                <input type="text" class="form-control" name="ImageBannerSrc"
-                                                    value="https://localhost:44338/" formControlName="ImageBannerSrc"
-                                                    (blur)="checkValidForm('ImageBannerSrc')">
-                                            </div>
+                                          
                                             <!-- LevelActive  -->
                                             <div class="mb-4">
                                                 <label for="LevelActive">LevelActive</label>
@@ -215,9 +209,9 @@
                                                     <label for="ImageFile"
                                                         class="position-absolute select--banner">Select banner</label>
                                                     <input type="file" name="ImageFile" id="ImageFile" class="d-none"
-                                                        accept="image/*" formControlName="ImageFile"
-                                                        (change)="upPhoto($event)">
-                                                    <img [src]="box_iconDeleleteAvatar" [alt]="box_iconDeleleteAvatar"
+                                                        accept="image/*"
+                                                        (change)="onSelectFile($event)">
+                                                    <img [src]="DefaultandNewAvatar" [alt]="DefaultandNewAvatar"
                                                         class="img-fluid">
                                                 </div>
 
@@ -243,7 +237,7 @@
                                                 </label>
 
                                                 <select class="form-select form-control" formControlName="Location">
-                                                    <option *ngFor="let Location of listLocation" [value]="Location.Title">
+                                                    <option *ngFor="let Location of listLocation" [value]="Location.id">
                                                         {{Location.Title}}
                                                     </option>
                                                 </select>
@@ -252,7 +246,7 @@
                                             <div class="mb-4">
                                                 <label for="Country">Country</label>
                                                 <select class="form-select form-control" formControlName="Country">
-                                                    <option *ngFor="let Country of listCountry" [value]="Country.Title">
+                                                    <option *ngFor="let Country of listCountry" [value]="Country.id">
                                                         {{Country.Title}}
                                                     </option>
                                                 </select>
@@ -262,7 +256,7 @@
                                                 <label for="City">City</label>
 
                                                 <select class="form-select form-control" formControlName="City">
-                                                    <option *ngFor="let City of listCity" [value]="City.Title">
+                                                    <option *ngFor="let City of listCity" [value]="City.id">
                                                         {{City.Title}}
                                                     </option>
                                                 </select>
@@ -272,7 +266,7 @@
                                                 <label for="District">District</label>
 
                                                 <select class="form-select form-control" formControlName="District">
-                                                    <option *ngFor="let District of listDistrict" [value]="District.Title">
+                                                    <option *ngFor="let District of listDistrict" [value]="District.id">
                                                         {{District.Title}}
                                                     </option>
                                                 </select>
@@ -282,7 +276,7 @@
                                                 <label for="Are">Are</label>
 
                                                 <select class="form-select form-control" formControlName="Are">
-                                                    <option *ngFor="let Are of listAre" [value]="Are.Title">
+                                                    <option *ngFor="let Are of listAre" [value]="Are.id">
                                                         {{Are.Title}}
                                                     </option>
                                                 </select>

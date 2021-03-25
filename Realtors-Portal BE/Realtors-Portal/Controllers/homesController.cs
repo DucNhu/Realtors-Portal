@@ -48,7 +48,7 @@ namespace Realtors_Portal.Controllers
         // PUT: api/projects/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> Putproject(int id, [FromForm] home project)
+        public async Task<IActionResult> Putproject(int id,home project)
         {
             if (id != project.ID)
             {
@@ -79,8 +79,9 @@ namespace Realtors_Portal.Controllers
         // POST: api/projects
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<home>> Postproject([FromForm] home project)
+        public async Task<ActionResult<home>> Postproject(home project)
         {
+            project.ImageBannerName = project.ImageBannerName;
             _context.project.Add(project);
             await _context.SaveChangesAsync();
 
@@ -117,7 +118,7 @@ namespace Realtors_Portal.Controllers
                 var httpRequest = Request.Form;
                 var postedFile = httpRequest.Files[0];
                 string filename = postedFile.FileName;
-                var physicalPath = _hostEnvironment.ContentRootPath + "/Images/" + filename + DateTime.Now.ToString("yymmssfff");
+                var physicalPath = _hostEnvironment.ContentRootPath + "/Images/" + filename;
                 using (var stream = new FileStream(physicalPath, FileMode.Create))
                 {
                     postedFile.CopyTo(stream);

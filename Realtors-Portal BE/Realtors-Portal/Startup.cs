@@ -132,6 +132,16 @@ namespace Realtors_Portal
             {
                 endpoints.MapControllers();
             });
+            app.UseEndpoints(endpoints =>
+            {
+                endpoints.MapControllers();
+                app.UseStaticFiles(new StaticFileOptions
+                {
+                    FileProvider = new PhysicalFileProvider(
+                    Path.Combine(Directory.GetCurrentDirectory(), "Images")),
+                    RequestPath = "/Images"
+                });
+            });
         }
     }
 }
