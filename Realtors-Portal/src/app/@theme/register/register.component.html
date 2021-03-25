@@ -26,10 +26,10 @@ Register -->
                         <app-user-register (dataUser)="onsubmit($event)" [error] = "error"></app-user-register>
                     </div>
                     <div class="tab-pane fade show" id="agent" role="tabpanel" aria-labelledby="agent-tab">
-                        <!-- <app-seller-register (dataForm)="onsubmit($event)" [error] = "error"></app-seller-register> -->
+                        <app-seller-register (dataSeller)="onsubmit($event)" [error] = "error"></app-seller-register>
                     </div>
                     <div class="tab-pane fade" id="regular-user" role="tabpanel" aria-labelledby="regular-user-tab">
-                        <!-- <app-augent-register (dataForm)="onsubmit($event)" [error] = "error"></app-augent-register> -->
+                        <app-augent-register (dataAgent)="onsubmit($event)" [error] = "error"></app-augent-register>
                         <!-- <div class="login-social-media border pl-4 pr-4 pb-4 pt-0 rounded">
                             <div class="mb-4 d-block text-center"><b class="bg-white pl-2 pr-2 mt-3 d-block">Login or
                                     Sign in with</b></div>

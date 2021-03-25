@@ -48,7 +48,8 @@ export class RegisterComponent implements OnInit {
   error = '';
   alertSuccess
   register(val) {
-    delete val.passCon;
+    console.log(val);
+    
     this.userService.register(val).subscribe(
       data => {
         this.error = '';

@@ -12,14 +12,19 @@ import { UserService } from '../../../@core/mock/Customer/user.service';
 export class UserRegisterComponent implements OnInit {
   createForm: FormGroup;
   @Output() dataUser = new EventEmitter<any>();
-  isDisabled = true;
-  checkInputForm = 0;
   @Input() error;
-  alertSuccess
+
+  isDisabled = true;
+  alertSuccess;
+
   errortextPass;
   errortextEmail;
   errortextFullName;
-  
+
+  validPass = false;
+  validEmailFullName = false;
+  validEmail = false;
+
   constructor(
     private userService: UserService,
     private formBuilder: FormBuilder,
@@ -40,7 +45,7 @@ export class UserRegisterComponent implements OnInit {
   get pass() { return this.createForm.get('password') }
   onsubmit(val) {
     let data = {
-      "name": val.name,
+      "name": val.fullName,
       "email": val.email,
       "password": val.password,
       "indentificationNumber": "000000000000",
@@ -71,10 +76,11 @@ export class UserRegisterComponent implements OnInit {
         if (val != '') {
           if (strongRegex.test(val)) {
             this.errortextFullName = 'Full name cannot contain special characters and numbers';
+            this.validEmailFullName = false;
             break;
           }
           else {
-            ++this.checkInputForm;
+            this.validEmailFullName = true;
           }
           this.errortextFullName = '';
         }
@@ -88,9 +94,10 @@ export class UserRegisterComponent implements OnInit {
         let val = this.createForm.get('email').value;
         if (val != '') {
           if (!strongRegex.test(val)) {
-            ++this.checkInputForm;
+            this.validEmail = false;
           }
-          else {
+          else {        
+            this.validEmail = true;
           }
           this.errortextEmail = '';
         }
@@ -100,14 +107,16 @@ export class UserRegisterComponent implements OnInit {
       } break;
 
       case 'pass': {
-        let strongRegex = new RegExp("^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*]).{8,}");
+        let strongRegex = new RegExp("^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*]).{6,}");
         let val = this.createForm.get('password').value;
         if (val != '') {
           if (!strongRegex.test(val)) {
             this.errorpassregex = true;// Error like error in EF fw
-            ++this.checkInputForm;          }
+            this.validPass = false;
+          }
           else {
             this.errorpassregex = false;// Error like error in EF fw
+            this.validPass = true;
           }
           this.errortextPass = '';
         }
@@ -117,19 +126,22 @@ export class UserRegisterComponent implements OnInit {
 
       } break;
       default: console.log('Default'); break;
-
     }
   }
-  DisabledFunciton() { // button False
-    if(this.checkInputForm != 3) {
-      return this.isDisabled = true;
-    }
-    else {
+
+  DisabledFunciton() { 
+    console.log(this.validEmailFullName, this.validEmail, this.validPass);
+    
+    if (this.validEmailFullName == true &&
+      this.validEmail == true &&
+      this.validPass == true) {
+
       return this.isDisabled = false;
     }
+    else {
+      return this.isDisabled = true;
+    }
   }
-
-
 }
 
 
