@@ -11,7 +11,9 @@ const routes: Routes = [
     {
         path: '', loadChildren: () => import('./page/page.module').then(m => m.PageModule)
     },
-
+    {
+        path: 'Home', loadChildren: () => import('./page/page.module').then(m => m.PageModule)
+    },
     {
         path: "**", component: NotfoundComponent
     }

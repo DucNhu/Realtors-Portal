@@ -12,7 +12,8 @@
 --  "ProductID" int,
 --  "ppID" int
 --);
---create database realtors01
+drop database realtors01 -- Delete roi create lai db ==========================================================================================================================================
+create database realtors01
 drop table tblUser
 CREATE TABLE tblUser (
   "id" int PRIMARY KEY identity,

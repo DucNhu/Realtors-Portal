@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { AuthenticationService } from '../../@core/mock/Authentication.Service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
@@ -43,17 +43,21 @@ export class RegisterComponent implements OnInit {
     }
   }
   onsubmit(val) {
-    console.log(val);
     this.register(val);
-    this.router.navigate(['/']);
-    
   }
-
+  error = '';
+  alertSuccess
   register(val) {
     delete val.passCon;
     this.userService.register(val).subscribe(
       data => {
-        console.log("OK");
+        this.error = '';
+        this.alertSuccess = '';
+        this.router.navigate(['/Home']);
+      },
+
+      err => {
+        this.error = err.error.Errors;
         
       }
     )

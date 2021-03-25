@@ -1,5 +1,4 @@
-
- <form class="form-row mt-4 align-items-center" [formGroup]="createForm" (ngSubmit)="register(createForm.value)">
+<form class="form-row mt-4 align-items-center" [formGroup]="formSeller" (ngSubmit)="onsubmit(formSeller.value)">
     <div class="form-group col-sm-12">
         <label>Username:</label>
         <input type="text" class="form-control" name="name" formControlName="name" />
@@ -25,7 +24,7 @@
     </div>
 
     <div class="col-sm-6">
-        <button type="submit" class="btn btn-primary btn-block" [disabled]="createForm.status == 'INVALID'">Sign
+        <button type="submit" class="btn btn-primary btn-block" [disabled]="formSeller.status == 'INVALID'">Sign
             up</button>
 
 
@@ -35,4 +34,4 @@
             <li class="mr-1"><a routerLink="/login">Already Registered User? Click here to login</a></li>
         </ul>
     </div>
-</form> 
+</form>

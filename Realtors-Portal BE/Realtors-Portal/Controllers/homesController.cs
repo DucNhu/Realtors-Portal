@@ -28,27 +28,7 @@ namespace Realtors_Portal.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<home>>> Getproject()
         {
-            return await _context.project.
-                Select(x => new home()
-                {
-
-                    ID = x.ID,
-                    CategoryID = x.CategoryID,
-                    SellerID = x.SellerID,
-                    Sqft = x.Sqft,
-                    Description = x.Description,
-                    Title = x.Title,
-                    ProjectName = x.ProjectName,
-                    Location = x.Location,
-                    Country = x.Country,
-                    City = x.City,
-                    District = x.District,
-                    Are = x.Are,
-                    Price = x.Price,
-                    ImageBannerName = x.ImageBannerName,
-                    ImageBannerSrc = String.Format("{0}://{1}{2}/Images/{3}", Request.Scheme, Request.Host, Request.PathBase, x.ImageBannerSrc),
-                    LevelActive = x.LevelActive
-                }).ToListAsync();
+            return await _context.project.ToListAsync();
         }
 
         // GET: api/projects/5
@@ -75,11 +55,6 @@ namespace Realtors_Portal.Controllers
                 return BadRequest();
             }
 
-            if (project.ImageFile != null)
-            {
-                DeleteImage(project.ImageBannerName);
-                project.ImageBannerName = await SaveImage(project.ImageFile);
-            }
             _context.Entry(project).State = EntityState.Modified;
 
             try
@@ -106,25 +81,11 @@ namespace Realtors_Portal.Controllers
         [HttpPost]
         public async Task<ActionResult<home>> Postproject([FromForm] home project)
         {
-            project.ImageBannerName = await SaveImage(project.ImageFile);
             _context.project.Add(project);
             await _context.SaveChangesAsync();
 
             return CreatedAtAction("Getproject", new { id = project.ID }, project);
         }
-
-
-        // Api Image
-        //[HttpPost]
-        //[Route("imagePost")]
-        //public async Task<ActionResult<home>> PostImage([FromForm] home project)
-        //{
-        //    project.ImageBannerName = await SaveImage(project.ImageFile);
-
-        //    return CreatedAtAction("Getproject", new { id = project.ID }, project);
-        //}
-
-        // End Api Image
 
         // DELETE: api/projects/5
         [HttpDelete("{id}")]
@@ -134,10 +95,6 @@ namespace Realtors_Portal.Controllers
             if (project == null)
             {
                 return NotFound();
-            }
-            if (project.ImageFile != null)
-            {
-                DeleteImage(project.ImageBannerName);
             }
             _context.project.Remove(project);
             await _context.SaveChangesAsync();
@@ -150,42 +107,7 @@ namespace Realtors_Portal.Controllers
             return _context.project.Any(e => e.ID == id);
         }
 
-        [NonAction]
-        public async Task<string> SaveImage(IFormFile imageFile)
-        {
-            string imageName = new string(Path.GetFileNameWithoutExtension(imageFile.FileName).Take(10).ToArray()).Replace(' ', '-');
-            imageName = imageName + DateTime.Now.ToString("yymmssfff") + Path.GetExtension(imageFile.FileName);
-            var imagePath = Path.Combine(_hostEnvironment.ContentRootPath, "Images", imageName);
-            using (var fileStream = new FileStream(imagePath, FileMode.Create))
-            {
-                await imageFile.CopyToAsync(fileStream);
-            }
-            return imageName;
-        }
-
-        //[HttpPost]
-        //[Route("SaveFile")]
-        //public async Task<string> SaveImage([FromForm] home project)
-        //{
-        //    string imageName = new string(Path.GetFileNameWithoutExtension(project.ImageFile.FileName).Take(10).ToArray()).Replace(' ', '-');
-        //    imageName = imageName + DateTime.Now.ToString("yymmssfff") + Path.GetExtension(project.ImageFile.FileName);
-        //    var imagePath = Path.Combine(_hostEnvironment.ContentRootPath, "Images", imageName);
-        //    using (var fileStream = new FileStream(imagePath, FileMode.Create))
-        //    {
-        //        await project.ImageFile.CopyToAsync(fileStream);
-        //    }
-        //    return imageName;
-        //}
-
-        [NonAction]
-        public void DeleteImage(string imageName)
-        {
-            var imagePath = Path.Combine(_hostEnvironment.ContentRootPath, "Images", imageName);
-            if (System.IO.File.Exists(imagePath))
-                System.IO.File.Delete(imagePath);
-        }
-
-        //SaveFile
+        //SaveFile Image
         [Route("savefile")]
         [HttpPost]
         public JsonResult SaveFile()
@@ -205,7 +127,7 @@ namespace Realtors_Portal.Controllers
 
             catch (Exception)
             {
-                return new JsonResult("line 180 funtion SaveFile()");
+                return new JsonResult("Save image");
             }
         }
     }

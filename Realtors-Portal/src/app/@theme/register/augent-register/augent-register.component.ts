@@ -1,5 +1,5 @@
 
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { AuthenticationService } from '../../../@core/mock/Authentication.Service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
@@ -13,7 +13,7 @@ import { UserService } from '../../../@core/mock/Customer/user.service';
 export class AugentRegisterComponent implements OnInit {
   create = true;
   createForm: FormGroup;
-
+  @Output() DataForm = new EventEmitter<any>();
   constructor(
     private userService: UserService,
     private formBuilder: FormBuilder,
@@ -50,13 +50,6 @@ export class AugentRegisterComponent implements OnInit {
     )
   }
   onsubmit(val) {
-    console.log(val);
-    this.register(val);
-    this.router.navigate(['/']);
-  }
-  errorEmailUnique;
-  register(val) {
-
     let data = {
       "name": val.name,
       "email": val.email,
@@ -64,50 +57,16 @@ export class AugentRegisterComponent implements OnInit {
       "indentificationNumber": "000000000000",
       "address": "Nothing",
       "phone": "0000000000",
-      "avatar": "https://scontent.fhan2-2.fna.fbcdn.net/v/t1.0-9/81124033_981593932218384_8786497945009651712_o.jpg?_nc_cat=111&ccb=1-3&_nc_sid=09cbfe&_nc_ohc=4vafJlG5R4EAX8sh7hb&_nc_ht=scontent.fhan2-2.fna&oh=e12afd1f2d30ebf053747a5f6a954c0c&oe=607A124E",
+      "avatar": "https://scontent.fhan2-1.fna.fbcdn.net/v/t1.0-9/133549349_1281976232160042_6231890056107915313_n.jpg?_nc_cat=102&ccb=1-3&_nc_sid=174925&_nc_ohc=iz0UXfScNF4AX_WeTKA&_nc_ht=scontent.fhan2-1.fna&oh=baa30ca55c3ef86e510aca541ac9a2f2&oe=6077C815",
       "active": 0,
       "productID": 0,
       "ppID": 0,
       "user_type": "agent"
     }
-
-    for (let i = 0; i < this.listDataEmail.length; i++) {
-      console.log(this.listDataEmail[i]);
-
-      if (val.email == this.listDataEmail[i].Email) {
-        this.errorEmailUnique = "Email has been used";
-        console.log(this.errorEmailUnique);
-        break;
-      }
-
-      else if (i == this.listDataEmail.length - 1) {
-        if (val.email == this.listDataEmail[i].Email) {
-          this.errorEmailUnique = "Email has been used";
-          console.log(this.errorEmailUnique);
-          break;
-        }
-        else {
-          this.userService.register(data).subscribe(
-            data => {
-              this.listDataEmail.push(data)
-              console.log(data);
-              console.log("OK crate");
-            },
-
-            err => {
-              this.errorEmailUnique = "Email has been used";
-              console.log('HTTP Error', err)
-            }
-
-          )
-        }
-
-      }
-    }
+    this.DataForm.emit(data);
+    // this.register(val);
   }
-
-
-
+  @Input() errorEmailUnique;
   // validator form
   errorpassregex = false;
   validatorPass(val) {

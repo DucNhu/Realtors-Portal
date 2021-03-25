@@ -3,7 +3,7 @@ import { ProjectService } from '../../../@core/mock/project.service';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { NgForm } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
-
+import { environment } from '../../../@core/models/Environment';
 @Component({
   selector: 'app-project-controll',
   templateUrl: './project-controll.component.html',
@@ -43,18 +43,119 @@ export class ProjectControllComponent implements OnInit {
       selected: false
     }
   ]
+  // Adress
+  listLocation = [
+    {
+      id: 3,
+      Title: "Location1",
+      selected: true,
+      active : true
+    },
+    {
+      id: 1,
+      Title: "Location1",
+      selected: true,
+      active : true
+    },
+    {
+      id: 2,
+      Title: "Location1",
+      selected: true,
+      active : true
+    },
+  ]
+  listAre = [
+    {
+      id: 3,
+      Title: "Location1",
+      selected: true,
+      active: true
+    },
+    {
+      id: 1,
+      Title: "Location1",
+      selected: true,
+      active: true
+    },
+    {
+      id: 2,
+      Title: "Location1",
+      selected: true,
+      active: true
+    },
+  ]
+  listCity = [
+    {
+      id: 3,
+      Title: "Location1",
+      selected: true,
+      active: true
+    },
+    {
+      id: 1,
+      Title: "Location1",
+      selected: true,
+      active: true
+    },
+    {
+      id: 2,
+      Title: "Location1",
+      selected: true,
+      active: true
+    },
+  ]
+  listCountry = [
+    {
+      id: 3,
+      Title: "Location1",
+      selected: true,
+      active: true
+    },
+    {
+      id: 1,
+      Title: "Location1",
+      selected: true,
+      active: true
+    },
+    {
+      id: 2,
+      Title: "Location1",
+      selected: true,
+      active: true
+    },
+  ]
+  listDistrict = [
+    {
+      id: 3,
+      Title: "Location1",
+      selected: true,
+      active: true
+    },
+    {
+      id: 1,
+      Title: "Location1",
+      selected: true,
+      active: true
+    },
+    {
+      id: 2,
+      Title: "Location1",
+      selected: true,
+      active: true
+    },
+  ]
   DataFormProjectEdit = {
-    Are: "",
+    Are: undefined,
     CategoryID: undefined,
-    City: "",
-    Country: "",
-    District: "",
+    City: undefined,
+    Country: undefined,
+    District: undefined,
     ID: 10,
     ImageBannerName: "158974392_210254662.jpg",
-    ImageBannerSrc: "https://localhost:44338/Images/",
+    ImageBannerSrc: environment.Imageurl,
     ImageFile: File,
     ImageLibID: undefined,
-    Location: "",
+    Location: undefined,
     Price: undefined,
     ProjectName: "",
     SellerID: undefined,
@@ -81,6 +182,7 @@ export class ProjectControllComponent implements OnInit {
   listProject = [];
   containData;
   getIdLength = 0;
+  getImageBannerSrc = environment.Imageurl;
   // Get All project
   getAllProject() {
     this._ProjectService.getAllProj().subscribe(
@@ -89,7 +191,7 @@ export class ProjectControllComponent implements OnInit {
         console.log(this.listProject);
 
         this.containData.forEach(e => {
-          this.getIdLength = e.ID;
+          e.ImageBannerSrc = this.getImageBannerSrc;
           this.listProject.unshift(e);
         });
       }
@@ -100,30 +202,15 @@ export class ProjectControllComponent implements OnInit {
   dataImage;
   selectedFile: File = null;
   CreateProject(data) {
-    const formData = new FormData();
-    formData.append('CategoryID', data.CategoryID);
-    formData.append('SellerID', data.SellerID);
-    formData.append('ProjectName', data.ProjectName);
-    formData.append('Title', data.Title);
-    formData.append('Description', data.Description);
-    formData.append('Location', data.Location);
-    formData.append('Country', data.Country);
-    formData.append('City', data.City);
-    formData.append('District', data.District);
-    formData.append('Are', data.Are);
-    formData.append('Price', data.Price);
-    formData.append('Sqft', data.Sqft);
-    formData.append('ImageFile', this.dataImage);
-    formData.append('ImageLibID', data.ImageLibID);
-    formData.append('ImageBannerName', data.ImageBannerName);
-    formData.append('ImageBannerSrc', data.ImageBannerSrc);
-    formData.append('LevelActive', data.LevelActive);
-
-    this._ProjectService.CreateProj(formData)
+    
+    console.log(data);
+    
+    this._ProjectService.CreateProj(data)
       .subscribe(res => {
         data.ID = this.getIdLength++;
         this.listProject.unshift(data);
-        this.resetImageArray()
+        this.resetImageArray();
+        this.Alert_successFunction("Created done");
       });
   }
   resetImageArray() { // because update in array
@@ -153,7 +240,10 @@ export class ProjectControllComponent implements OnInit {
   };
 
   // Function Edit Project
+  upgrade = false;
   UpdateProject(data) {
+    this.upgrade = true;
+    
     const formData = new FormData();
     formData.append('ID', data.ID);
     formData.append('CategoryID', data.CategoryID);
@@ -176,7 +266,7 @@ export class ProjectControllComponent implements OnInit {
     this._ProjectService.UpdateProj(data.ID, formData).subscribe(
       val => {
         this.Alert_successFunction("Update Success");
-        this.findIndexEdit(data)
+        this.EditById(data)
       },
       error => {
         this.Alert_dangerFunction("Error Update")
@@ -184,15 +274,20 @@ export class ProjectControllComponent implements OnInit {
     );
   }
 
-  findIndexEdit(val) {
+  EditById(val) {
+    console.log(val);
+    
     let i = -1;
     this.listProject.forEach(element => {
       i++;      
+      
       if (element.ID == val.ID) {
+        val.ImageBannerSrc = '';
+        val.ImageBannerName = this.box_iconDeleleteAvatar;
         this.listProject.splice(i, 1, val);
-        this.resetImageArray();
-        return i;
+        // this.resetImageArray();
       }
+      console.log(i);
     });
   }
 
@@ -270,6 +365,8 @@ export class ProjectControllComponent implements OnInit {
   get ProjectName() { return this.formValidator.get('ProjectName') }
 
   GetDataEditorAdd(val) {
+    console.log(val);
+    
     this.box_iconDeleleteAvatar = val.ImageBannerSrc + '/' + val.ImageBannerName;
     this.formValidator.controls.ProjectName.patchValue(val.ProjectName);
     this.formValidator.controls.Are.patchValue(val.Are);

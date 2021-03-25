@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { AuthenticationService } from '../../../@core/mock/Authentication.Service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
@@ -10,52 +10,35 @@ import { UserService } from '../../../@core/mock/Customer/user.service';
   styleUrls: ['./user-register.component.css']
 })
 export class UserRegisterComponent implements OnInit {
-  create = true;
   createForm: FormGroup;
-
+  @Output() dataUser = new EventEmitter<any>();
+  isDisabled = true;
+  checkInputForm = 0;
+  @Input() error;
+  alertSuccess
+  errortextPass;
+  errortextEmail;
+  errortextFullName;
+  
   constructor(
     private userService: UserService,
     private formBuilder: FormBuilder,
     private route: ActivatedRoute,
     private router: Router,
     private authenticationService: AuthenticationService
-    ) { }
+  ) { }
 
 
   ngOnInit(): void {
     // createForm
     this.createForm = this.formBuilder.group({
-      name: ['', Validators.required],
-      email: ['', Validators.required],
-      password: ['', Validators.required],
+      fullName: [''],
+      email: [''],
+      password: [''],
     })
-
-    this.checkEmailUnique();
   }
-
-  listDataEmail = [];
-  checkEmailUnique() {
-    this.userService.getAllEmailUser().subscribe(
-      data => {
-        for (const key in data) {
-          if (Object.prototype.hasOwnProperty.call(data, key)) {
-            const element = data[key];
-            this.listDataEmail.push(element)
-          }
-        }
-        console.log(this.listDataEmail);
-
-      }
-    )
-  }
+  get pass() { return this.createForm.get('password') }
   onsubmit(val) {
-    console.log(val);
-    this.register(val);
-  }
-  error;
-  alertSuccess
-  register(val) {
-
     let data = {
       "name": val.name,
       "email": val.email,
@@ -67,74 +50,86 @@ export class UserRegisterComponent implements OnInit {
       "active": 0,
       "productID": 0,
       "ppID": 0,
-      "user_type": "admin"
+      "user_type": "user"
     }
-
-    // if (this.listDataEmail.length > 0) {
-    //   for (let i = 0; i < this.listDataEmail.length; i++) {
-    //     console.log(this.listDataEmail[i]);
-
-    //     if (val.email == this.listDataEmail[i].Email) {
-    //       this.errorEmailUnique = "Email has been used";
-    //       console.log(this.errorEmailUnique);
-    //       break;
-    //     }
-
-    //     else if (i == this.listDataEmail.length - 1) {
-    //       if (val.email == this.listDataEmail[i].Email) {
-    //         this.errorEmailUnique = "Email has been used";
-    //         console.log(this.errorEmailUnique);
-    //         break;
-    //       }
-    //       else {
-    //         this.userService.register(data).subscribe(
-    //           data => {
-    //             this.listDataEmail.push(data)
-    //             console.log(data);
-    //             console.log("OK crate");
-    //           },
-
-    //           err => {
-    //             this.errorEmailUnique = "Email has been used";
-    //             console.log('HTTP Error', err)
-    //           }
-
-    //         )
-    //       }
-
-    //     }
-    //   }
-    // }
-
-    // else if (this.listDataEmail.length == 0) {      
-      this.userService.register(data).subscribe(
-        data => {
-          this.error = '';
-          this.alertSuccess = '';
-        },
-
-        err => {
-          this.error = err.error.Errors;
-          console.log('HTTP Error', err.error.Errors)
-        }
-
-      )
-    // }    
+    this.dataUser.emit(data);
+    // this.register(val);
   }
 
 
 
-  // validator form
-  errorpassregex=false;
-  validatorPass(val) {
-    var strongRegex = new RegExp("^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])");
 
-    if (!strongRegex.test(val)) {
-      this.errorpassregex = true;
+
+  // validator form alert
+  errorpassregex = false;
+  validator(type) {
+    switch (type) {
+
+      case 'fullName': {
+        let strongRegex = new RegExp("^[0-9]*$");
+        let val = this.createForm.get('fullName').value;
+        if (val != '') {
+          if (strongRegex.test(val)) {
+            this.errortextFullName = 'Full name cannot contain special characters and numbers';
+            break;
+          }
+          else {
+            ++this.checkInputForm;
+          }
+          this.errortextFullName = '';
+        }
+        else {
+          this.errortextFullName = 'Enter your full name!';
+        };
+      } break;
+
+      case 'email': {
+        let strongRegex = new RegExp("^[a-z][a-z0-9_\.]{5,32}@[a-z0-9]{2,}(\.[a-z0-9]{2,4}){1,2}$");
+        let val = this.createForm.get('email').value;
+        if (val != '') {
+          if (!strongRegex.test(val)) {
+            ++this.checkInputForm;
+          }
+          else {
+          }
+          this.errortextEmail = '';
+        }
+        else {
+          this.errortextEmail = 'Enter your email!';
+        };
+      } break;
+
+      case 'pass': {
+        let strongRegex = new RegExp("^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*]).{8,}");
+        let val = this.createForm.get('password').value;
+        if (val != '') {
+          if (!strongRegex.test(val)) {
+            this.errorpassregex = true;// Error like error in EF fw
+            ++this.checkInputForm;          }
+          else {
+            this.errorpassregex = false;// Error like error in EF fw
+          }
+          this.errortextPass = '';
+        }
+        else {
+          this.errortextPass = 'Enter your password!';
+        };
+
+      } break;
+      default: console.log('Default'); break;
+
+    }
+  }
+  DisabledFunciton() { // button False
+    if(this.checkInputForm != 3) {
+      return this.isDisabled = true;
     }
     else {
-      this.errorpassregex = false;
-
+      return this.isDisabled = false;
     }
   }
+
+
 }
+
+

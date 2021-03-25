@@ -20,19 +20,17 @@ Register -->
                         <a class="nav-link" id="regular-user-tab" data-toggle="tab" href="#regular-user" role="tab"
                             aria-controls="regular-user" aria-selected="true">Agent</a>
                     </li>
-
                 </ul>
                 <div class="tab-content" id="myTabContent">
-               
                     <div class="tab-pane fade show active" id="create-user" role="tabpanel" aria-labelledby="create-user">
-                        <app-user-register></app-user-register>
+                        <app-user-register (dataUser)="onsubmit($event)" [error] = "error"></app-user-register>
                     </div>
                     <div class="tab-pane fade show" id="agent" role="tabpanel" aria-labelledby="agent-tab">
-                        <app-seller-register></app-seller-register>
+                        <!-- <app-seller-register (dataForm)="onsubmit($event)" [error] = "error"></app-seller-register> -->
                     </div>
                     <div class="tab-pane fade" id="regular-user" role="tabpanel" aria-labelledby="regular-user-tab">
-                        <app-augent-register></app-augent-register>
-                        <div class="login-social-media border pl-4 pr-4 pb-4 pt-0 rounded">
+                        <!-- <app-augent-register (dataForm)="onsubmit($event)" [error] = "error"></app-augent-register> -->
+                        <!-- <div class="login-social-media border pl-4 pr-4 pb-4 pt-0 rounded">
                             <div class="mb-4 d-block text-center"><b class="bg-white pl-2 pr-2 mt-3 d-block">Login or
                                     Sign in with</b></div>
                             <form class="row">
@@ -53,7 +51,7 @@ Register -->
                                                 class="fab fa-linkedin-in"></i>Login with Linkedin</span></a>
                                 </div>
                             </form>
-                        </div>
+                        </div> -->
                     </div>
                 </div>
             </div>

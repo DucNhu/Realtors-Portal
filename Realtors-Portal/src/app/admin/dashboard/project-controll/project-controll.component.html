@@ -91,8 +91,8 @@
                                     <button class="dropdown-item view" type="button">
                                         <i class="far fa-eye"></i>
                                     </button>
-                                    <button class="dropdown-item detail" type="button" data-toggle="modal" data-target="#modal-form-AddEdit"
-                                        (click)="GetDataCheckisAddorEdit(false,p)">
+                                    <button class="dropdown-item detail" type="button" data-toggle="modal"
+                                        data-target="#modal-form-AddEdit" (click)="GetDataCheckisAddorEdit(false,p)">
                                         <i class="far fa-lg fa-fw me-2 fa-edit"></i>
                                     </button>
                                     <button class="dropdown-item delete" type="button" (click)="DeleteEmPloyee(p.ID)">
@@ -147,8 +147,8 @@
                                             <div class="mb-4">
                                                 <label for="Category">Category</label>
                                                 <!-- <input type="number" name="CategoryID" formControlName="CategoryID" id="Category"> -->
-                                                <select class="form-select form-control"
-                                                    formControlName="CategoryID" name="CategoryID">
+                                                <select class="form-select form-control" formControlName="CategoryID"
+                                                    name="CategoryID">
                                                     <option *ngFor="let category of listCategies" [value]="category.id">
                                                         {{category.Title}}
                                                     </option>
@@ -176,15 +176,15 @@
                                             <!-- ImageBannerName  -->
                                             <div class="mb-4 d-none">
                                                 <label for="ImageBannerName">ImageBannerName</label>
-                                                <input type="text" class="form-control" name="ImageBannerName" value="ImageBannerName"
-                                                    formControlName="ImageBannerName"
+                                                <input type="text" class="form-control" name="ImageBannerName"
+                                                    value="ImageBannerName" formControlName="ImageBannerName"
                                                     (blur)="checkValidForm('ImageBannerName')">
                                             </div>
                                             <!-- ImageBannerSrc  -->
                                             <div class="mb-4 d-none">
                                                 <label for="ImageBannerSrc">ImageBannerSrc</label>
-                                                <input type="text" class="form-control" name="ImageBannerSrc" value="https://localhost:44338/"
-                                                    formControlName="ImageBannerSrc"
+                                                <input type="text" class="form-control" name="ImageBannerSrc"
+                                                    value="https://localhost:44338/" formControlName="ImageBannerSrc"
                                                     (blur)="checkValidForm('ImageBannerSrc')">
                                             </div>
                                             <!-- LevelActive  -->
@@ -192,7 +192,8 @@
                                                 <label for="LevelActive">LevelActive</label>
                                                 <select class="form-select form-control" name="LevelActive"
                                                     formControlName="LevelActive">
-                                                    <option *ngFor="let lvl of listLevelActive" [value]="lvl.lvl" [selected]="lvl.lvl == formValidator.controls.LevelActive.value" >
+                                                    <option *ngFor="let lvl of listLevelActive" [value]="lvl.lvl"
+                                                        [selected]="lvl.lvl == formValidator.controls.LevelActive.value">
                                                         {{lvl.Title}}
                                                     </option>
                                                 </select>
@@ -219,7 +220,7 @@
                                                     <img [src]="box_iconDeleleteAvatar" [alt]="box_iconDeleleteAvatar"
                                                         class="img-fluid">
                                                 </div>
-                                           
+
                                             </div>
                                             <!-- Title -->
                                             <div class="mb-4">
@@ -241,35 +242,53 @@
                                                     <span class="form-file-text">Location</span>
                                                 </label>
 
-                                                <input type="text" class="form-control" name="Location"
-                                                    formControlName="Location">
+                                                <select class="form-select form-control" formControlName="Location">
+                                                    <option *ngFor="let Location of listLocation" [value]="Location.Title">
+                                                        {{Location.Title}}
+                                                    </option>
+                                                </select>
                                             </div>
                                             <!-- Country -->
                                             <div class="mb-4">
                                                 <label for="Country">Country</label>
-                                                <input type="text" class="form-control" name="Country"
-                                                    formControlName="Country" (blur)="checkValidForm('Country')">
+                                                <select class="form-select form-control" formControlName="Country">
+                                                    <option *ngFor="let Country of listCountry" [value]="Country.Title">
+                                                        {{Country.Title}}
+                                                    </option>
+                                                </select>
                                             </div>
                                             <!-- City  -->
                                             <div class="mb-4">
                                                 <label for="City">City</label>
-                                                <input type="text" class="form-control" name="City"
-                                                    formControlName="City" (blur)="checkValidForm('City')">
+
+                                                <select class="form-select form-control" formControlName="City">
+                                                    <option *ngFor="let City of listCity" [value]="City.Title">
+                                                        {{City.Title}}
+                                                    </option>
+                                                </select>
                                             </div>
                                             <!-- District  -->
                                             <div class="mb-4">
                                                 <label for="District">District</label>
-                                                <input type="text" class="form-control" name="District"
-                                                    formControlName="District" (blur)="checkValidForm('District')">
+
+                                                <select class="form-select form-control" formControlName="District">
+                                                    <option *ngFor="let District of listDistrict" [value]="District.Title">
+                                                        {{District.Title}}
+                                                    </option>
+                                                </select>
                                             </div>
                                             <!-- Are  -->
                                             <div class="mb-4">
                                                 <label for="Are">Are</label>
-                                                <input type="text" class="form-control" name="Are" formControlName="Are"
-                                                    (blur)="checkValidForm('Are')">
+
+                                                <select class="form-select form-control" formControlName="Are">
+                                                    <option *ngFor="let Are of listAre" [value]="Are.Title">
+                                                        {{Are.Title}}
+                                                    </option>
+                                                </select>
                                             </div>
                                         </div>
-
+                                        <!-- END Adress -->
                                         <div class="col-12">
                                             <button type="submit"
                                                 class="btn btn-success btn-outline-success d-block mx-auto"

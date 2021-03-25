@@ -29,24 +29,19 @@ namespace Realtors_Portal.Models
         public string Description { get; set; }
 
         //[Required]
-        [MaxLength(100)]
-        public string Location { get; set; }
+        public int Location { get; set; }
 
         //[Required]
-        [MaxLength(100)]
-        public string Country { get; set; }
+        public int Country { get; set; }
         
         //[Required]
-        [MaxLength(100)]
-        public string City { get; set; }
+        public int City { get; set; }
 
         //[Required]
-        [MaxLength(100)]
-        public string District { get; set; }
+        public int District { get; set; }
 
         //[Required]
-        [MaxLength(100)]
-        public string Are { get; set; }
+        public int Are { get; set; }
 
         //[Required]
         public int Price { get; set; }
@@ -60,14 +55,7 @@ namespace Realtors_Portal.Models
         [NotMapped]
         public IFormFile ImageFile { get; set; }
 
-        //[Required]
-        [MaxLength(100)]
         public string ImageBannerName { get; set; }
-
-        //[Required]
-        [NotMapped]
-        public string ImageBannerSrc { get; set; }
-
         //[Required]
         public int LevelActive { get; set; }
 

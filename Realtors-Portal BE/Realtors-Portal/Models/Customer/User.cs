@@ -21,7 +21,6 @@ namespace Realtors_Portal.Models.Customer
 
         [Required(ErrorMessage = "chung minh thu is required")]
         [MaxLength(12)]
-
         public string IndentificationNumber { get; set; }
 
         public string Address { get; set; }
@@ -33,7 +32,6 @@ namespace Realtors_Portal.Models.Customer
         [Required(ErrorMessage = "email is required")]
 
         
-
         public string Avatar { get; set; }
 
         [Required(ErrorMessage = "Active is required")]
