@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { AuthenticationService } from '../../../@core/mock/Authentication.Service';
 import { Router } from '@angular/router';
 @Component({
@@ -21,4 +21,10 @@ export class HeaderComponent implements OnInit {
     this.router.navigate(['/login']);
   }
 
+  @Output() showOrHidden = new EventEmitter<boolean>();
+  isShow = true;
+  showorHiddenNav() {
+    this.showOrHidden.emit(!this.isShow);    
+    this.isShow = !this.isShow;
+  }
 }

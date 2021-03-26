@@ -3,7 +3,6 @@ import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 import { AngularFileUploaderModule } from "angular-file-uploader";
 
-
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './@theme/login/login.component';
@@ -23,13 +22,13 @@ import { SellerRegisterComponent } from './@theme/register/seller-register/selle
     UserRegisterComponent,
     AugentRegisterComponent,
     SellerRegisterComponent,
-  ],
+  ], 
   imports: [
     BrowserModule, HttpClientModule,
     AppRoutingModule,
     FormsModule,
     ReactiveFormsModule,
-    AngularFileUploaderModule
+    AngularFileUploaderModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

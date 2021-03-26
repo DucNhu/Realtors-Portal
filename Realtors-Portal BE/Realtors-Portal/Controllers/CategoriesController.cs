@@ -13,48 +13,48 @@ namespace Realtors_Portal.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class projectsController : ControllerBase
+    public class CategoriesController : ControllerBase
     {
         private readonly Realtors_PortalContext _context;
         private readonly IWebHostEnvironment _hostEnvironment;
-        public projectsController(Realtors_PortalContext context, IWebHostEnvironment hostEnvironment)
+        public CategoriesController(Realtors_PortalContext context, IWebHostEnvironment hostEnvironment)
         {
             _context = context;
             this._hostEnvironment = hostEnvironment;
         }
 
-        // GET: api/projects
+        // GET: api/Categories
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<home>>> Getproject()
+        public async Task<ActionResult<IEnumerable<Category>>> GetCategory()
         {
-            return await _context.project.ToListAsync();
+            return await _context.Category.ToListAsync();
         }
 
-        // GET: api/projects/5
+        // GET: api/Categories/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<home>> Getproject(int id)
+        public async Task<ActionResult<Category>> GetCategory(int id)
         {
-            var project = await _context.project.FindAsync(id);
+            var category = await _context.Category.FindAsync(id);
 
-            if (project == null)
+            if (category == null)
             {
                 return NotFound();
             }
 
-            return project;
+            return category;
         }
 
-        // PUT: api/projects/5
+        // PUT: api/Categories/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> Putproject(int id,home project)
+        public async Task<IActionResult> PutCategory(int id, Category category)
         {
-            if (id != project.ID)
+            if (id != category.CategoryID)
             {
                 return BadRequest();
             }
 
-            _context.Entry(project).State = EntityState.Modified;
+            _context.Entry(category).State = EntityState.Modified;
 
             try
             {
@@ -62,7 +62,7 @@ namespace Realtors_Portal.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!projectExists(id))
+                if (!CategoryExists(id))
                 {
                     return NotFound();
                 }
@@ -75,36 +75,36 @@ namespace Realtors_Portal.Controllers
             return NoContent();
         }
 
-        // POST: api/projects
+        // POST: api/Categories
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<home>> Postproject(home project)
+        public async Task<ActionResult<Category>> PostCategory(Category category)
         {
-            project.ImageBannerName = project.ImageBannerName;
-            _context.project.Add(project);
+            _context.Category.Add(category);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("Getproject", new { id = project.ID }, project);
+            return CreatedAtAction("GetCategory", new { id = category.CategoryID }, category);
         }
 
-        // DELETE: api/projects/5
+        // DELETE: api/Categories/5
         [HttpDelete("{id}")]
-        public async Task<IActionResult> Deleteproject(int id)
+        public async Task<IActionResult> DeleteCategory(int id)
         {
-            var project = await _context.project.FindAsync(id);
-            if (project == null)
+            var category = await _context.Category.FindAsync(id);
+            if (category == null)
             {
                 return NotFound();
             }
-            _context.project.Remove(project);
+
+            _context.Category.Remove(category);
             await _context.SaveChangesAsync();
 
             return NoContent();
         }
 
-        private bool projectExists(int id)
+        private bool CategoryExists(int id)
         {
-            return _context.project.Any(e => e.ID == id);
+            return _context.Category.Any(e => e.CategoryID == id);
         }
 
         //SaveFile Image

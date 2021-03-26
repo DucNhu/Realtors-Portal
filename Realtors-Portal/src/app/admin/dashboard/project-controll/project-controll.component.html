@@ -1,4 +1,4 @@
-<div id="content" class="app-content">
+
     <div class="d-flex align-items-center mb-3">
         <div>
             <ul class="breadcrumb">
@@ -96,7 +96,7 @@
                                         <i class="far fa-lg fa-fw me-2 fa-edit"></i>
                                     </button>
                                     <button class="dropdown-item delete" type="button" (click)="DeleteEmPloyee(p.ID)">
-                                        <i class="far fa-trash-alt"></i>
+                                        <i class="far fa-lg fa-fw  fa-trash-alt"></i>
                                     </button>
                                 </div>
                             </div>
@@ -106,7 +106,7 @@
             </tbody>
         </table>
     </div>
-</div>
+
 
 
 <!-- Form Add / Edit -->
@@ -149,8 +149,8 @@
                                                 <!-- <input type="number" name="CategoryID" formControlName="CategoryID" id="Category"> -->
                                                 <select class="form-select form-control" formControlName="CategoryID"
                                                     name="CategoryID">
-                                                    <option *ngFor="let category of listCategies" [value]="category.id">
-                                                        {{category.Title}}
+                                                    <option *ngFor="let category of listCategies" [value]="category.CategoryID">
+                                                        {{category.CategoryName}}
                                                     </option>
                                                 </select>
                                             </div>

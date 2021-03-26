@@ -1,10 +1,24 @@
-﻿namespace Realtors_Portal.Models
+﻿using Microsoft.AspNetCore.Http;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+
+namespace Realtors_Portal.Models
 {
     public class Category
     {
-        public int CategoryID { get; set; }
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+          public int CategoryID { get; set; }
+        [MaxLength(100)]
         public string CategoryName { get; set; }
-        public string CategoryDescription { get; set; }
+        [MaxLength(100)]
+        public string CategoryTitle { get; set; }
+        [MaxLength(100)]
         public string Avatar { get; set; }
+
+        public int active { get; set; }
+
+        [NotMapped]
+        public IFormFile ImageFile { get; set; }
     }
 }

@@ -11,11 +11,27 @@ export class AdminComponent implements OnInit {
 
   ) {
   }
-
+  settings = {
+    columns: {
+      id: {
+        title: 'ID'
+      },
+      name: {
+        title: 'Full Name'
+      },
+      username: {
+        title: 'User Name'
+      },
+      email: {
+        title: 'Email'
+      }
+    }
+  };
   ngOnInit(): void {
   }
-  // get isAdmin() {
-  //   return this.currentUser && this.currentUser.role === Role.Admin;
-  // }
+  isShow:boolean;
+  showOrHiddeninParrent(e) {
+    this.isShow = e;
+  }
 
 }

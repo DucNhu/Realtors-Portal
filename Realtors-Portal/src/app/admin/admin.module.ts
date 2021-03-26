@@ -9,15 +9,16 @@ import { AngularFileUploaderModule } from "angular-file-uploader";
 import { NavigationComponent } from './component/navigation/navigation.component';
 import { ProjectControllComponent } from './dashboard/project-controll/project-controll.component';
 import { HeaderComponent } from './component/header/header.component';
+import { CategoryControlComponent } from './dashboard/category-control/category-control.component';
 @NgModule({
-  declarations: [AdminComponent, NavigationComponent, ProjectControllComponent, HeaderComponent],
+  declarations: [AdminComponent, NavigationComponent, ProjectControllComponent, HeaderComponent, CategoryControlComponent],
   imports: [
     CommonModule,
     AdminRoutingModule,
     FormsModule, ReactiveFormsModule,
-    AngularFileUploaderModule
+    AngularFileUploaderModule    
   ]
 })
-export class AdminModule { 
+export class AdminModule {
 
 }

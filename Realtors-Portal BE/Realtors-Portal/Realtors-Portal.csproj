@@ -25,7 +25,7 @@
 
   <ItemGroup>
     <Folder Include="Abstract\" />
-    <Folder Include="Images\" />
+    <Folder Include="Images\Categories\" />
   </ItemGroup>
 
 </Project>

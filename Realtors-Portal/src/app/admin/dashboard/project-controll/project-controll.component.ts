@@ -4,29 +4,15 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { NgForm } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../@core/models/Environment';
+import { CategoryService } from 'src/app/@core/mock/category.service';
 @Component({
   selector: 'app-project-controll',
   templateUrl: './project-controll.component.html',
-  styleUrls: ['./project-controll.component.css', '../../admin.component.css']
+  styleUrls: ['../../admin.component.css', './project-controll.component.css']
 })
 export class ProjectControllComponent implements OnInit {
   // Khai bao bien
-  html: '';
-
-  listCategies = [
-    {
-      id: 1,
-      Title: "Biệt Thự"
-    },
-    {
-      id: 2,
-      Title: "Chung cư"
-    },
-    {
-      id: 3,
-      Title: "Khách sạn"
-    }
-  ];
+  listCategies;
   listLevelActive = [
     {
       lvl: 0,
@@ -165,11 +151,13 @@ export class ProjectControllComponent implements OnInit {
     LevelActive: undefined,
     Title: ""
   };
+  DefaultandNewAvatar = "http://adevaes.com/wp-content/uploads/2016/11/26102015122159AMaboutus-default-banner.jpg"; // default  banner img
 
   idLength;
   // END khai bao bien
   constructor(
     private FormBuilder: FormBuilder,
+    private _CategoryService: CategoryService,
     private _ProjectService: ProjectService,
     private http: HttpClient
   ) { }
@@ -198,7 +186,10 @@ export class ProjectControllComponent implements OnInit {
           this.listProject.unshift(e);
         });
       }
-    )
+    );
+
+    //  Call function get all category
+    this.getAllCategory();
   }
 
   // function CreateProject:
@@ -227,8 +218,6 @@ export class ProjectControllComponent implements OnInit {
     this.DefaultandNewAvatar = '';
   }
   // Function update Image
-  DefaultandNewAvatar = "http://adevaes.com/wp-content/uploads/2016/11/26102015122159AMaboutus-default-banner.jpg"; // default  banner img
-
   // Update Image when select change
   myInfor;
   onSelectFile(e) {
@@ -321,13 +310,11 @@ export class ProjectControllComponent implements OnInit {
   // GetDataCheckisAddorEdit: true ? add : edit
   GetDataCheckisAddorEdit(bl, val) {
     if (bl) {
-      // this.GetDataEditorAdd(val);
+      this.DefaultandNewAvatar = "http://adevaes.com/wp-content/uploads/2016/11/26102015122159AMaboutus-default-banner.jpg";
       return this.isAddProjectForm = true;
     }
     else {
-      console.log(val);
-
-      this.GetDataEditorAdd(val);
+      this.SetDataForEditorForm(val);
       return this.isAddProjectForm = false;
     }
   }
@@ -363,10 +350,8 @@ export class ProjectControllComponent implements OnInit {
   }
   get ProjectName() { return this.formValidator.get('ProjectName') }
 
-  GetDataEditorAdd(val) {
-    console.log(val);
-
-    this.DefaultandNewAvatar = this.DefaultandNewAvatar;
+  SetDataForEditorForm(val) {
+    this.DefaultandNewAvatar = environment.Imageurl + val.ImageBannerName;
     this.formValidator.controls.ProjectName.patchValue(val.ProjectName);
     this.formValidator.controls.Are.patchValue(val.Are);
     this.formValidator.controls.CategoryID.patchValue(val.CategoryID);
@@ -389,7 +374,6 @@ export class ProjectControllComponent implements OnInit {
 
     this.formValidator.controls.ImageLibID.patchValue(val.ImageLibID);
     this.formValidator.controls.ImageBannerName.patchValue(val.ImageBannerName);
-    // this.formValidator.controls.ImageBannerSrc.patchValue(val.ImageBannerSrc);
   }
 
 
@@ -448,12 +432,14 @@ export class ProjectControllComponent implements OnInit {
   // END checkValidForm
 
 
-  // handFileInput
-  // imageBannertoUpload: File = null;
-  // handFileInput(file: FileList) {
-  //   this.imageBannertoUpload = file.item(0)    
-  // }
-  // END handFileInput
+  // Funciton get all value in category in service
+  getAllCategory() {
+    this._CategoryService.getAllCategory().subscribe(data => {
+      this.listCategies = data;
+      console.log(this.listCategies);
+      
+    })
+  }
 }
 
 // Mục Lục
@@ -462,8 +448,10 @@ export class ProjectControllComponent implements OnInit {
  * Khai bao bien
  * CRUD
  * Form Validator
- * Set value edit form (GetDataEditorAdd)
+ * Set value edit form (SetDataForEditorForm)
  * Alert Success, errorr...
  * checkValidForm
  * handFileInput
+ * 
+ * getAllCategory
  */

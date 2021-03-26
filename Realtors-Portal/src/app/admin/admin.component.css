@@ -1,5 +1,8 @@
 /*
-bs4
+    bs4
+    navigation
+    form__add-edit
+
     Frame + imge
     Table
     Box Active
@@ -15,11 +18,31 @@ bs4
     box-shadow: 0px 0px 5px rgb(80 132 234 / 34%);
     border-color: transparent
 }
+
 /* ======= BS4 ======= */
+
+/* Navigation */
+.hiddenNav {
+    transform: translateX(-100%);
+}
+
+.transition1s {
+    transition: .5s;
+}
+/* END navigation */
+
+/*  form__add-edit */
+.angular-form__add-edit.col-6 {
+    transform: translate(-50%);
+    left: 50%
+}
+
+/*  END form__add-edit */
 /* Frame + imge */
 .angular-property-image {
     position: relative;
-    padding-bottom: 100%
+    padding-bottom: 62.5%;
+    overflow: hidden;
 }
 
 .angular-property-image .img-fluid {
@@ -64,6 +87,9 @@ bs4
 /*  Action */
 .box-action button {
     padding: 0.55rem 1.5rem;
+    background-color: #b5b5c329;
+    border-radius: 10px;
+    margin: 5px;
 }
 
 .box-action button.view {
