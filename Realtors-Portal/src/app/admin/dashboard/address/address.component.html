@@ -1,0 +1,71 @@
+<div class="d-flex align-items-center mb-3">
+    <div>
+        <ul class="breadcrumb">
+            <li class="breadcrumb-item"><a href="#">PAGES</a></li>
+            <li class="breadcrumb-item active">Address</li>
+        </ul>
+        <h1 class="page-header mb-0">Adress</h1>
+
+    </div>
+    <div class="ml-auto">
+    </div>
+</div>
+
+<section class="space-ptb login">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-8 col-sm-10">
+                <ul class="nav nav-tabs nav-tabs-02 justify-content-center" id="myTab" role="tablist">
+                    <li class="nav-item mx-1">
+                        <a class="nav-link " id="regular-user-tab" data-toggle="tab" href="#create-user" role="tab"
+                            aria-controls="regular-user" aria-selected="true">location</a>
+                    </li>
+                    <li class="nav-item mx-1">
+                        <a class="nav-link" id="agent-tab" data-toggle="tab" href="#agent" role="tab"
+                            aria-controls="agent" aria-selected="false">country</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="regular-user-tab" data-toggle="tab" href="#regular-user" role="tab"
+                            aria-controls="regular-user" aria-selected="true">city</a>
+                    </li>
+                </ul>
+                <div class="tab-content" id="myTabContent">
+                    <div class="tab-pane fade show active" id="create-user" role="tabpanel"
+                        aria-labelledby="create-user">
+                        <app-location-controll></app-location-controll>
+                    </div>
+                    <div class="tab-pane fade show" id="agent" role="tabpanel" aria-labelledby="agent-tab">
+                        <app-country-controll></app-country-controll>
+                    </div>
+                    <div class="tab-pane fade" id="regular-user" role="tabpanel" aria-labelledby="regular-user-tab">
+                        <app-city-controll></app-city-controll>
+                        <!-- <div class="login-social-media border pl-4 pr-4 pb-4 pt-0 rounded">
+                            <div class="mb-4 d-block text-center"><b class="bg-white pl-2 pr-2 mt-3 d-block">Login or
+                                    Sign in with</b></div>
+                            <form class="row">
+                                <div class="col-sm-6">
+                                    <a class="btn facebook-bg social-bg-hover d-block mb-3" href="#"><span><i
+                                                class="fab fa-facebook-f"></i>Login with Facebook</span></a>
+                                </div>
+                                <div class="col-sm-6">
+                                    <a class="btn twitter-bg social-bg-hover d-block mb-3" href="#"><span><i
+                                                class="fab fa-twitter"></i>Login with Twitter</span></a>
+                                </div>
+                                <div class="col-sm-6">
+                                    <a class="btn google-bg social-bg-hover d-block mb-3 mb-sm-0" href="#"><span><i
+                                                class="fab fa-google"></i>Login with Google</span></a>
+                                </div>
+                                <div class="col-sm-6">
+                                    <a class="btn linkedin-bg social-bg-hover d-block" href="#"><span><i
+                                                class="fab fa-linkedin-in"></i>Login with Linkedin</span></a>
+                                </div>
+                            </form>
+                        </div> -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!--=================================
+Register -->

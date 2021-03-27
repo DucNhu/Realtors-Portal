@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Realtors_Portal.Models.Customer;
 using Realtors_Portal.Models;
+using Realtors_Portal.Models.Address;
 
 namespace Realtors_Portal.Data
 {
@@ -71,5 +72,55 @@ namespace Realtors_Portal.Data
         //public DbSet<Realtors_Portal.Models.Customer.User> User { get; set; }
 
         public DbSet<Realtors_Portal.Models.Category> Category { get; set; }
+    
+
+
+        //public DbSet<Realtors_Portal.Models.Agent> Agent { get; set; }
+
+        //public DbSet<Realtors_Portal.Models.Seller> Seller { get; set; }
+
+        //public DbSet<Realtors_Portal.Models.Customer.User> User { get; set; }
+
+        public DbSet<Realtors_Portal.Models.Address.Location> Location { get; set; }
+    
+
+
+        //public DbSet<Realtors_Portal.Models.Agent> Agent { get; set; }
+
+        //public DbSet<Realtors_Portal.Models.Seller> Seller { get; set; }
+
+        //public DbSet<Realtors_Portal.Models.Customer.User> User { get; set; }
+
+        public DbSet<Realtors_Portal.Models.Address.Country> Country { get; set; }
+    
+
+
+        //public DbSet<Realtors_Portal.Models.Agent> Agent { get; set; }
+
+        //public DbSet<Realtors_Portal.Models.Seller> Seller { get; set; }
+
+        //public DbSet<Realtors_Portal.Models.Customer.User> User { get; set; }
+
+        public DbSet<Realtors_Portal.Models.Address.City> City { get; set; }
+    
+
+
+        //public DbSet<Realtors_Portal.Models.Agent> Agent { get; set; }
+
+        //public DbSet<Realtors_Portal.Models.Seller> Seller { get; set; }
+
+        //public DbSet<Realtors_Portal.Models.Customer.User> User { get; set; }
+
+        public DbSet<Realtors_Portal.Models.Address.District> District { get; set; }
+    
+
+
+        //public DbSet<Realtors_Portal.Models.Agent> Agent { get; set; }
+
+        //public DbSet<Realtors_Portal.Models.Seller> Seller { get; set; }
+
+        //public DbSet<Realtors_Portal.Models.Customer.User> User { get; set; }
+
+        public DbSet<Realtors_Portal.Models.Address.Are> Are { get; set; }
     }
 }

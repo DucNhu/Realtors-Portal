@@ -6,6 +6,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Images\undefined.png\**" />
+    <Content Remove="Images\undefined.png\**" />
+    <EmbeddedResource Remove="Images\undefined.png\**" />
+    <None Remove="Images\undefined.png\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="5.0.1" NoWarn="NU1605" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.OpenIdConnect" Version="5.0.1" NoWarn="NU1605" />
     <PackageReference Include="Microsoft.AspNetCore.Identity" Version="2.2.0" />
@@ -25,6 +32,11 @@
 
   <ItemGroup>
     <Folder Include="Abstract\" />
+    <Folder Include="Images\Address\Locations\" />
+    <Folder Include="Images\Address\Districts\" />
+    <Folder Include="Images\Address\Countries\" />
+    <Folder Include="Images\Address\Cities\" />
+    <Folder Include="Images\Address\Ares\" />
     <Folder Include="Images\Categories\" />
   </ItemGroup>
 

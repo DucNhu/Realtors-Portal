@@ -16,7 +16,7 @@ namespace Realtors_Portal.Models
         [MaxLength(100)]
         public string Avatar { get; set; }
 
-        public int active { get; set; }
+        public int Active { get; set; }
 
         [NotMapped]
         public IFormFile ImageFile { get; set; }

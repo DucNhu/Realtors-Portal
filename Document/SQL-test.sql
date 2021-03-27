@@ -1,5 +1,10 @@
 create database realtors01
-drop  table Admin
+use  realtors0001
+create table test(test varchar(1))
+insert into test values ('1')
+
+select * from test
+
 create table agent(AgentID int identity
 ,AgentName varchar(250)
 ,AgentAddress varchar(250)

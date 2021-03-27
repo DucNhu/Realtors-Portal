@@ -117,7 +117,7 @@ namespace Realtors_Portal.Controllers
                 var httpRequest = Request.Form;
                 var postedFile = httpRequest.Files[0];
                 string filename = postedFile.FileName;
-                var physicalPath = _hostEnvironment.ContentRootPath + "/Images/" + filename;
+                var physicalPath = _hostEnvironment.ContentRootPath + "/Images/Categories/" + filename;
                 using (var stream = new FileStream(physicalPath, FileMode.Create))
                 {
                     postedFile.CopyTo(stream);

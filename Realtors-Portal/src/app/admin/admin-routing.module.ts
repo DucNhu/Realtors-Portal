@@ -4,6 +4,7 @@ import { AdminComponent } from './admin.component';
 import { ProjectControllComponent } from './dashboard/project-controll/project-controll.component';
 import { NotfoundComponent } from '../@theme/notfound/notfound.component';
 import { CategoryControlComponent } from './dashboard/category-control/category-control.component';
+import { AddressComponent } from './dashboard/address/address.component';
 const routes: Routes = [
     {
         path: '', component: AdminComponent,
@@ -16,6 +17,9 @@ const routes: Routes = [
             },
             {
                 path: 'category', component: CategoryControlComponent
+            },
+            {
+                path: 'address', component: AddressComponent
             }
         ]
     },
