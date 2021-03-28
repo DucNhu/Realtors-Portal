@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CountryService } from '../../../../@core/mock/Address/Country.service';
+import { LocationService } from '../../../../@core/mock/Address/location.service';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { NgForm } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
@@ -8,30 +9,33 @@ import { environment } from '../../../../@core/models/Environment';
 @Component({
   selector: 'app-country-controll',
   templateUrl: './country-controll.component.html',
-  styleUrls: ['./country-controll.component.css']
+  styleUrls: ['./country-controll.component.css', '../../../admin.component.css']
 })
 export class CountryControllComponent implements OnInit {
   // Khai bao bien
+  listLocation;
   idLength;
-  getImageAvatarSrc = environment.ImageAdressurl + "Countrys/";
+  getImageAvatarSrc = environment.ImageAdressurl + "Countries/";
 
   DataFormCountryEdit = {
     CountryID: 0,
-    Avatar: "Avatar",
+    Avatar: "AvatarDefault.jpg",
     ImageBannerSrc: this.getImageAvatarSrc,
     ImageFile: File,
     CountryName: "",
-    active: 1,
+    Active: 1,
     CountryLetter: "",
   };
   // END khai bao bien
   constructor(
     private FormBuilder: FormBuilder,
     private _CountryService: CountryService,
+    private _LocationService: LocationService,
     private http: HttpClient
   ) { }
 
   ngOnInit(): void {
+    this.getAllLocation();
     this.getAllCountry();
     this.ValidatorForm();
   }
@@ -42,15 +46,16 @@ export class CountryControllComponent implements OnInit {
   getIdLength = 0;
   // Get All project
   getAllCountry() {
-    this._CountryService.getAllCountry().subscribe(
+    this._CountryService.getAllCountryByLocationID().subscribe(
       data => {
         this.containData = data;
-        console.log(this.listCountry);
-
         this.containData.forEach(e => {
           e.ImageBannerSrc = this.getImageAvatarSrc;
+          e.CountryLetter = e.CountryName.substr(0, 1);
           this.listCountry.unshift(e);
         });
+        console.log(this.listCountry);
+
       }
     )
   }
@@ -60,19 +65,31 @@ export class CountryControllComponent implements OnInit {
   selectedFile: File = null;
   CreateCountry(data) {
     data.CountryID = 0;
-    data.active = data.active == true ? 1 : 0;
+    data.Active = data.Active == true ? 1 : 0;
     data.Avatar = this.DataFormCountryEdit.Avatar;
-    this._CountryService.CreateCountry(data)
-      .subscribe(res => {
-        this.upPhoto(); // Insert Image
-        data.CountryID = this.listCountry[length].CountryID += 1;
-        data.ImageBannerSrc = '';
-        data.Avatar = this.DefaultandNewAvatar;
-        this.listCountry.unshift(data);
-        this.resetImageArray();
-        this.Alert_successFunction("Created done");
-      });
+    if (this.upPhoto()) {// Insert Image
+      this._CountryService.CreateCountry(data)
+        .subscribe(res => {
+          let getIDLength = this.listCountry[length].CountryID;
+          data.CountryID = getIDLength += 1;
+          data.ImageBannerSrc = '';
+          data.Avatar = this.DefaultandNewAvatar;
+          this.listLocation.forEach(e => { // loop => set data Location Name for Country.Locationname
+            if (e.LocationID == data.LocationID) {
+              data.LocationName = e.LocationName;
+            }
+          });
+          this.listCountry.unshift(data);
+          this.resetImageArray();
+          this.Alert_successFunction("Created done");
+        });
+    } 
+    else {
+      this.Alert_dangerFunction("Try again, pls")
+    }
+    
   }
+
   resetImageArray() { // because update in array
     this.listCountry[length].ImageBannerSrc = '';
     this.listCountry[length].Avatar = ''; // reset not loop
@@ -80,11 +97,12 @@ export class CountryControllComponent implements OnInit {
     this.DefaultandNewAvatar = '';
   }
   // Function update Image
-  DefaultandNewAvatar = "http://adevaes.com/wp-content/uploads/2016/11/26102015122159AMaboutus-default-banner.jpg"; // default  banner img
+  DefaultandNewAvatar = environment.defaultImage; // default  banner img
 
   // Update Image when select change
-  myInfor;
+  newImage = false;
   onSelectFile(e) {
+    this.newImage = true;
     this.dataImage = e.target.files.item(0);
     console.log(this.dataImage.name);
     let dateNow = new Date();
@@ -100,26 +118,41 @@ export class CountryControllComponent implements OnInit {
   }
   upPhoto() {
     const formData: FormData = new FormData();
+    console.log(this.dataImage);
+    console.log(this.DataFormCountryEdit.Avatar);
 
-    formData.append('ImageFile', this.dataImage, this.DataFormCountryEdit.Avatar);
+    try{
+      formData.append('ImageFile', this.dataImage, this.DataFormCountryEdit.Avatar);
 
-    this._CountryService.UpdateAvatar(formData).subscribe(() => {
-      // console.log(data);
-      // this.myInfor.Avatar = data
-    })
+      this._CountryService.UpdateAvatar(formData).subscribe(() => {
+      })
+    }
+    catch(e) {
+      return false;
+    }
+    return true;
   }
 
   // Function Edit Project
   upgrade = false;
   UpdateCountry(data) {
-    data.active = data.active == true ? 1 : 0;
+    data.Active = data.Active == true ? 1 : 0;
     data.Avatar = this.DataFormCountryEdit.Avatar;
+    data.LocationID = parseInt(data.LocationID);
     console.log(data);
 
     this._CountryService.UpdateCountry(data).subscribe(
       val => {
-        this.upPhoto();
+        if (this.newImage == true) {
+          this.upPhoto();
+          this.newImage = false
+        }
         this.Alert_successFunction("Update Success");
+        this.listLocation.forEach(e => { // loop => set data Location Name for Country.Locationname
+          if (e.LocationID == data.LocationID) {
+            data.LocationName = e.LocationName;
+          }
+        });
         this.EditByIdInArray(data);
       },
       error => {
@@ -175,12 +208,10 @@ export class CountryControllComponent implements OnInit {
   // GetDataCheckisAddorEdit: true ? add : edit
   GetDataCheckisAddorEdit(bl, val) {
     if (bl) {
-      // this.GetDataEditorAdd(val);
+      this.DefaultandNewAvatar = environment.defaultImage;
       return this.isAddCountryForm = true;
     }
     else {
-      console.log(val);
-
       this.GetDataEditorAdd(val);
       return this.isAddCountryForm = false;
     }
@@ -192,30 +223,32 @@ export class CountryControllComponent implements OnInit {
     this.formValidator = this.FormBuilder.group({
       CountryID: [0, [Validators.required]],
       CountryName: ['CountryName', [Validators.required]],
-      active: [false, [Validators.required]],
+      Active: [false, [Validators.required]],
 
-      CountryLetter: ['A', [Validators.required]],
-
-      Avatar: ['Avatar'],
+      CountryLetter: ['a', [Validators.required]],
+      LocationID: ['', [Validators.required]],
     })
   }
   get CountryName() { return this.formValidator.get('CountryName') }
   GetDataEditorAdd(val) {
+    console.log(val);
 
-    this.DefaultandNewAvatar = this.getImageAvatarSrc + val.Avatar;
+    this.DefaultandNewAvatar = (val.Avatar.indexOf(this.getImageAvatarSrc) > -1 ? '' : this.getImageAvatarSrc) + val.Avatar;
+    if (val.Avatar.indexOf("base64") > -1) {
+      this.DefaultandNewAvatar = val.Avatar;
+    }
     this.formValidator.controls.CountryName.patchValue(val.CountryName);
     this.formValidator.controls.CountryID.patchValue(val.CountryID);
 
-    this.formValidator.controls.active.patchValue(val.active == 0 ? false : true);
-    this.formValidator.controls.CountryLetter.patchValue(val.CountryLetter);
-
-    this.formValidator.controls.Avatar.patchValue(val.Avatar);
+    this.formValidator.controls.Active.patchValue(val.Active == 0 ? false : true);
+    this.formValidator.controls.CountryLetter.patchValue(val.CountryName.substr(0, 1));
+    this.formValidator.controls.LocationID.patchValue(val.LocationID);
   }
 
 
   // Alert variable
   alert_Text;
-  alert_success = false; alert_danger = false; alert_warn = false;
+  alert_success = false; alert_danger = false;
   // Function show alert
 
   AlertFunction(success) {
@@ -223,11 +256,6 @@ export class CountryControllComponent implements OnInit {
       setTimeout(() => {
         this.alert_success = !this.alert_success;
       }, 800);
-    }
-    else if (success == 0) {
-      setTimeout(() => {
-        this.alert_warn = !this.alert_warn;
-      }, 1000);
     }
     else {
       setTimeout(() => {
@@ -248,13 +276,7 @@ export class CountryControllComponent implements OnInit {
     // call function set alert_danger = true  
     this.AlertFunction(false);
   }
-  Alert_warnFunction(value) {
-    this.alert_Text = value;
-    this.alert_warn = true;
 
-    // call function set alert_warn = 0
-    this.AlertFunction(0);
-  }
   // END Function show alert
 
 
@@ -264,16 +286,22 @@ export class CountryControllComponent implements OnInit {
       case "Price": console.log(this.formValidator.controls.Price);
 
     }
+
   }
   // END checkValidForm
 
+  // Funciton get all value in category in service
+  getAllLocation() {
+    this._LocationService.getAllLocation().subscribe(data => {
+      this.listLocation = data;
+    })
+  }
+  
+  SetCountryLetterWhenEnterName(value) {
+    this.formValidator.controls.CountryLetter.patchValue(value.substr(0, 1));
+  }
 
-  // handFileInput
-  // imageBannertoUpload: File = null;
-  // handFileInput(file: FileList) {
-  //   this.imageBannertoUpload = file.item(0)    
-  // }
-  // END handFileInput
+
 }
 
 // Mục Lục
@@ -285,5 +313,6 @@ export class CountryControllComponent implements OnInit {
  * Set value edit form (GetDataEditorAdd)
  * Alert Success, errorr...
  * checkValidForm
- * handFileInput
+ * getAllLocation
+ * SetCountryLetterWhenEnterName
  */

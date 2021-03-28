@@ -4,5 +4,7 @@ export const environment = {
     apiUrl: 'https://localhost:44338/api/',
     
     Imageurl: 'https://localhost:44338/images/',
-    ImageAdressurl: 'https://localhost:44338/images/address/'
+    ImageAdressurl: 'https://localhost:44338/images/address/',
+    
+    defaultImage: '../../../assets/page/images/location/AvatarDefault.jpg'
 };

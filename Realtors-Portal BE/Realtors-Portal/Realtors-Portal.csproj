@@ -32,12 +32,6 @@
 
   <ItemGroup>
     <Folder Include="Abstract\" />
-    <Folder Include="Images\Address\Locations\" />
-    <Folder Include="Images\Address\Districts\" />
-    <Folder Include="Images\Address\Countries\" />
-    <Folder Include="Images\Address\Cities\" />
-    <Folder Include="Images\Address\Ares\" />
-    <Folder Include="Images\Categories\" />
   </ItemGroup>
 
 </Project>

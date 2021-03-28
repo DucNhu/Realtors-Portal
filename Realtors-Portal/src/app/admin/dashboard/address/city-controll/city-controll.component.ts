@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { CityService } from '../../../../@core/mock/Address/City.service';
 import { CountryService } from '../../../../@core/mock/Address/Country.service';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { NgForm } from '@angular/forms';
@@ -12,79 +13,96 @@ import { environment } from '../../../../@core/models/Environment';
 })
 export class CityControllComponent implements OnInit {
   // Khai bao bien
+  listCountry;
   idLength;
-  getImageAvatarSrc = environment.ImageAdressurl + "Countrys/";
+  getImageAvatarSrc = environment.ImageAdressurl + "Cities/";
 
-  DataFormCountryEdit = {
-    CountryID: 0,
-    Avatar: "Avatar",
+  DataFormCityEdit = {
+    CityID: 0,
+    Avatar: "AvatarDefault.jpg",
     ImageBannerSrc: this.getImageAvatarSrc,
     ImageFile: File,
-    CountryName: "",
-    active: 1,
-    CountryLetter: "",
+    CityName: "",
+    Active: 1,
+    CityLetter: "",
   };
   // END khai bao bien
   constructor(
     private FormBuilder: FormBuilder,
+    private _CityService: CityService,
     private _CountryService: CountryService,
     private http: HttpClient
   ) { }
 
   ngOnInit(): void {
     this.getAllCountry();
+    this.getAllCity();
     this.ValidatorForm();
   }
 
   // ======== CRUD ============
-  listCountry = [];
+  listCity = [];
   containData;
   getIdLength = 0;
   // Get All project
-  getAllCountry() {
-    this._CountryService.getAllCountry().subscribe(
+  getAllCity() {
+    this._CityService.getAllCityByCountryID().subscribe(
       data => {
         this.containData = data;
-        console.log(this.listCountry);
-
         this.containData.forEach(e => {
           e.ImageBannerSrc = this.getImageAvatarSrc;
-          this.listCountry.unshift(e);
+          e.CityLetter = e.CityName.substr(0, 1);
+          this.listCity.unshift(e);
         });
+        console.log(this.listCity);
+
       }
     )
   }
 
-  // function CreateCountry:
+  // function CreateCity:
   dataImage;
   selectedFile: File = null;
-  CreateCountry(data) {
-    data.CountryID = 0;
-    data.active = data.active == true ? 1 : 0;
-    data.Avatar = this.DataFormCountryEdit.Avatar;
-    this._CountryService.CreateCountry(data)
-      .subscribe(res => {
-        this.upPhoto(); // Insert Image
-        data.CountryID = this.listCountry[length].CountryID += 1;
-        data.ImageBannerSrc = '';
-        data.Avatar = this.DefaultandNewAvatar;
-        this.listCountry.unshift(data);
-        this.resetImageArray();
-        this.Alert_successFunction("Created done");
-      });
+  CreateCity(data) {
+    data.CityID = 0;
+    data.Active = data.Active == true ? 1 : 0;
+    data.Avatar = this.DataFormCityEdit.Avatar;
+    if (this.upPhoto()) {// Insert Image
+      this._CityService.CreateCity(data)
+        .subscribe(res => {
+          let getIDLength = this.listCity[length].CityID;
+          data.CityID = getIDLength += 1;
+          data.ImageBannerSrc = '';
+          data.Avatar = this.DefaultandNewAvatar;
+          this.listCountry.forEach(e => { // loop => set data Country Name for City.Countryname
+            if (e.CountryID == data.CountryID) {
+              data.CountryName = e.CountryName;
+            }
+          });
+          this.listCity.unshift(data);
+          this.resetImageArray();
+          this.Alert_successFunction("Created done");
+        });
+    }
+    else {
+      this.Alert_dangerFunction("Try again, pls")
+    }
+
   }
+
   resetImageArray() { // because update in array
-    this.listCountry[length].ImageBannerSrc = '';
-    this.listCountry[length].Avatar = ''; // reset not loop
-    this.listCountry[length].Avatar = this.DefaultandNewAvatar;
+    this.listCity[length].ImageBannerSrc = '';
+    this.listCity[length].Avatar = ''; // reset not loop
+    this.listCity[length].Avatar = this.DefaultandNewAvatar;
     this.DefaultandNewAvatar = '';
   }
   // Function update Image
-  DefaultandNewAvatar = "http://adevaes.com/wp-content/uploads/2016/11/26102015122159AMaboutus-default-banner.jpg"; // default  banner img
+  DefaultandNewAvatar = environment.defaultImage; // default  banner img
 
   // Update Image when select change
-  myInfor;
+  newImage = false;
   onSelectFile(e) {
+    this.newImage = true;
     this.dataImage = e.target.files.item(0);
     console.log(this.dataImage.name);
     let dateNow = new Date();
@@ -93,33 +111,48 @@ export class CityControllComponent implements OnInit {
       var reader = new FileReader(); // DOM
       reader.readAsDataURL(e.target.files[0]);
       reader.onload = (event: any) => {
-        this.DataFormCountryEdit.Avatar = dateNow.getTime() + this.dataImage.name;
+        this.DataFormCityEdit.Avatar = dateNow.getTime() + this.dataImage.name;
         this.DefaultandNewAvatar = event.target.result;
       }
     }
   }
   upPhoto() {
     const formData: FormData = new FormData();
+    console.log(this.dataImage);
+    console.log(this.DataFormCityEdit.Avatar);
 
-    formData.append('ImageFile', this.dataImage, this.DataFormCountryEdit.Avatar);
+    try {
+      formData.append('ImageFile', this.dataImage, this.DataFormCityEdit.Avatar);
 
-    this._CountryService.UpdateAvatar(formData).subscribe(() => {
-      // console.log(data);
-      // this.myInfor.Avatar = data
-    })
+      this._CityService.UpdateAvatar(formData).subscribe(() => {
+      })
+    }
+    catch (e) {
+      return false;
+    }
+    return true;
   }
 
   // Function Edit Project
   upgrade = false;
-  UpdateCountry(data) {
-    data.active = data.active == true ? 1 : 0;
-    data.Avatar = this.DataFormCountryEdit.Avatar;
+  UpdateCity(data) {
+    data.Active = data.Active == true ? 1 : 0;
+    data.Avatar = this.DataFormCityEdit.Avatar;
+    data.CountryID = parseInt(data.CountryID);
     console.log(data);
 
-    this._CountryService.UpdateCountry(data).subscribe(
+    this._CityService.UpdateCity(data).subscribe(
       val => {
-        this.upPhoto();
+        if (this.newImage == true) {
+          this.upPhoto();
+          this.newImage = false
+        }
         this.Alert_successFunction("Update Success");
+        this.listCountry.forEach(e => { // loop => set data Location Name for Country.Locationname
+          if (e.CountryID == data.CountryID) {
+            data.CountryName = e.CountryName;
+          }
+        });
         this.EditByIdInArray(data);
       },
       error => {
@@ -132,13 +165,13 @@ export class CityControllComponent implements OnInit {
     console.log(val);
 
     let i = -1;
-    this.listCountry.forEach(element => {
+    this.listCity.forEach(element => {
       i++;
 
-      if (element.CountryID == val.CountryID) {
+      if (element.CityID == val.CityID) {
         val.ImageBannerSrc = '';
         val.Avatar = this.DefaultandNewAvatar;
-        this.listCountry.splice(i, 1, val);
+        this.listCity.splice(i, 1, val);
         // this.resetImageArray();
       }
     });
@@ -147,7 +180,7 @@ export class CityControllComponent implements OnInit {
   // function CreateEmployee:
   DeleteEmPloyee(id) {
     if (confirm("Are your ok?")) {
-      this._CountryService.deleteCountry(id).subscribe(
+      this._CityService.deleteCity(id).subscribe(
         data => {
           this.Alert_successFunction("Success Delete");
           this.FindIdToDelete(id);
@@ -160,10 +193,10 @@ export class CityControllComponent implements OnInit {
 
   FindIdToDelete(id) {
     let i = -1;
-    this.listCountry.forEach(element => {
+    this.listCity.forEach(element => {
       i++;
-      if (element.CountryID == id) {
-        this.listCountry.splice(i, 1);
+      if (element.CityID == id) {
+        this.listCity.splice(i, 1);
 
         return i;
       }
@@ -171,18 +204,16 @@ export class CityControllComponent implements OnInit {
   }
   // ======== END CRUD ============
 
-  isAddCountryForm;
+  isAddCityForm;
   // GetDataCheckisAddorEdit: true ? add : edit
   GetDataCheckisAddorEdit(bl, val) {
     if (bl) {
-      // this.GetDataEditorAdd(val);
-      return this.isAddCountryForm = true;
+      this.DefaultandNewAvatar = environment.defaultImage;
+      return this.isAddCityForm = true;
     }
     else {
-      console.log(val);
-
       this.GetDataEditorAdd(val);
-      return this.isAddCountryForm = false;
+      return this.isAddCityForm = false;
     }
   }
 
@@ -190,32 +221,37 @@ export class CityControllComponent implements OnInit {
   formValidator: FormGroup;
   ValidatorForm() {
     this.formValidator = this.FormBuilder.group({
-      CountryID: [0, [Validators.required]],
-      CountryName: ['CountryName', [Validators.required]],
-      active: [false, [Validators.required]],
+      CityID: [0, [Validators.required]],
+      CityName: ['CityName', [Validators.required]],
+      Active: [false, [Validators.required]],
 
-      CountryLetter: ['A', [Validators.required]],
-
-      Avatar: ['Avatar'],
+      CityLetter: ['C', [Validators.required]],
+      CountryID: ['', [Validators.required]],
     })
   }
-  get CountryName() { return this.formValidator.get('CountryName') }
+  get CityName() { return this.formValidator.get('CityName') }
   GetDataEditorAdd(val) {
+    console.log(val);
 
-    this.DefaultandNewAvatar = this.getImageAvatarSrc + val.Avatar;
-    this.formValidator.controls.CountryName.patchValue(val.CountryName);
+    this.DefaultandNewAvatar = (val.Avatar.indexOf(this.getImageAvatarSrc) > -1 ? '' : this.getImageAvatarSrc) + val.Avatar;
+    if (val.Avatar.indexOf("base64") > -1) {
+      this.DefaultandNewAvatar = val.Avatar;
+    }
+    this.formValidator.controls.CityName.patchValue(val.CityName);
+    this.formValidator.controls.CityID.patchValue(val.CityID);
+
+    this.formValidator.controls.Active.patchValue(val.Active == 0 ? false : true);
+    this.formValidator.controls.CityLetter.patchValue(val.CityName.substr(0, 1));
     this.formValidator.controls.CountryID.patchValue(val.CountryID);
-
-    this.formValidator.controls.active.patchValue(val.active == 0 ? false : true);
-    this.formValidator.controls.CountryLetter.patchValue(val.CountryLetter);
-
-    this.formValidator.controls.Avatar.patchValue(val.Avatar);
   }
 
+  SetCityLetterWhenEnterName(value) {
+    this.formValidator.controls.CityLetter.patchValue(value.substr(0, 1));
+  }
 
   // Alert variable
   alert_Text;
-  alert_success = false; alert_danger = false; alert_warn = false;
+  alert_success = false; alert_danger = false;
   // Function show alert
 
   AlertFunction(success) {
@@ -223,11 +259,6 @@ export class CityControllComponent implements OnInit {
       setTimeout(() => {
         this.alert_success = !this.alert_success;
       }, 800);
-    }
-    else if (success == 0) {
-      setTimeout(() => {
-        this.alert_warn = !this.alert_warn;
-      }, 1000);
     }
     else {
       setTimeout(() => {
@@ -248,13 +279,7 @@ export class CityControllComponent implements OnInit {
     // call function set alert_danger = true  
     this.AlertFunction(false);
   }
-  Alert_warnFunction(value) {
-    this.alert_Text = value;
-    this.alert_warn = true;
 
-    // call function set alert_warn = 0
-    this.AlertFunction(0);
-  }
   // END Function show alert
 
 
@@ -264,8 +289,17 @@ export class CityControllComponent implements OnInit {
       case "Price": console.log(this.formValidator.controls.Price);
 
     }
+
   }
   // END checkValidForm
+
+  // Funciton get all value in category in service
+  getAllCountry() {
+    this._CountryService.getAllCountryByLocationID().subscribe(data => {
+      this.listCountry = data;
+    })
+  }
+
 
 
   // handFileInput

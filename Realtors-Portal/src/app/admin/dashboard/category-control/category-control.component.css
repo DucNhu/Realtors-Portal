@@ -3,10 +3,6 @@ tbody > tr td {
 }
 
 
-::-webkit-scrollbar {
-    display: none;
-    width: 0px;
-}
 
 .table {
     width: 80%;

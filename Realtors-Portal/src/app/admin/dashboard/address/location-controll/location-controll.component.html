@@ -15,10 +15,7 @@
                 <div class="d-none" [class]="alert_danger ? 'd-block alert alert-danger' : ''">
                     {{ alert_Text }}
                 </div>
-                <!-- warn -->
-                <div class="d-none" [class]="alert_warn ? 'd-block alert alert-warning' : ''">
-                    {{ alert_Text }}
-                </div>
+
             </div>
         </div>
     </div>
@@ -56,12 +53,12 @@
                 </td>
                 <td class="text-center">{{ c.LocationLetter }}</td>
                 <th class="th-active">
-                    <div [ngSwitch]="c.active" class="box-active">
+                    <div [ngSwitch]="c.Active" class="box-active">
                         <div *ngSwitchCase="false">
                             <span class="suspended rounded">Suspended</span>
                         </div>
                         <div *ngSwitchCase="true"><span class="active">Active</span></div>
-                        <div *ngSwitchDefault><span class="suspended">{{c.active }}</span></div>
+                        <div *ngSwitchDefault><span class="suspended">{{c.Active }}</span></div>
                     </div>
                 </th>
                 <!-- Action BOX-->
@@ -118,7 +115,7 @@
                                             <div class="w-100 p-2">
                                                 <label>Location Name</label>
                                                 <input type="text" class="form-control" formControlName="LocationName"
-                                                    (blur)="checkValidForm('LocationName')">
+                                                    (blur)="checkValidForm('LocationName'); SetLocationLetterWhenEnterName(formValidator.controls.LocationName.value)">
 
                                             </div>
                                             <!-- Letter -->
@@ -136,14 +133,14 @@
                                                 <input type="file" name="ImageFile" id="ImageFile" class="d-none"
                                                     accept="image/*" (change)="onSelectFile($event)">
                                                 <img [src]="DefaultandNewAvatar" [alt]="DefaultandNewAvatar"
-                                                    class="img-fluid">
+                                                    class="img-fluid" id="avatar">
                                             </div>
                                         </div>
 
                                         <!-- Active -->
                                         <div class="mb-4">
                                             <label for="">Active</label>
-                                            <input type="checkbox" formControlName="active" />
+                                            <input type="checkbox" formControlName="Active" />
                                         </div>
                                         <!-- footer form -->
                                         <div class="col-12">
@@ -154,6 +151,7 @@
                                                 [disabled]="formValidator.status == 'INVALID'">
                                                 Sumit
                                             </button>
+                                            {{formValidator.status|json}}
                                         </div>
                                     </div>
                                 </form>

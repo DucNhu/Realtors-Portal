@@ -15,10 +15,6 @@
                 <div class="d-none" [class]="alert_danger ? 'd-block alert alert-danger' : ''">
                     {{ alert_Text }}
                 </div>
-                <!-- warn -->
-                <div class="d-none" [class]="alert_warn ? 'd-block alert alert-warning' : ''">
-                    {{ alert_Text }}
-                </div>
             </div>
         </div>
     </div>
@@ -41,6 +37,7 @@
                 <th>Name</th>
                 <th>Image</th>
                 <th>A Letter</th>
+                <th>Location</th>
                 <th class="text-center">Active</th>
                 <th>Action</th>
             </tr>
@@ -55,13 +52,15 @@
                     </div>
                 </td>
                 <td class="text-center">{{ c.CountryLetter }}</td>
+                <td class="text-center">{{c.LocationName}}</td>
+                
                 <th class="th-active">
-                    <div [ngSwitch]="c.active" class="box-active">
-                        <div *ngSwitchCase="false">
+                    <div [ngSwitch]="c.Active" class="box-active">
+                        <div *ngSwitchCase="0">
                             <span class="suspended rounded">Suspended</span>
                         </div>
-                        <div *ngSwitchCase="true"><span class="active">Active</span></div>
-                        <div *ngSwitchDefault><span class="suspended">{{c.active }}</span></div>
+                        <div *ngSwitchCase="1"><span class="active">Active</span></div>
+                        <div *ngSwitchDefault><span class="suspended">{{c.Active }}</span></div>
                     </div>
                 </th>
                 <!-- Action BOX-->
@@ -114,49 +113,60 @@
                                     <input type="hidden" class="form-control" formControlName="CountryID">
                                     <div class="col-12 mb-4">
                                         <!-- header form -->
-                                        <div class="d-flex justify-content-between">
-                                            <div class="w-100 p-2">
+                                        <div class="row">
+                                            <div class="col12 col-sm-6 w-100 p-2">
                                                 <label>Country Name</label>
                                                 <input type="text" class="form-control" formControlName="CountryName"
-                                                    (blur)="checkValidForm('CountryName')">
-
+                                                    (blur)="checkValidForm('CountryName'); SetCountryLetterWhenEnterName(formValidator.controls.CountryName.value)">
                                             </div>
                                             <!-- Letter -->
-                                            <div class="w-100 p-2">
+                                            <div class="col12 col-sm-6 w-100 p-2">
                                                 <label for="address">Letter</label>
                                                 <input type="text" class="form-control" maxlength="1"
                                                     formControlName="CountryLetter"
                                                     (blur)="checkValidForm('CountryLetter')">
                                             </div>
-                                        </div>
-                                        <!-- Select Avatar Country -->
-                                        <div class="mb-3 select-img">
-                                            <div class="angular-property-image bg-overlay-gradient-04">
-                                                <label for="ImageFile" class="position-absolute select--banner">Select
-                                                    banner</label>
-                                                <input type="file" name="ImageFile" id="ImageFile" class="d-none"
-                                                    accept="image/*" (change)="onSelectFile($event)">
-                                                <img [src]="DefaultandNewAvatar" [alt]="DefaultandNewAvatar"
-                                                    class="img-fluid">
+                                            <div class="col12 col-sm-6 form-file mb-3">
+                                                <label class="form-file-label position-relative" for="phone">
+                                                    <span class="form-file-text">Location</span>
+                                                </label>
+                                                <select class="form-select form-control" formControlName="LocationID">
+                                                    <option *ngFor="let Location of listLocation" [value]="Location.LocationID" [selected]="Location.LocationID == formValidator.controls.LocationID.value">
+                                                        {{Location.LocationName + Location.LocationID}}
+                                                    </option>
+                                                </select>
+                                            </div>
+                                            <!-- Active -->
+                                            <div class="col12 col-sm-6 mb-4">
+                                                <label for="">Active</label>
+                                                <input type="checkbox" formControlName="Active" />
                                             </div>
                                         </div>
-
-                                        <!-- Active -->
-                                        <div class="mb-4">
-                                            <label for="">Active</label>
-                                            <input type="checkbox" formControlName="active" />
-                                        </div>
-                                        <!-- footer form -->
-                                        <div class="col-12">
-                                            <button type="submit"
-                                                class="btn btn-success btn-outline-success d-block mx-auto"
-                                                (click)="isAddCountryForm ? CreateCountry(formValidator.value) : UpdateCountry(formValidator.value)"
-                                                data-dismiss="modal" aria-label="Close"
-                                                [disabled]="formValidator.status == 'INVALID'">
-                                                Sumit
-                                            </button>
+                                    </div>
+                                    <!-- Select Avatar Country -->
+                                    <div class="mb-3 select-img">
+                                        <div class="angular-property-image bg-overlay-gradient-04">
+                                            <label for="ImageFile" class="position-absolute select--banner">Select
+                                                banner</label>
+                                            <input type="file" name="ImageFile" id="ImageFile" class="d-none"
+                                                accept="image/*" (change)="onSelectFile($event)">
+                                            <img [src]="DefaultandNewAvatar" [alt]="DefaultandNewAvatar"
+                                                class="img-fluid">
                                         </div>
                                     </div>
+
+
+                                    <!-- footer form -->
+                                    <div class="col-12">
+                                        <button type="submit"
+                                            class="btn btn-success btn-outline-success d-block mx-auto"
+                                            (click)="isAddCountryForm ? CreateCountry(formValidator.value) : UpdateCountry(formValidator.value)"
+                                            data-dismiss="modal" aria-label="Close"
+                                            [disabled]="formValidator.status == 'INVALID'">
+                                            Sumit
+                                        </button>
+                                    </div>
+
                                 </form>
                             </div>
                         </div>

@@ -6,29 +6,32 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
   providedIn: 'root'
 })
 export class CountryService {
-
-
   constructor(
     private http: HttpClient
   ) { }
 
   getAllCountry() {
-    return this.http.get(environment.apiUrl + 'Countrys')
+    return this.http.get(environment.apiUrl + 'Countries')
   }
 
+  getAllCountryByLocationID() {
+    return this.http.get(environment.apiUrl + 'Countries/getCountryByLocationID')
+  }
+  
+
   CreateCountry(val) {
-    return this.http.post(environment.apiUrl + 'Countrys', val)
+    return this.http.post(environment.apiUrl + 'Countries', val)
   }
 
   UpdateAvatar(val) {
-    return this.http.post(environment.apiUrl + "Countrys/savefile", val)
+    return this.http.post(environment.apiUrl + "Countries/savefile", val)
   }
 
   UpdateCountry(val) {
-    return this.http.put(environment.apiUrl + 'Countrys/' + val.CountryID, val)
+    return this.http.put(environment.apiUrl + 'Countries/' + val.CountryID, val)
   }
 
   deleteCountry(val) {
-    return this.http.delete(environment.apiUrl + 'Countrys/' + val)
+    return this.http.delete(environment.apiUrl + 'Countries/' + val)
   }
 }

@@ -1,10 +1,13 @@
 ﻿using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using Realtors_Portal.Data;
 using Realtors_Portal.Models.Address;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
@@ -17,11 +20,15 @@ namespace Realtors_Portal.Controllers.address
     {
         private readonly Realtors_PortalContext _context;
         private readonly IWebHostEnvironment _hostEnvironment;
-        public DistrictsController(Realtors_PortalContext context, IWebHostEnvironment hostEnvironment)
+        private readonly IConfiguration _configuration;
+
+        public DistrictsController(Realtors_PortalContext context, IConfiguration configuration, IWebHostEnvironment hostEnvironment)
         {
             _context = context;
             this._hostEnvironment = hostEnvironment;
+            _configuration = configuration;
         }
+
 
         // GET: api/Districts
         [HttpGet]
@@ -43,6 +50,39 @@ namespace Realtors_Portal.Controllers.address
 
             return district;
         }
+
+
+        //Get by CountryID
+        [Route("getDistrictByCityID")]
+        [HttpGet]
+        public JsonResult Get()
+        {
+            string query = @"SELECT 
+                            District.DistrictName, 
+                            District.Active, 
+                            District.Avatar, 
+                            District.DistrictID, 
+                            District.DistrictLetter, 
+                            District.CityID, 
+                            City.CityName 
+                            FROM District INNER JOIN City ON City.CityID = District.DistrictID";
+
+            DataTable table = new DataTable();
+            string sqlDataSource = _configuration.GetConnectionString("RealtorsConnect");
+            SqlDataReader myRender;
+            using (SqlConnection myCon = new SqlConnection(sqlDataSource))
+            {
+                myCon.Open();
+                using (SqlCommand myCommand = new SqlCommand(query, myCon))
+                {
+                    myRender = myCommand.ExecuteReader();
+                    table.Load(myRender);
+                    myRender.Close(); myCon.Close();
+                }
+            }
+            return new JsonResult(table);
+        }
+
 
         // PUT: api/Districts/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754

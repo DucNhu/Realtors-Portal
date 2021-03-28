@@ -11,5 +11,17 @@ export class AddressComponent implements OnInit {
 
   ngOnInit(): void {
   }
+  listAddress = [
+    'location',
+    'country',
+    'city',
+    'district',
+    'are'
+  ]
 
+  selctTab = this.listAddress[0];
+
+  onselect(str: string) {
+    this.selctTab = str;
+  }
 }

@@ -1,12 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using Realtors_Portal.Data;
 using Realtors_Portal.Models.Address;
 
@@ -18,10 +21,13 @@ namespace Realtors_Portal.Controllers.address
     {
         private readonly Realtors_PortalContext _context;
         private readonly IWebHostEnvironment _hostEnvironment;
-        public CountriesController(Realtors_PortalContext context, IWebHostEnvironment hostEnvironment)
+        private readonly IConfiguration _configuration;
+
+        public CountriesController(Realtors_PortalContext context, IConfiguration configuration, IWebHostEnvironment hostEnvironment)
         {
             _context = context;
             this._hostEnvironment = hostEnvironment;
+            _configuration = configuration;
         }
 
         // GET: api/Countries
@@ -44,6 +50,38 @@ namespace Realtors_Portal.Controllers.address
 
             return country;
         }
+
+        //Get by locationID
+        [Route("getCountryByLocationID")]
+        [HttpGet]
+        public JsonResult Get()
+        {
+            string query = @"SELECT 
+                            Country.CountryName, 
+                            Country.Active, 
+                            Country.Avatar, 
+                            Country.CountryID, 
+                            Country.CountryLetter, 
+                            Country.LocationID, 
+                            Location.LocationName 
+                            FROM Country INNER JOIN Location ON Location.LocationID = Country.CountryID";
+
+            DataTable table = new DataTable();
+            string sqlDataSource = _configuration.GetConnectionString("RealtorsConnect");
+            SqlDataReader myRender;
+            using (SqlConnection myCon = new SqlConnection(sqlDataSource))
+            {
+                myCon.Open();
+                using (SqlCommand myCommand = new SqlCommand(query, myCon))
+                {
+                    myRender = myCommand.ExecuteReader();
+                    table.Load(myRender);
+                    myRender.Close(); myCon.Close();
+                }
+            }
+            return new JsonResult(table);
+        }
+
 
         // PUT: api/Countries/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754

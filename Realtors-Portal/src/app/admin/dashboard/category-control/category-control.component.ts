@@ -13,13 +13,16 @@ import { environment } from '../../../@core/models/Environment';
 export class CategoryControlComponent implements OnInit {
   // Khai bao bien
   idLength;
+  getImageBannerSrc = environment.Imageurl + "/categories/";
+
+
   DataFormCategoryEdit = {
     CategoryID: 0,
     Avatar: "Avatar",
-    ImageBannerSrc: environment.Imageurl,
+    ImageBannerSrc: this.getImageBannerSrc ,
     ImageFile: File,
     CategoryName: "",
-    active: 1,
+    Active: 1,
     CategoryTitle: "",
   };
   // END khai bao bien
@@ -38,7 +41,6 @@ export class CategoryControlComponent implements OnInit {
   listCategory = [];
   containData;
   getIdLength = 0;
-  getImageBannerSrc = environment.Imageurl;
   // Get All project
   getAllCategory() {
     this._CategoryService.getAllCategory().subscribe(
@@ -59,7 +61,7 @@ export class CategoryControlComponent implements OnInit {
   selectedFile: File = null;
   CreateCategory(data) {
     data.CategoryID = 0;
-    data.active = data.active == true ? 1 : 0;
+    data.Active = data.Active == true ? 1 : 0;
     data.Avatar = this.DataFormCategoryEdit.Avatar;
     this._CategoryService.CreateCategory(data)
       .subscribe(res => {
@@ -111,7 +113,7 @@ export class CategoryControlComponent implements OnInit {
   // Function Edit Project
   upgrade = false;
   UpdateCategory(data) {
-    data.active = data.active == true ? 1 : 0;
+    data.Active = data.Active == true ? 1 : 0;
     data.Avatar = this.DataFormCategoryEdit.Avatar;
     console.log(data);
     
@@ -191,7 +193,7 @@ export class CategoryControlComponent implements OnInit {
     this.formValidator = this.FormBuilder.group({
       CategoryID: [0, [Validators.required]],
       CategoryName: ['ProjectName', [Validators.required]],
-      active: [false, [Validators.required]],
+      Active: [false, [Validators.required]],
 
       CategoryTitle: ['CategoryTitle', [Validators.required]],
 
@@ -208,7 +210,7 @@ export class CategoryControlComponent implements OnInit {
     this.formValidator.controls.CategoryID.patchValue(val.CategoryID);
     console.log(val);
     
-    this.formValidator.controls.active.patchValue(val.active == 0 ? false : true);
+    this.formValidator.controls.Active.patchValue(val.Active == 0 ? false : true);
     this.formValidator.controls.CategoryTitle.patchValue(val.CategoryTitle);
 
     this.formValidator.controls.Avatar.patchValue(val.Avatar);

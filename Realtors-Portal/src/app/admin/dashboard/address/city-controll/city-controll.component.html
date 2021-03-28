@@ -1,1 +1,181 @@
-<p>city-controll works!</p>
+<div class="d-flex align-items-center mb-3">
+    <div>
+        <ul class="breadcrumb">
+            <li class="breadcrumb-item"><a href="#">PAGES</a></li>
+            <li class="breadcrumb-item active">categoris</li>
+        </ul>
+        <h1 class="page-header mb-0">categoris</h1>
+        <div class="">
+            <div class="alert-group">
+                <!-- Success -->
+                <div class="d-none" [class]="alert_success ? 'd-block alert alert-success' : ''">
+                    {{ alert_Text }}
+                </div>
+                <!-- Danger -->
+                <div class="d-none" [class]="alert_danger ? 'd-block alert alert-danger' : ''">
+                    {{ alert_Text }}
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="ml-auto">
+        <button class="button-add btn btn-link dropdown-toggle dropdown-toggle-split m-0 p-0" data-toggle="modal"
+            data-target="#modal-form-AddEdit" (click)="GetDataCheckisAddorEdit(true, DataFormCityEdit)">
+            <span class="icon icon-sm icon-gray">
+                <i class="fa fa-plus-circle fa-fw mr-1"></i>
+                Add City
+            </span>
+        </button>
+    </div>
+</div>
+
+<div class="overflowX-auto">
+    <table class="table table-hover">
+        <thead class="angular-thead">
+            <tr>
+                <th>id</th>
+                <th>Name</th>
+                <th>Image</th>
+                <th>A Letter</th>
+                <th>Country</th>
+                <th class="text-center">Active</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let c of listCity">
+                <th>{{ c.CityID }}</th>
+                <td>{{ c.CityName }}</td>
+                <td>
+                    <div class="angular-property-image bg-overlay-gradient-04">
+                        <img [src]="c.ImageBannerSrc + c.Avatar" [alt]="c.Avatar" class="img-fluid">
+                    </div>
+                </td>
+                <td class="text-center">{{ c.CityLetter }}</td>
+                <td class="text-center">{{c.CountryName}}</td>
+
+                <th class="th-active">
+                    <div [ngSwitch]="c.Active" class="box-active">
+                        <div *ngSwitchCase="0">
+                            <span class="suspended rounded">Suspended</span>
+                        </div>
+                        <div *ngSwitchCase="1"><span class="active">Active</span></div>
+                        <div *ngSwitchDefault><span class="suspended">{{c.Active }}</span></div>
+                    </div>
+                </th>
+                <!-- Action BOX-->
+                <td>
+                    <span class="dropdown">
+                        <!-- <span class="dropdown-menu p-0" aria-labelledby="dropdownMenu2"> -->
+                        <span class="d-flex box-action">
+                            <button class="dropdown-item detail" type="button" data-toggle="modal"
+                                data-target="#modal-form-AddEdit" (click)="GetDataCheckisAddorEdit(false,c)">
+                                <i class="far fa-lg fa-fw me-2 fa-edit"></i>
+                            </button>
+                            <button class="dropdown-item delete" type="button" (click)="DeleteEmPloyee(c.CityID)">
+                                <i class="far fa-trash-alt"></i>
+                            </button>
+                        </span>
+                    </span>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+</div>
+
+
+
+<!-- Form Add / Edit -->
+<div class="modal fade" id="modal-form-AddEdit" tabindex="-1" role="dialog" aria-labelledby="modal-form-signup"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content angular-form__add-edit col-6">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body p-0">
+                <div class="py-4">
+                    <div class="d-flex justify-content-between w-100 flex-wrap">
+                        <div class="mb-3 mb-lg-0">
+                            <h2 class="Title pl-4">{{isAddCityForm ? 'Add City' : 'Edit City'}}</h2>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row text-left">
+                    <div class="col-12 mb-4">
+                        <div class="card border-light shadow-sm components-section">
+                            <div class="card-body">
+                                <form #AddEditEmployeeForm="ngForm" [formGroup]="formValidator">
+                                    <input type="hidden" class="form-control" formControlName="CityID">
+                                    <div class="col-12 mb-4">
+                                        <!-- header form -->
+                                        <div class="row">
+                                            <div class="col12 col-sm-6 w-100 p-2">
+                                                <label>City Name</label>
+                                                <input type="text" class="form-control" formControlName="CityName"
+                                                    (blur)="checkValidForm('CityName'); SetCityLetterWhenEnterName(formValidator.controls.CityName.value)">
+                                            </div>
+                                            <!-- Letter -->
+                                            <div class="col12 col-sm-6 w-100 p-2">
+                                                <label for="address">Letter</label>
+                                                <input type="text" class="form-control" maxlength="1"
+                                                    formControlName="CityLetter"
+                                                    (blur)="checkValidForm('CityLetter')">
+                                            </div>
+                                            <div class="col12 col-sm-6 form-file mb-3">
+                                                <label class="form-file-label position-relative" for="phone">
+                                                    <span class="form-file-text">Country</span>
+                                                </label>
+                                                <select class="form-select form-control" formControlName="CountryID">
+                                                    <option *ngFor="let Country of listCountry"
+                                                        [value]="Country.CountryID"
+                                                        [selected]="Country.CountryID == formValidator.controls.CountryID.value">
+                                                        {{Country.CountryName + Country.CountryID}}
+                                                    </option>
+                                                </select>
+                                            </div>
+                                            <!-- Active -->
+                                            <div class="col12 col-sm-6 mb-4">
+                                                <label for="">Active</label>
+                                                <input type="checkbox" formControlName="Active" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- Select Avatar City -->
+                                    <div class="mb-3 select-img">
+                                        <div class="angular-property-image bg-overlay-gradient-04">
+                                            <label for="ImageFile" class="position-absolute select--banner">Select
+                                                banner</label>
+                                            <input type="file" name="ImageFile" id="ImageFile" class="d-none"
+                                                accept="image/*" (change)="onSelectFile($event)">
+                                            <img [src]="DefaultandNewAvatar" [alt]="DefaultandNewAvatar"
+                                                class="img-fluid">
+                                        </div>
+                                    </div>
+
+
+                                    <!-- footer form -->
+                                    <div class="col-12">
+                                        <button type="submit"
+                                            class="btn btn-success btn-outline-success d-block mx-auto"
+                                            (click)="isAddCityForm ? CreateCity(formValidator.value) : UpdateCity(formValidator.value)"
+                                            data-dismiss="modal" aria-label="Close"
+                                            [disabled]="formValidator.status == 'INVALID'">
+                                            Sumit
+                                        </button>
+                                    </div>
+
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End of Form Add / Edit -->

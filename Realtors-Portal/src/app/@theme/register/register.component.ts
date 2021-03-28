@@ -59,7 +59,6 @@ export class RegisterComponent implements OnInit {
 
       err => {
         this.error = err.error.Errors;
-        
       }
     )
   }

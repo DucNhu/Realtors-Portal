@@ -435,9 +435,7 @@ export class ProjectControllComponent implements OnInit {
   // Funciton get all value in category in service
   getAllCategory() {
     this._CategoryService.getAllCategory().subscribe(data => {
-      this.listCategies = data;
-      console.log(this.listCategies);
-      
+      this.listCategies = data;      
     })
   }
 }

@@ -1,5 +1,5 @@
 create database realtors01
-use  realtors0001
+use  realtors01
 create table test(test varchar(1))
 insert into test values ('1')
 
@@ -77,3 +77,14 @@ select * from test
 
 use  realtorsTest
 insert into products values ('1', '11', '111')
+
+
+SELECT Location.LocationName, Location.LocationLetter FROM Location INNER JOIN Country ON Location.LocationID = Country.CountryID
+
+SELECT Are.AreName, 
+                            Are.Active, 
+                            Are.Avatar, 
+                            Are.AreID, 
+                            Are.AreLetter, 
+                            Are.DistrictID, 
+                            District.DistrictName  FROM Are INNER JOIN District ON District.DistrictID = Are.AreID

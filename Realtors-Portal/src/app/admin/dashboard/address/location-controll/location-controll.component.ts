@@ -17,11 +17,11 @@ export class LocationControllComponent implements OnInit {
 
   DataFormLocationEdit = {
     LocationID: 0,
-    Avatar: "Avatar",
+    Avatar: "AvatarDefault.jpg",
     ImageBannerSrc: this.getImageAvatarSrc,
     ImageFile: File,
     LocationName: "",
-    active: 1,
+    Active: 1,
     LocationLetter: "",
   };
   // END khai bao bien
@@ -45,48 +45,50 @@ export class LocationControllComponent implements OnInit {
     this._LocationService.getAllLocation().subscribe(
       data => {
         this.containData = data;
-        console.log(this.listLocation);
-
         this.containData.forEach(e => {
           e.ImageBannerSrc = this.getImageAvatarSrc;
+          e.LocationLetter = e.LocationName.substr(0, 1);
           this.listLocation.unshift(e);
         });
       }
-    )
+    );
   }
 
   // function CreateLocation:
   dataImage;
+  statusBtn = 'VALID';
   selectedFile: File = null;
   CreateLocation(data) {
     data.LocationID = 0;
-    data.active = data.active == true ? 1 : 0;
+    data.Active = data.Active == true ? 1 : 0;
     data.Avatar = this.DataFormLocationEdit.Avatar;
-    this._LocationService.CreateLocation(data)
-      .subscribe(res => {
-        this.upPhoto(); // Insert Image
-        data.LocationID = this.listLocation[length].LocationID += 1;
-        data.ImageBannerSrc = '';
-        data.Avatar = this.DefaultandNewAvatar;
-        this.listLocation.unshift(data);
-        this.resetImageArray();
-        this.Alert_successFunction("Created done");
-      });
+
+    if (this.upPhoto()) {        // this.upPhoto(); // Insert Image
+      this._LocationService.CreateLocation(data)
+        .subscribe(res => {
+          let getIDLength = this.listLocation[0].LocationID;
+          data.LocationID = getIDLength += 1;
+          data.ImageBannerSrc = '';
+          data.Avatar = this.DefaultandNewAvatar;
+          this.listLocation.unshift(data);
+
+          this.Alert_successFunction("Created done");
+        });
+    }
+    else {
+      this.Alert_dangerFunction("Create false, try again, pls");
+    }
+
+
   }
-  resetImageArray() { // because update in array
-    this.listLocation[length].ImageBannerSrc = '';
-    this.listLocation[length].Avatar = ''; // reset not loop
-    this.listLocation[length].Avatar = this.DefaultandNewAvatar;
-    this.DefaultandNewAvatar = '';
-  }
+
   // Function update Image
-  DefaultandNewAvatar = "http://adevaes.com/wp-content/uploads/2016/11/26102015122159AMaboutus-default-banner.jpg"; // default  banner img
+  DefaultandNewAvatar = environment.defaultImage; // default  banner img
 
   // Update Image when select change
   myInfor;
   onSelectFile(e) {
     this.dataImage = e.target.files.item(0);
-    console.log(this.dataImage.name);
     let dateNow = new Date();
 
     if (e.target.files) { // Check File true : false
@@ -101,23 +103,24 @@ export class LocationControllComponent implements OnInit {
   upPhoto() {
     const formData: FormData = new FormData();
 
-    formData.append('ImageFile', this.dataImage, this.DataFormLocationEdit.Avatar);
-
-    this._LocationService.UpdateAvatar(formData).subscribe(() => {
-      // console.log(data);
-      // this.myInfor.Avatar = data
-    })
+    try {
+      formData.append('ImageFile', this.dataImage, this.DataFormLocationEdit.Avatar);
+      this._LocationService.UpdateAvatar(formData).subscribe(() => {
+      });
+    }
+    catch (e) {
+      return false;
+    }
+    return true;
   }
 
   // Function Edit Project
-  upgrade = false;
   UpdateLocation(data) {
-    data.active = data.active == true ? 1 : 0;
+    data.Active = data.Active == true ? 1 : 0;
     data.Avatar = this.DataFormLocationEdit.Avatar;
-    console.log(data);
 
     this._LocationService.UpdateLocation(data).subscribe(
-      val => {
+      () => {
         this.upPhoto();
         this.Alert_successFunction("Update Success");
         this.EditByIdInArray(data);
@@ -136,10 +139,12 @@ export class LocationControllComponent implements OnInit {
       i++;
 
       if (element.LocationID == val.LocationID) {
+        console.log(val);
+        console.log(this.DefaultandNewAvatar);
+
         val.ImageBannerSrc = '';
         val.Avatar = this.DefaultandNewAvatar;
         this.listLocation.splice(i, 1, val);
-        // this.resetImageArray();
       }
     });
   }
@@ -175,7 +180,7 @@ export class LocationControllComponent implements OnInit {
   // GetDataCheckisAddorEdit: true ? add : edit
   GetDataCheckisAddorEdit(bl, val) {
     if (bl) {
-      // this.GetDataEditorAdd(val);
+      this.DefaultandNewAvatar = environment.defaultImage;
       return this.isAddLocationForm = true;
     }
     else {
@@ -192,24 +197,27 @@ export class LocationControllComponent implements OnInit {
     this.formValidator = this.FormBuilder.group({
       LocationID: [0, [Validators.required]],
       LocationName: ['LocationName', [Validators.required]],
-      active: [false, [Validators.required]],
+      Active: [false, [Validators.required]],
 
-      LocationLetter: ['A', [Validators.required]],
+      LocationLetter: ['L', [Validators.required]],
 
-      Avatar: ['Avatar'],
+      // Avatar: ['Avatar'],
     })
   }
   get LocationName() { return this.formValidator.get('LocationName') }
   GetDataEditorAdd(val) {
 
-    this.DefaultandNewAvatar = this.getImageAvatarSrc + val.Avatar;
+    this.DefaultandNewAvatar = (val.Avatar.indexOf(this.getImageAvatarSrc) > -1 ? '' : this.getImageAvatarSrc) + val.Avatar;
+     if (val.Avatar.indexOf("base64") > -1) {
+      this.DefaultandNewAvatar = val.Avatar;
+    }
     this.formValidator.controls.LocationName.patchValue(val.LocationName);
     this.formValidator.controls.LocationID.patchValue(val.LocationID);
 
-    this.formValidator.controls.active.patchValue(val.active == 0 ? false : true);
-    this.formValidator.controls.LocationLetter.patchValue(val.LocationLetter);
+    this.formValidator.controls.Active.patchValue(val.Active == 0 ? false : true);
+    this.formValidator.controls.LocationLetter.patchValue(val.LocationName.substr(0, 1));
 
-    this.formValidator.controls.Avatar.patchValue(val.Avatar);
+    // this.formValidator.controls.Avatar.patchValue(val.Avatar);
   }
 
 
@@ -224,11 +232,6 @@ export class LocationControllComponent implements OnInit {
         this.alert_success = !this.alert_success;
       }, 800);
     }
-    else if (success == 0) {
-      setTimeout(() => {
-        this.alert_warn = !this.alert_warn;
-      }, 1000);
-    }
     else {
       setTimeout(() => {
         this.alert_danger = !this.alert_danger;
@@ -238,6 +241,7 @@ export class LocationControllComponent implements OnInit {
   Alert_successFunction(value) {
     this.alert_Text = value;
     this.alert_success = true;
+
     // call function set alert_success = true  
     this.AlertFunction(true);
   }
@@ -248,13 +252,7 @@ export class LocationControllComponent implements OnInit {
     // call function set alert_danger = true  
     this.AlertFunction(false);
   }
-  Alert_warnFunction(value) {
-    this.alert_Text = value;
-    this.alert_warn = true;
 
-    // call function set alert_warn = 0
-    this.AlertFunction(0);
-  }
   // END Function show alert
 
 
@@ -267,13 +265,9 @@ export class LocationControllComponent implements OnInit {
   }
   // END checkValidForm
 
-
-  // handFileInput
-  // imageBannertoUpload: File = null;
-  // handFileInput(file: FileList) {
-  //   this.imageBannertoUpload = file.item(0)    
-  // }
-  // END handFileInput
+  SetLocationLetterWhenEnterName(value) {
+    this.formValidator.controls.LocationLetter.patchValue(value.substr(0, 1));
+  }
 }
 
 // Mục Lục
