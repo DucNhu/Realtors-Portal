@@ -9,17 +9,17 @@ namespace Realtors_Portal.Models.Customer
 {
     public class PackagePurchased
     {
-        //[Key]
-        //[DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int ppID { get; set; }
         //[Required]
         public int PackagerID { get; set; }
         //[Required]
-        public string UserName { get; set; }
-        public int PromotionPrice { get; set; }
+        public string UserID { get; set; }
+
         //[Required]
-        public DateTime ppStartDate { get; set; }
+        public DateTime StartDate { get; set; }
         //[Required]
-        public DateTime ppEndDate { get; set; }
+        public DateTime EndDate { get; set; }
     }
 }

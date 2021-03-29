@@ -87,4 +87,18 @@ SELECT Are.AreName,
                             Are.AreID, 
                             Are.AreLetter, 
                             Are.DistrictID, 
-                            District.DistrictName  FROM Are INNER JOIN District ON District.DistrictID = Are.AreID
+                            District.DistrictName  FROM Are INNER JOIN District ON District.DistrictID = Are.DistrictID
+
+	SELECT COUNT(*)
+  FROM Location
+  WHERE LocationLetter = 'L';
+
+  SELECT * from project
+  SELECT project.ProjectName, project.ID, project.ImageBannerName, project.LevelActive, project.Description, project.Title, .project.Sqft,
+  Location.LocationName, Country.CountryName , City.CityName, District.DistrictName, Are.AreName
+  FROM project
+  INNER JOIN Location ON Location.LocationID = project.Location
+  INNER JOIN Country ON Country.CountryID = project.Country
+    INNER JOIN City ON City.CityID = project.City
+	  INNER JOIN District ON District.DistrictID = project.District
+	  INNER JOIN Are ON Are.AreID = project.Are

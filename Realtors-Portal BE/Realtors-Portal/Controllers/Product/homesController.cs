@@ -1,10 +1,13 @@
 ﻿using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using Realtors_Portal.Data;
 using Realtors_Portal.Models;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
@@ -17,12 +20,14 @@ namespace Realtors_Portal.Controllers
     {
         private readonly Realtors_PortalContext _context;
         private readonly IWebHostEnvironment _hostEnvironment;
-        public projectsController(Realtors_PortalContext context, IWebHostEnvironment hostEnvironment)
+        private readonly IConfiguration _configuration;
+
+        public projectsController(Realtors_PortalContext context, IConfiguration configuration, IWebHostEnvironment hostEnvironment)
         {
             _context = context;
             this._hostEnvironment = hostEnvironment;
+            _configuration = configuration;
         }
-
         // GET: api/projects
         [HttpGet]
         public async Task<ActionResult<IEnumerable<home>>> Getproject()
@@ -43,6 +48,38 @@ namespace Realtors_Portal.Controllers
 
             return project;
         }
+
+        //Get by CountryID
+        [Route("getProjectByFK")]
+        [HttpGet]
+        public JsonResult Get()
+        {
+            string query = @"  SELECT project.ProjectName, project.ID, project.ImageBannerName, project.LevelActive, project.Description, project.Title, .project.Sqft,
+  Location.LocationName, Country.CountryName , City.CityName, District.DistrictName, Are.AreName
+  FROM project
+  INNER JOIN Location ON Location.LocationID = project.Location
+  INNER JOIN Country ON Country.CountryID = project.Country
+    INNER JOIN City ON City.CityID = project.City
+	  INNER JOIN District ON District.DistrictID = project.District
+	  INNER JOIN Are ON Are.AreID = project.Are";
+
+            DataTable table = new DataTable();
+            string sqlDataSource = _configuration.GetConnectionString("RealtorsConnect");
+            SqlDataReader myRender;
+            using (SqlConnection myCon = new SqlConnection(sqlDataSource))
+            {
+                myCon.Open();
+                using (SqlCommand myCommand = new SqlCommand(query, myCon))
+                {
+                    myRender = myCommand.ExecuteReader();
+                    table.Load(myRender);
+                    myRender.Close(); myCon.Close();
+                }
+            }
+            return new JsonResult(table);
+        }
+
+
 
         // PUT: api/projects/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
@@ -117,7 +154,7 @@ namespace Realtors_Portal.Controllers
                 var httpRequest = Request.Form;
                 var postedFile = httpRequest.Files[0];
                 string filename = postedFile.FileName;
-                var physicalPath = _hostEnvironment.ContentRootPath + "/Images/" + filename;
+                var physicalPath = _hostEnvironment.ContentRootPath + "/Images/Products/" + filename;
                 using (var stream = new FileStream(physicalPath, FileMode.Create))
                 {
                     postedFile.CopyTo(stream);

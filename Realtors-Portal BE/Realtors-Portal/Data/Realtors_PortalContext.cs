@@ -122,5 +122,25 @@ namespace Realtors_Portal.Data
         //public DbSet<Realtors_Portal.Models.Customer.User> User { get; set; }
 
         public DbSet<Realtors_Portal.Models.Address.Are> Are { get; set; }
+    
+
+
+        //public DbSet<Realtors_Portal.Models.Agent> Agent { get; set; }
+
+        //public DbSet<Realtors_Portal.Models.Seller> Seller { get; set; }
+
+        //public DbSet<Realtors_Portal.Models.Customer.User> User { get; set; }
+
+        public DbSet<Realtors_Portal.Models.Customer.Package> Package { get; set; }
+    
+
+
+        //public DbSet<Realtors_Portal.Models.Agent> Agent { get; set; }
+
+        //public DbSet<Realtors_Portal.Models.Seller> Seller { get; set; }
+
+        //public DbSet<Realtors_Portal.Models.Customer.User> User { get; set; }
+
+        public DbSet<Realtors_Portal.Models.Customer.PackagePurchased> PackagePurchased { get; set; }
     }
 }

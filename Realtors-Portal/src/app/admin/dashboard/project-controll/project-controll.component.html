@@ -1,111 +1,109 @@
-
-    <div class="d-flex align-items-center mb-3">
-        <div>
-            <ul class="breadcrumb">
-                <li class="breadcrumb-item"><a href="#">PAGES</a></li>
-                <li class="breadcrumb-item active">PRODUCTS</li>
-            </ul>
-            <h1 class="page-header mb-0">Products</h1>
-            <div class="">
-                <div class="alert-group">
-                    <!-- Success -->
-                    <div class="d-none" [class]="alert_success ? 'd-block alert alert-success' : ''">
-                        {{ alert_Text }}
-                    </div>
-                    <!-- Danger -->
-                    <div class="d-none" [class]="alert_danger ? 'd-block alert alert-danger' : ''">
-                        {{ alert_Text }}
-                    </div>
-                    <!-- warn -->
-                    <div class="d-none" [class]="alert_warn ? 'd-block alert alert-warning' : ''">
-                        {{ alert_Text }}
-                    </div>
+<div class="d-flex align-items-center mb-3">
+    <div>
+        <ul class="breadcrumb">
+            <li class="breadcrumb-item"><a href="#">PAGES</a></li>
+            <li class="breadcrumb-item active">PRODUCTS</li>
+        </ul>
+        <h1 class="page-header mb-0">Products</h1>
+        <div class="">
+            <div class="alert-group">
+                <!-- Success -->
+                <div class="d-none" [class]="alert_success ? 'd-block alert alert-success' : ''">
+                    {{ alert_Text }}
+                </div>
+                <!-- Danger -->
+                <div class="d-none" [class]="alert_danger ? 'd-block alert alert-danger' : ''">
+                    {{ alert_Text }}
+                </div>
+                <!-- warn -->
+                <div class="d-none" [class]="alert_warn ? 'd-block alert alert-warning' : ''">
+                    {{ alert_Text }}
                 </div>
             </div>
         </div>
-        <div class="ml-auto">
-            <button class="button-add btn btn-link dropdown-toggle dropdown-toggle-split m-0 p-0" data-toggle="modal"
-                data-target="#modal-form-AddEdit" (click)="GetDataCheckisAddorEdit(true, DataFormProjectEdit)">
-                <span class="icon icon-sm icon-gray">
-                    <i class="fa fa-plus-circle fa-fw mr-1"></i>
-                    Add Project
-                </span>
-            </button>
-        </div>
     </div>
-
-    <div class="overflowX-auto">
-        <table class="table table-hover">
-            <thead class="angular-thead">
-                <tr>
-                    <th>id</th>
-                    <th>Name</th>
-                    <th>Image</th>
-                    <th>Location</th>
-                    <th>Country</th>
-                    <th>City</th>
-                    <th>District</th>
-                    <th>Are</th>
-                    <th>Price</th>
-                    <th>Active</th>
-                    <th>Action</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr *ngFor="let p of listProject">
-                    <th>{{ p.ID }}</th>
-                    <td>{{ p.ProjectName }}</td>
-                    <td>
-                        <div class="angular-property-image bg-overlay-gradient-04">
-                            <img [src]="p.ImageBannerSrc + p.ImageBannerName" [alt]="p.ImageBannerName"
-                                class="img-fluid">
-                        </div>
-                    </td>
-                    <td>{{ p.Location }}</td>
-                    <td>{{ p.Country }}</td>
-
-                    <td>{{ p.City }}</td>
-                    <td>{{ p.District }}</td>
-                    <td>{{ p.Are }}</td>
-
-                    <td>{{p.Price}}</td>
-                    <th class="th-active">
-                        <div [ngSwitch]="p.LevelActive" class="box-active">
-                            <div *ngSwitchCase="0">
-                                <span class="suspended rounded">Suspended</span>
-                            </div>
-                            <div *ngSwitchCase="1"><span class="active">Active</span></div>
-                            <div *ngSwitchCase="2"><span class="viewhome">View Home</span></div>
-                            <div *ngSwitchDefault><span class="suspended">Error</span></div>
-                        </div>
-                    </th>
-                    <!-- Action BOX-->
-                    <td>
-                        <div class="dropdown">
-                            <button class="btn p-0 dropdown-toggle" type="button" id="dropdownMenu2"
-                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <i class="fas fa-lg fa-fw me-2 fa-ellipsis-h"></i>
-                            </button>
-                            <div class="dropdown-menu p-0" aria-labelledby="dropdownMenu2">
-                                <div class="d-flex box-action">
-                                    <button class="dropdown-item view" type="button">
-                                        <i class="far fa-eye"></i>
-                                    </button>
-                                    <button class="dropdown-item detail" type="button" data-toggle="modal"
-                                        data-target="#modal-form-AddEdit" (click)="GetDataCheckisAddorEdit(false,p)">
-                                        <i class="far fa-lg fa-fw me-2 fa-edit"></i>
-                                    </button>
-                                    <button class="dropdown-item delete" type="button" (click)="DeleteEmPloyee(p.ID)">
-                                        <i class="far fa-lg fa-fw  fa-trash-alt"></i>
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
+    <div class="ml-auto">
+        <button class="button-add btn btn-link dropdown-toggle dropdown-toggle-split m-0 p-0" data-toggle="modal"
+            data-target="#modal-form-AddEdit" (click)="GetDataCheckisAddorEdit(true, DataFormProjectEdit)">
+            <span class="icon icon-sm icon-gray">
+                <i class="fa fa-plus-circle fa-fw mr-1"></i>
+                Add Project
+            </span>
+        </button>
     </div>
+</div>
+
+<div class="overflowX-auto">
+    <table class="table table-hover">
+        <thead class="angular-thead">
+            <tr>
+                <th>id</th>
+                <th>Name</th>
+                <th>Image</th>
+                <th>Location</th>
+                <th>Country</th>
+                <th>City</th>
+                <th>District</th>
+                <th>Are</th>
+                <th>Price</th>
+                <th>Active</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let p of listProject">
+                <th>{{ p.ID }}</th>
+                <td>{{ p.ProjectName }}</td>
+                <td>
+                    <div class="angular-property-image bg-overlay-gradient-04">
+                        <img [src]="p.ImageBannerSrc + p.ImageBannerName" [alt]="p.ImageBannerName" class="img-fluid">
+                    </div>
+                </td>
+                <td>{{ p.Location }}</td>
+                <td>{{ p.Country }}</td>
+
+                <td>{{ p.City }}</td>
+                <td>{{ p.District }}</td>
+                <td>{{ p.Are }}</td>
+
+                <td>{{p.Price}}</td>
+                <th class="th-active">
+                    <div [ngSwitch]="p.LevelActive" class="box-active">
+                        <div *ngSwitchCase="0">
+                            <span class="suspended rounded">Suspended</span>
+                        </div>
+                        <div *ngSwitchCase="1"><span class="active">Active</span></div>
+                        <div *ngSwitchCase="2"><span class="viewhome">View Home</span></div>
+                        <div *ngSwitchDefault><span class="suspended">Error</span></div>
+                    </div>
+                </th>
+                <!-- Action BOX-->
+                <td>
+                    <div class="dropdown">
+                        <button class="btn p-0 dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown"
+                            aria-haspopup="true" aria-expanded="false">
+                            <i class="fas fa-lg fa-fw me-2 fa-ellipsis-h"></i>
+                        </button>
+                        <div class="dropdown-menu p-0" aria-labelledby="dropdownMenu2">
+                            <div class="d-flex box-action">
+                                <button class="dropdown-item view" type="button">
+                                    <i class="far fa-eye"></i>
+                                </button>
+                                <button class="dropdown-item detail" type="button" data-toggle="modal"
+                                    data-target="#modal-form-AddEdit" (click)="GetDataCheckisAddorEdit(false,p)">
+                                    <i class="far fa-lg fa-fw me-2 fa-edit"></i>
+                                </button>
+                                <button class="dropdown-item delete" type="button" (click)="DeleteEmPloyee(p.ID)">
+                                    <i class="far fa-lg fa-fw  fa-trash-alt"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
 
 
 
@@ -149,7 +147,8 @@
                                                 <!-- <input type="number" name="CategoryID" formControlName="CategoryID" id="Category"> -->
                                                 <select class="form-select form-control" formControlName="CategoryID"
                                                     name="CategoryID">
-                                                    <option *ngFor="let category of listCategies" [value]="category.CategoryID">
+                                                    <option *ngFor="let category of listCategies"
+                                                        [value]="category.CategoryID">
                                                         {{category.CategoryName}}
                                                     </option>
                                                 </select>
@@ -180,7 +179,7 @@
                                                     value="ImageBannerName" formControlName="ImageBannerName"
                                                     (blur)="checkValidForm('ImageBannerName')">
                                             </div>
-                                          
+
                                             <!-- LevelActive  -->
                                             <div class="mb-4">
                                                 <label for="LevelActive">LevelActive</label>
@@ -209,8 +208,7 @@
                                                     <label for="ImageFile"
                                                         class="position-absolute select--banner">Select banner</label>
                                                     <input type="file" name="ImageFile" id="ImageFile" class="d-none"
-                                                        accept="image/*"
-                                                        (change)="onSelectFile($event)">
+                                                        accept="image/*" (change)="onSelectFile($event)">
                                                     <img [src]="DefaultandNewAvatar" [alt]="DefaultandNewAvatar"
                                                         class="img-fluid">
                                                 </div>
@@ -237,8 +235,9 @@
                                                 </label>
 
                                                 <select class="form-select form-control" formControlName="Location">
-                                                    <option *ngFor="let Location of listLocation" [value]="Location.id">
-                                                        {{Location}}
+                                                    <option *ngFor="let Location of listLocation"
+                                                        [value]="Location.LocationID">
+                                                        {{ Location.LocationName }}
                                                     </option>
                                                 </select>
                                             </div>
@@ -246,8 +245,9 @@
                                             <div class="mb-4">
                                                 <label for="Country">Country</label>
                                                 <select class="form-select form-control" formControlName="Country">
-                                                    <option *ngFor="let Country of listCountry" [value]="Country.id">
-                                                        {{Country.Title}}
+                                                    <option *ngFor="let Country of listCountry"
+                                                        [value]="Country.CountryID">
+                                                        {{ Country.CountryName }}
                                                     </option>
                                                 </select>
                                             </div>
@@ -256,8 +256,8 @@
                                                 <label for="City">City</label>
 
                                                 <select class="form-select form-control" formControlName="City">
-                                                    <option *ngFor="let City of listCity" [value]="City.id">
-                                                        {{City.Title}}
+                                                    <option *ngFor="let City of listCity" [value]="City.CityID">
+                                                        {{ City.CityName }}
                                                     </option>
                                                 </select>
                                             </div>
@@ -266,8 +266,9 @@
                                                 <label for="District">District</label>
 
                                                 <select class="form-select form-control" formControlName="District">
-                                                    <option *ngFor="let District of listDistrict" [value]="District.id">
-                                                        {{District.Title}}
+                                                    <option *ngFor="let District of listDistrict"
+                                                        [value]="District.DistrictID">
+                                                        {{ District.DistrictName }}
                                                     </option>
                                                 </select>
                                             </div>
@@ -276,8 +277,8 @@
                                                 <label for="Are">Are</label>
 
                                                 <select class="form-select form-control" formControlName="Are">
-                                                    <option *ngFor="let Are of listAre" [value]="Are.id">
-                                                        {{Are.Title}}
+                                                    <option *ngFor="let Are of listAre" [value]="Are.AreID">
+                                                        {{ Are.AreName }}
                                                     </option>
                                                 </select>
                                             </div>

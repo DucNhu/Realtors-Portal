@@ -1,17 +1,27 @@
 import { Component, OnInit } from '@angular/core';
 import { ProjectService } from '../../../@core/mock/project.service';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { NgForm } from '@angular/forms';
+
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../@core/models/Environment';
 import { CategoryService } from 'src/app/@core/mock/category.service';
+
+import { LocationService } from '../../../@core/mock/Address/location.service';
+import { CountryService } from '../../../@core/mock/Address/country.service';
+import { CityService } from '../../../@core/mock/Address/city.service';
+import { DistrictService } from '../../../@core/mock/Address/district.service';
+import { AreService } from '../../../@core/mock/Address/are.service';
+
 @Component({
   selector: 'app-project-controll',
   templateUrl: './project-controll.component.html',
   styleUrls: ['../../admin.component.css', './project-controll.component.css']
 })
+
 export class ProjectControllComponent implements OnInit {
-  // Khai bao bien
+  // Khai bao bien  
+  getImageBannerSrc = environment.Imageurl + 'products/';
+
   listCategies;
   listLevelActive = [
     {
@@ -29,108 +39,9 @@ export class ProjectControllComponent implements OnInit {
       Title: "View home",
       selected: false
     }
-  ]
-  // Adress
-  listLocation = [
-    {
-      id: 3,
-      Title: "Location1",
+  ];
 
-      active: true
-    },
-    {
-      id: 1,
-      Title: "Location1",
-
-      active: true
-    },
-    {
-      id: 2,
-      Title: "Location1",
-
-      active: true
-    },
-  ]
-  listAre = [
-    {
-      id: 3,
-      Title: "Location1",
-
-      active: true
-    },
-    {
-      id: 1,
-      Title: "Location1",
-
-      active: true
-    },
-    {
-      id: 2,
-      Title: "Location1",
-
-      active: true
-    },
-  ]
-  listCity = [
-    {
-      id: 3,
-      Title: "Location1",
-
-      active: true
-    },
-    {
-      id: 1,
-      Title: "Location1",
-
-      active: true
-    },
-    {
-      id: 2,
-      Title: "Location1",
-
-      active: true
-    },
-  ]
-  listCountry = [
-    {
-      id: 3,
-      Title: "Location1",
-
-      active: true
-    },
-    {
-      id: 1,
-      Title: "Location1",
-
-      active: true
-    },
-    {
-      id: 2,
-      Title: "Location1",
-
-      active: true
-    },
-  ]
-  listDistrict = [
-    {
-      id: 3,
-      Title: "Location1",
-
-      active: true
-    },
-    {
-      id: 1,
-      Title: "Location1",
-
-      active: true
-    },
-    {
-      id: 2,
-      Title: "Location1",
-
-      active: true
-    },
-  ]
+  //  Get data from form when ...?...
   DataFormProjectEdit = {
     Are: undefined,
     CategoryID: undefined,
@@ -139,7 +50,7 @@ export class ProjectControllComponent implements OnInit {
     District: undefined,
     ID: 10,
     ImageBannerName: "158974392_210254662.jpg",
-    ImageBannerSrc: environment.Imageurl,
+    ImageBannerSrc: this.getImageBannerSrc,
     ImageFile: File,
     ImageLibID: undefined,
     Location: undefined,
@@ -151,7 +62,7 @@ export class ProjectControllComponent implements OnInit {
     LevelActive: undefined,
     Title: ""
   };
-  DefaultandNewAvatar = "http://adevaes.com/wp-content/uploads/2016/11/26102015122159AMaboutus-default-banner.jpg"; // default  banner img
+  DefaultandNewAvatar = environment.defaultImage; // default  banner img
 
   idLength;
   // END khai bao bien
@@ -159,21 +70,27 @@ export class ProjectControllComponent implements OnInit {
     private FormBuilder: FormBuilder,
     private _CategoryService: CategoryService,
     private _ProjectService: ProjectService,
-    private http: HttpClient
+    private http: HttpClient,
+
+    private _location: LocationService,
+    private _CountryService: CountryService,
+    private _CityService: CityService,
+    private _DistrictService: DistrictService,
+    private _AreService: AreService,
   ) { }
 
   ngOnInit(): void {
     this.getAllProject();
     this.ValidatorForm();
 
-
+    this.getsetAllAddress(); // call function set data address
   }
 
   // ======== CRUD ============
   listProject = [];
   containData;
   getIdLength = 0;
-  getImageBannerSrc = environment.Imageurl;
+
   // Get All project
   getAllProject() {
     this._ProjectService.getAllProj().subscribe(
@@ -189,7 +106,7 @@ export class ProjectControllComponent implements OnInit {
     );
 
     //  Call function get all category
-    this.getAllCategory();
+    this.getsetAllCategory();
   }
 
   // function CreateProject:
@@ -199,18 +116,28 @@ export class ProjectControllComponent implements OnInit {
     data.ID = 0;
     console.log(data);
 
-    data.ImageBannerName = this.DataFormProjectEdit.ImageBannerName;
-    this._ProjectService.CreateProj(data)
-      .subscribe(res => {
-        this.upPhoto(); // Insert Image
-        data.ID = this.listProject[length].ID += 1;
-        data.ImageBannerSrc = '';
-        data.ImageBannerName = this.DefaultandNewAvatar;
-        this.listProject.unshift(data);
-        this.resetImageArray();
-        this.Alert_successFunction("Created done");
-      });
+
+
+    if (this.upPhoto()) {        // this.upPhoto(); // Insert Image
+      data.ImageBannerName = this.DataFormProjectEdit.ImageBannerName;
+      this._ProjectService.CreateProj(data)
+        .subscribe(res => {
+          this.upPhoto(); // Insert Image
+          let getIDLength = this.listProject[length].ID;
+          data.ID = getIDLength += 1;
+          data.ImageBannerSrc = '';
+          data.ImageBannerName = this.DefaultandNewAvatar;
+          this.listProject.unshift(data);
+          this.resetImageArray();
+          this.Alert_successFunction("Created done");
+        });
+    }
+    else {
+      this.Alert_dangerFunction("Create false, try again, pls");
+    }
   }
+
+
   resetImageArray() { // because update in array
     this.listProject[length].ImageBannerSrc = '';
     this.listProject[length].ImageBannerName = ''; // reset not loop
@@ -234,16 +161,22 @@ export class ProjectControllComponent implements OnInit {
       }
     }
   }
+
+
   upPhoto() {
     const formData: FormData = new FormData();
 
-    formData.append('ImageFile', this.dataImage, this.DataFormProjectEdit.ImageBannerName);
-
-    this._ProjectService.UpdatePhotoBanner(formData).subscribe(() => {
-      // console.log(data);
-      // this.myInfor.Avatar = data
-    })
+    try {
+      formData.append('ImageFile', this.dataImage, this.DataFormProjectEdit.ImageBannerName);
+      this._ProjectService.UpdatePhotoBanner(formData).subscribe(() => {
+      });
+    }
+    catch (e) {
+      return false;
+    }
+    return true;
   }
+
 
   // Function Edit Project
   upgrade = false;
@@ -310,7 +243,7 @@ export class ProjectControllComponent implements OnInit {
   // GetDataCheckisAddorEdit: true ? add : edit
   GetDataCheckisAddorEdit(bl, val) {
     if (bl) {
-      this.DefaultandNewAvatar = "http://adevaes.com/wp-content/uploads/2016/11/26102015122159AMaboutus-default-banner.jpg";
+      this.DefaultandNewAvatar = environment.defaultImage;
       return this.isAddProjectForm = true;
     }
     else {
@@ -351,7 +284,12 @@ export class ProjectControllComponent implements OnInit {
   get ProjectName() { return this.formValidator.get('ProjectName') }
 
   SetDataForEditorForm(val) {
-    this.DefaultandNewAvatar = environment.Imageurl + val.ImageBannerName;
+    this.DefaultandNewAvatar = (val.ImageBannerName.indexOf(this.getImageBannerSrc) > -1 ? '' : this.getImageBannerSrc) + val.ImageBannerName;
+    if (val.ImageBannerName.indexOf("base64") > -1) {
+      this.DefaultandNewAvatar = val.ImageBannerName;
+    }
+
+    // this.DefaultandNewAvatar = environment.Imageurl + val.ImageBannerName;
     this.formValidator.controls.ProjectName.patchValue(val.ProjectName);
     this.formValidator.controls.Are.patchValue(val.Are);
     this.formValidator.controls.CategoryID.patchValue(val.CategoryID);
@@ -433,9 +371,43 @@ export class ProjectControllComponent implements OnInit {
 
 
   // Funciton get all value in category in service
-  getAllCategory() {
+  getsetAllCategory() {
     this._CategoryService.getAllCategory().subscribe(data => {
-      this.listCategies = data;      
+      this.listCategies = data;
+    })
+  }
+
+  // Funciton get=>set all value in  service from address folder
+
+  // Adress
+  listLocation;
+  listAre;
+  listCity;
+  listCountry;
+  listDistrict;
+
+  getsetAllAddress() {
+    // listLocation
+    this._location.getAllLocation().subscribe(data => {
+      this.listLocation = data;      
+    })
+    // listLocation
+    this._CountryService.getAllCountryByLocationID().subscribe(data => {
+      this.listCountry = data;
+    })
+    // listLocation
+    this._CityService.getAllCityByCountryID().subscribe(data => {
+      this.listCity = data;
+    })
+    // listLocation
+    this._DistrictService.getAllDistrictByCityID().subscribe(data => {
+      this.listDistrict = data;
+    })
+    // listLocation
+    this._AreService.getAreByDistrictID().subscribe(data => {
+      this.listAre = data;
+      console.log(data);
+      
     })
   }
 }
@@ -450,6 +422,6 @@ export class ProjectControllComponent implements OnInit {
  * Alert Success, errorr...
  * checkValidForm
  * handFileInput
- * 
+ *
  * getAllCategory
  */

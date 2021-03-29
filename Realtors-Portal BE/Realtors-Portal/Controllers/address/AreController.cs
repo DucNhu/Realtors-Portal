@@ -51,7 +51,7 @@ namespace Realtors_Portal.Controllers.address
         }
 
 
-        //Get by CountryID
+        //Get by DítrictID
         [Route("getAreByDistrictID")]
         [HttpGet]
         public JsonResult Get()
@@ -64,7 +64,7 @@ namespace Realtors_Portal.Controllers.address
                             Are.AreLetter, 
                             Are.DistrictID, 
                             District.DistrictName 
-                            FROM Are INNER JOIN District ON District.DistrictID = Are.AreID";
+                            FROM Are INNER JOIN District ON District.DistrictID = Are.DistrictID";
 
             DataTable table = new DataTable();
             string sqlDataSource = _configuration.GetConnectionString("RealtorsConnect");

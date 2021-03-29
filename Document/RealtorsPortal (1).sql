@@ -38,14 +38,13 @@ CREATE TABLE "tblPackage" (
   PackageAvatar varchar(250),
   PackageDesciption varchar(500),
   NumberOfAds int,
-  NumberOfMember int,
-  NumberOfMonth int
+  Duration int
 );
 
 CREATE TABLE "tblPackagePurchased" (
   ppID int PRIMARY KEY,
   PackagerID int,
-  UserName varchar(30),
+  UserID varchar(30),
   ppStartDate datetime,
   ppEndDate datetime
 );
