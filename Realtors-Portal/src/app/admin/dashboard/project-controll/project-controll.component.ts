@@ -6,12 +6,6 @@ import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../@core/models/Environment';
 import { CategoryService } from 'src/app/@core/mock/category.service';
 
-import { LocationService } from '../../../@core/mock/Address/location.service';
-import { CountryService } from '../../../@core/mock/Address/country.service';
-import { CityService } from '../../../@core/mock/Address/city.service';
-import { DistrictService } from '../../../@core/mock/Address/district.service';
-import { AreService } from '../../../@core/mock/Address/are.service';
-
 @Component({
   selector: 'app-project-controll',
   templateUrl: './project-controll.component.html',
@@ -72,11 +66,11 @@ export class ProjectControllComponent implements OnInit {
     private _ProjectService: ProjectService,
     private http: HttpClient,
 
-    private _location: LocationService,
-    private _CountryService: CountryService,
-    private _CityService: CityService,
-    private _DistrictService: DistrictService,
-    private _AreService: AreService,
+    // private _location: LocationService,
+    // private _countryService: CountryService,
+    // private _cityService: CityService,
+    // private _districtService: DistrictService,
+    // private _areService: AreService,
   ) { }
 
   ngOnInit(): void {
@@ -93,7 +87,7 @@ export class ProjectControllComponent implements OnInit {
 
   // Get All project
   getAllProject() {
-    this._ProjectService.getAllProj().subscribe(
+    this._ProjectService.getProjectByFK().subscribe(
       data => {
         this.containData = data;
         console.log(this.listProject);
@@ -388,23 +382,23 @@ export class ProjectControllComponent implements OnInit {
 
   getsetAllAddress() {
     // listLocation
-    this._location.getAllLocation().subscribe(data => {
+    this._ProjectService.getAllLocation().subscribe(data => {
       this.listLocation = data;      
     })
     // listLocation
-    this._CountryService.getAllCountryByLocationID().subscribe(data => {
+    this._ProjectService.getAllCountryByLocationID().subscribe(data => {
       this.listCountry = data;
     })
     // listLocation
-    this._CityService.getAllCityByCountryID().subscribe(data => {
+    this._ProjectService.getAllCityByCountryID().subscribe(data => {
       this.listCity = data;
     })
     // listLocation
-    this._DistrictService.getAllDistrictByCityID().subscribe(data => {
+    this._ProjectService.getAllDistrictByCityID().subscribe(data => {
       this.listDistrict = data;
     })
     // listLocation
-    this._AreService.getAreByDistrictID().subscribe(data => {
+    this._ProjectService.getAreByDistrictID().subscribe(data => {
       this.listAre = data;
       console.log(data);
       

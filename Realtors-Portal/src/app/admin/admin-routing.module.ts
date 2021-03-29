@@ -5,6 +5,7 @@ import { ProjectControllComponent } from './dashboard/project-controll/project-c
 import { NotfoundComponent } from '../@theme/notfound/notfound.component';
 import { CategoryControlComponent } from './dashboard/category-control/category-control.component';
 import { AddressComponent } from './dashboard/address/address.component';
+import { PackageControllComponent } from './dashboard/package-controll/package-controll.component';
 const routes: Routes = [
     {
         path: '', component: AdminComponent,
@@ -20,6 +21,9 @@ const routes: Routes = [
             },
             {
                 path: 'address', component: AddressComponent
+            },
+            {
+                path: 'Packages', component: PackageControllComponent
             }
         ]
     },

@@ -54,7 +54,8 @@ namespace Realtors_Portal.Controllers
         [HttpGet]
         public JsonResult Get()
         {
-            string query = @"  SELECT project.ProjectName, project.ID, project.ImageBannerName, project.LevelActive, project.Description, project.Title, .project.Sqft,
+            string query = @"SELECT project.ProjectName, project.ID, project.ImageBannerName, project.LevelActive,
+project.Description, project.Title,project.Price, project.Sqft,
   Location.LocationName, Country.CountryName , City.CityName, District.DistrictName, Are.AreName
   FROM project
   INNER JOIN Location ON Location.LocationID = project.Location

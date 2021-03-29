@@ -16,13 +16,14 @@ import { CityControllComponent } from './dashboard/address/city-controll/city-co
 import { DistrictControllComponent } from './dashboard/address/district-controll/district-controll.component';
 import { AreControllComponent } from './dashboard/address/are-controll/are-controll.component';
 import { AddressComponent } from './dashboard/address/address.component';
+import { PackageControllComponent } from './dashboard/package-controll/package-controll.component';
 @NgModule({
-  declarations: [AdminComponent, NavigationComponent, ProjectControllComponent, HeaderComponent, CategoryControlComponent, LocationControllComponent, CountryControllComponent, CityControllComponent, DistrictControllComponent, AreControllComponent, AddressComponent],
+  declarations: [AdminComponent, NavigationComponent, ProjectControllComponent, HeaderComponent, CategoryControlComponent, LocationControllComponent, CountryControllComponent, CityControllComponent, DistrictControllComponent, AreControllComponent, AddressComponent, PackageControllComponent],
   imports: [
     CommonModule,
     AdminRoutingModule,
     FormsModule, ReactiveFormsModule,
-    AngularFileUploaderModule    
+    AngularFileUploaderModule
   ]
 })
 export class AdminModule {
