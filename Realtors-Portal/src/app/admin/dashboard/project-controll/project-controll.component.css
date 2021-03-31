@@ -16,13 +16,26 @@ button:focus > .fa-ellipsis-h {
     text-shadow: 0px 0px 1px #000000;
     width: 100%;
     height: 100%;
-
     text-align: center;
     cursor: pointer;
     font-size: 20px;
     left: 0;
     bottom: 0;
 }
+
+.mb-3 {
+    padding-top: 36px;
+}
+
+.mb-4 {
+    padding-top: 8px;
+}
+
+.des-tion {
+    width: 100%;
+    margin: 0 16px;
+}
+
 .overflowX-auto {
     overflow-x: auto;
 }
