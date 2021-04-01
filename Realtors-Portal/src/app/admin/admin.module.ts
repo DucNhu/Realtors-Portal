@@ -5,6 +5,7 @@ import { AdminRoutingModule } from './admin-routing.module';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AngularFileUploaderModule } from "angular-file-uploader";
+import { MaterialModule } from './material/material.module';
 
 import { NavigationComponent } from './component/navigation/navigation.component';
 import { ProjectControllComponent } from './dashboard/project-controll/project-controll.component';
@@ -17,13 +18,16 @@ import { DistrictControllComponent } from './dashboard/address/district-controll
 import { AreControllComponent } from './dashboard/address/are-controll/are-controll.component';
 import { AddressComponent } from './dashboard/address/address.component';
 import { PackageControllComponent } from './dashboard/package-controll/package-controll.component';
+import { CustomerComponent } from './dashboard/customer/customer/customer.component';
+import { ListCustomerComponent } from './dashboard/customer/list-customer.component';
 @NgModule({
-  declarations: [AdminComponent, NavigationComponent, ProjectControllComponent, HeaderComponent, CategoryControlComponent, LocationControllComponent, CountryControllComponent, CityControllComponent, DistrictControllComponent, AreControllComponent, AddressComponent, PackageControllComponent],
+  declarations: [AdminComponent, NavigationComponent, ProjectControllComponent, HeaderComponent, CategoryControlComponent, LocationControllComponent, CountryControllComponent, CityControllComponent, DistrictControllComponent, AreControllComponent, AddressComponent, PackageControllComponent, CustomerComponent, ListCustomerComponent],
   imports: [
     CommonModule,
     AdminRoutingModule,
     FormsModule, ReactiveFormsModule,
-    AngularFileUploaderModule
+    AngularFileUploaderModule,
+    MaterialModule,
   ]
 })
 export class AdminModule {

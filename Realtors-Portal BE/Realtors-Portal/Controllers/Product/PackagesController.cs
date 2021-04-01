@@ -76,7 +76,6 @@ namespace Realtors_Portal.Controllers.Product
                     throw;
                 }
             }
-
             return NoContent();
         }
 

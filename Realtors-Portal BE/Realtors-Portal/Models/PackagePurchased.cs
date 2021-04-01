@@ -13,10 +13,9 @@ namespace Realtors_Portal.Models.Customer
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int ppID { get; set; }
         //[Required]
-        public int PackagerID { get; set; }
+        public int PackageID { get; set; }
         //[Required]
         public string UserID { get; set; }
-
         //[Required]
         public DateTime StartDate { get; set; }
         //[Required]

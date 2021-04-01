@@ -462,6 +462,9 @@ namespace Realtors_Portal.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<int>("Active")
+                        .HasColumnType("int");
+
                     b.Property<int>("Duration")
                         .HasColumnType("int");
 
@@ -480,15 +483,42 @@ namespace Realtors_Portal.Migrations
                     b.Property<string>("PackageTitle")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<decimal>("Price")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<int>("Price")
+                        .HasColumnType("int");
 
-                    b.Property<decimal>("PromotionPrice")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<int>("PromotionPrice")
+                        .HasColumnType("int");
+
+                    b.Property<string>("TypeDuration")
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("PackageID");
 
                     b.ToTable("Package");
+                });
+
+            modelBuilder.Entity("Realtors_Portal.Models.Customer.PackagePurchased", b =>
+                {
+                    b.Property<int>("ppID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTime>("EndDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("PackageID")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("StartDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("UserID")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("ppID");
+
+                    b.ToTable("PackagePurchased");
                 });
 
             modelBuilder.Entity("Realtors_Portal.Models.Customer.User", b =>
@@ -521,6 +551,9 @@ namespace Realtors_Portal.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("PackageID")
+                        .HasColumnType("int");
+
                     b.Property<string>("Password")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -550,23 +583,45 @@ namespace Realtors_Portal.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<int>("Active")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Avatar")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Email")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("PackageID")
+                        .HasColumnType("int");
 
                     b.Property<string>("Password")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Phone")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("ProductID")
+                        .HasColumnType("int");
+
+                    b.Property<string>("User_type")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("ppID")
+                        .HasColumnType("int");
 
                     b.HasKey("ID");
 
                     b.ToTable("Seller");
                 });
 
-            modelBuilder.Entity("Realtors_Portal.Models.home", b =>
+            modelBuilder.Entity("Realtors_Portal.Models.product", b =>
                 {
                     b.Property<int>("ID")
                         .ValueGeneratedOnAdd()

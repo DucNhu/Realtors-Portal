@@ -10,8 +10,7 @@ namespace Realtors_Portal.Models
         public string ProductID { get; set; }
         public string Name { get; set; }
 
-        [NotMapped]
-        public IFormFile ImageFile { get; set; }
-
+        //[NotMapped]
+        //public IFormFile ImageFile { get; set; }
     }
 }

@@ -1,0 +1,50 @@
+<div class="d-flex align-items-center mb-3">
+    <div>
+        <ul class="breadcrumb">
+            <li class="breadcrumb-item"><a href="#">PAGES</a></li>
+            <li class="breadcrumb-item active">List Customer</li>
+        </ul>
+        <h1 class="page-header mb-0">List Customer</h1>
+    </div>
+    <div class="ml-auto">
+    </div>
+</div>
+
+<section class="space-ptb login">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-12">
+                <ul class="nav nav-tabs nav-tabs-02 justify-content-center" id="myTab" role="tablist">
+                    <li class="nav-item mx-1" *ngFor="let name of listAddress">
+                        <a class="nav-link " [id]="name" (click)="onselect(name)">{{ name }}</a>
+                    </li>
+                </ul>
+
+                <div class="box-tab" id="myTabContent" ngSwitch="{{selctTab}}">
+                    <div class="tab-pane" *ngSwitchCase="listAddress[0]">
+                        <app-customer></app-customer>
+                    </div>
+                    <div class="tab-pane" *ngSwitchCase="listAddress[1]">
+                        <!-- <app-country-controll></app-country-controll> -->
+                    </div>
+                    <div class="tab-pane" *ngSwitchCase="listAddress[2]">
+                        <!-- <app-city-controll></app-city-controll> -->
+                    </div>
+                    <div class="tab-pane" *ngSwitchCase="listAddress[3]">
+                        <!-- <app-district-controll></app-district-controll> -->
+                    </div>
+                    <div class="tab-pane" *ngSwitchCase="listAddress[4]">
+                        <!-- <app-are-controll></app-are-controll> -->
+                    </div>
+                    <div *ngSwitchDefault>
+                        <div class="tab-pane fade show active" id="create-user" role="tabpanel"
+                            aria-labelledby="create-user">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!--=================================
+Register -->

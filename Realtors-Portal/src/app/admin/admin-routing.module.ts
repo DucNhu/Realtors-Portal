@@ -6,6 +6,8 @@ import { NotfoundComponent } from '../@theme/notfound/notfound.component';
 import { CategoryControlComponent } from './dashboard/category-control/category-control.component';
 import { AddressComponent } from './dashboard/address/address.component';
 import { PackageControllComponent } from './dashboard/package-controll/package-controll.component';
+import { CustomerComponent } from './dashboard/customer/customer/customer.component';
+import { ListCustomerComponent } from './dashboard/customer/list-customer.component';
 const routes: Routes = [
     {
         path: '', component: AdminComponent,
@@ -23,7 +25,10 @@ const routes: Routes = [
                 path: 'address', component: AddressComponent
             },
             {
-                path: 'Packages', component: PackageControllComponent
+                path: 'packages', component: PackageControllComponent
+            },
+            {
+                path: 'customer', component: ListCustomerComponent
             }
         ]
     },

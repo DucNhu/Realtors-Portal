@@ -12,27 +12,27 @@ export class ProjectService {
   ) { }
 
   getAllProj() {
-    return this.http.get(environment.apiUrl + 'projects')
+    return this.http.get(environment.apiUrl + 'products')
   }
 
   getProjectByFK() {
-    return this.http.get(environment.apiUrl + 'projects/getProjectByFK')
+    return this.http.get(environment.apiUrl + 'products/getProjectByFK')
   }
 
   CreateProj(val) {
-    return this.http.post(environment.apiUrl + 'projects', val)
+    return this.http.post(environment.apiUrl + 'products', val)
   }
 
   UpdatePhotoBanner(val) {
-    return this.http.post(environment.apiUrl + "projects/savefile", val)
+    return this.http.post(environment.apiUrl + "products/savefile", val)
   }
 
   UpdateProj(id, val) {
-    return this.http.put(environment.apiUrl + 'projects/' + id, val)
+    return this.http.put(environment.apiUrl + 'products/' + id, val)
   }
 
   deleteProj(val) {
-    return this.http.delete(environment.apiUrl + 'projects/' + val)
+    return this.http.delete(environment.apiUrl + 'products/' + val)
   }
 
 

@@ -13,8 +13,8 @@ namespace Realtors_Portal.Models.Customer
         //[Required]
         public string PackageName { get; set; }
         //[Required]   
-        public decimal Price { get; set; }
-        public decimal PromotionPrice { get; set; }
+        public int Price { get; set; }
+        public int PromotionPrice { get; set; }
         
         public string PackageTitle { get; set; }
 
@@ -26,9 +26,14 @@ namespace Realtors_Portal.Models.Customer
 
         public string PackageAvatar { get; set; }
 
+        public int Active { get; set; }
+
+        public string TypeDuration { get; set; }
+
         [NotMapped]
         public IFormFile ImageFile { get; set; }
 
-      
+        
+        
     }
 }

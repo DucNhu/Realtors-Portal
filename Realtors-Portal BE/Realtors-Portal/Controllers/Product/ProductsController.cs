@@ -16,13 +16,13 @@ namespace Realtors_Portal.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class projectsController : ControllerBase
+    public class productsController : ControllerBase
     {
         private readonly Realtors_PortalContext _context;
         private readonly IWebHostEnvironment _hostEnvironment;
         private readonly IConfiguration _configuration;
 
-        public projectsController(Realtors_PortalContext context, IConfiguration configuration, IWebHostEnvironment hostEnvironment)
+        public productsController(Realtors_PortalContext context, IConfiguration configuration, IWebHostEnvironment hostEnvironment)
         {
             _context = context;
             this._hostEnvironment = hostEnvironment;
@@ -30,14 +30,14 @@ namespace Realtors_Portal.Controllers
         }
         // GET: api/projects
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<home>>> Getproject()
+        public async Task<ActionResult<IEnumerable<product>>> Getproject()
         {
             return await _context.project.ToListAsync();
         }
 
         // GET: api/projects/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<home>> Getproject(int id)
+        public async Task<ActionResult<product>> Getproject(int id)
         {
             var project = await _context.project.FindAsync(id);
 
@@ -85,7 +85,7 @@ project.Description, project.Title,project.Price, project.Sqft,
         // PUT: api/projects/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> Putproject(int id,home project)
+        public async Task<IActionResult> Putproject(int id,product project)
         {
             if (id != project.ID)
             {
@@ -116,7 +116,7 @@ project.Description, project.Title,project.Price, project.Sqft,
         // POST: api/projects
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<home>> Postproject(home project)
+        public async Task<ActionResult<product>> Postproject(product project)
         {
             project.ImageBannerName = project.ImageBannerName;
             _context.project.Add(project);

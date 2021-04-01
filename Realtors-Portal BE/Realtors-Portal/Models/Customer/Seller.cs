@@ -7,25 +7,35 @@ namespace Realtors_Portal.Models
 
     public class Seller
     {
-        //[Key]
-        //[DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int ID { get; set; }
-        //[Required]
+
+        [Required(ErrorMessage = "Name is required")]
         public string Name { get; set; }
         //[Rkequired]
         //public string Address { get; set; }
-        //[Required]
-        //public string Phone { get; set; }
+
+        [Phone(ErrorMessage = "Phone is err")]
+        //[Required(ErrorMessage = "phone is requied")]
+        public string Phone { get; set; }
+
         [Required]
-        [EmailAddress]
+        [EmailAddress(ErrorMessage = "Email is err")]
         public string Email { get; set; }
-        [Required(ErrorMessage = "pass is required")]
+
+        [Required(ErrorMessage = "Pass is required")]
         public string Password { get; set; }
         //[Required]
-        //public int erActive { get; set; }
-        //public string Avatar { get; set; }
+        public int Active { get; set; }
+        public string Avatar { get; set; }
         //public DateTime DateCreate { get; set; }
-        //public int PackageID { get; set; }
+        
+        public int PackageID { get; set; }
+        public int ppID { get; set; }
+        public int ProductID { get; set; }
         //public int AgentID { get; set; }
+
+        public string User_type { get; set; }
     }
 }

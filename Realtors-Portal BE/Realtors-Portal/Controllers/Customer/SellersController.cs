@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
+using System.IO;
 using System.Linq;
 using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -26,13 +28,16 @@ namespace Realtors_Portal.Controllers
         private readonly Realtors_PortalContext _context;
         private readonly UserManager<IdentityUser> _userManager;
         private readonly JwtConfig _jwtConfig;
+        private readonly IWebHostEnvironment _hostEnvironment;
 
-        public SellersController(Realtors_PortalContext context, UserManager<IdentityUser> userManager, IOptionsMonitor<JwtConfig> optionsMonitor)
+        public SellersController(Realtors_PortalContext context, UserManager<IdentityUser> userManager, IOptionsMonitor<JwtConfig> optionsMonitor, IWebHostEnvironment hostEnvironment)
         {
             _context = context;
             _userManager = userManager;
-            _jwtConfig = optionsMonitor.CurrentValue;
+            _jwtConfig = optionsMonitor.CurrentValue; this._hostEnvironment = hostEnvironment;
+
         }
+
 
         // GET: api/Sellers
         [HttpGet]
@@ -251,6 +256,30 @@ namespace Realtors_Portal.Controllers
             var jwtToken = jwtTokenHandler.WriteToken(token);
 
             return jwtToken;
+        }
+
+        //SaveFile Image
+        [Route("savefile")]
+        [HttpPost]
+        public JsonResult SaveFile()
+        {
+            try
+            {
+                var httpRequest = Request.Form;
+                var postedFile = httpRequest.Files[0];
+                string filename = postedFile.FileName;
+                var physicalPath = _hostEnvironment.ContentRootPath + "/Images/Customer/Sellers" + filename;
+                using (var stream = new FileStream(physicalPath, FileMode.Create))
+                {
+                    postedFile.CopyTo(stream);
+                }
+                return new JsonResult(filename);
+            }
+
+            catch (Exception)
+            {
+                return new JsonResult("Save image");
+            }
         }
     }
 }

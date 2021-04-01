@@ -342,7 +342,6 @@ C:\Users\Pc\Documents\GitHub\ProjectIII\Realtors-Portal\Realtors-Portal BE\Realt
 C:\Users\Pc\Documents\GitHub\ProjectIII\Realtors-Portal\Realtors-Portal BE\Realtors-Portal\obj\Debug\net5.0\Realtors-Portal.TagHelpers.input.cache
 C:\Users\Pc\Documents\GitHub\ProjectIII\Realtors-Portal\Realtors-Portal BE\Realtors-Portal\obj\Debug\net5.0\Realtors-Portal.TagHelpers.output.cache
 C:\Users\Pc\Documents\GitHub\ProjectIII\Realtors-Portal\Realtors-Portal BE\Realtors-Portal\obj\Debug\net5.0\Realtors-Portal.RazorCoreGenerate.cache
-C:\Users\Pc\Documents\GitHub\ProjectIII\Realtors-Portal\Realtors-Portal BE\Realtors-Portal\obj\Debug\net5.0\Razor\Views\Shared\_ValidationScriptsPartial.cshtml.g.cs
 C:\Users\Pc\Documents\GitHub\ProjectIII\Realtors-Portal\Realtors-Portal BE\Realtors-Portal\obj\Debug\net5.0\Realtors-Portal.RazorTargetAssemblyInfo.cache
 C:\Users\Pc\Documents\GitHub\ProjectIII\Realtors-Portal\Realtors-Portal BE\Realtors-Portal\obj\Debug\net5.0\Realtors-Portal.RazorTargetAssemblyInfo.cs
 C:\Users\Pc\Documents\GitHub\ProjectIII\Realtors-Portal\Realtors-Portal BE\Realtors-Portal\obj\Debug\net5.0\Realtors-Portal.Views.pdb
@@ -352,3 +351,4 @@ C:\Users\Pc\Documents\GitHub\ProjectIII\Realtors-Portal\Realtors-Portal BE\Realt
 C:\Users\Pc\Documents\GitHub\ProjectIII\Realtors-Portal\Realtors-Portal BE\Realtors-Portal\obj\Debug\net5.0\Realtors-Portal.pdb
 C:\Users\Pc\Documents\GitHub\ProjectIII\Realtors-Portal\Realtors-Portal BE\Realtors-Portal\obj\Debug\net5.0\Realtors-Portal.genruntimeconfig.cache
 C:\Users\Pc\Documents\GitHub\ProjectIII\Realtors-Portal\Realtors-Portal BE\Realtors-Portal\obj\Debug\net5.0\Realtors-Portal.csprojAssemblyReference.cache
+C:\Users\Pc\Documents\GitHub\ProjectIII\Realtors-Portal\Realtors-Portal BE\Realtors-Portal\obj\Debug\net5.0\Razor\Models\Views\Shared\_ValidationScriptsPartial.cshtml.g.cs

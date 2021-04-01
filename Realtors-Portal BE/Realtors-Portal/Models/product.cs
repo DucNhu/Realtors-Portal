@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Realtors_Portal.Models
 {
-    public class home
+    public class product
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]

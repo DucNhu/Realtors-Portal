@@ -30,7 +30,6 @@ namespace Realtors_Portal.Models.Customer
 
         public string Phone { get; set; }
         [Required(ErrorMessage = "email is required")]
-
         
         public string Avatar { get; set; }
 
@@ -38,6 +37,9 @@ namespace Realtors_Portal.Models.Customer
         public int Active { get; set; }
 
         public int ProductID { get; set; }
+
+        public int PackageID { get; set; }
+
         public int ppID { get; set; }
 
         public string User_type { get; set; }

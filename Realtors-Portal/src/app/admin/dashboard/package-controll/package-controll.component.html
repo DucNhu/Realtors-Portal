@@ -1,1 +1,332 @@
-<p>package-controll works!</p>
+<div class="container">
+    <div class="d-flex align-items-center mb-3">
+        <div>
+            <ul class="breadcrumb">
+                <li class="breadcrumb-item"><a href="#">PAGES</a></li>
+                <li class="breadcrumb-item active">categoris</li>
+            </ul>
+            <h1 class="page-header mb-0">categoris</h1>
+            <div class="">
+                <div class="alert-group">
+                    <!-- Success -->
+                    <div class="d-none" [class]="alert_success ? 'd-block alert alert-success' : ''">
+                        {{ alert_Text }}
+                    </div>
+                    <!-- Danger -->
+                    <div class="d-none" [class]="alert_danger ? 'd-block alert alert-danger' : ''">
+                        {{ alert_Text }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-3 col-sm-6 col-12" *ngFor="let p of listPackage">
+            <div class="pricing">
+                <h5 class="pricing-title">{{p.PackageName}}</h5>
+                <img [src]="p.ImageBannerSrc + p.PackageAvatar" [alt]="p.PackageAvatar" class="img-fluid"
+                    *ngIf="p.PackageAvatar != null">
+                <ul class="list-style-none p-0">
+                    <li class="pricing-price d-block mb-2">
+                        <span><strong>${{p.Price}}</strong>/mo</span>
+                    </li>
+
+                    <li>{{p.PackageTitle}}</li>
+                    <li>Number Of Ads: {{ p.NumberOfAds }}</li>
+                    <li>Duration: {{ p.Duration }}</li>
+                    <li>Active:
+                        <mat-slide-toggle class="example-margin" [checked]="p.Active == 1 ? true : false"
+                            [disabled]="true">
+                        </mat-slide-toggle>
+                    </li>
+                </ul>
+
+                <p>
+                    you have the right to post {{ p.NumberOfAds }} posts in {{ p.Duration }} days
+                    <br>
+                    {{p.PackageDesciption}}
+                </p>
+                <div class="box-action d-flex justify-content-end">
+                    <button class="dropdown-item detail" type="button" data-toggle="modal"
+                        data-target="#modal-form-Edit" (click)="GetDataCheckisAddorEdit(false, p)">
+                        <i class="far fa-lg fa-fw me-2 fa-edit"></i>
+                    </button>
+                    <button class="dropdown-item delete" type="button" (click)="DeletePackage(p.PackageID)">
+                        <i class="far fa-trash-alt"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Form -->
+        <div class="col-lg-4 col-sm-6 col-12 mt-4 mt-lg-0">
+            <div class="pricing">
+                <div class="border d-flex justify-content-center">
+                    <button class="btn btnAddPackage"
+                        (click)="showformAddPackageFunction(); GetDataCheckisAddorEdit(true, DataFormPackageEdit)">
+                        <i class="fas fa-plus-circle"></i>
+                        Add Package
+                    </button>
+                </div>
+                <ng-container *ngIf="showformAddPackage == true">
+                    <form [formGroup]="formValidator">
+                        <input type="hidden" class="form-control" formControlName="PackageID">
+                        <div class="col-12 mb-4">
+                            <!-- header form -->
+                            <div class="d-flex flex-column">
+                                <div class="w-100 p-2">
+                                    <label for="packageName">Package Name</label>
+                                    <input type="text" class="form-control" formControlName="PackageName"
+                                        id="packageName" (blur)="checkValidForm('PackageName')">
+                                </div>
+                                <div class="d-flex w-100">
+                                    <!-- Price -->
+                                    <div class="w-100 p-2">
+                                        <label for="price">Price</label>
+                                        <input type="number" class="form-control" formControlName="Price" id="price"
+                                            (blur)="checkValidForm('PackageLetter')">
+                                    </div>
+                                    <!-- PromotionPrice -->
+                                    <div class="w-100 p-2">
+                                        <label for="PromotionPrice" (click)="showInputPromotionPriceFunction()">
+                                            Promotion Price
+                                            <span class="label--icon position-absolute ml-1">
+                                                <i class="fas fa-plus" *ngIf="isInputPromotionPrice == false"></i>
+                                                <i class="fas fa-minus" *ngIf="isInputPromotionPrice == true"></i>
+                                            </span>
+                                        </label>
+                                        <ng-container *ngIf="isInputPromotionPrice == true">
+                                            <input type="number" class="form-control" formControlName="PromotionPrice"
+                                                id="PromotionPrice" (blur)="checkValidForm('PackageLetter')">
+                                        </ng-container>
+                                    </div>
+                                </div>
+                                <!-- NumberOfAds -->
+                                <div class="d-flex w-100">
+                                    <div class="w-100 p-2">
+                                        <label for="NumberOfAds">Number ads</label>
+                                        <input type="number" class="form-control" formControlName="NumberOfAds"
+                                            id="NumberOfAds" (blur)="checkValidForm('PackageLetter')">
+                                    </div>
+
+                                    <div class="d-flex w-100">
+                                        <!-- Select duration: day?, month?, year? -->
+                                        <select formControlName="TypeDuration" id="TypeDuration"
+                                            class="form-control position-absolute mt-2 right-0 h-auto p-0 w-auto">
+                                            <option *ngFor="let type of listTypeDuration" [value]="type.title"
+                                                [selected]="type.title == formValidator.controls.TypeDuration.value">
+                                                {{type.title}}
+                                            </option>
+                                        </select>
+                                        <!-- Duration -->
+                                        <div class="w-100 p-2">
+                                            <label for="Duration">Duration</label>
+                                            <input type="number" class="form-control" formControlName="Duration"
+                                                id="Duration" (blur)="checkValidForm('PackageLetter')">
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Package Title -->
+                                <div class="w-100 p-2">
+                                    <label for="packageTitle">Package Title</label>
+                                    <input type="text" class="form-control" formControlName="PackageTitle"
+                                        id="packageTitle" (blur)="checkValidForm('PackageTitle')">
+                                </div>
+                            </div>
+                            <!-- Select Avatar Package -->
+                            <div class="mb-3">
+                                <div class="bg-overlay-gradient-04">
+                                    <label for="ImageFile" class="" (click)="showSelectAvatarFunction()">
+                                        Select Avatar
+                                        <span class="label--icon position-absolute ml-1">
+                                            <i class="fas fa-plus" *ngIf="isSelectAvatar == false"></i>
+                                            <i class="fas fa-minus" *ngIf="isSelectAvatar == true"></i>
+                                        </span>
+                                    </label>
+                                    <ng-container *ngIf="isSelectAvatar == true">
+                                        <input type="file" name="ImageFile" id="ImageFile" class="d-none"
+                                            accept="image/*" (change)="onSelectFile($event)">
+                                        <img [src]="DefaultandNewAvatar" [alt]="DefaultandNewAvatar" class="img-fluid"
+                                            id="avatar">
+                                    </ng-container>
+                                </div>
+                            </div>
+                            <!-- Package Des -->
+                            <div class="w-100 p-2">
+                                <label for="packageDes">Package Des</label>
+                                <textarea type="text" class="form-control" formControlName="PackageDesciption"
+                                    id="packageDes" (blur)="checkValidForm('PackageDesciption')" rows="5"></textarea>
+                            </div>
+                            <!-- Active -->
+                            <div class="mb-4">
+                                <label for="Active">Active</label>
+                                <input type="checkbox" formControlName="Active" id="Active" />
+                            </div>
+
+                            <!-- footer form -->
+                            <div class="col-12">
+                                <button type="submit" class="btn btn-success btn-outline-success d-block mx-auto"
+                                    (click)="isAddPackageForm ? CreatePackage(formValidator.value) : UpdatePackage(formValidator.value)"
+                                    data-dismiss="modal" aria-label="Close"
+                                    [disabled]="formValidator.status == 'INVALID'">
+                                    Sumit
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </ng-container>
+            </div>
+        </div>
+        <!-- END form -->
+    </div>
+</div>
+
+<!-- Form Edit -->
+<div class="modal fade" id="modal-form-Edit" tabindex="-1" role="dialog" aria-labelledby="modal-form-signup"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content angular-form__add-edit col-6">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body p-0">
+                <div class="py-4">
+                    <div class="d-flex justify-content-between w-100 flex-wrap">
+                        <div class="mb-3 mb-lg-0">
+                            <h2 class="Title pl-4">Edit Package</h2>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row text-left">
+                    <div class="col-12 mb-4">
+                        <div class="card border-light shadow-sm components-section">
+                            <div class="card-body">
+                                <form [formGroup]="formValidator">
+                                    <input type="hidden" class="form-control" formControlName="PackageID">
+                                    <div class="col-12 mb-4">
+                                        <!-- header form -->
+                                        <div class="d-flex flex-column">
+                                            <div class="w-100 p-2">
+                                                <label for="packageName">Package Name</label>
+                                                <input type="text" class="form-control" formControlName="PackageName"
+                                                    id="packageName" (blur)="checkValidForm('PackageName')">
+                                            </div>
+                                            <div class="d-flex w-100">
+                                                <!-- Price -->
+                                                <div class="w-100 p-2">
+                                                    <label for="price">Price</label>
+                                                    <input type="number" class="form-control" formControlName="Price"
+                                                        id="price" (blur)="checkValidForm('PackageLetter')">
+                                                </div>
+                                                <!-- PromotionPrice -->
+                                                <div class="w-100 p-2">
+                                                    <label for="PromotionPrice"
+                                                        (click)="showInputPromotionPriceFunction()">
+                                                        Promotion Price
+                                                        <span class="label--icon position-absolute ml-1">
+                                                            <i class="fas fa-plus"
+                                                                *ngIf="isInputPromotionPrice == false"></i>
+                                                            <i class="fas fa-minus"
+                                                                *ngIf="isInputPromotionPrice == true"></i>
+                                                        </span>
+                                                    </label>
+                                                    <ng-container *ngIf="isInputPromotionPrice == true">
+                                                        <input type="number" class="form-control"
+                                                            formControlName="PromotionPrice" id="PromotionPrice"
+                                                            (blur)="checkValidForm('PackageLetter')">
+                                                    </ng-container>
+                                                </div>
+                                            </div>
+                                            <!-- NumberOfAds -->
+                                            <div class="d-flex w-100">
+                                                <div class="w-100 p-2">
+                                                    <label for="NumberOfAds">Number ads</label>
+                                                    <input type="number" class="form-control"
+                                                        formControlName="NumberOfAds" id="NumberOfAds"
+                                                        (blur)="checkValidForm('PackageLetter')">
+                                                </div>
+
+                                                <div class="d-flex w-100">
+                                                    <!-- Select duration: day?, month?, year? -->
+                                                    <select formControlName="TypeDuration" id="selectTypeDuration"
+                                                        class="form-control position-absolute mt-2 right-0 h-auto p-0 w-auto">
+                                                        <option *ngFor="let type of listTypeDuration" [value]="type.id"
+                                                            [selected]="type.title == formValidator.controls.TypeDuration.value">
+                                                            {{type.title}}
+                                                        </option>
+                                                    </select>
+                                                    <!-- Duration -->
+                                                    <div class="w-100 p-2">
+                                                        <label for="Duration">Duration</label>
+                                                        <input type="number" class="form-control"
+                                                            formControlName="Duration" id="Duration"
+                                                            (blur)="checkValidForm('PackageLetter')">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!-- Package Title -->
+                                            <div class="w-100 p-2">
+                                                <label for="packageTitle">Package Title</label>
+                                                <input type="text" class="form-control" formControlName="PackageTitle"
+                                                    id="packageTitle" (blur)="checkValidForm('PackageTitle')">
+                                            </div>
+                                        </div>
+                                        <!-- Select Avatar Package -->
+                                        <div class="mb-3 select-img">
+                                            <p (click)="showSelectAvatarFunction()">
+                                                Select Avatar
+                                                <span class="label--icon position-absolute ml-1">
+                                                    <i class="fas fa-plus" *ngIf="isSelectAvatar == false"></i>
+                                                    <i class="fas fa-minus" *ngIf="isSelectAvatar == true"></i>
+                                                </span>
+                                            </p>
+                                            <ng-container *ngIf="isSelectAvatar == true">
+                                                <div class="bg-overlay-gradient-04 angular-property-image">
+
+
+                                                    <label for="ImageFile" class="select--banner position-absolute">Select Avatar</label>
+                                                    <input type="file" name="ImageFile" id="ImageFile" class="d-none"
+                                                        accept="image/*" (change)="onSelectFile($event)">
+                                                    <img [src]="DefaultandNewAvatar" [alt]="DefaultandNewAvatar"
+                                                        class="img-fluid" id="avatar">
+
+                                                </div>
+                                            </ng-container>
+                                        </div>
+                                        <!-- Package Des -->
+                                        <div class="w-100 p-2">
+                                            <label for="packageDes">Package Des</label>
+                                            <textarea type="text" class="form-control"
+                                                formControlName="PackageDesciption" id="packageDes"
+                                                (blur)="checkValidForm('PackageDesciption')" rows="5"></textarea>
+                                        </div>
+                                        <!-- Active -->
+                                        <div class="mb-4">
+                                            <label for="Active">Active</label>
+                                            <input type="checkbox" formControlName="Active" id="Active" />
+                                        </div>
+
+                                        <!-- footer form -->
+                                        <div class="col-12">
+                                            <button type="submit"
+                                                class="btn btn-success btn-outline-success d-block mx-auto"
+                                                (click)="isAddPackageForm ? CreatePackage(formValidator.value) : UpdatePackage(formValidator.value)"
+                                                data-dismiss="modal" aria-label="Close"
+                                                [disabled]="formValidator.status == 'INVALID'">
+                                                Sumit
+                                            </button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End of Form Add / Edit -->
