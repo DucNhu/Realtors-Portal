@@ -38,7 +38,7 @@ button:focus > .fa-ellipsis-h {
 /* END navigation */
 
 /* breadcrumb */
-.breadcrumb-item .active {
+.breadcrumb-item.active {
     text-transform: uppercase;
 }
 /* END breadcrumb */

@@ -54,15 +54,17 @@ namespace Realtors_Portal.Controllers
         [HttpGet]
         public JsonResult Get()
         {
-            string query = @"SELECT project.ProjectName, project.ID, project.ImageBannerName, project.LevelActive,
-project.Description, project.Title,project.Price, project.Sqft,
-  Location.LocationName, Country.CountryName , City.CityName, District.DistrictName, Are.AreName
+            string query = @"SELECT project.ProjectName, project.ID, project.ImageBannerName, project.LevelActive, project.Description, project.Title, project.Sqft, project.Price,
+  project.Location, project.Country, project.City, project.District, project.CategoryID, project.Are,
+  Location.LocationName, Country.CountryName , City.CityName, District.DistrictName, Are.AreName,
+  Category.CategoryName
   FROM project
   INNER JOIN Location ON Location.LocationID = project.Location
   INNER JOIN Country ON Country.CountryID = project.Country
     INNER JOIN City ON City.CityID = project.City
 	  INNER JOIN District ON District.DistrictID = project.District
-	  INNER JOIN Are ON Are.AreID = project.Are";
+	  INNER JOIN Are ON Are.AreID = project.Are
+	    INNER JOIN Category ON Category.CategoryID = project.CategoryID";
 
             DataTable table = new DataTable();
             string sqlDataSource = _configuration.GetConnectionString("RealtorsConnect");
@@ -155,7 +157,7 @@ project.Description, project.Title,project.Price, project.Sqft,
                 var httpRequest = Request.Form;
                 var postedFile = httpRequest.Files[0];
                 string filename = postedFile.FileName;
-                var physicalPath = _hostEnvironment.ContentRootPath + "/Images/Products/" + filename;
+                var physicalPath = _hostEnvironment.ContentRootPath + "/Images/Products/Banner/" + filename;
                 using (var stream = new FileStream(physicalPath, FileMode.Create))
                 {
                     postedFile.CopyTo(stream);

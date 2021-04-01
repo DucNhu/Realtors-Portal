@@ -14,7 +14,7 @@ export class CustomerComponent implements OnInit {
 
   // Khai bao bien
   idLength;
-  getImageBannerSrc = environment.Imageurl + "/categories/";
+  getImageBannerSrc = environment.ImageUrl + "/categories/";
 
   DataFormCategoryEdit = {
     CategoryID: 0,
@@ -205,7 +205,7 @@ export class CustomerComponent implements OnInit {
   GetDataEditorAdd(val) {
     console.log(val);
 
-    this.DefaultandNewAvatar = environment.Imageurl + val.Avatar;
+    this.DefaultandNewAvatar = this.getImageBannerSrc + val.Avatar;
     this.formValidator.controls.CategoryName.patchValue(val.CategoryName);
     this.formValidator.controls.CategoryID.patchValue(val.CategoryID);
     console.log(val);

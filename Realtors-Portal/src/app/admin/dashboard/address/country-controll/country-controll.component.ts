@@ -15,7 +15,7 @@ export class CountryControllComponent implements OnInit {
   // Khai bao bien
   listLocation;
   idLength;
-  getImageAvatarSrc = environment.ImageAdressurl + "Countries/";
+  getImageAvatarSrc = environment.ImageAddressUrl + "Countries/";
 
   DataFormCountryEdit = {
     CountryID: 0,

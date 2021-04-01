@@ -64,7 +64,7 @@ namespace Realtors_Portal.Controllers.address
                             City.CityLetter, 
                             City.CountryID, 
                             Country.CountryName 
-                            FROM City INNER JOIN Country ON Country.CountryID = City.CountryID";
+                            FROM City INNER JOIN Country ON Country.CountryID = City.CountryID  and City.Active = 1";
 
             DataTable table = new DataTable();
             string sqlDataSource = _configuration.GetConnectionString("RealtorsConnect");

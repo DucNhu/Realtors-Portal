@@ -34,7 +34,8 @@
     <Folder Include="Abstract\" />
     <Folder Include="Images\Customer\Sellers\" />
     <Folder Include="Images\Packages\" />
-    <Folder Include="Images\Products\" />
+    <Folder Include="Images\Products\ImageLibs\" />
+    <Folder Include="Images\Products\Banner\" />
   </ItemGroup>
 
 </Project>

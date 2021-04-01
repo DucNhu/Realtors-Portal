@@ -15,7 +15,7 @@ export class CityControllComponent implements OnInit {
   // Khai bao bien
   listCountry;
   idLength;
-  getImageAvatarSrc = environment.ImageAdressurl + "Cities/";
+  getImageAvatarSrc = environment.ImageAddressUrl + "Cities/";
 
   DataFormCityEdit = {
     CityID: 0,

@@ -2,9 +2,9 @@
     <div>
         <ul class="breadcrumb">
             <li class="breadcrumb-item"><a href="#">PAGES</a></li>
-            <li class="breadcrumb-item active">PRODUCTS</li>
+            <li class="breadcrumb-item active">Projects</li>
         </ul>
-        <h1 class="page-header mb-0">Products</h1>
+        <h1 class="page-header mb-0">Projects</h1>
         <div class="">
             <div class="alert-group">
                 <!-- Success -->
@@ -13,10 +13,6 @@
                 </div>
                 <!-- Danger -->
                 <div class="d-none" [class]="alert_danger ? 'd-block alert alert-danger' : ''">
-                    {{ alert_Text }}
-                </div>
-                <!-- warn -->
-                <div class="d-none" [class]="alert_warn ? 'd-block alert alert-warning' : ''">
                     {{ alert_Text }}
                 </div>
             </div>
@@ -40,6 +36,7 @@
                 <th>id</th>
                 <th>Name</th>
                 <th>Image</th>
+                <th>Category</th>
                 <th>Location</th>
                 <th>Country</th>
                 <th>City</th>
@@ -59,6 +56,7 @@
                         <img [src]="p.ImageBannerSrc + p.ImageBannerName" [alt]="p.ImageBannerName" class="img-fluid">
                     </div>
                 </td>
+                <td>{{ p.CategoryName }}</td>
                 <td>{{ p.LocationName }}</td>
                 <td>{{ p.CountryName }}</td>
 
@@ -170,9 +168,11 @@
                                                     <span class="form-file-text">Location</span>
                                                 </label>
 
-                                                <select class="form-select form-control" formControlName="Location">
+                                                <select class="form-select form-control" formControlName="Location"
+                                                        (change)="selectByLocation()">
                                                     <option *ngFor="let Location of listLocation"
-                                                        [value]="Location.LocationID">
+                                                        [value]="Location.LocationID"
+                                                        [selected]="Location.LocationName == formValidator.controls.Location.value">
                                                         {{ Location.LocationName }}
                                                     </option>
                                                 </select>
@@ -180,9 +180,11 @@
                                             <!-- Country -->
                                             <div class="mb-4">
                                                 <label for="Country">Country</label>
-                                                <select class="form-select form-control" formControlName="Country">
+                                                <select class="form-select form-control" formControlName="Country"
+                                                    (change)="selectByCountry()">
                                                     <option *ngFor="let Country of listCountry"
-                                                        [value]="Country.CountryID">
+                                                        [value]="Country.CountryID"
+                                                        [selected]="Country.CountryName == formValidator.controls.Country.value">
                                                         {{ Country.CountryName }}
                                                     </option>
                                                 </select>
@@ -191,8 +193,9 @@
                                             <div class="mb-4">
                                                 <label for="City">City</label>
 
-                                                <select class="form-select form-control" formControlName="City">
-                                                    <option *ngFor="let City of listCity" [value]="City.CityID">
+                                                <select class="form-select form-control" formControlName="City" (change)="selectByCity()">
+                                                    <option *ngFor="let City of listCity" [value]="City.CityID"
+                                                        [selected]="City.CityName == formValidator.controls.City.value">
                                                         {{ City.CityName }}
                                                     </option>
                                                 </select>
@@ -201,23 +204,25 @@
                                             <div class="mb-4">
                                                 <label for="District">District</label>
 
-                                                <select class="form-select form-control" formControlName="District">
+                                                <select class="form-select form-control" formControlName="District" (change)="selectByDistrict()">
                                                     <option *ngFor="let District of listDistrict"
-                                                        [value]="District.DistrictID">
+                                                        [value]="District.DistrictID"
+                                                        [selected]="District.DistrictName == formValidator.controls.District.value">
                                                         {{ District.DistrictName }}
                                                     </option>
                                                 </select>
                                             </div>
                                             <!-- Are  -->
-                                            <!-- <div class="mb-4">
+                                            <div class="mb-4">
                                                 <label for="Are">Are</label>
 
                                                 <select class="form-select form-control" formControlName="Are">
-                                                    <option *ngFor="let Are of listAre" [value]="Are.AreID">
+                                                    <option *ngFor="let Are of listAre" [value]="Are.AreID"
+                                                        [selected]="Are.AreID == formValidator.controls.Are.value">
                                                         {{ Are.AreName }}
                                                     </option>
                                                 </select>
-                                            </div> -->
+                                            </div>
                                         </div>
                                         <!-- END Adress -->
 
@@ -249,13 +254,13 @@
                                             </div>
 
                                             <!-- Sqft  -->
-                                            <!-- <div class="mb-4">
+                                            <div class="mb-4">
                                                 <label for="Sqft">Sqft</label>
                                                 <input type="number" class="form-control" name="Sqft"
                                                     formControlName="Sqft" (blur)="checkValidForm('Sqft')">
-                                            </div> -->
+                                            </div>
                                             <!-- ImageLibID  -->
-                                            <div class="mb-4 d-none">
+                                            <div class="mb-4">
                                                 <label for="ImageLibID">ImageLibID</label>
                                                 <input type="number" class="form-control" name="ImageLibID" value="0"
                                                     formControlName="ImageLibID" (blur)="checkValidForm('ImageLibID')">

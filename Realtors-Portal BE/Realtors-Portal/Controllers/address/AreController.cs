@@ -56,15 +56,14 @@ namespace Realtors_Portal.Controllers.address
         [HttpGet]
         public JsonResult Get()
         {
-            string query = @"SELECT 
-                            Are.AreName, 
+            string query = @"SELECT Are.AreName, 
                             Are.Active, 
                             Are.Avatar, 
                             Are.AreID, 
                             Are.AreLetter, 
                             Are.DistrictID, 
-                            District.DistrictName 
-                            FROM Are INNER JOIN District ON District.DistrictID = Are.DistrictID";
+                            District.DistrictName  FROM Are INNER JOIN District ON
+                            District.DistrictID = Are.DistrictID and Are.Active = 1";
 
             DataTable table = new DataTable();
             string sqlDataSource = _configuration.GetConnectionString("RealtorsConnect");

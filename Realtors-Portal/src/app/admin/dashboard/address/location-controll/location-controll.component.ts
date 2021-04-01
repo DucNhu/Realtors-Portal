@@ -13,7 +13,7 @@ import { environment } from '../../../../@core/models/Environment';
 export class LocationControllComponent implements OnInit {
   // Khai bao bien
   idLength;
-  getImageAvatarSrc = environment.ImageAdressurl + "locations/";
+  getImageAvatarSrc = environment.ImageAddressUrl + "locations/";
 
   DataFormLocationEdit = {
     LocationID: 0,

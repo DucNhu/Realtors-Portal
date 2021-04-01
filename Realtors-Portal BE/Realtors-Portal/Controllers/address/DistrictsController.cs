@@ -65,7 +65,7 @@ namespace Realtors_Portal.Controllers.address
                             District.DistrictLetter, 
                             District.CityID, 
                             City.CityName 
-                            FROM District INNER JOIN City ON City.CityID = District.CityID";
+                            FROM District INNER JOIN City ON City.CityID = District.CityID and District.Active = 1";
 
             DataTable table = new DataTable();
             string sqlDataSource = _configuration.GetConnectionString("RealtorsConnect");

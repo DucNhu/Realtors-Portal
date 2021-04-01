@@ -13,7 +13,7 @@ import { environment } from '../../../@core/models/Environment';
 export class PackageControllComponent implements OnInit {
   // Khai bao bien
   idLength;
-  getImageAvatarSrc = environment.Imageurl + "Packages/";
+  getImageAvatarSrc = environment.ImageUrl + "Packages/";
 
   typeDuration;
   listTypeDuration = [

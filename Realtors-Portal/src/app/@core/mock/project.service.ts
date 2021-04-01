@@ -38,8 +38,8 @@ export class ProjectService {
 
 
   //  Address
-  getAllLocation() {
-    return this.http.get(environment.apiUrl + 'Locations')
+  getAllLocationActive() {
+    return this.http.get(environment.apiUrl + 'Locations/getLocationActive')
   }
   getAllCountryByLocationID() {
     return this.http.get(environment.apiUrl + 'Countries/getCountryByLocationID')

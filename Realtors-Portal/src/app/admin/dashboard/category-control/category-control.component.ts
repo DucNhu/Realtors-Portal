@@ -13,7 +13,7 @@ import { environment } from '../../../@core/models/Environment';
 export class CategoryControlComponent implements OnInit {
   // Khai bao bien
   idLength;
-  getImageBannerSrc = environment.Imageurl + "/categories/";
+  getImageBannerSrc = environment.ImageUrl + "/categories/";
 
 
   DataFormCategoryEdit = {
@@ -205,7 +205,7 @@ export class CategoryControlComponent implements OnInit {
   GetDataEditorAdd(val) {
     console.log(val);
     
-    this.DefaultandNewAvatar = environment.Imageurl + val.Avatar;
+    this.DefaultandNewAvatar = this.getImageBannerSrc + val.Avatar;
     this.formValidator.controls.CategoryName.patchValue(val.CategoryName);
     this.formValidator.controls.CategoryID.patchValue(val.CategoryID);
     console.log(val);

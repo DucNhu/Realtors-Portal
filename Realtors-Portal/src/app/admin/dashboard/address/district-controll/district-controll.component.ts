@@ -15,7 +15,7 @@ export class DistrictControllComponent implements OnInit {
   // Khai bao bien
   listCity;
   idLength;
-  getImageAvatarSrc = environment.ImageAdressurl + "Districts/";
+  getImageAvatarSrc = environment.ImageAddressUrl + "Districts/";
 
   DataFormDistrictEdit = {
     DistrictID: 0,
@@ -118,8 +118,6 @@ export class DistrictControllComponent implements OnInit {
   }
   upPhoto() {
     const formData: FormData = new FormData();
-    console.log(this.dataImage);
-    console.log(this.DataFormDistrictEdit.Avatar);
 
     try {
       formData.append('ImageFile', this.dataImage, this.DataFormDistrictEdit.Avatar);

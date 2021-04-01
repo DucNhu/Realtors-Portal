@@ -16,7 +16,7 @@ export class AreControllComponent implements OnInit {
   // Khai bao bien
   listDistrict;
   idLength;
-  getImageAvatarSrc = environment.ImageAdressurl + "Ares/";
+  getImageAvatarSrc = environment.ImageAddressUrl + "Ares/";
 
   DataFormAreEdit = {
     AreID: 0,

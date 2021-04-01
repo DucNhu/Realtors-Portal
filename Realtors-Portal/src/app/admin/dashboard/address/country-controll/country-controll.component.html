@@ -132,7 +132,7 @@
                                                 </label>
                                                 <select class="form-select form-control" formControlName="LocationID">
                                                     <option *ngFor="let Location of listLocation" [value]="Location.LocationID" [selected]="Location.LocationID == formValidator.controls.LocationID.value">
-                                                        {{Location.LocationName + Location.LocationID}}
+                                                        {{Location.LocationName}}
                                                     </option>
                                                 </select>
                                             </div>

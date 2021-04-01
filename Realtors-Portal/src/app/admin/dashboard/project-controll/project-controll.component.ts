@@ -14,7 +14,7 @@ import { CategoryService } from 'src/app/@core/mock/category.service';
 
 export class ProjectControllComponent implements OnInit {
   // Khai bao bien  
-  getImageBannerSrc = environment.Imageurl + 'products/';
+  getImageBannerSrc = environment.ImageProductUrl + 'banner/';
 
   listCategies;
   listLevelActive = [
@@ -43,7 +43,7 @@ export class ProjectControllComponent implements OnInit {
     Country: undefined,
     District: undefined,
     ID: 10,
-    ImageBannerName: "158974392_210254662.jpg",
+    ImageBannerName: "AvatarDefault.jpg",
     ImageBannerSrc: this.getImageBannerSrc,
     ImageFile: File,
     ImageLibID: undefined,
@@ -111,7 +111,6 @@ export class ProjectControllComponent implements OnInit {
     console.log(data);
 
 
-
     if (this.upPhoto()) {        // this.upPhoto(); // Insert Image
       data.ImageBannerName = this.DataFormProjectEdit.ImageBannerName;
       this._ProjectService.CreateProj(data)
@@ -121,9 +120,45 @@ export class ProjectControllComponent implements OnInit {
           data.ID = getIDLength += 1;
           data.ImageBannerSrc = '';
           data.ImageBannerName = this.DefaultandNewAvatar;
+
+          // dữ liệu truyền vào là id, nên lặp để tìm r gắn lại name vào mảng
+          this.listLocation.forEach(e => {
+            if (e.LocationID == data.Location) {
+              data.LocationName = e.LocationName;
+            }
+          });
+          this.listCountry.forEach(e => {
+            if (e.CountryID == data.Country) {
+              data.CountryName = e.CountryName;
+            }
+          });
+          this.listCity.forEach(e => {
+            if (e.CityID == data.City) {
+              data.CityName = e.CityName;
+            }
+          });
+          this.listDistrict.forEach(e => {
+            if (e.DistrictID == data.District) {
+              data.DistrictName = e.DistrictName;
+            }
+          });
+          this.listAre.forEach(e => {
+            if (e.AreID == data.Are) {
+              data.AreName = e.AreName;
+            }
+          });
+
+          this.listCategies.forEach(e => {
+            if (e.CategoryID == data.CategoryID) {
+              data.CategoryName = e.CategoryName;
+            }
+          });
+
           this.listProject.unshift(data);
           this.resetImageArray();
-          this.Alert_successFunction("Created done");
+          this.Alert_successFunction("Create done");
+          console.log(this.listProject);
+
         });
     }
     else {
@@ -140,8 +175,9 @@ export class ProjectControllComponent implements OnInit {
   }
   // Function update Image
   // Update Image when select change
-  myInfor;
+  newImage = false;
   onSelectFile(e) {
+    this.newImage = true;
     this.dataImage = e.target.files.item(0);
     console.log(this.dataImage.name);
     let dateNow = new Date();
@@ -176,19 +212,23 @@ export class ProjectControllComponent implements OnInit {
   upgrade = false;
   UpdateProject(data) {
     console.log(data);
-
     data.ImageBannerName = this.DataFormProjectEdit.ImageBannerName;
     this._ProjectService.UpdateProj(data.ID, data).subscribe(
       val => {
-        this.upPhoto();
+        if (this.newImage == true) {
+          this.upPhoto();
+          this.newImage = false
+        }
         this.Alert_successFunction("Update Success");
-        this.EditByIdInArray(data)
+
+        this.EditByIdInArray(data);
       },
       error => {
         this.Alert_dangerFunction("Error Update")
       }
     );
   }
+
 
   EditByIdInArray(val) {
     console.log(val);
@@ -198,6 +238,37 @@ export class ProjectControllComponent implements OnInit {
       i++;
 
       if (element.ID == val.ID) {
+        this.listLocation.forEach(e => {
+          if (e.LocationID == val.Location) {
+            val.LocationName = e.LocationName;
+          }
+        });
+        this.listCountry.forEach(e => {
+          if (e.CountryID == val.Country) {
+            val.CountryName = e.CountryName;
+          }
+        });
+        this.listCity.forEach(e => {
+          if (e.CityID == val.City) {
+            val.CityName = e.CityName;
+          }
+        });
+        this.listDistrict.forEach(e => {
+          if (e.DistrictID == val.District) {
+            val.DistrictName = e.DistrictName;
+          }
+        });
+        this.listAre.forEach(e => {
+          if (e.AreID == val.Are) {
+            val.AreName = e.AreName;
+          }
+        });
+        this.listCategies.forEach(e => {
+          if (e.CategoryID == val.CategoryID) {
+            val.CategoryName = e.CategoryName;
+          }
+        });
+
         val.ImageBannerSrc = '';
         val.ImageBannerName = this.DefaultandNewAvatar;
         this.listProject.splice(i, 1, val);
@@ -250,34 +321,40 @@ export class ProjectControllComponent implements OnInit {
   formValidator: FormGroup;
   ValidatorForm() {
     this.formValidator = this.FormBuilder.group({
-      Are: ['Are', [Validators.required]],
+      Are: [null, [Validators.required]],
       CategoryID: [0, [Validators.required]],
-      City: ['City', [Validators.required]],
+      City: [null, [Validators.required]],
 
-      Country: ['Country', [Validators.required]],
-      District: ['District', [Validators.required]],
+      Country: [null, [Validators.required]],
+      District: [null, [Validators.required]],
       ID: [0],
 
-      Location: ['Location', [Validators.required]],
+      Location: [null, [Validators.required]],
 
-      Price: [0, [Validators.required]],
+      Price: [null, [Validators.required]],
       SellerID: [0],
 
-      ProjectName: ['ProjectName', [Validators.required]],
-      Sqft: [0, [Validators.required]],
+      ProjectName: [null, [Validators.required]],
+      Sqft: [null, [Validators.required]],
 
-      Description: ['Description', [Validators.required]],
-      LevelActive: [[Validators.required]],
+      Description: [null, [Validators.required]],
+      LevelActive: [null, [Validators.required]],
 
-      Title: ['Title', [Validators.required]],
-      ImageLibID: [0],
+      Title: [null, [Validators.required]],
+      ImageLibID: [null],
       ImageBannerName: ['ImageBannerName'],
       ImageFile: ['']
     })
   }
+
+  // Du lieu test
+
+  // END du lieu test
   get ProjectName() { return this.formValidator.get('ProjectName') }
 
   SetDataForEditorForm(val) {
+    console.log(val);
+
     this.DefaultandNewAvatar = (val.ImageBannerName.indexOf(this.getImageBannerSrc) > -1 ? '' : this.getImageBannerSrc) + val.ImageBannerName;
     if (val.ImageBannerName.indexOf("base64") > -1) {
       this.DefaultandNewAvatar = val.ImageBannerName;
@@ -320,11 +397,7 @@ export class ProjectControllComponent implements OnInit {
         this.alert_success = !this.alert_success;
       }, 800);
     }
-    else if (success == 0) {
-      setTimeout(() => {
-        this.alert_warn = !this.alert_warn;
-      }, 1000);
-    }
+
     else {
       setTimeout(() => {
         this.alert_danger = !this.alert_danger;
@@ -344,22 +417,17 @@ export class ProjectControllComponent implements OnInit {
     // call function set alert_danger = true  
     this.AlertFunction(false);
   }
-  Alert_warnFunction(value) {
-    this.alert_Text = value;
-    this.alert_warn = true;
 
-    // call function set alert_warn = 0
-    this.AlertFunction(0);
-  }
   // END Function show alert
 
 
   // checkValidForm
   checkValidForm(val) {
-    switch (val) {
-      case "Price": console.log(this.formValidator.controls.Price);
+    // switch (val) {
+    //   case "Price":
+    //      console.log(this.formValidator.controls.Price);
 
-    }
+    // }
   }
   // END checkValidForm
 
@@ -382,28 +450,86 @@ export class ProjectControllComponent implements OnInit {
 
   getsetAllAddress() {
     // listLocation
-    this._ProjectService.getAllLocation().subscribe(data => {
-      this.listLocation = data;      
+    this._ProjectService.getAllLocationActive().subscribe(data => {
+      this.listLocation = data;
     })
-    // listLocation
+    // listCountry
     this._ProjectService.getAllCountryByLocationID().subscribe(data => {
-      this.listCountry = data;
+      this.countryInLocation = data;      
     })
-    // listLocation
+    // listCity
     this._ProjectService.getAllCityByCountryID().subscribe(data => {
-      this.listCity = data;
+      this.cityInCountry = data;
     })
-    // listLocation
+    // listDistrict
     this._ProjectService.getAllDistrictByCityID().subscribe(data => {
-      this.listDistrict = data;
-    })
-    // listLocation
-    this._ProjectService.getAreByDistrictID().subscribe(data => {
-      this.listAre = data;
-      console.log(data);
+      this.districtInCity = data;
+      console.log(this.districtInCity);
       
     })
+    // listAre
+    this._ProjectService.getAreByDistrictID().subscribe(data => {
+      this.areInDistrict = data;
+    })
   }
+  
+    countryInLocation;
+  selectByLocation() {
+    let i = -1;
+    this.listCountry = []; this.listCity = []; this.listDistrict = []; this.listAre = [];
+    this.countryInLocation.forEach(e => {
+      i++;
+      if ( e.LocationID == this.formValidator.controls.Location.value ) {
+        this.listCountry.push(e);        
+      }      
+    });
+    console.log(this.listCountry);
+  }
+
+  cityInCountry;
+  selectByCountry() {
+    let i = -1;
+    this.listCity = [];
+    this.cityInCountry.forEach(e => {
+      i++;
+      if (e.CountryID == this.formValidator.controls.Country.value ) {
+        this.listDistrict = []; this.listAre = [];
+        this.listCity.push(e);        
+      }      
+    });
+    console.log(this.listCity);
+  }
+
+  districtInCity;
+  selectByCity() {
+    let i = -1; 
+    this.listDistrict = [];
+    this.districtInCity.forEach(e => {
+      i++;
+
+      if (e.CityID == this.formValidator.controls.City.value ) {
+        this.listAre = [];
+        this.listDistrict.push(e);
+      }      
+    });
+    console.log(this.listDistrict);
+  }
+
+  areInDistrict;
+  selectByDistrict() {
+    let i = -1;
+    this.listAre = [];
+    this.areInDistrict.forEach(e => {
+      i++;
+      console.log(e);
+      console.log(this.formValidator.controls.District.value);
+      if (e.DistrictID == this.formValidator.controls.District.value) {
+        this.listAre.push(e);
+      }
+    });
+    console.log(this.listAre);
+  }
+
 }
 
 // Mục Lục

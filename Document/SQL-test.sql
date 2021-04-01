@@ -70,7 +70,7 @@ create table test(id int identity, name varchar(50), username varchar(50), passw
 insert into test values ('DucNhu', 'admin', 'R2VpY28=', 'MTIzNDU2Nzg5MTIzNDU2Nw==', 0, 1)
 insert into test values ('DucNhu', 'admin2', 'R2VpY28=', 'MTIzNDU2Nzg5MTIzNDU2Nw==', 1, 1)
 
-select * from test
+select * from Category
 
 
 
@@ -80,25 +80,36 @@ insert into products values ('1', '11', '111')
 
 
 SELECT Location.LocationName, Location.LocationLetter FROM Location INNER JOIN Country ON Location.LocationID = Country.CountryID
-
+SELECT *  FROM Location where Location.Active = 1
 SELECT Are.AreName, 
                             Are.Active, 
                             Are.Avatar, 
                             Are.AreID, 
                             Are.AreLetter, 
                             Are.DistrictID, 
-                            District.DistrictName  FROM Are INNER JOIN District ON District.DistrictID = Are.DistrictID
+                            District.DistrictName  FROM Are INNER JOIN District ON District.DistrictID = Are.DistrictID and Are.Active = 1 
 
 	SELECT COUNT(*)
   FROM Location
   WHERE LocationLetter = 'L';
 
   SELECT * from project
-  SELECT project.ProjectName, project.ID, project.ImageBannerName, project.LevelActive, project.Description, project.Title, .project.Sqft,
-  Location.LocationName, Country.CountryName , City.CityName, District.DistrictName, Are.AreName
+  SELECT project.ProjectName, project.ID, project.ImageBannerName, project.LevelActive, project.Description, project.Title, project.Sqft, project.Price,
+  project.Location, project.Country, project.City, project.District, project.CategoryID, project.Are,
+
+  Location.LocationName, 
+  Country.CountryName , 
+  City.CityName, 
+  District.DistrictName, 
+  Are.AreName,
+
+  Category.CategoryName
   FROM project
   INNER JOIN Location ON Location.LocationID = project.Location
   INNER JOIN Country ON Country.CountryID = project.Country
     INNER JOIN City ON City.CityID = project.City
 	  INNER JOIN District ON District.DistrictID = project.District
 	  INNER JOIN Are ON Are.AreID = project.Are
+	    INNER JOIN Category ON Category.CategoryID = project.CategoryID
+
+
