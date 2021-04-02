@@ -46,7 +46,7 @@ export class DistrictControllComponent implements OnInit {
   getIdLength = 0;
   // Get All project
   getAllDistrict() {
-    this._DistrictService.getAllDistrictByCityID().subscribe(
+    this._DistrictService.getAllDistrict().subscribe(
       data => {
         this.containData = data;
         this.containData.forEach(e => {

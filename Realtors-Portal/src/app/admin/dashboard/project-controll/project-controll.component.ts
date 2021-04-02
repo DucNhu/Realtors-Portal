@@ -4,8 +4,9 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../@core/models/Environment';
-import { CategoryService } from 'src/app/@core/mock/category.service';
 
+import { CategoryService } from 'src/app/@core/mock/category.service';
+import { ImageLibService } from 'src/app/@core/mock/product/image-lib.service';
 @Component({
   selector: 'app-project-controll',
   templateUrl: './project-controll.component.html',
@@ -63,6 +64,7 @@ export class ProjectControllComponent implements OnInit {
   constructor(
     private FormBuilder: FormBuilder,
     private _CategoryService: CategoryService,
+    private imageLibService: ImageLibService,
     private _ProjectService: ProjectService,
     private http: HttpClient,
 
@@ -191,13 +193,61 @@ export class ProjectControllComponent implements OnInit {
       }
     }
   }
+  ArrayAvatarFeature = []; // Chứa dữ liệu img qua các lần select
+  NameFeature = [];
+  DataFeature;
+  ArrayCRUDFeature = [];
+  onSelectFileFeature(e) {
+    this.newImage = true;
+    this.DataFeature = e.target.files.item(0);
+    let dateNow = new Date();
 
+    if (e.target.files) { // Check File true : false
+
+      // for(let i = 0; i < File.length; i++) {
+      var reader = new FileReader(); // DOM
+      reader.readAsDataURL(e.target.files[0]);
+      reader.onload = (event: any) => {
+        this.ArrayAvatarFeature.push(e.target.files.item(0));
+        this.NameFeature.push(dateNow.getTime() + this.DataFeature.name);
+        this.ArrayCRUDFeature.push(event.target.result);
+        
+        // }
+      }
+
+    }
+  }
+
+  upPhotoImageFeature() {
+    let formData: FormData = new FormData();
+
+    try {
+
+      for (let i = 0; i < this.ArrayAvatarFeature.length; i++) {
+
+        formData.append('ImageFile', this.ArrayAvatarFeature[i], this.NameFeature[i]);
+        this.imageLibService.PostPhotoFeature(formData).subscribe(() => {
+          console.log("OK2");
+          this.Alert_successFunction("Add image success");
+          this.ArrayAvatarFeature = [];
+          this.NameFeature = [];
+        });
+      }
+    }
+    catch (e) {
+      console.error(e);
+
+      return false;
+    }
+    return true;
+  }
 
   upPhoto() {
-    const formData: FormData = new FormData();
+    let formData: FormData = new FormData();
 
     try {
       formData.append('ImageFile', this.dataImage, this.DataFormProjectEdit.ImageBannerName);
+      console.log(formData);
       this._ProjectService.UpdatePhotoBanner(formData).subscribe(() => {
       });
     }
@@ -309,6 +359,7 @@ export class ProjectControllComponent implements OnInit {
   GetDataCheckisAddorEdit(bl, val) {
     if (bl) {
       this.DefaultandNewAvatar = environment.defaultImage;
+      this.listImageFeature = [];  // return list image feature when create new product
       return this.isAddProjectForm = true;
     }
     else {
@@ -359,6 +410,15 @@ export class ProjectControllComponent implements OnInit {
     if (val.ImageBannerName.indexOf("base64") > -1) {
       this.DefaultandNewAvatar = val.ImageBannerName;
     }
+
+    this.listImageFeature.forEach(e => {
+      // if (e.ImageLibID == val.ImageLibID) {
+      //   this.ArrayCRUDFeature = e;
+      // }
+      console.log(e);
+      
+    });
+    // this.ArrayCRUDFeature = this.listImageFeature;
 
     // this.DefaultandNewAvatar = environment.Imageurl + val.ImageBannerName;
     this.formValidator.controls.ProjectName.patchValue(val.ProjectName);
@@ -448,14 +508,23 @@ export class ProjectControllComponent implements OnInit {
   listCountry;
   listDistrict;
 
+  listImageFeature;
+  // areInDistrict
   getsetAllAddress() {
+    // imageLib
+    this.imageLibService.getImageLibByProductID().subscribe(data => {
+      this.listImageFeature = data;
+      console.log(this.listImageFeature);
+    })
+
+    // ADDRESS
     // listLocation
     this._ProjectService.getAllLocationActive().subscribe(data => {
       this.listLocation = data;
     })
     // listCountry
     this._ProjectService.getAllCountryByLocationID().subscribe(data => {
-      this.countryInLocation = data;      
+      this.countryInLocation = data;
     })
     // listCity
     this._ProjectService.getAllCityByCountryID().subscribe(data => {
@@ -465,23 +534,23 @@ export class ProjectControllComponent implements OnInit {
     this._ProjectService.getAllDistrictByCityID().subscribe(data => {
       this.districtInCity = data;
       console.log(this.districtInCity);
-      
+
     })
     // listAre
     this._ProjectService.getAreByDistrictID().subscribe(data => {
       this.areInDistrict = data;
     })
   }
-  
-    countryInLocation;
+
+  countryInLocation;
   selectByLocation() {
     let i = -1;
     this.listCountry = []; this.listCity = []; this.listDistrict = []; this.listAre = [];
     this.countryInLocation.forEach(e => {
       i++;
-      if ( e.LocationID == this.formValidator.controls.Location.value ) {
-        this.listCountry.push(e);        
-      }      
+      if (e.LocationID == this.formValidator.controls.Location.value) {
+        this.listCountry.push(e);
+      }
     });
     console.log(this.listCountry);
   }
@@ -492,25 +561,25 @@ export class ProjectControllComponent implements OnInit {
     this.listCity = [];
     this.cityInCountry.forEach(e => {
       i++;
-      if (e.CountryID == this.formValidator.controls.Country.value ) {
+      if (e.CountryID == this.formValidator.controls.Country.value) {
         this.listDistrict = []; this.listAre = [];
-        this.listCity.push(e);        
-      }      
+        this.listCity.push(e);
+      }
     });
     console.log(this.listCity);
   }
 
   districtInCity;
   selectByCity() {
-    let i = -1; 
+    let i = -1;
     this.listDistrict = [];
     this.districtInCity.forEach(e => {
       i++;
 
-      if (e.CityID == this.formValidator.controls.City.value ) {
+      if (e.CityID == this.formValidator.controls.City.value) {
         this.listAre = [];
         this.listDistrict.push(e);
-      }      
+      }
     });
     console.log(this.listDistrict);
   }

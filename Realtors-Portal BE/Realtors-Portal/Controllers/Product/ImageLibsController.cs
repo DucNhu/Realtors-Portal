@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Realtors_Portal.Data;
@@ -53,7 +55,7 @@ namespace Realtors_Portal.Controllers.Product
         [HttpPut("{id}")]
         public async Task<IActionResult> PutImageLib(int id, ImageLib imageLib)
         {
-            if (id != imageLib.ImageID)
+            if (id != imageLib.ImageLibID)
             {
                 return BadRequest();
             }
@@ -79,6 +81,35 @@ namespace Realtors_Portal.Controllers.Product
             return NoContent();
         }
 
+
+
+        //Get by CountryID
+        [Route("getImageLibByProductID")]
+        [HttpGet]
+        public JsonResult Get()
+        {
+            string query = @"SELECT ImageLib.ImageLibID, Name
+  FROM ImageLib
+  INNER JOIN project ON project.ID = ImageLib.ImageLibID ";
+
+            DataTable table = new DataTable();
+            string sqlDataSource = _configuration.GetConnectionString("RealtorsConnect");
+            SqlDataReader myRender;
+            using (SqlConnection myCon = new SqlConnection(sqlDataSource))
+            {
+                myCon.Open();
+                using (SqlCommand myCommand = new SqlCommand(query, myCon))
+                {
+                    myRender = myCommand.ExecuteReader();
+                    table.Load(myRender);
+                    myRender.Close(); myCon.Close();
+                }
+            }
+            return new JsonResult(table);
+        }
+
+
+
         // POST: api/ImageLibs
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
@@ -87,7 +118,7 @@ namespace Realtors_Portal.Controllers.Product
             _context.ImageLib.Add(imageLib);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetImageLib", new { id = imageLib.ImageID }, imageLib);
+            return CreatedAtAction("GetImageLib", new { id = imageLib.ImageLibID }, imageLib);
         }
 
         // DELETE: api/ImageLibs/5
@@ -108,7 +139,7 @@ namespace Realtors_Portal.Controllers.Product
 
         private bool ImageLibExists(int id)
         {
-            return _context.ImageLib.Any(e => e.ImageID == id);
+            return _context.ImageLib.Any(e => e.ImageLibID == id);
         }
 
         //SaveFile Image
@@ -119,14 +150,18 @@ namespace Realtors_Portal.Controllers.Product
             try
             {
                 var httpRequest = Request.Form;
-                var postedFile = httpRequest.Files[0];
-                string filename = postedFile.FileName;
-                var physicalPath = _hostEnvironment.ContentRootPath + "/Images/Products/ImageLib" + filename;
-                using (var stream = new FileStream(physicalPath, FileMode.Create))
-                {
-                    postedFile.CopyTo(stream);
+                
+                for(int i = 0; i < 100; i++) {
+                    var postedFile = httpRequest.Files[i];
+                    string filename = postedFile.FileName;
+                    var physicalPath = _hostEnvironment.ContentRootPath + "/Images/Products/ImageLibs/" + filename;
+                    using (var stream = new FileStream(physicalPath, FileMode.Create))
+                    {
+                        postedFile.CopyTo(stream);
+                    }
                 }
-                return new JsonResult(filename);
+
+                return new JsonResult("Save image");
             }
 
             catch (Exception)

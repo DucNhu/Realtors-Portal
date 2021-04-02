@@ -30,6 +30,7 @@ namespace Realtors_Portal.Controllers
         }
         // GET: api/projects
         [HttpGet]
+        
         public async Task<ActionResult<IEnumerable<product>>> Getproject()
         {
             return await _context.project.ToListAsync();
@@ -54,7 +55,8 @@ namespace Realtors_Portal.Controllers
         [HttpGet]
         public JsonResult Get()
         {
-            string query = @"SELECT project.ProjectName, project.ID, project.ImageBannerName, project.LevelActive, project.Description, project.Title, project.Sqft, project.Price,
+            string query = @"SELECT project.ProjectName, project.ID, project.ImageBannerName, project.LevelActive,
+  project.Description, project.Title, project.Sqft, project.Price, ImageLibID,
   project.Location, project.Country, project.City, project.District, project.CategoryID, project.Are,
   Location.LocationName, Country.CountryName , City.CityName, District.DistrictName, Are.AreName,
   Category.CategoryName

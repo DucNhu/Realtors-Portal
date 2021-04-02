@@ -47,7 +47,7 @@ export class AreControllComponent implements OnInit {
   getIdLength = 0;
   // Get All project
   getAllAre() {
-    this._AreService.getAreByDistrictID().subscribe(
+    this._AreService.getAllAre().subscribe(
       data => {
         this.containData = data;
         this.containData.forEach(e => {

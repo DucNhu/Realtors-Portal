@@ -112,4 +112,8 @@ SELECT Are.AreName,
 	  INNER JOIN Are ON Are.AreID = project.Are
 	    INNER JOIN Category ON Category.CategoryID = project.CategoryID
 
+		select * from p
 
+		SELECT ImageLib.ImageLibID, Name
+  FROM ImageLib
+  INNER JOIN project ON project.ID = ImageLib.ImageLibID 

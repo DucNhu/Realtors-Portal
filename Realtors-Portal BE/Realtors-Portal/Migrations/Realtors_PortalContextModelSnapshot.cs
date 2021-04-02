@@ -576,6 +576,24 @@ namespace Realtors_Portal.Migrations
                     b.ToTable("User");
                 });
 
+            modelBuilder.Entity("Realtors_Portal.Models.ImageLib", b =>
+                {
+                    b.Property<int>("ImageLibID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("ProductID")
+                        .HasColumnType("int");
+
+                    b.HasKey("ImageLibID");
+
+                    b.ToTable("ImageLib");
+                });
+
             modelBuilder.Entity("Realtors_Portal.Models.Seller", b =>
                 {
                     b.Property<int>("ID")

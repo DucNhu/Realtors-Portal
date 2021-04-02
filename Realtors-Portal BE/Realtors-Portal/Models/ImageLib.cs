@@ -8,12 +8,12 @@ namespace Realtors_Portal.Models
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int ImageID { get; set; }
+        public int ImageLibID { get; set; }
 
-        public string ProductID { get; set; }
+        public int ProductID { get; set; }
         public string Name { get; set; }
 
-        //[NotMapped]
-        //public IFormFile ImageFile { get; set; }
+        [NotMapped]
+        public IFormFile ImageFile { get; set; }
     }
 }

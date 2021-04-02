@@ -46,7 +46,7 @@ export class CityControllComponent implements OnInit {
   getIdLength = 0;
   // Get All project
   getAllCity() {
-    this._CityService.getAllCityByCountryID().subscribe(
+    this._CityService.getAllCity().subscribe(
       data => {
         this.containData = data;
         this.containData.forEach(e => {

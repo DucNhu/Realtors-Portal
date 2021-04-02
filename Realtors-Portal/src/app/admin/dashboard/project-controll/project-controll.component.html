@@ -159,6 +159,25 @@
                                                 </div>
 
                                             </div>
+
+                                            <div class="overflow-auto row list-image__Lib">
+                                                <div class="text-center w-100">Select feature Image</div>
+                                                <div class="col-3" *ngFor="let i of ArrayCRUDFeature">
+                                                    <img [src]="i" [alt]="i" class="img-fluid">
+                                                </div>
+                                                <div class="col-12 text-center">
+                                                    <label for="ImageFeature"
+                                                        class="position-absolute select--banner"><span><i
+                                                                class="fas fa-plus-circle"></i></span></label>
+                                                    <input type="file" name="ImageFile" id="ImageFeature" class="d-none"
+                                                        (change)="onSelectFileFeature($event)">
+
+                                                </div>
+                                            </div>
+                                            <!-- Select img feature -->
+
+
+
                                         </div>
                                         <!-- Adress -->
                                         <div class="col-lg-4 col-sm-6">
@@ -169,7 +188,7 @@
                                                 </label>
 
                                                 <select class="form-select form-control" formControlName="Location"
-                                                        (change)="selectByLocation()">
+                                                    (change)="selectByLocation()">
                                                     <option *ngFor="let Location of listLocation"
                                                         [value]="Location.LocationID"
                                                         [selected]="Location.LocationName == formValidator.controls.Location.value">
@@ -193,7 +212,8 @@
                                             <div class="mb-4">
                                                 <label for="City">City</label>
 
-                                                <select class="form-select form-control" formControlName="City" (change)="selectByCity()">
+                                                <select class="form-select form-control" formControlName="City"
+                                                    (change)="selectByCity()">
                                                     <option *ngFor="let City of listCity" [value]="City.CityID"
                                                         [selected]="City.CityName == formValidator.controls.City.value">
                                                         {{ City.CityName }}
@@ -204,7 +224,8 @@
                                             <div class="mb-4">
                                                 <label for="District">District</label>
 
-                                                <select class="form-select form-control" formControlName="District" (change)="selectByDistrict()">
+                                                <select class="form-select form-control" formControlName="District"
+                                                    (change)="selectByDistrict()">
                                                     <option *ngFor="let District of listDistrict"
                                                         [value]="District.DistrictID"
                                                         [selected]="District.DistrictName == formValidator.controls.District.value">
@@ -296,7 +317,7 @@
                                         <div class="col-12">
                                             <button type="submit"
                                                 class="btn btn-success btn-outline-success d-block mx-auto"
-                                                (click)="isAddProjectForm ? CreateProject(formValidator.value) : UpdateProject(formValidator.value)"
+                                                (click)="isAddProjectForm ? CreateProject(formValidator.value) : UpdateProject(formValidator.value); upPhotoImageFeature()"
                                                 data-dismiss="modal" aria-label="Close"
                                                 [disabled]="formValidator.status == 'INVALID'">
                                                 Sumit

@@ -46,7 +46,7 @@ export class CountryControllComponent implements OnInit {
   getIdLength = 0;
   // Get All project
   getAllCountry() {
-    this._CountryService.getAllCountryByLocationID().subscribe(
+    this._CountryService.getAllCountry().subscribe(
       data => {
         this.containData = data;
         this.containData.forEach(e => {
