@@ -88,9 +88,9 @@ namespace Realtors_Portal.Controllers.Product
         [HttpGet]
         public JsonResult Get()
         {
-            string query = @"SELECT ImageLib.ImageLibID, Name
-  FROM ImageLib
-  INNER JOIN project ON project.ID = ImageLib.ImageLibID ";
+            string query = @"SELECT ImageLib.ImageLibID, Name, ProductID 
+                    FROM ImageLib
+                    INNER JOIN project ON project.ID = ImageLib.ProductID ";
 
             DataTable table = new DataTable();
             string sqlDataSource = _configuration.GetConnectionString("RealtorsConnect");

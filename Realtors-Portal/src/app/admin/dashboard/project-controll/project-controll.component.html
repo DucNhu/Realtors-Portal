@@ -162,8 +162,11 @@
 
                                             <div class="overflow-auto row list-image__Lib">
                                                 <div class="text-center w-100">Select feature Image</div>
-                                                <div class="col-3" *ngFor="let i of ArrayCRUDFeature">
-                                                    <img [src]="i" [alt]="i" class="img-fluid">
+                                                <div class="col-3 image__Lib" *ngFor="let feature of ArrayCRDFeature">
+                                                    <img [src]="feature.url + feature.Name" [alt]="feature.Name" class="img-fluid">
+
+                                                    <span class="fas fa-times-circle" (click)="deleteAnfeature(feature)">
+                                                    </span>
                                                 </div>
                                                 <div class="col-12 text-center">
                                                     <label for="ImageFeature"
@@ -280,12 +283,7 @@
                                                 <input type="number" class="form-control" name="Sqft"
                                                     formControlName="Sqft" (blur)="checkValidForm('Sqft')">
                                             </div>
-                                            <!-- ImageLibID  -->
-                                            <div class="mb-4">
-                                                <label for="ImageLibID">ImageLibID</label>
-                                                <input type="number" class="form-control" name="ImageLibID" value="0"
-                                                    formControlName="ImageLibID" (blur)="checkValidForm('ImageLibID')">
-                                            </div>
+                                         
                                             <!-- ImageBannerName  -->
                                             <div class="mb-4 d-none">
                                                 <label for="ImageBannerName">ImageBannerName</label>
@@ -317,7 +315,10 @@
                                         <div class="col-12">
                                             <button type="submit"
                                                 class="btn btn-success btn-outline-success d-block mx-auto"
-                                                (click)="isAddProjectForm ? CreateProject(formValidator.value) : UpdateProject(formValidator.value); upPhotoImageFeature()"
+                                                (click)="isAddProjectForm ? CreateProject(formValidator.value) : UpdateProject(formValidator.value);
+                                                 upPhotoImageFeature();
+                                                 
+                                                 "
                                                 data-dismiss="modal" aria-label="Close"
                                                 [disabled]="formValidator.status == 'INVALID'">
                                                 Sumit

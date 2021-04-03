@@ -56,7 +56,7 @@ namespace Realtors_Portal.Controllers
         public JsonResult Get()
         {
             string query = @"SELECT project.ProjectName, project.ID, project.ImageBannerName, project.LevelActive,
-  project.Description, project.Title, project.Sqft, project.Price, ImageLibID,
+  project.Description, project.Title, project.Sqft, project.Price,
   project.Location, project.Country, project.City, project.District, project.CategoryID, project.Are,
   Location.LocationName, Country.CountryName , City.CityName, District.DistrictName, Are.AreName,
   Category.CategoryName

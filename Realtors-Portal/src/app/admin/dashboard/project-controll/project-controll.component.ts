@@ -47,7 +47,6 @@ export class ProjectControllComponent implements OnInit {
     ImageBannerName: "AvatarDefault.jpg",
     ImageBannerSrc: this.getImageBannerSrc,
     ImageFile: File,
-    ImageLibID: undefined,
     Location: undefined,
     Price: undefined,
     ProjectName: "",
@@ -85,7 +84,7 @@ export class ProjectControllComponent implements OnInit {
   // ======== CRUD ============
   listProject = [];
   containData;
-  getIdLength = 0;
+  getIDLast = 0;
 
   // Get All project
   getAllProject() {
@@ -109,17 +108,34 @@ export class ProjectControllComponent implements OnInit {
   dataImage;
   selectedFile: File = null;
   CreateProject(data) {
-    data.ID = 0;
     console.log(data);
 
+    data.ID = 0;
 
-    if (this.upPhoto()) {        // this.upPhoto(); // Insert Image
+    if (this.upPhoto() && this.upPhotoImageFeature) {        // this.upPhoto(); // Insert Image
       data.ImageBannerName = this.DataFormProjectEdit.ImageBannerName;
+      let getIDLast = this.listProject[length].ID;
+      let getIDImageLibLast = this.listImageFeature[length].ID;
       this._ProjectService.CreateProj(data)
         .subscribe(res => {
           this.upPhoto(); // Insert Image
-          let getIDLength = this.listProject[length].ID;
-          data.ID = getIDLength += 1;
+
+          // Insert Image in table ImageLib trog sql
+          this.ArrayCRDFeature.forEach(e => {
+            console.log(e);
+
+            let dataImageLib = {
+              "imageLibID": 0,
+              "productID": getIDLast += 1,
+              "name": e.NameinSert,
+            }
+            this.imageLibService.CreateProj(dataImageLib).subscribe(data => {
+              console.log("OK Create  data in table ImageLib trog sql");
+              console.log(dataImageLib);
+
+            })
+          });
+          data.ID = getIDLast += 1;
           data.ImageBannerSrc = '';
           data.ImageBannerName = this.DefaultandNewAvatar;
 
@@ -156,12 +172,18 @@ export class ProjectControllComponent implements OnInit {
             }
           });
 
+          
           this.listProject.unshift(data);
           this.resetImageArray();
           this.Alert_successFunction("Create done");
+          getIDLast++;
+          getIDImageLibLast++;
           console.log(this.listProject);
 
+          
         });
+
+
     }
     else {
       this.Alert_dangerFunction("Create false, try again, pls");
@@ -176,7 +198,7 @@ export class ProjectControllComponent implements OnInit {
     this.DefaultandNewAvatar = '';
   }
   // Function update Image
-  // Update Image when select change
+  // Update Image Banner when select change
   newImage = false;
   onSelectFile(e) {
     this.newImage = true;
@@ -193,54 +215,6 @@ export class ProjectControllComponent implements OnInit {
       }
     }
   }
-  ArrayAvatarFeature = []; // Chứa dữ liệu img qua các lần select
-  NameFeature = [];
-  DataFeature;
-  ArrayCRUDFeature = [];
-  onSelectFileFeature(e) {
-    this.newImage = true;
-    this.DataFeature = e.target.files.item(0);
-    let dateNow = new Date();
-
-    if (e.target.files) { // Check File true : false
-
-      // for(let i = 0; i < File.length; i++) {
-      var reader = new FileReader(); // DOM
-      reader.readAsDataURL(e.target.files[0]);
-      reader.onload = (event: any) => {
-        this.ArrayAvatarFeature.push(e.target.files.item(0));
-        this.NameFeature.push(dateNow.getTime() + this.DataFeature.name);
-        this.ArrayCRUDFeature.push(event.target.result);
-        
-        // }
-      }
-
-    }
-  }
-
-  upPhotoImageFeature() {
-    let formData: FormData = new FormData();
-
-    try {
-
-      for (let i = 0; i < this.ArrayAvatarFeature.length; i++) {
-
-        formData.append('ImageFile', this.ArrayAvatarFeature[i], this.NameFeature[i]);
-        this.imageLibService.PostPhotoFeature(formData).subscribe(() => {
-          console.log("OK2");
-          this.Alert_successFunction("Add image success");
-          this.ArrayAvatarFeature = [];
-          this.NameFeature = [];
-        });
-      }
-    }
-    catch (e) {
-      console.error(e);
-
-      return false;
-    }
-    return true;
-  }
 
   upPhoto() {
     let formData: FormData = new FormData();
@@ -256,6 +230,78 @@ export class ProjectControllComponent implements OnInit {
     }
     return true;
   }
+
+  // END Update Image Banner when select change
+
+  // Update Image Feature when select change
+
+  ArrayAvatarFeature = []; // Chứa dữ liệu img qua các lần select
+  DataFeature;
+  ArrayCRDFeature = [];
+  ArrayUpdateFeature = []; // chua gia tri khi them moi 1 obj
+
+  onSelectFileFeature(e) {
+    this.newImage = true;
+    this.DataFeature = e.target.files.item(0);
+    let dateNow = new Date();
+
+    if (e.target.files) { // Check File true : false
+
+      // for(let i = 0; i < File.length; i++) {
+      var reader = new FileReader(); // DOM
+      reader.readAsDataURL(e.target.files[0]);
+      reader.onload = (event: any) => {
+        this.ArrayAvatarFeature.push(e.target.files.item(0));
+        this.ArrayCRDFeature.push({ Name: event.target.result, url: '', NameinSert: dateNow.getTime() + this.DataFeature.name });
+        console.log(this.ArrayCRDFeature);
+
+        // }
+      }
+    }
+  }
+  // insertImgFeatureInArray() {
+  //   this.ArrayCRDFeature
+  // }
+  upPhotoImageFeature() { // insert img vao o cung ( /products/imglibs/ )
+    let formData: FormData = new FormData();
+
+    try {
+
+      for (let i = 0; i < this.ArrayAvatarFeature.length; i++) {
+
+        formData.append('ImageFile', this.ArrayAvatarFeature[i], this.ArrayCRDFeature[i].NameinSert);
+        this.imageLibService.PostPhotoFeature(formData).subscribe(() => {
+          console.log("OK2");
+          this.Alert_successFunction("Add image success");
+          this.ArrayAvatarFeature = [];
+        });
+      }
+    }
+    catch (e) {
+      console.error(e);
+
+      return false;
+    }
+    return true;
+  }
+
+  deleteAnfeature(data) {
+    let i = -1;
+    console.log("OK");
+
+    this.ArrayCRDFeature.forEach(e => {
+      i++;
+      console.log(e);
+
+      if (e.ImageLibID == data.ImageLibID) {
+        this.ArrayCRDFeature.splice(i, 1);
+      }
+    })
+
+
+  }
+  // END Update Image Feature when select change
+
 
 
   // Function Edit Project
@@ -359,7 +405,7 @@ export class ProjectControllComponent implements OnInit {
   GetDataCheckisAddorEdit(bl, val) {
     if (bl) {
       this.DefaultandNewAvatar = environment.defaultImage;
-      this.listImageFeature = [];  // return list image feature when create new product
+      this.ArrayCRDFeature = [];  // return list image feature when create new product
       return this.isAddProjectForm = true;
     }
     else {
@@ -392,7 +438,6 @@ export class ProjectControllComponent implements OnInit {
       LevelActive: [null, [Validators.required]],
 
       Title: [null, [Validators.required]],
-      ImageLibID: [null],
       ImageBannerName: ['ImageBannerName'],
       ImageFile: ['']
     })
@@ -411,14 +456,15 @@ export class ProjectControllComponent implements OnInit {
       this.DefaultandNewAvatar = val.ImageBannerName;
     }
 
+    this.ArrayCRDFeature = []; // return 0 array
     this.listImageFeature.forEach(e => {
-      // if (e.ImageLibID == val.ImageLibID) {
-      //   this.ArrayCRUDFeature = e;
-      // }
-      console.log(e);
-      
+      if (e.ProductID == val.ID) {
+        e.url = environment.ImageProductUrl + 'ImageLibs/';
+        this.ArrayCRDFeature.push(e);
+      }
     });
-    // this.ArrayCRUDFeature = this.listImageFeature;
+
+    // this.ArrayCRDFeature = this.listImageFeature;
 
     // this.DefaultandNewAvatar = environment.Imageurl + val.ImageBannerName;
     this.formValidator.controls.ProjectName.patchValue(val.ProjectName);
@@ -428,7 +474,12 @@ export class ProjectControllComponent implements OnInit {
     this.formValidator.controls.City.patchValue(val.City);
     this.formValidator.controls.Country.patchValue(val.Country);
     this.formValidator.controls.District.patchValue(val.District);
+    console.log("this is: val.Country");
+    
+    console.log(val.Country);
+    console.log("this is: val.Location");
 
+    console.log(val.Location);
     this.formValidator.controls.ID.patchValue(val.ID);
     this.formValidator.controls.ImageFile.patchValue(val.ImageFile);
     this.formValidator.controls.Location.patchValue(val.Location);
@@ -441,8 +492,15 @@ export class ProjectControllComponent implements OnInit {
     this.formValidator.controls.LevelActive.patchValue(val.LevelActive);
     this.formValidator.controls.Title.patchValue(val.Title);
 
-    this.formValidator.controls.ImageLibID.patchValue(val.ImageLibID);
     this.formValidator.controls.ImageBannerName.patchValue(val.ImageBannerName);
+
+    // set lai gia tri address:
+    this.selectByLocation();
+    
+    this.selectByCountry();
+    this.selectByDistrict();
+    
+    this.selectByCity();
   }
 
 
@@ -514,7 +572,6 @@ export class ProjectControllComponent implements OnInit {
     // imageLib
     this.imageLibService.getImageLibByProductID().subscribe(data => {
       this.listImageFeature = data;
-      console.log(this.listImageFeature);
     })
 
     // ADDRESS
@@ -533,7 +590,6 @@ export class ProjectControllComponent implements OnInit {
     // listDistrict
     this._ProjectService.getAllDistrictByCityID().subscribe(data => {
       this.districtInCity = data;
-      console.log(this.districtInCity);
 
     })
     // listAre
@@ -607,6 +663,8 @@ export class ProjectControllComponent implements OnInit {
  * Khai bao bien
  * CRUD
  * Form Validator
+ * Update Image Banner 179
+ * Update Image feature
  * Set value edit form (SetDataForEditorForm)
  * Alert Success, errorr...
  * checkValidForm

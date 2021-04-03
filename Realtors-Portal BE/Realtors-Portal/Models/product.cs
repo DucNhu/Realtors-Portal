@@ -49,9 +49,6 @@ namespace Realtors_Portal.Models
         //[Required]
         public float Sqft { get; set; }
 
-        //[Required]
-        public int ImageLibID { get; set; }
-
         [NotMapped]
         public IFormFile ImageFile { get; set; }
 
