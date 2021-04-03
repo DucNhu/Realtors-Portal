@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { HomePageService } from '../../../@core/mock/Home/home-page.service';
+import { environment } from '../../../@core/models/Environment';
 
 @Component({
   selector: 'app-newly-listed',
@@ -6,10 +8,32 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./newly-listed.component.css']
 })
 export class NewlyListedComponent implements OnInit {
-
-  constructor() { }
+  listProduct = [];
+  containData;
+  getIdLength = 0;
+  getImageBannerSrc = environment.ImageProductUrl + "Banner/";
+  // END khai bao bien
+  constructor(
+    private homePageService: HomePageService,
+  ) { }
 
   ngOnInit(): void {
+    this.getAllProduct();
+  }
+
+  // Get All project
+  getAllProduct() {
+    this.homePageService.getProductViewHome().subscribe(
+      data => {
+        this.containData = data;
+        console.log(this.containData);
+
+        this.containData.forEach(e => {
+          e.ImageBannerSrc = this.getImageBannerSrc;
+          this.listProduct.unshift(e);
+        });
+      }
+    )
   }
 
 }

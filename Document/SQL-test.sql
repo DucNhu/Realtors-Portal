@@ -3,7 +3,7 @@ use  realtors01
 create table test(test varchar(1))
 insert into test values ('1')
 
-select * from Category where Active = 1
+select * from project where LevelActive = 2
 
 create table agent(AgentID int identity
 ,AgentName varchar(250)
@@ -111,8 +111,20 @@ SELECT Are.AreName,
 	  INNER JOIN District ON District.DistrictID = project.District
 	  INNER JOIN Are ON Are.AreID = project.Are
 	    INNER JOIN Category ON Category.CategoryID = project.CategoryID
-
-		select * from p
+-->=================================================================================
+		SELECT project.ProjectName, project.ID, project.ImageBannerName, project.LevelActive,
+  project.Description, project.Title, project.Sqft, project.Price,
+  
+  Location.LocationName, Country.CountryName , City.CityName, District.DistrictName, Are.AreName,
+  Category.CategoryName
+  FROM project
+  INNER JOIN Location ON Location.LocationID = project.Location
+  INNER JOIN Country ON Country.CountryID = project.Country
+    INNER JOIN City ON City.CityID = project.City
+	  INNER JOIN District ON District.DistrictID = project.District
+	  INNER JOIN Are ON Are.AreID = project.Are
+	    INNER JOIN Category ON Category.CategoryID = project.CategoryID where LevelActive = 2
+		-->=================================================================================
 
 		SELECT ImageLib.ImageLibID, Name
   FROM ImageLib

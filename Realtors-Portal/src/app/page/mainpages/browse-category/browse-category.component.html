@@ -15,7 +15,7 @@ Browse properties -->
                 <div class="category">
                     <ul class="list-unstyled mb-0">
                         <li class="category-item" *ngFor='let Category of listCategory'>
-                            <a routerLink="Category/{{Category.CategoryID}}">
+                            <a routerLink="Category/{{Category.CategoryName}}">
                                 <div class="category-icon">
                                     <img [src]="Category.ImageBannerSrc + Category.Avatar" [alt]="Category.Avatar" class="img-fluid" />
                                 </div>

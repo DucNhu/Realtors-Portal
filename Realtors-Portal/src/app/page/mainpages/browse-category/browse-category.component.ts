@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { CategoryService } from '../../../@core/mock/category.service';
+import { HomePageService } from '../../../@core/mock/Home/home-page.service';
 import { environment } from '../../../@core/models/Environment';
 
 @Component({
@@ -14,7 +14,7 @@ export class BrowseCategoryComponent implements OnInit {
   getImageBannerSrc = environment.ImageUrl + "categories/";
   // END khai bao bien
   constructor(
-    private categoryService: CategoryService,
+    private homePageService: HomePageService,
   ) { }
 
   ngOnInit(): void {
@@ -23,7 +23,7 @@ export class BrowseCategoryComponent implements OnInit {
 
   // Get All project
   getAllCategory() {
-    this.categoryService.getCategoryActive().subscribe(
+    this.homePageService.getCategoryActive().subscribe(
       data => {
         this.containData = data;
         console.log(this.containData);
