@@ -14,6 +14,9 @@ export class CategoryService {
   getAllCategory() {
     return this.http.get(environment.apiUrl + 'Categories')
   }
+  getCategoryActive(){
+    return this.http.get(environment.apiUrl + 'Categories/getCategoryActive')
+  }
 
   CreateCategory(val) {
     return this.http.post(environment.apiUrl + 'Categories', val)

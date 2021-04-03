@@ -3,7 +3,7 @@ use  realtors01
 create table test(test varchar(1))
 insert into test values ('1')
 
-select * from test
+select * from Category where Active = 1
 
 create table agent(AgentID int identity
 ,AgentName varchar(250)
