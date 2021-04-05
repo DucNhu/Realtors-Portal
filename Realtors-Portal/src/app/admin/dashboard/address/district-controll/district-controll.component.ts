@@ -46,7 +46,7 @@ export class DistrictControllComponent implements OnInit {
   getIdLength = 0;
   // Get All project
   getAllDistrict() {
-    this._DistrictService.getAllDistrict().subscribe(
+    this._DistrictService.getAllDistrictByCityID().subscribe(
       data => {
         this.containData = data;
         this.containData.forEach(e => {
@@ -70,7 +70,10 @@ export class DistrictControllComponent implements OnInit {
     if (this.upPhoto()) {// Insert Image
       this._DistrictService.createDistrict(data)
         .subscribe(res => {
-          let getIDLength = this.listDistrict[length].DistrictID;
+
+          let getIDLength = 0;
+          try { getIDLength = this.listDistrict[length].DistrictID; } catch { getIDLength = 0; }
+
           data.DistrictID = getIDLength += 1;
           data.ImageBannerSrc = '';
           data.Avatar = this.DefaultandNewAvatar;

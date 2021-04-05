@@ -114,8 +114,12 @@ export class ProjectControllComponent implements OnInit {
 
     if (this.upPhoto() && this.upPhotoImageFeature) {        // this.upPhoto(); // Insert Image
       data.ImageBannerName = this.DataFormProjectEdit.ImageBannerName;
-      let getIDLast = this.listProject[length].ID;
-      let getIDImageLibLast = this.listImageFeature[length].ID;
+      // let getIDLast = this.listProject[length].ID;
+      let getIDLast = 0;
+      try { getIDLast = this.listProject[length].ID; } catch { getIDLast = 0; }
+      // let getIDImageLibLast = this.listImageFeature[length].ID;
+      let getIDImageLibLast = 0;
+      try { getIDImageLibLast = this.listImageFeature[length].ID; } catch { getIDImageLibLast = 0; }
       this._ProjectService.CreateProj(data)
         .subscribe(res => {
           this.upPhoto(); // Insert Image
@@ -130,9 +134,6 @@ export class ProjectControllComponent implements OnInit {
               "name": e.NameinSert,
             }
             this.imageLibService.CreateProj(dataImageLib).subscribe(data => {
-              console.log("OK Create  data in table ImageLib trog sql");
-              console.log(dataImageLib);
-
             })
           });
           data.ID = getIDLast += 1;
@@ -172,7 +173,6 @@ export class ProjectControllComponent implements OnInit {
             }
           });
 
-          
           this.listProject.unshift(data);
           this.resetImageArray();
           this.Alert_successFunction("Create done");

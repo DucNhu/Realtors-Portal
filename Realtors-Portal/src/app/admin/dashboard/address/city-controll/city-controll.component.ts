@@ -46,7 +46,7 @@ export class CityControllComponent implements OnInit {
   getIdLength = 0;
   // Get All project
   getAllCity() {
-    this._CityService.getAllCity().subscribe(
+    this._CityService.getAllCityByCountryID().subscribe(
       data => {
         this.containData = data;
         this.containData.forEach(e => {
@@ -70,7 +70,9 @@ export class CityControllComponent implements OnInit {
     if (this.upPhoto()) {// Insert Image
       this._CityService.CreateCity(data)
         .subscribe(res => {
-          let getIDLength = this.listCity[length].CityID;
+          let getIDLength = 0;
+          try { getIDLength = this.listCity[length].CityID; } catch { getIDLength = 0;}
+
           data.CityID = getIDLength += 1;
           data.ImageBannerSrc = '';
           data.Avatar = this.DefaultandNewAvatar;
