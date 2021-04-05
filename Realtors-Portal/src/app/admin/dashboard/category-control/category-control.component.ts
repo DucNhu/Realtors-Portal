@@ -66,7 +66,8 @@ export class CategoryControlComponent implements OnInit {
     this._CategoryService.CreateCategory(data)
       .subscribe(res => {
         this.upPhoto(); // Insert Image
-        data.CategoryID = this.listCategory[length].CategoryID += 1;
+        let CategoryID = 0;
+        try { CategoryID = this.listCategory[length].CategoryID; } catch { CategoryID = 0; }
         data.ImageBannerSrc = '';
         data.Avatar = this.DefaultandNewAvatar;
         this.listCategory.unshift(data);
