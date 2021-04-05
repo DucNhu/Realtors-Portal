@@ -13,27 +13,38 @@ namespace Realtors_Portal.Models.Customer
         public string Name { get; set; }
 
         [Required]
-        [EmailAddress]
+        [EmailAddress(ErrorMessage = "pass is required")]
         public string Email { get; set; }
 
         [Required(ErrorMessage = "pass is required")]
         public string Password { get; set; }
 
-        [Required(ErrorMessage = "chung minh thu is required")]
-        [MaxLength(12)]
-        public string IndentificationNumber { get; set; }
+        public string Title { get; set; }
 
-        public string Address { get; set; }
+        public string Description { get; set; }
+
+        public string NetWorkID { get; set; }
+
+        //[Required]
+        public int LocationID { get; set; }
+
+        //[Required]
+        public int CountryID { get; set; }
+
+        //[Required]
+        public int CityID { get; set; }
+
+        //[Required]
+        public int DistrictID { get; set; }
+
+        //[Required]
+        public int AreID { get; set; }
 
         [Phone]
-        [Required(ErrorMessage = "phone is required")]
-
         public string Phone { get; set; }
-        [Required(ErrorMessage = "email is required")]
         
         public string Avatar { get; set; }
 
-        [Required(ErrorMessage = "Active is required")]
         public int Active { get; set; }
 
         public int ProductID { get; set; }

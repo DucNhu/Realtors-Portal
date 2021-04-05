@@ -3,31 +3,23 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Options;
-using Realtors_Portal.Configuration;
 using Realtors_Portal.Data;
 using Realtors_Portal.Models;
 
-namespace Realtors_Portal.Controllers
+namespace Realtors_Portal.Controllers.Customer
 {
     [Route("api/[controller]")]
     [ApiController]
     public class AgentsController : ControllerBase
     {
         private readonly Realtors_PortalContext _context;
-        private readonly UserManager<IdentityUser> _userManager;
-        private readonly JwtConfig _jwtConfig;
 
-        public AgentsController(Realtors_PortalContext context, UserManager<IdentityUser> userManager, IOptionsMonitor<JwtConfig> optionsMonitor)
+        public AgentsController(Realtors_PortalContext context)
         {
             _context = context;
-            _userManager = userManager;
-            _jwtConfig = optionsMonitor.CurrentValue;
         }
-
 
         // GET: api/Agents
         [HttpGet]

@@ -41,7 +41,7 @@ header -->
                                         <img class="img-fluid" [src]="currentUser.Infor.Avatar" [alt]="currentUser.Infor.Avatar" width="30" height="30" class="rounded-circle">
                                     </button>
                                     <div class="dropdown-menu" aria-labelledby="dropdowlistactionuser">
-                                        <a class="dropdown-item" href="#">Profile</a>
+                                        <a routerLink="profile-seller">Profile</a>
                                         <!-- <a class="dropdown-item" href="#">Another action</a> -->
                                         <a class="dropdown-item" (click)="logout()">Log out</a>
                                     </div>

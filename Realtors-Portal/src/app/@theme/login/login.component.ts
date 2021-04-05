@@ -16,7 +16,7 @@ export class LoginComponent implements OnInit {
   loading = false;
   submitted = false;
   returnUrl: string;
-  error: string;
+  error;
   constructor(
     private formBuilder: FormBuilder,
     private route: ActivatedRoute,
@@ -26,11 +26,13 @@ export class LoginComponent implements OnInit {
     if (this.authenticationService.currentUserValue) {
       this.router.navigate(['/login']);
     }
+  
+    
   }
 
   ngOnInit(): void {
     this.loginForm = this.formBuilder.group({
-      username: ['admin@gmail.com', Validators.required],
+      username: ['Ducnhu2k1@gmail.com', Validators.required],
       password: ['Ducnhu2k1!', Validators.required]
     });
 
@@ -42,7 +44,7 @@ export class LoginComponent implements OnInit {
 
   onSubmit() {
     this.submitted = true;
-
+    console.log(this.error);
     // stop here if form is invalid
     if (this.loginForm.invalid) {
       return;
@@ -53,22 +55,27 @@ export class LoginComponent implements OnInit {
       .pipe(first())
       .subscribe(
         data => {
-          
           switch (data.Infor.User_type) {
             case 'admin':
-               this.router.navigate([this.returnUrl + "admin"]);  break;
-            case 'user': 
+              window.location.assign(this.returnUrl + "admin");  break;
+            case 'seller': 
+              // this.router.navigate([this.returnUrl]); 
+              window.location.assign(this.returnUrl);
+              break;
+            case 'agent':
               // this.router.navigate([this.returnUrl]); 
               window.location.assign(this.returnUrl);
               break;
             default:              
-               this.router.navigate([this.returnUrl]); break;
+              window.location.assign(this.returnUrl); break;
           }
         },
         error => {
-          this.error = error;
+          this.error = error.error.Errors;
+          
           this.loading = false;
         });
+    this.error = undefined;
   }
 
 }

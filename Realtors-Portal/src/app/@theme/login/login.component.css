@@ -1,0 +1,15 @@
+.box-alert--error {
+    display: block;
+    animation: alert--error 2s 1 forwards;
+    margin-top: -20px;
+}
+
+@keyframes alert--error {
+    0% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+        display: none;
+    }
+}

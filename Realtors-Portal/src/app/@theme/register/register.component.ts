@@ -5,9 +5,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { first } from 'rxjs/operators';
 
 import { UserService } from '../../@core/mock/Customer/user.service';
-import { SellerService } from '../../@core/mock/Customer/seller.service';
-import { AdminService } from '../../@core/mock/Customer/admin.service';
-import { AgentService } from '../../@core/mock/Customer/agent.service';
+
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
@@ -18,9 +16,7 @@ export class RegisterComponent implements OnInit {
   createForm: FormGroup;
 
   constructor(
-    private agentService: AgentService,
-    private sellerService: SellerService,
-    private adminService: AdminService,
+    private userService: UserService,
     private formBuilder: FormBuilder,
     private route: ActivatedRoute,
     private router: Router,
@@ -55,57 +51,17 @@ export class RegisterComponent implements OnInit {
   alertSuccess
   register(val) {
     console.log(val);
+    this.userService.register(val).subscribe(
+      data => {
+        this.error = '';
+        this.alertSuccess = '';
+        this.router.navigate(['/Home']);
+      },
 
-    switch (val.user_type) {
-      case 'agent':
-        this.agentService.register(val).subscribe(
-          data => {
-            this.error = '';
-            this.alertSuccess = '';
-            this.router.navigate(['/Home']);
-          },
-
-          err => {
-            this.error = err.error.Errors;
-          }
-        ); break;
-      case 'seller':
-        this.sellerService.register(val).subscribe(
-          data => {
-            this.error = '';
-            this.alertSuccess = '';
-            this.router.navigate(['/Home']);
-          },
-
-          err => {
-            this.error = err.error.Errors;
-          }
-        ); break;
-      case 'admin':
-        this.sellerService.register(val).subscribe(
-          data => {
-            this.error = '';
-            this.alertSuccess = '';
-            this.router.navigate(['/Home']);
-          },
-
-          err => {
-            this.error = err.error.Errors;
-          }
-        );
-        break;
-      default: this.sellerService.register(val).subscribe(
-        data => {
-          this.error = '';
-          this.alertSuccess = '';
-          this.router.navigate(['/Home']);
-        },
-
-        err => {
-          this.error = err.error.Errors;
-        }
-      ); break;
-    }
+      err => {
+        this.error = err.error.Errors;
+      }
+    );
 
   }
 }

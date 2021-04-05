@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Realtors_Portal.Data;
 
 namespace Realtors_Portal.Migrations
 {
     [DbContext(typeof(Realtors_PortalContext))]
-    partial class Realtors_PortalContextModelSnapshot : ModelSnapshot
+    [Migration("20210403105859_update user table")]
+    partial class updateusertable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -373,14 +375,16 @@ namespace Realtors_Portal.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("NameAgent")
+                    b.Property<string>("Email")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("SellerID")
-                        .HasColumnType("int");
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("UserID")
-                        .HasColumnType("int");
+                    b.Property<string>("Password")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("ID");
 
@@ -529,36 +533,24 @@ namespace Realtors_Portal.Migrations
                     b.Property<int>("Active")
                         .HasColumnType("int");
 
-                    b.Property<int>("AreID")
-                        .HasColumnType("int");
+                    b.Property<string>("Address")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Avatar")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("CityID")
-                        .HasColumnType("int");
-
-                    b.Property<int>("CountryID")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Description")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("DistrictID")
-                        .HasColumnType("int");
 
                     b.Property<string>("Email")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("LocationID")
-                        .HasColumnType("int");
+                    b.Property<string>("IndentificationNumber")
+                        .IsRequired()
+                        .HasMaxLength(12)
+                        .HasColumnType("nvarchar(12)");
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("NetWorkID")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("PackageID")
@@ -569,13 +561,11 @@ namespace Realtors_Portal.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Phone")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("ProductID")
                         .HasColumnType("int");
-
-                    b.Property<string>("Title")
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("User_type")
                         .HasColumnType("nvarchar(max)");
@@ -613,17 +603,37 @@ namespace Realtors_Portal.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("ActiveAgent")
+                    b.Property<int>("Active")
                         .HasColumnType("int");
 
-                    b.Property<int>("AgentID")
-                        .HasColumnType("int");
+                    b.Property<string>("Avatar")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("UserID")
+                    b.Property<int>("PackageID")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Password")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Phone")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("ProductID")
+                        .HasColumnType("int");
+
+                    b.Property<string>("User_type")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("ppID")
                         .HasColumnType("int");
 
                     b.HasKey("ID");

@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { AuthGuard } from './@core/_helpers/auth.guard';
+import { SellerGuard } from './@core/_helpers/seller.guard';
 import { LoginComponent } from './@theme/login/login.component';
 import { NotfoundComponent } from './@theme/notfound/notfound.component';
 const routes: Routes = [
@@ -14,6 +15,11 @@ const routes: Routes = [
     {
         path: 'Home', loadChildren: () => import('./page/page.module').then(m => m.PageModule)
     },
+    {
+        canActivate: [SellerGuard],
+        path: 'profile-seller', loadChildren: () => import('./customer/seller/seller.module').then(m => m.SellerModule)
+    },
+    
     {
         path: "**", component: NotfoundComponent
     }

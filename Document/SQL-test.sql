@@ -1,9 +1,8 @@
-create database realtors01
+create  database realtors01
 use  realtors01
 create table test(test varchar(1))
 insert into test values ('1')
 
-select * from project where LevelActive = 2
 
 create table agent(AgentID int identity
 ,AgentName varchar(250)
@@ -15,10 +14,10 @@ create table agent(AgentID int identity
 ,AgentDateCreate date
 ,PackageID int)
 
-insert into agent values ('AgentName', 'AgentAddress', 'AgentPhone', 'AgentEmail', 0 ,'AgentAvatar', 'AgentDateCreate', 1)
+insert into agent values ('AgentName', 'AgentAddress', 'AgentPhone', 'AgentEmail', 0 ,'AgentAvatar', 'AgentDateCreate', 1);
 
-select * from dbo.User
-select * from Admin
+select * from User
+select * from agent
 --Seller 
 create table seller(SellID
  int identity
@@ -129,3 +128,5 @@ SELECT Are.AreName,
 		SELECT ImageLib.ImageLibID, Name
   FROM ImageLib
   INNER JOIN project ON project.ID = ImageLib.ImageLibID 
+  go
+  select * from dbo.Admin

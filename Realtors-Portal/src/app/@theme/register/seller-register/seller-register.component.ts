@@ -10,7 +10,7 @@ import { SellerService } from '../../../@core/mock/Customer/seller.service';
 })
 export class SellerRegisterComponent implements OnInit {
   createForm: FormGroup;
-  @Output() dataSeller = new EventEmitter<any>();
+  @Output() dataUser = new EventEmitter<any>();
   @Input() error;
 
   isDisabled = true;
@@ -56,7 +56,7 @@ export class SellerRegisterComponent implements OnInit {
       "ppID": 0,
       "user_type": "seller"
     }
-    this.dataSeller.emit(data);
+    this.dataUser.emit(data);
     // this.register(val);
   }
 
@@ -84,12 +84,13 @@ export class SellerRegisterComponent implements OnInit {
           this.errortextFullName = '';
         }
         else {
+          this.validEmailFullName = false;
           this.errortextFullName = 'Enter your full name!';
         };
       } break;
 
       case 'email': {
-        let strongRegex = new RegExp("^[a-z][a-z0-9_\.]{5,32}@[a-z0-9]{2,}(\.[a-z0-9]{2,4}){1,2}$");
+        let strongRegex = new RegExp("^[a-zA-Z][a-zA-Z0-9_\.]{3,32}@[a-zA-Z0-9]{2,}(\.[a-z]{2,4}){1,2}$");
         let val = this.createForm.get('email').value;
         if (val != '') {
           if (!strongRegex.test(val)) {
@@ -101,6 +102,7 @@ export class SellerRegisterComponent implements OnInit {
           this.errortextEmail = '';
         }
         else {
+          this.validEmail = false;
           this.errortextEmail = 'Enter your email!';
         };
       } break;
@@ -120,6 +122,7 @@ export class SellerRegisterComponent implements OnInit {
           this.errortextPass = '';
         }
         else {
+          this.validPass = false;
           this.errortextPass = 'Enter your password!';
         };
 

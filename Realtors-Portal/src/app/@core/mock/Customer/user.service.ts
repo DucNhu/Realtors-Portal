@@ -13,6 +13,11 @@ export class UserService {
   getAllEmailUser() {
     return this.http.get(environment.apiUrl + 'Users')
   }
+
+  getUserbyId(id) {
+    return this.http.get(environment.apiUrl + `Users/${id}`)
+  }
+
   register(val) {
     return this.http.post(environment.apiUrl + 'Users/register', val)
   }

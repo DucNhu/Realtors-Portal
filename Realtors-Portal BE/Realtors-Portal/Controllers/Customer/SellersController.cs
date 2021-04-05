@@ -1,43 +1,25 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IdentityModel.Tokens.Jwt;
-using System.IO;
 using System.Linq;
-using System.Security.Claims;
-using System.Text;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Options;
-using Microsoft.IdentityModel.Tokens;
-using Realtors_Portal.Configuration;
 using Realtors_Portal.Data;
 using Realtors_Portal.Models;
-using Realtors_Portal.Models.DTOs.Requests;
-using Realtors_Portal.Models.DTOs.Responses;
 
-namespace Realtors_Portal.Controllers
+namespace Realtors_Portal.Controllers.Customer
 {
     [Route("api/[controller]")]
     [ApiController]
     public class SellersController : ControllerBase
     {
         private readonly Realtors_PortalContext _context;
-        private readonly UserManager<IdentityUser> _userManager;
-        private readonly JwtConfig _jwtConfig;
-        private readonly IWebHostEnvironment _hostEnvironment;
 
-        public SellersController(Realtors_PortalContext context, UserManager<IdentityUser> userManager, IOptionsMonitor<JwtConfig> optionsMonitor, IWebHostEnvironment hostEnvironment)
+        public SellersController(Realtors_PortalContext context)
         {
             _context = context;
-            _userManager = userManager;
-            _jwtConfig = optionsMonitor.CurrentValue; this._hostEnvironment = hostEnvironment;
-
         }
-
 
         // GET: api/Sellers
         [HttpGet]
@@ -94,123 +76,13 @@ namespace Realtors_Portal.Controllers
         // POST: api/Sellers
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        [Route("register")]
         public async Task<ActionResult<Seller>> PostSeller(Seller seller)
         {
+            _context.Seller.Add(seller);
+            await _context.SaveChangesAsync();
 
-
-            if (ModelState.IsValid)
-            {
-
-                // We can utilise the model
-                var existingUser = await _userManager.FindByEmailAsync(seller.Email);
-
-                if (existingUser != null)
-                {
-                    return BadRequest(new RegistrationResponse()
-                    {
-                        Errors = new List<string>() {
-                                "Email already in use"
-                            },
-                        Success = false
-                    });
-                }
-
-                var newUser = new IdentityUser()
-                {
-                    Email = seller.Email,
-                    UserName = seller.Email,
-                };
-                var isCreated = await _userManager.CreateAsync(newUser, seller.Password);
-                if (isCreated.Succeeded)
-                {
-                    _context.Seller.Add(seller);
-                    await _context.SaveChangesAsync();
-
-                    var create = CreatedAtAction("GetSeller", new { id = seller.ID }, seller);
-
-                    var jwtToken = GenerateJwtToken(newUser);
-
-                    return Ok(new RegistrationResponse()
-                    {
-                        Infor = create,
-                        Success = true,
-                        Token = jwtToken
-                    }); ;
-                }
-                else
-                {
-                    return BadRequest(new RegistrationResponse()
-                    {
-                        Errors = isCreated.Errors.Select(x => x.Description).ToList(),
-                        Success = false
-                    });
-                }
-            }
-
-            return BadRequest(new RegistrationResponse()
-            {
-                Errors = new List<string>() {
-                        "Invalid payload"
-                    },
-                Success = false
-            });
+            return CreatedAtAction("GetSeller", new { id = seller.ID }, seller);
         }
-
-        [HttpPost]
-        [Route("Login")]
-        public async Task<IActionResult> Login([FromBody] UserLoginRequest seller)
-        {
-            //var userbyid = await _context.User.FindAsync(id);
-
-            if (ModelState.IsValid)
-            {
-                var existingUser = await _userManager.FindByEmailAsync(seller.Email);
-
-                if (existingUser == null)
-                {
-                    return BadRequest(new RegistrationResponse()
-                    {
-                        Errors = new List<string>() {
-                                "Invalid login request"
-                            },
-                        Success = false
-                    });
-                }
-
-                var isCorrect = await _userManager.CheckPasswordAsync(existingUser, seller.Password);
-                var userbyid = await _context.User.SingleOrDefaultAsync(x => x.Email == seller.Email);
-                if (!isCorrect)
-                {
-                    return BadRequest(new RegistrationResponse()
-                    {
-                        Errors = new List<string>() {
-                                "Invalid login request"
-                            },
-                        Success = false
-                    });
-                }
-
-                var jwtToken = GenerateJwtToken(existingUser);
-
-                return Ok(new RegistrationResponse()
-                {
-                    Infor = userbyid,
-                    Success = true,
-                    Token = jwtToken
-                });
-            }
-
-            return BadRequest(new RegistrationResponse()
-            {
-                Errors = new List<string>() {
-                        "Invalid payload"
-                    },
-                Success = false
-            });
-        }
-
-
 
         // DELETE: api/Sellers/5
         [HttpDelete("{id}")]
@@ -231,55 +103,6 @@ namespace Realtors_Portal.Controllers
         private bool SellerExists(int id)
         {
             return _context.Seller.Any(e => e.ID == id);
-        }
-
-        private string GenerateJwtToken(IdentityUser seller)
-        {
-            var jwtTokenHandler = new JwtSecurityTokenHandler();
-
-            var key = Encoding.ASCII.GetBytes(_jwtConfig.Secret);
-
-            var tokenDescriptor = new SecurityTokenDescriptor
-            {
-                Subject = new ClaimsIdentity(new[]
-                {
-                    new Claim("Id", seller.Id),
-                    new Claim(JwtRegisteredClaimNames.Email, seller.Email),
-                    new Claim(JwtRegisteredClaimNames.Sub, seller.Email),
-                    new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
-                }),
-                Expires = DateTime.UtcNow.AddHours(6),
-                SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
-            };
-
-            var token = jwtTokenHandler.CreateToken(tokenDescriptor);
-            var jwtToken = jwtTokenHandler.WriteToken(token);
-
-            return jwtToken;
-        }
-
-        //SaveFile Image
-        [Route("savefile")]
-        [HttpPost]
-        public JsonResult SaveFile()
-        {
-            try
-            {
-                var httpRequest = Request.Form;
-                var postedFile = httpRequest.Files[0];
-                string filename = postedFile.FileName;
-                var physicalPath = _hostEnvironment.ContentRootPath + "/Images/Customer/Sellers" + filename;
-                using (var stream = new FileStream(physicalPath, FileMode.Create))
-                {
-                    postedFile.CopyTo(stream);
-                }
-                return new JsonResult(filename);
-            }
-
-            catch (Exception)
-            {
-                return new JsonResult("Save image");
-            }
         }
     }
 }

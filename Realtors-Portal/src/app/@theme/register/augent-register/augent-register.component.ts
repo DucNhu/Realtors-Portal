@@ -12,7 +12,7 @@ import { UserService } from '../../../@core/mock/Customer/user.service';
 })
 export class AugentRegisterComponent implements OnInit {
   createForm: FormGroup;
-  @Output() dataAgent = new EventEmitter<any>();
+  @Output() dataUser = new EventEmitter<any>();
   @Input() error;
 
   isDisabled = true;
@@ -58,7 +58,7 @@ export class AugentRegisterComponent implements OnInit {
       "ppID": 0,
       "user_type": "agent"
     }
-    this.dataAgent.emit(data);
+    this.dataUser.emit(data);
     // this.register(val);
   }
 
@@ -86,12 +86,13 @@ export class AugentRegisterComponent implements OnInit {
           this.errortextFullName = '';
         }
         else {
+          this.validEmailFullName = false;
           this.errortextFullName = 'Enter your full name!';
         };
       } break;
 
       case 'email': {
-        let strongRegex = new RegExp("^[a-z][a-z0-9_\.]{5,32}@[a-z0-9]{2,}(\.[a-z0-9]{2,4}){1,2}$");
+        let strongRegex = new RegExp("^[a-zA-Z][a-zA-Z0-9_\.]{3,32}@[a-zA-Z0-9]{2,}(\.[a-z]{2,4}){1,2}$");
         let val = this.createForm.get('email').value;
         if (val != '') {
           if (!strongRegex.test(val)) {
@@ -103,6 +104,7 @@ export class AugentRegisterComponent implements OnInit {
           this.errortextEmail = '';
         }
         else {
+          this.validEmail = false;
           this.errortextEmail = 'Enter your email!';
         };
       } break;
@@ -130,17 +132,21 @@ export class AugentRegisterComponent implements OnInit {
     }
   }
 
-  DisabledFunciton() { // button False
+  DisabledFunciton() { // button check disable    
     if (this.validEmailFullName == true &&
       this.validEmail == true &&
       this.validPass == true) {
-
+      console.log(this.validEmailFullName, this.validEmail, this.validPass);
+        
       return this.isDisabled = false;
     }
     else {
+      console.log(this.validEmailFullName, this.validEmail, this.validPass);
+
       return this.isDisabled = true;
     }
   }
+
 
 }
 

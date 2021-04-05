@@ -6,25 +6,14 @@ namespace Realtors_Portal.Models
 {
     public class Agent
     {
-        //[Key]
-        //[DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int ID { get; set; }
         //[Required]
-        public string Name { get; set; }
-        //[Rkequired]
-        //public string Address { get; set; }
-        //[Required]
-        //public string Phone { get; set; }
-        [Required]
-        [EmailAddress]
-        public string Email { get; set; }
-        [Required(ErrorMessage = "pass is required")]
-        public string Password { get; set; }
-        //[Required]
-        //public int erActive { get; set; }
-        //public string Avatar { get; set; }
-        //public DateTime DateCreate { get; set; }
-        //public int PackageID { get; set; }
-        //public int AgentID { get; set; }
+        public string NameAgent { get; set; }
+
+        public int SellerID { get; set; }
+
+        public int UserID { get; set; }
     }
 }

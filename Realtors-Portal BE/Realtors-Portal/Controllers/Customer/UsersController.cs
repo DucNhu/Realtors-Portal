@@ -5,6 +5,7 @@ using System.Linq;
 using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -26,12 +27,17 @@ namespace Realtors_Portal.Controllers
         private readonly Realtors_PortalContext _context;
         private readonly UserManager<IdentityUser> _userManager;
         private readonly JwtConfig _jwtConfig;
+        private readonly IWebHostEnvironment _hostEnvironment;
 
-        public UsersController(Realtors_PortalContext context, UserManager<IdentityUser> userManager, IOptionsMonitor<JwtConfig> optionsMonitor)
+        public UsersController(Realtors_PortalContext context, UserManager<IdentityUser> userManager,
+            IOptionsMonitor<JwtConfig> optionsMonitor,
+            IWebHostEnvironment hostEnvironment)
         {
             _context = context;
             _userManager = userManager;
             _jwtConfig = optionsMonitor.CurrentValue;
+            this._hostEnvironment = hostEnvironment;
+
         }
 
         // GET: api/Users
@@ -89,7 +95,7 @@ namespace Realtors_Portal.Controllers
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
         [Route("register")]
-        public async Task<ActionResult<User>> register([FromBody] User user)
+        public async Task<ActionResult<User>> register(User user)
         {    
             if (ModelState.IsValid)
             {
@@ -166,7 +172,7 @@ namespace Realtors_Portal.Controllers
                     return BadRequest(new RegistrationResponse()
                     {
                         Errors = new List<string>() {
-                                "Invalid login request"
+                                "Account does not exist"
                             },
                         Success = false
                     });
@@ -179,7 +185,7 @@ namespace Realtors_Portal.Controllers
                     return BadRequest(new RegistrationResponse()
                     {
                         Errors = new List<string>() {
-                                "Invalid login request"
+                                "Account or password is incorrect"
                             },
                         Success = false
                     });

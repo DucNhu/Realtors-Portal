@@ -2,7 +2,7 @@
     <div class="form-group col-sm-12">
         <label>Full Name:</label>
         <input type="text" class="form-control" name="fullName" formControlName="fullName"
-            (blur)="validator('fullName'); DisabledFunciton()" />
+            (keyup)="validator('fullName'); DisabledFunciton()" />
         <span class="text-danger" *ngIf="errortextFullName != ''">
             {{ errortextFullName }}
         </span>
@@ -10,7 +10,7 @@
     <div class="form-group col-sm-12">
         <label>Email Address:</label>
         <input type="email" class="form-control" name="email" formControlName="email"
-            (blur)="validator('email'); DisabledFunciton()" />
+            (keyup)="validator('email'); DisabledFunciton()" (keyup)="DisabledFunciton()" />
         <span *ngIf="errortextEmail == 'Enter your email!'" class="text-danger">{{errortextEmail}}</span>
 
         <span class="text-danger" *ngIf="error == 'Email already in use'">
@@ -20,7 +20,7 @@
     <div class="form-group col-sm-12">
         <label>Password:</label>
         <input type="Password" class="form-control" #pass name="password" formControlName="password"
-            (blur)="validator('pass'); DisabledFunciton()" />
+            (keyup)="validator('pass'); DisabledFunciton()" (keyup)="DisabledFunciton()" />
         <span *ngIf="errortextPass == 'Enter your password!'" class="text-danger">{{errortextPass}}</span>
         <span class="text-danger" *ngIf="errorpassregex">
             <ul class="text-danger">
