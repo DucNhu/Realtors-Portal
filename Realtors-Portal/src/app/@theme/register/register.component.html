@@ -18,12 +18,12 @@ Register -->
                     </li>
                 </ul>
                 <div class="tab-content" id="myTabContent">
-                   
+
                     <div class="tab-pane fade show" id="agent" role="tabpanel" aria-labelledby="agent-tab">
-                        <app-seller-register (dataUser)="onsubmit($event)" [error] = "error"></app-seller-register>
+                        <app-seller-register (dataUser)="onsubmit($event)" [error]="error"></app-seller-register>
                     </div>
                     <div class="tab-pane fade" id="regular-user" role="tabpanel" aria-labelledby="regular-user-tab">
-                        <app-augent-register (dataUser)="onsubmit($event)" [error] = "error"></app-augent-register>
+                        <app-augent-register (dataUser)="onsubmit($event)" [error]="error"></app-augent-register>
                     </div>
                 </div>
             </div>
@@ -32,3 +32,8 @@ Register -->
 </section>
 <!--=================================
 Register -->
+<dialog class="dialog--show" *ngIf="alertSuccess != undefined">
+    <h3>Register Success</h3>
+    <p>{{ alertSuccess }}</p>
+    <a routerLink="/" class="btn btn-primary p-1 text-center w-100">Confirm</a>
+</dialog>

@@ -1,6 +1,6 @@
 .box-alert--error {
     display: block;
-    animation: alert--error 2s 1 forwards;
+    animation: alert--error 5s 1 forwards;
     margin-top: -20px;
 }
 

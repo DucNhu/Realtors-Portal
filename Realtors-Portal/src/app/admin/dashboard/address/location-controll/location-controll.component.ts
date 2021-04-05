@@ -203,8 +203,6 @@ export class LocationControllComponent implements OnInit {
       Active: [false, [Validators.required]],
 
       LocationLetter: ['L', [Validators.required]],
-
-      // Avatar: ['Avatar'],
     })
   }
   get LocationName() { return this.formValidator.get('LocationName') }

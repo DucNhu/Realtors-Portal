@@ -7,16 +7,13 @@ namespace Realtors_Portal.Models.Customer
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int id { get; set; }
+        public int ID { get; set; }
 
-        [Required(ErrorMessage = "Name is required")]
         public string Name { get; set; }
 
-        [Required]
         [EmailAddress(ErrorMessage = "pass is required")]
         public string Email { get; set; }
 
-        [Required(ErrorMessage = "pass is required")]
         public string Password { get; set; }
 
         public string Title { get; set; }

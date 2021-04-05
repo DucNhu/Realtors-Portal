@@ -15,7 +15,7 @@
 drop database realtors01 -- Delete roi create lai db ==========================================================================================================================================
 create database realtors01
 drop table tblUser
-CREATE TABLE tblUser (
+CREATE TABLE User (
   "id" int PRIMARY KEY identity,
   "UserName" varchar(30) UNIQUE,
   "Password" varchar(20),

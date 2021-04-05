@@ -34,7 +34,6 @@ export class AugentRegisterComponent implements OnInit {
     private authenticationService: AuthenticationService
   ) { }
 
-
   ngOnInit(): void {
     // createForm
     this.createForm = this.formBuilder.group({

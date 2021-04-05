@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Realtors_Portal.Data;
 
 namespace Realtors_Portal.Migrations
 {
     [DbContext(typeof(Realtors_PortalContext))]
-    partial class Realtors_PortalContextModelSnapshot : ModelSnapshot
+    [Migration("20210405033421_realtors01")]
+    partial class realtors01
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -519,27 +521,9 @@ namespace Realtors_Portal.Migrations
                     b.ToTable("PackagePurchased");
                 });
 
-            modelBuilder.Entity("Realtors_Portal.Models.Customer.Roles", b =>
-                {
-                    b.Property<int>("ID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("UserType")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("title")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("ID");
-
-                    b.ToTable("Roles");
-                });
-
             modelBuilder.Entity("Realtors_Portal.Models.Customer.User", b =>
                 {
-                    b.Property<int>("ID")
+                    b.Property<int>("id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
@@ -601,7 +585,7 @@ namespace Realtors_Portal.Migrations
                     b.Property<int>("ppID")
                         .HasColumnType("int");
 
-                    b.HasKey("ID");
+                    b.HasKey("id");
 
                     b.ToTable("User");
                 });
