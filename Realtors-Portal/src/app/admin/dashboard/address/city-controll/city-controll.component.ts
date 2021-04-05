@@ -54,7 +54,7 @@ export class CityControllComponent implements OnInit {
           e.CityLetter = e.CityName.substr(0, 1);
           this.listCity.unshift(e);
         });
-        console.log(this.listCity);
+        // console.log(this.listCity);
 
       }
     )
@@ -106,7 +106,7 @@ export class CityControllComponent implements OnInit {
   onSelectFile(e) {
     this.newImage = true;
     this.dataImage = e.target.files.item(0);
-    console.log(this.dataImage.name);
+    // console.log(this.dataImage.name);
     let dateNow = new Date();
 
     if (e.target.files) { // Check File true : false
@@ -120,8 +120,8 @@ export class CityControllComponent implements OnInit {
   }
   upPhoto() {
     const formData: FormData = new FormData();
-    console.log(this.dataImage);
-    console.log(this.DataFormCityEdit.Avatar);
+    // console.log(this.dataImage);
+    // console.log(this.DataFormCityEdit.Avatar);
 
     try {
       formData.append('ImageFile', this.dataImage, this.DataFormCityEdit.Avatar);
@@ -141,7 +141,7 @@ export class CityControllComponent implements OnInit {
     data.Active = data.Active == true ? 1 : 0;
     data.Avatar = this.DataFormCityEdit.Avatar;
     data.CountryID = parseInt(data.CountryID);
-    console.log(data);
+    // console.log(data);
 
     this._CityService.UpdateCity(data).subscribe(
       val => {
@@ -164,7 +164,7 @@ export class CityControllComponent implements OnInit {
   }
 
   EditByIdInArray(val) {
-    console.log(val);
+    // console.log(val);
 
     let i = -1;
     this.listCity.forEach(element => {
@@ -233,7 +233,7 @@ export class CityControllComponent implements OnInit {
   }
   get CityName() { return this.formValidator.get('CityName') }
   GetDataEditorAdd(val) {
-    console.log(val);
+    // console.log(val);
 
     this.DefaultandNewAvatar = (val.Avatar.indexOf(this.getImageAvatarSrc) > -1 ? '' : this.getImageAvatarSrc) + val.Avatar;
     if (val.Avatar.indexOf("base64") > -1) {
@@ -271,14 +271,14 @@ export class CityControllComponent implements OnInit {
   Alert_successFunction(value) {
     this.alert_Text = value;
     this.alert_success = true;
-    // call function set alert_success = true  
+    // call function set alert_success = true
     this.AlertFunction(true);
   }
   Alert_dangerFunction(value) {
     this.alert_Text = value;
     this.alert_danger = true;
 
-    // call function set alert_danger = true  
+    // call function set alert_danger = true
     this.AlertFunction(false);
   }
 
@@ -307,7 +307,7 @@ export class CityControllComponent implements OnInit {
   // handFileInput
   // imageBannertoUpload: File = null;
   // handFileInput(file: FileList) {
-  //   this.imageBannertoUpload = file.item(0)    
+  //   this.imageBannertoUpload = file.item(0)
   // }
   // END handFileInput
 }

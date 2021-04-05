@@ -4,6 +4,7 @@ import { LoginComponent } from '../@theme/login/login.component';
 import { RegisterComponent } from '../@theme/register/register.component';
 import { MainpagesComponent } from './mainpages/mainpages.component';
 import { PageComponent } from './page.component';
+import { PropertyListComponent } from './mainpages/property-list/property-list.component';
 const routes: Routes = [
     {
 
@@ -11,6 +12,9 @@ const routes: Routes = [
         component: PageComponent,
         children: [{
             path: '', component: MainpagesComponent
+        },
+        {
+          path: 'property-list', component: PropertyListComponent,
         },
         {
             path: 'login', component: LoginComponent

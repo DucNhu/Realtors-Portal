@@ -26,8 +26,8 @@ export class LoginComponent implements OnInit {
     if (this.authenticationService.currentUserValue) {
       this.router.navigate(['/login']);
     }
-  
-    
+
+
   }
 
   ngOnInit(): void {
@@ -44,7 +44,7 @@ export class LoginComponent implements OnInit {
 
   onSubmit() {
     this.submitted = true;
-    console.log(this.error);
+    // console.log(this.error);
     // stop here if form is invalid
     if (this.loginForm.invalid) {
       return;
@@ -58,21 +58,21 @@ export class LoginComponent implements OnInit {
           switch (data.Infor.User_type) {
             case 'admin':
               window.location.assign(this.returnUrl + "admin");  break;
-            case 'seller': 
-              // this.router.navigate([this.returnUrl]); 
+            case 'seller':
+              // this.router.navigate([this.returnUrl]);
               window.location.assign(this.returnUrl);
               break;
             case 'agent':
-              // this.router.navigate([this.returnUrl]); 
+              // this.router.navigate([this.returnUrl]);
               window.location.assign(this.returnUrl);
               break;
-            default:              
+            default:
               window.location.assign(this.returnUrl); break;
           }
         },
         error => {
           this.error = error.error.Errors;
-          
+
           this.loading = false;
         });
     this.error = undefined;

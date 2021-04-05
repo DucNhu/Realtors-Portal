@@ -54,7 +54,7 @@ export class CountryControllComponent implements OnInit {
           e.CountryLetter = e.CountryName.substr(0, 1);
           this.listCountry.unshift(e);
         });
-        console.log(this.listCountry);
+        // console.log(this.listCountry);
 
       }
     )
@@ -85,11 +85,11 @@ export class CountryControllComponent implements OnInit {
           this.resetImageArray();
           this.Alert_successFunction("Created done");
         });
-    } 
+    }
     else {
       this.Alert_dangerFunction("Try again, pls")
     }
-    
+
   }
 
   resetImageArray() { // because update in array
@@ -106,7 +106,7 @@ export class CountryControllComponent implements OnInit {
   onSelectFile(e) {
     this.newImage = true;
     this.dataImage = e.target.files.item(0);
-    console.log(this.dataImage.name);
+    // console.log(this.dataImage.name);
     let dateNow = new Date();
 
     if (e.target.files) { // Check File true : false
@@ -120,8 +120,8 @@ export class CountryControllComponent implements OnInit {
   }
   upPhoto() {
     const formData: FormData = new FormData();
-    console.log(this.dataImage);
-    console.log(this.DataFormCountryEdit.Avatar);
+    // console.log(this.dataImage);
+    // console.log(this.DataFormCountryEdit.Avatar);
 
     try{
       formData.append('ImageFile', this.dataImage, this.DataFormCountryEdit.Avatar);
@@ -141,7 +141,7 @@ export class CountryControllComponent implements OnInit {
     data.Active = data.Active == true ? 1 : 0;
     data.Avatar = this.DataFormCountryEdit.Avatar;
     data.LocationID = parseInt(data.LocationID);
-    console.log(data);
+    // console.log(data);
 
     this._CountryService.UpdateCountry(data).subscribe(
       val => {
@@ -164,7 +164,7 @@ export class CountryControllComponent implements OnInit {
   }
 
   EditByIdInArray(val) {
-    console.log(val);
+    // console.log(val);
 
     let i = -1;
     this.listCountry.forEach(element => {
@@ -233,7 +233,7 @@ export class CountryControllComponent implements OnInit {
   }
   get CountryName() { return this.formValidator.get('CountryName') }
   GetDataEditorAdd(val) {
-    console.log(val);
+    // console.log(val);
 
     this.DefaultandNewAvatar = (val.Avatar.indexOf(this.getImageAvatarSrc) > -1 ? '' : this.getImageAvatarSrc) + val.Avatar;
     if (val.Avatar.indexOf("base64") > -1) {
@@ -268,14 +268,14 @@ export class CountryControllComponent implements OnInit {
   Alert_successFunction(value) {
     this.alert_Text = value;
     this.alert_success = true;
-    // call function set alert_success = true  
+    // call function set alert_success = true
     this.AlertFunction(true);
   }
   Alert_dangerFunction(value) {
     this.alert_Text = value;
     this.alert_danger = true;
 
-    // call function set alert_danger = true  
+    // call function set alert_danger = true
     this.AlertFunction(false);
   }
 
@@ -298,7 +298,7 @@ export class CountryControllComponent implements OnInit {
       this.listLocation = data;
     })
   }
-  
+
   SetCountryLetterWhenEnterName(value) {
     this.formValidator.controls.CountryLetter.patchValue(value.substr(0, 1));
   }
