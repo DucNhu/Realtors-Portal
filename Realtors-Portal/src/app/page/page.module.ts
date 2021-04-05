@@ -12,6 +12,7 @@ import { NewlyListedComponent } from './mainpages/newly-listed/newly-listed.comp
 import { BrowseCategoryComponent } from './mainpages/browse-category/browse-category.component';
 import { DealsComponent } from './mainpages/deals/deals.component';
 import { AboutusComponent } from './aboutus/aboutus.component';
+import { PropertyListComponent } from './mainpages/property-list/property-list.component';
 
 
 @NgModule({
@@ -24,7 +25,8 @@ import { AboutusComponent } from './aboutus/aboutus.component';
     NewlyListedComponent,
     BrowseCategoryComponent,
     DealsComponent,
-    AboutusComponent, 
+    AboutusComponent,
+    PropertyListComponent, 
   ],
   providers: [AuthenticationService],
   imports: [

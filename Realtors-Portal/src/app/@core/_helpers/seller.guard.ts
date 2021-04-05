@@ -17,7 +17,7 @@ export class SellerGuard implements CanActivate {
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
     const currentUser = this.authenticationService.currentUserValue;
     if (currentUser) {
-      console.log(currentUser);
+      // console.log(currentUser);
 
       // console.log(route.routeConfig.path);
       if (currentUser.Infor.User_type == 'seller') {
@@ -34,5 +34,5 @@ export class SellerGuard implements CanActivate {
       return false;
     }
   }
-  
+
 }

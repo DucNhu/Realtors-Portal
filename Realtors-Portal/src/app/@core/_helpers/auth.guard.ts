@@ -13,7 +13,7 @@ export class AuthGuard implements CanActivate {
         const currentUser = this.authenticationsService.currentUserValue;
 
         if (currentUser) {
-            console.log(currentUser);
+            // console.log(currentUser);
 
             // console.log(route.routeConfig.path);
             if (currentUser.Infor.User_type == 'admin') {
