@@ -47,7 +47,7 @@ export class AreControllComponent implements OnInit {
   getIdLength = 0;
   // Get All project
   getAllAre() {
-    this._AreService.getAllAre().subscribe(
+    this._AreService.getAreByDistrictID().subscribe(
       data => {
         this.containData = data;
         this.containData.forEach(e => {
@@ -71,7 +71,9 @@ export class AreControllComponent implements OnInit {
     if (this.upPhoto()) {// Insert Image
       this._AreService.createAre(data)
         .subscribe(res => {
-          let getIDLength = this.listAre[length].AreID;
+          let getIDLength = 0;
+          try { getIDLength = this.listAre[length].AreID;
+           } catch { getIDLength = 0; }
           data.AreID = getIDLength += 1;
           data.ImageBannerSrc = '';
           data.Avatar = this.DefaultandNewAvatar;

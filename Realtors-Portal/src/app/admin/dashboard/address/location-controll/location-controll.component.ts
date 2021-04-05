@@ -58,7 +58,7 @@ export class LocationControllComponent implements OnInit {
   dataImage;
   statusBtn = 'VALID';
   selectedFile: File = null;
-  CreateLocation(data) {
+  CreateLocation(data) {    
     data.LocationID = 0;
     data.Active = data.Active == true ? 1 : 0;
     data.Avatar = this.DataFormLocationEdit.Avatar;
@@ -66,7 +66,10 @@ export class LocationControllComponent implements OnInit {
     if (this.upPhoto()) {        // this.upPhoto(); // Insert Image
       this._LocationService.CreateLocation(data)
         .subscribe(res => {
-          let getIDLength = this.listLocation[0].LocationID;
+
+          let getIDLength = 0;
+          try { getIDLength = this.listLocation[length].listLocation; } catch { getIDLength = 0; }
+
           data.LocationID = getIDLength += 1;
           data.ImageBannerSrc = '';
           data.Avatar = this.DefaultandNewAvatar;
