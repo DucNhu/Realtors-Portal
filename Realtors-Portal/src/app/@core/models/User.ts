@@ -8,6 +8,7 @@ export class User {
     role: Role;
     token?: string;
     Infor: {
+        ID: number,
         User_type: string
     }
 }

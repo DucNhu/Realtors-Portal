@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { first } from 'rxjs/operators';
-
+import { environment } from '../../../@core/models/Environment';
 import { map } from "rxjs/operators";
 import { AuthenticationService } from '../../../@core/mock/Authentication.Service';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
@@ -13,6 +13,7 @@ import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 export class HeaderComponent implements OnInit {
   @Output() checklogin: EventEmitter<boolean> = new EventEmitter();
   currentUser: any;
+  imgSrc = environment.ImageUrl + 'Customer/';
   @Input() isLogin = false;
   returnUrl: string;
   constructor(
@@ -35,10 +36,24 @@ export class HeaderComponent implements OnInit {
     this.authenticationService.logout();
   }
 
+  checkRoles = 'seller';
   checkLoginTrueFalse() {
     if (this.currentUser.Infor.User_type != "admin") { // check token ? login register : logout
-      this.isLogin = true;
-      return true;
+      if (this.currentUser.Infor.User_type == 'agent') {
+        this.checkRoles = 'agent';
+        this.isLogin = true;
+        console.log(this.isLogin);
+        return true;
+      }
+      else {
+        this.checkRoles = 'seller';
+        this.isLogin = true;
+        console.log(this.isLogin);
+        
+        return true;
+      }
+
+      
     }
     else {
       this.isLogin = false;

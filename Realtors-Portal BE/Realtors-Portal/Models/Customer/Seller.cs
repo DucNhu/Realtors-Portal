@@ -11,9 +11,6 @@ namespace Realtors_Portal.Models
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int ID { get; set; }
 
-        [Required(ErrorMessage = "Name is required")]
-        public string Name { get; set; }
-
         [Required]
         public int ActiveAgent { get; set; }
 

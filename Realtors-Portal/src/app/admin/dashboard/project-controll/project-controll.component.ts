@@ -91,7 +91,6 @@ export class ProjectControllComponent implements OnInit {
     this._ProjectService.getProjectByFK().subscribe(
       data => {
         this.containData = data;
-        console.log(this.listProject);
 
         this.containData.forEach(e => {
           e.ImageBannerSrc = this.getImageBannerSrc;
@@ -108,8 +107,6 @@ export class ProjectControllComponent implements OnInit {
   dataImage;
   selectedFile: File = null;
   CreateProject(data) {
-    console.log(data);
-
     data.ID = 0;
 
     if (this.upPhoto() && this.upPhotoImageFeature) {        // this.upPhoto(); // Insert Image
@@ -126,7 +123,6 @@ export class ProjectControllComponent implements OnInit {
 
           // Insert Image in table ImageLib trog sql
           this.ArrayCRDFeature.forEach(e => {
-            console.log(e);
 
             let dataImageLib = {
               "imageLibID": 0,
@@ -178,8 +174,6 @@ export class ProjectControllComponent implements OnInit {
           this.Alert_successFunction("Create done");
           getIDLast++;
           getIDImageLibLast++;
-          console.log(this.listProject);
-
           
         });
 
@@ -203,7 +197,6 @@ export class ProjectControllComponent implements OnInit {
   onSelectFile(e) {
     this.newImage = true;
     this.dataImage = e.target.files.item(0);
-    console.log(this.dataImage.name);
     let dateNow = new Date();
 
     if (e.target.files) { // Check File true : false
@@ -221,7 +214,6 @@ export class ProjectControllComponent implements OnInit {
 
     try {
       formData.append('ImageFile', this.dataImage, this.DataFormProjectEdit.ImageBannerName);
-      console.log(formData);
       this._ProjectService.UpdatePhotoBanner(formData).subscribe(() => {
       });
     }
@@ -253,7 +245,6 @@ export class ProjectControllComponent implements OnInit {
       reader.onload = (event: any) => {
         this.ArrayAvatarFeature.push(e.target.files.item(0));
         this.ArrayCRDFeature.push({ Name: event.target.result, url: '', NameinSert: dateNow.getTime() + this.DataFeature.name });
-        console.log(this.ArrayCRDFeature);
 
         // }
       }
@@ -271,7 +262,6 @@ export class ProjectControllComponent implements OnInit {
 
         formData.append('ImageFile', this.ArrayAvatarFeature[i], this.ArrayCRDFeature[i].NameinSert);
         this.imageLibService.PostPhotoFeature(formData).subscribe(() => {
-          console.log("OK2");
           this.Alert_successFunction("Add image success");
           this.ArrayAvatarFeature = [];
         });
@@ -287,12 +277,8 @@ export class ProjectControllComponent implements OnInit {
 
   deleteAnfeature(data) {
     let i = -1;
-    console.log("OK");
-
     this.ArrayCRDFeature.forEach(e => {
       i++;
-      console.log(e);
-
       if (e.ImageLibID == data.ImageLibID) {
         this.ArrayCRDFeature.splice(i, 1);
       }
@@ -307,7 +293,6 @@ export class ProjectControllComponent implements OnInit {
   // Function Edit Project
   upgrade = false;
   UpdateProject(data) {
-    console.log(data);
     data.ImageBannerName = this.DataFormProjectEdit.ImageBannerName;
     this._ProjectService.UpdateProj(data.ID, data).subscribe(
       val => {
@@ -327,8 +312,6 @@ export class ProjectControllComponent implements OnInit {
 
 
   EditByIdInArray(val) {
-    console.log(val);
-
     let i = -1;
     this.listProject.forEach(element => {
       i++;
@@ -449,8 +432,6 @@ export class ProjectControllComponent implements OnInit {
   get ProjectName() { return this.formValidator.get('ProjectName') }
 
   SetDataForEditorForm(val) {
-    console.log(val);
-
     this.DefaultandNewAvatar = (val.ImageBannerName.indexOf(this.getImageBannerSrc) > -1 ? '' : this.getImageBannerSrc) + val.ImageBannerName;
     if (val.ImageBannerName.indexOf("base64") > -1) {
       this.DefaultandNewAvatar = val.ImageBannerName;
@@ -474,12 +455,7 @@ export class ProjectControllComponent implements OnInit {
     this.formValidator.controls.City.patchValue(val.City);
     this.formValidator.controls.Country.patchValue(val.Country);
     this.formValidator.controls.District.patchValue(val.District);
-    console.log("this is: val.Country");
     
-    console.log(val.Country);
-    console.log("this is: val.Location");
-
-    console.log(val.Location);
     this.formValidator.controls.ID.patchValue(val.ID);
     this.formValidator.controls.ImageFile.patchValue(val.ImageFile);
     this.formValidator.controls.Location.patchValue(val.Location);
@@ -608,7 +584,6 @@ export class ProjectControllComponent implements OnInit {
         this.listCountry.push(e);
       }
     });
-    console.log(this.listCountry);
   }
 
   cityInCountry;
@@ -622,7 +597,6 @@ export class ProjectControllComponent implements OnInit {
         this.listCity.push(e);
       }
     });
-    console.log(this.listCity);
   }
 
   districtInCity;
@@ -637,7 +611,6 @@ export class ProjectControllComponent implements OnInit {
         this.listDistrict.push(e);
       }
     });
-    console.log(this.listDistrict);
   }
 
   areInDistrict;
@@ -646,13 +619,10 @@ export class ProjectControllComponent implements OnInit {
     this.listAre = [];
     this.areInDistrict.forEach(e => {
       i++;
-      console.log(e);
-      console.log(this.formValidator.controls.District.value);
       if (e.DistrictID == this.formValidator.controls.District.value) {
         this.listAre.push(e);
       }
     });
-    console.log(this.listAre);
   }
 
 }

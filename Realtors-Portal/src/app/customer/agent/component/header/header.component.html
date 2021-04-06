@@ -1,0 +1,59 @@
+<div id="header" class="app-header">
+
+    <div class="mobile-toggler">
+        <button type="button" class="menu-toggler" data-toggle="sidebar-mobile">
+            <span class="bar"></span>
+            <span class="bar"></span>
+        </button>
+    </div>
+
+
+    <div class="brand">
+        <div class="desktop-toggler">
+            <button type="button" class="menu-toggler" data-toggle="sidebar-minify">
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </button>
+        </div>
+        <a href="#" class="brand-logo">
+            <img src="/assets/admin/img/logo.png" alt="" height="20" />
+        </a>
+    </div>
+
+
+    <div class="menu justify-content-end">
+        <a href="#" data-toggle="dropdown" data-display="static" class="menu-link">
+            <div class="menu-icon">
+                <svg width="20" height="20" viewBox="0 0 20 20" version="1.1" xmlns="http://www.w3.org/2000/svg"
+                    style="transform: scale(1.5);" class="sc-jWBwVP cpmruK">
+                    <path d="M5 12.5H15V14H5V12.5Z M5 11L4 7L8 8L10 4L12 8L16 7L15 11H5Z"></path>
+                </svg>
+            </div>
+        </a>
+        <div class="menu-item dropdown">
+            <a href="#" data-toggle="dropdown" data-display="static" class="menu-link">
+                <div class="menu-img fas edit">
+                    <img [src]="infor.src + infor.Avatar" [alt]="infor.Avatar" class="mw-100 mh-100 rounded-circle"
+                        width="50" height="50" />
+                </div>
+                <div class="menu-text"><span class="__cf_email__"
+                        data-cfemail="3b485e5a554f535e565e7b5c565a525715585456">{{ infor.Name }}</span>
+                </div>
+            </a>
+            <div class="dropdown-menu dropdown-menu-right mr-lg-3">
+                <!-- <a class="dropdown-item d-flex align-items-center" >Edit Profile <i
+                        class="fa fa-user-circle fa-fw ml-auto text-gray-400 f-s-16"></i></a>
+                <a class="dropdown-item d-flex align-items-center" href="#">Inbox <i
+                        class="fa fa-envelope fa-fw ml-auto text-gray-400 f-s-16"></i></a>
+                <a class="dropdown-item d-flex align-items-center" href="#">Calendar <i
+                        class="fa fa-calendar-alt fa-fw ml-auto text-gray-400 f-s-16"></i></a>
+                <a class="dropdown-item d-flex align-items-center" href="#">Setting <i
+                        class="fa fa-wrench fa-fw ml-auto text-gray-400 f-s-16"></i></a>
+                <div class="dropdown-divider"></div> -->
+                <a class="dropdown-item d-flex align-items-center" (click)="logout()">Log Out
+                    <i class="fa fa-toggle-off fa-fw ml-auto text-gray-400 f-s-16"></i></a>
+            </div>
+        </div>
+    </div>
+
+</div>

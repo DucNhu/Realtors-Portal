@@ -16,7 +16,7 @@ export class CustomerComponent implements OnInit {
 
   // Khai bao bien
   idLength;
-  getImageBannerSrc = environment.ImageUrl + "/categories/";
+  getImageBannerSrc = environment.ImageUrl + "Customer/";
 
   // END khai bao bien
   constructor(
@@ -42,8 +42,8 @@ export class CustomerComponent implements OnInit {
     this.userService.getAllUser().subscribe(
       data => {
         this.containData = data;
-        console.log(this.containData);
-
+        console.log(data);
+        
         this.containData.forEach(e => {
           e.ImageBannerSrc = this.getImageBannerSrc;
           this.listSeller.unshift(e);
@@ -55,8 +55,6 @@ export class CustomerComponent implements OnInit {
   getRoles() {
     this.rolesService.GetRoles().subscribe(data => {
       this.ListRoles = data;
-      console.log(this.ListRoles);
-
     })
   }
 
@@ -79,8 +77,6 @@ export class CustomerComponent implements OnInit {
   upgrade = false;
   UpdateUser(data) {
     data.Active = data.Active == true ? 1 : 0;
-    console.log(data);
-
     this.userService.putUserForAdmin(data).subscribe(
       val => {
         this.Alert_successFunction("Update Success");
@@ -92,10 +88,26 @@ export class CustomerComponent implements OnInit {
     );
   }
 
-  
+  ActiveAllAccout() {
+    let data = undefined;
+    this.userService.putAllUserActiveForAdmin(data).subscribe(
+      val => {
+        this.Alert_successFunction("Update Success");
+        let i = -1;
+        this.listSeller.forEach(element => {
+          i++;
+          element.Active = 1;
+          this.listSeller.splice(i, 1, element);
+          // this.resetImageArray();
+        });
+      },
+      error => {
+        this.Alert_dangerFunction("Error Update")
+      }
+    );
+  }
+
   EditByIdInArray(val) {
-    console.log(val);
-    
     let i = -1;
     this.listSeller.forEach(element => {
       i++;
@@ -117,7 +129,6 @@ export class CustomerComponent implements OnInit {
       // this.GetDataEditorAdd(val);
     }
     else {
-      console.log(val);
       this.GetDataEditorAdd(val);
     }
   }
@@ -134,8 +145,6 @@ export class CustomerComponent implements OnInit {
   get UserName() { return this.formValidator.get('UserName') }
 
   GetDataEditorAdd(val) {
-    console.log(val);
-    
     this.formValidator.controls.User_type.patchValue(val.User_type);
     this.formValidator.controls.ID.patchValue(val.ID);
 
@@ -177,17 +186,6 @@ export class CustomerComponent implements OnInit {
 
   // END Function show alert
 
-
-  // checkValidForm
-  checkValidForm(val) {
-    switch (val) {
-      case "Price": console.log(this.formValidator.controls.Price);
-
-    }
-  }
-  // END checkValidForm
-
-
   // handFileInput
   // imageBannertoUpload: File = null;
   // handFileInput(file: FileList) {
@@ -204,6 +202,5 @@ export class CustomerComponent implements OnInit {
  * Form Validator
  * Set value edit form (GetDataEditorAdd)
  * Alert Success, errorr...
- * checkValidForm
  * handFileInput
  */

@@ -27344,6 +27344,15 @@ a.text-gray-900:hover {
     -webkit-border-radius: 8px;
     border-radius: 8px;
 }
+.app-header .menu .menu-item .menu-img-text.edit:before,
+.app-header .menu .menu-item .menu-img.edit:before {
+    display: none;
+    content: "\f304";
+    position: absolute;
+    right: 2px;
+    bottom: 2px;
+    color: #1abd36;
+}
 .app-header .menu .menu-item .menu-img + .menu-text,
 .app-header .menu .menu-item .menu-img-text + .menu-text {
     margin-left: 8px;

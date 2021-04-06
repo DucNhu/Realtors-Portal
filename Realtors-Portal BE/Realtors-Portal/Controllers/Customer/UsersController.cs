@@ -15,6 +15,7 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.IdentityModel.Tokens.Jwt;
+using System.IO;
 using System.Linq;
 using System.Security.Claims;
 using System.Text;
@@ -90,6 +91,44 @@ namespace Realtors_Portal.Controllers
             return user;
         }
 
+
+        [Route("getProductByUserID")]
+        [HttpGet]
+        public JsonResult getProductByUserID(int id)
+        {
+            string query = @"SELECT project.ProjectName, project.ID, project.ImageBannerName, project.LevelActive,
+  project.Description, project.Title, project.Sqft, project.Price, 
+
+  Location.LocationName, Country.CountryName , City.CityName, District.DistrictName, Are.AreName,
+  Category.CategoryName 
+  FROM project
+INNER JOIN [User] ON [User].ID = project.UserID 
+  INNER JOIN Location ON Location.LocationID = project.Location
+  INNER JOIN Country ON Country.CountryID = project.Country
+    INNER JOIN City ON City.CityID = project.City
+	  INNER JOIN District ON District.DistrictID = project.District
+	  INNER JOIN Are ON Are.AreID = project.Are	   
+	  INNER JOIN Category ON Category.CategoryID = project.CategoryID
+
+where project.UserID  = " + id;
+
+            DataTable table = new DataTable();
+            string sqlDataSource = _configuration.GetConnectionString("RealtorsConnect");
+            SqlDataReader myRender;
+            using (SqlConnection myCon = new SqlConnection(sqlDataSource))
+            {
+                myCon.Open();
+                using (SqlCommand myCommand = new SqlCommand(query, myCon))
+                {
+                    myRender = myCommand.ExecuteReader();
+                    table.Load(myRender);
+                    myRender.Close(); myCon.Close();
+                }
+            }
+            return new JsonResult(table);
+        }
+
+
         // PUT: api/Users/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
@@ -121,7 +160,30 @@ namespace Realtors_Portal.Controllers
             return NoContent();
         }
 
-        // Upgrade Active or Role
+        [Route("updateAvatar")]
+        [HttpPut]
+        public JsonResult updateAvatar(string avatar, int id)
+        {
+            string query = @"UPDATE [User] SET Avatar = '" + avatar + "' where id = " + id;
+
+            DataTable table = new DataTable();
+            string sqlDataSource = _configuration.GetConnectionString("RealtorsConnect");
+            SqlDataReader myRender;
+            using (SqlConnection myCon = new SqlConnection(sqlDataSource))
+            {
+                myCon.Open();
+                using (SqlCommand myCommand = new SqlCommand(query, myCon))
+                {
+                    myRender = myCommand.ExecuteReader();
+                    table.Load(myRender);
+                    myRender.Close(); myCon.Close();
+                }
+            }
+            return new JsonResult(table);
+        }
+
+        // =============== (ADMIN) 
+        // Upgrade Active or Role 
         [Route("putUserForAdmin")]
         [HttpPut]
         public JsonResult putUserForAdmin(User user)
@@ -144,15 +206,40 @@ namespace Realtors_Portal.Controllers
             return new JsonResult(table);
         }
 
+
+        // Upgrade all action: Active
+        [Route("putAllUserActiveForAdmin")]
+        [HttpPut]
+        public JsonResult putAllUserActiveForAdmin()
+        {
+            string query = @"UPDATE [User] SET Active = 1";
+
+            DataTable table = new DataTable();
+            string sqlDataSource = _configuration.GetConnectionString("RealtorsConnect");
+            SqlDataReader myRender;
+            using (SqlConnection myCon = new SqlConnection(sqlDataSource))
+            {
+                myCon.Open();
+                using (SqlCommand myCommand = new SqlCommand(query, myCon))
+                {
+                    myRender = myCommand.ExecuteReader();
+                    table.Load(myRender);
+                    myRender.Close(); myCon.Close();
+                }
+            }
+            return new JsonResult(table);
+        }
+        // =============== (END ADMIN) 
+
         // POST: api/Users
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
         [Route("register")]
         public async Task<ActionResult<User>> register(User user)
-        {    
+        {
             if (ModelState.IsValid)
             {
-                
+
                 // We can utilise the model
                 var existingUser = await _userManager.FindByEmailAsync(user.Email);
 
@@ -204,7 +291,7 @@ namespace Realtors_Portal.Controllers
                         "Invalid payload"
                     },
                 Success = false
-            }); 
+            });
         }
 
 
@@ -263,7 +350,6 @@ namespace Realtors_Portal.Controllers
             });
         }
 
-
         // DELETE: api/Users/5
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteUser(int id)
@@ -308,6 +394,31 @@ namespace Realtors_Portal.Controllers
             var jwtToken = jwtTokenHandler.WriteToken(token);
 
             return jwtToken;
+        }
+
+        //SaveFile Image
+        [Route("savefile")]
+        [HttpPost]
+        public JsonResult SaveFile()
+        {
+            try
+            {
+                var httpRequest = Request.Form;
+                var postedFile = httpRequest.Files[0];
+                string filename = postedFile.FileName;
+                var physicalPath = _hostEnvironment.ContentRootPath + "/Images/Customer/" + filename;
+                using (var stream = new FileStream(physicalPath, FileMode.Create))
+                {
+                    postedFile.CopyTo(stream);
+                }
+
+                return new JsonResult(filename);
+            }
+
+            catch (Exception)
+            {
+                return new JsonResult("Save image");
+            }
         }
     }
 }

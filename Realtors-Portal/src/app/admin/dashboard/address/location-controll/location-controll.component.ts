@@ -89,7 +89,6 @@ export class LocationControllComponent implements OnInit {
   DefaultandNewAvatar = environment.defaultImage; // default  banner img
 
   // Update Image when select change
-  myInfor;
   onSelectFile(e) {
     this.dataImage = e.target.files.item(0);
     let dateNow = new Date();

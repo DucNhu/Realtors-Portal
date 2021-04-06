@@ -26,4 +26,23 @@ export class UserService {
   putUserForAdmin(val) {
     return this.http.put(environment.apiUrl + 'Users/putUserForAdmin', val)
   }
+
+  putAllUserActiveForAdmin(val) {
+    return this.http.put(environment.apiUrl + 'Users/putAllUserActiveForAdmin', val)
+  }
+
+  // User
+  UpdateAvatarInDb(val) {
+    return this.http.put(environment.apiUrl + 'Users/updateAvatar', val)
+  }
+
+  UpdateAvatar(val) {
+    return this.http.post(environment.apiUrl + "Users/savefile", val)
+  }
+
+
+  GetProductByUserID(id) {
+    return this.http.get(environment.apiUrl + `Users/getProductByUserID?id=${id}`)
+  }
+
 }

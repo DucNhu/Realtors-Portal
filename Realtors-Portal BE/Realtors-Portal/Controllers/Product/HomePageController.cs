@@ -116,6 +116,5 @@ namespace Realtors_Portal.Controllers.Product
             }
             return new JsonResult(table);
         }
-
     }
 }

@@ -14,26 +14,16 @@ namespace Realtors_Portal.Models.Customer
         public string PackageName { get; set; }
         //[Required]   
         public int Price { get; set; }
-        public int PromotionPrice { get; set; }
         
         public string PackageTitle { get; set; }
 
         public string PackageDesciption { get; set; }
 
-        public int NumberOfAds { get; set; }
-
         public int Duration { get; set; }
-
-        public string PackageAvatar { get; set; }
 
         public int Active { get; set; }
 
         public string TypeDuration { get; set; }
 
-        [NotMapped]
-        public IFormFile ImageFile { get; set; }
-
-        
-        
     }
 }
