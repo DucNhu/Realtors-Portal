@@ -1,8 +1,8 @@
+
 create  database realtors01
 use  realtors01
 create table test(test varchar(1))
 insert into test values ('1')
-
 
 create table agent(AgentID int identity
 ,AgentName varchar(250)
@@ -31,7 +31,6 @@ create table seller(SellID
 ,PackageID int
 , AgentID
  int)
-
 
 insert into seller values ('SellName', 'SellAddress', 'SellPhone', 'SellEmail', 0 ,'SellAvatar', 'SellDateCreate', 1, 1)
 , ('SellName1', 'SellAddress1', 'SellPhone1', 'SellEmail', 0 ,'SellAvatar', 'SellDateCreate', 1, 1)
@@ -135,8 +134,22 @@ SELECT Are.AreName,
   SELECT COUNT(project.SellerID) from project INNER JOIN [User] ON  project.SellerID = [User].id
   go
 
+select * from [User] where [User].ID = 1
+select * from project where project.UserID = 7
+UPDATE [User] SET Active = 1; 
 
-    select * from [User]
+SELECT project.ProjectName, project.ID, project.ImageBannerName, project.LevelActive,
+  project.Description, project.Title, project.Sqft, project.Price, 
 
-UPDATE [User] SET User_type = 'seller', Active = 1 WHERE ID = 3; 
+  Location.LocationName, Country.CountryName , City.CityName, District.DistrictName, Are.AreName,
+  Category.CategoryName 
+  FROM project
+INNER JOIN [User] ON [User].ID = project.UserID 
+  INNER JOIN Location ON Location.LocationID = project.Location
+  INNER JOIN Country ON Country.CountryID = project.Country
+    INNER JOIN City ON City.CityID = project.City
+	  INNER JOIN District ON District.DistrictID = project.District
+	  INNER JOIN Are ON Are.AreID = project.Are	   
+	  INNER JOIN Category ON Category.CategoryID = project.CategoryID
 
+where project.UserID = 7

@@ -32,7 +32,7 @@ export class LoginComponent implements OnInit {
 
   ngOnInit(): void {
     this.loginForm = this.formBuilder.group({
-      username: ['Ducnhu2k1@gmail.com', Validators.required],
+      username: ['seller@gmail.com', Validators.required],
       password: ['Ducnhu2k1!', Validators.required]
     });
 
@@ -55,19 +55,26 @@ export class LoginComponent implements OnInit {
       .pipe(first())
       .subscribe(
         data => {
-          switch (data.Infor.User_type) {
-            case 'admin':
-              window.location.assign(this.returnUrl + "admin");  break;
-            case 'seller':
-              // this.router.navigate([this.returnUrl]);
-              window.location.assign(this.returnUrl);
-              break;
-            case 'agent':
-              // this.router.navigate([this.returnUrl]);
-              window.location.assign(this.returnUrl);
-              break;
-            default:
-              window.location.assign(this.returnUrl); break;
+          if (data.Infor.Active == 1) {
+            this.error = undefined;
+            switch (data.Infor.User_type) {
+              case 'admin':
+                window.location.assign(this.returnUrl + "admin"); break;
+              case 'seller':
+                // this.router.navigate([this.returnUrl]);
+                window.location.assign(this.returnUrl);
+                break;
+              case 'agent':
+                // this.router.navigate([this.returnUrl]);
+                window.location.assign(this.returnUrl);
+                break;
+              default:
+                window.location.assign(this.returnUrl); break;
+            }
+          }
+          else {
+            this.error = "Đợi Admin Phê Duyệt, Chưa chuỷen thành Tiếg ANh";
+            this.loading = false;
           }
         },
         error => {

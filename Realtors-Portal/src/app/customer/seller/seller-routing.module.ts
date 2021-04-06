@@ -1,20 +1,27 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+import { AddressComponent } from 'src/app/admin/dashboard/address/address.component';
+import { CategoryControlComponent } from 'src/app/admin/dashboard/category-control/category-control.component';
+import { ListCustomerComponent } from 'src/app/admin/dashboard/customer/list-customer.component';
+import { PackageControllComponent } from 'src/app/admin/dashboard/package-controll/package-controll.component';
+import { ProjectControllComponent } from 'src/app/admin/dashboard/project-controll/project-controll.component';
 import { AuthGuard } from '../..//@core/_helpers/auth.guard';
 import { LoginComponent } from '../../@theme/login/login.component';
 import { NotfoundComponent } from '../../@theme/notfound/notfound.component';
+import { ProductComponent } from './controll/product/product.component';
 import { SellerComponent } from './seller.component';
 const routes: Routes = [
-    // {
-    //     canActivate: [AuthGuard],
-    //     path: 'admin', loadChildren: () => import('./admin/admin.module').then(m => m.AdminModule)
-    // },
     {
-        path: '', component: SellerComponent
+        path: '', component: SellerComponent,
+        children: [
+            {
+                path: '', component: ProductComponent
+            },
+            {
+                path: 'product', component: ProductComponent
+            }
+        ]
     },
-    // {
-    //     path: 'Customer', loadChildren: () => import('./customer/customer.module').then(m => m.CustomerModule)
-    // },
     {
         path: "**", component: NotfoundComponent
     }

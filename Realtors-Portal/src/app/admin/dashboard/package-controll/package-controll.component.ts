@@ -43,9 +43,7 @@ export class PackageControllComponent implements OnInit {
       "Duration": 0,
       "PackageAvatar": "AvatarDefault.jpg",
       "Active": 0,
-      "ImageFile": null,
-      "ImageBannerSrc": this.getImageAvatarSrc,
-      "TypeDuration" : this.listTypeDuration[0].title
+      "TypeDuration": this.listTypeDuration[0].title
     };
   // END khai bao bien
   constructor(
@@ -69,7 +67,6 @@ export class PackageControllComponent implements OnInit {
       data => {
         this.containData = data;
         this.containData.forEach(e => {
-          e.ImageBannerSrc = this.getImageAvatarSrc;
           this.listPackage.unshift(e);
         });
         console.log(this.containData);
@@ -89,21 +86,16 @@ export class PackageControllComponent implements OnInit {
     // delete (data.TypeDuration);
     console.log(data);
 
-    if (this.upPhoto()) {        // this.upPhoto(); // Insert Image
-      this._PackageService.CreatePackage(data)
-        .subscribe(res => {
-          let getIDLength = this.listPackage[0].PackageID;
-          data.PackageID = getIDLength += 1;
-          data.ImageBannerSrc = '';
-          data.PackageAvatar = this.DefaultandNewAvatar;
-          this.listPackage.unshift(data);
+    this._PackageService.CreatePackage(data)
+      .subscribe(res => {
+        let getIDLength = this.listPackage[0].PackageID;
+        data.PackageID = getIDLength += 1;
+        data.PackageAvatar = this.DefaultandNewAvatar;
+        this.listPackage.unshift(data);
 
-          this.Alert_successFunction("Created done");
-        });
-    }
-    else {
-      this.Alert_dangerFunction("Create false, try again, pls");
-    }
+        this.Alert_successFunction("Created done");
+      });
+
   }
 
   // Function update Image
@@ -126,47 +118,26 @@ export class PackageControllComponent implements OnInit {
       }
     }
   }
-  upPhoto() {
-    const formData: FormData = new FormData();
 
-    try {
-      if (this.selectImage) {
-        formData.append('ImageFile', this.dataImage, this.DataFormPackageEdit.PackageAvatar);
-        this._PackageService.UpdateAvatar(formData).subscribe(() => {
-        });
-      }
-      else { this.selectImage  = false;}
-    }
-    catch (e) {
-      console.log(e);
-      
-      return false;
-    }
-    return true;
-  }
 
   // Function Edit Project
   UpdatePackage(data) {
     console.log(data);
-    
+
     data.Active = data.Active == true ? 1 : 0;
-    if(this.selectImage) {
+    if (this.selectImage) {
       data.PackageAvatar = this.DataFormPackageEdit.PackageAvatar;
     }
-    if (this.upPhoto()) {
-      this._PackageService.UpdatePackage(data).subscribe(
-        () => {
+    this._PackageService.UpdatePackage(data).subscribe(
+      () => {
 
-          this.Alert_successFunction("Update Success");
-          this.EditByIdInArray(data);
-        },
-        error => {
-          this.Alert_dangerFunction("Error Update")
-        });
-    }
-    else {
-      this.Alert_dangerFunction("Try again, pls")
-    }
+        this.Alert_successFunction("Update Success");
+        this.EditByIdInArray(data);
+      },
+      error => {
+        this.Alert_dangerFunction("Error Update")
+      });
+
   }
 
   EditByIdInArray(val) {
@@ -179,7 +150,6 @@ export class PackageControllComponent implements OnInit {
       if (element.PackageID == val.PackageID) {
         console.log(val);
 
-        val.ImageBannerSrc = '';
         val.PackageAvatar = this.DefaultandNewAvatar;
         this.listPackage.splice(i, 1, val);
       }
@@ -256,7 +226,7 @@ export class PackageControllComponent implements OnInit {
         this.DefaultandNewAvatar = val.PackageAvatar;
       }
     }
-    else { this.isSelectAvatar = false}
+    else { this.isSelectAvatar = false }
     this.formValidator.controls.PackageName.patchValue(val.PackageName);
     this.formValidator.controls.PackageID.patchValue(val.PackageID);
 

@@ -16,7 +16,7 @@ namespace Realtors_Portal.Models
         //[Required]
         public int CategoryID { get; set; }
         //[Required]
-        public int SellerID { get; set; }
+        public int UserID { get; set; }
 
         //[Required]
         [MaxLength(100)]

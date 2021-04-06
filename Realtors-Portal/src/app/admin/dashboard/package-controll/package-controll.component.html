@@ -30,10 +30,8 @@
                     <li class="pricing-price d-block mb-2">
                         <span><strong>${{p.Price}}</strong>/mo</span>
                     </li>
-
                     <li>{{p.PackageTitle}}</li>
-                    <li>Number Of Ads: {{ p.NumberOfAds }}</li>
-                    <li>Duration: {{ p.Duration }}</li>
+                    <li>Duration: {{ p.Duration }} {{ p.TypeDuration }}</li>
                     <li>Active:
                         <mat-slide-toggle class="example-margin" [checked]="p.Active == 1 ? true : false"
                             [disabled]="true">
@@ -101,13 +99,8 @@
                                         </ng-container>
                                     </div>
                                 </div>
-                                <!-- NumberOfAds -->
                                 <div class="d-flex w-100">
-                                    <div class="w-100 p-2">
-                                        <label for="NumberOfAds">Number ads</label>
-                                        <input type="number" class="form-control" formControlName="NumberOfAds"
-                                            id="NumberOfAds" (blur)="checkValidForm('PackageLetter')">
-                                    </div>
+                                    
 
                                     <div class="d-flex w-100">
                                         <!-- Select duration: day?, month?, year? -->
@@ -133,24 +126,7 @@
                                         id="packageTitle" (blur)="checkValidForm('PackageTitle')">
                                 </div>
                             </div>
-                            <!-- Select Avatar Package -->
-                            <div class="mb-3">
-                                <div class="bg-overlay-gradient-04">
-                                    <label for="ImageFile" class="" (click)="showSelectAvatarFunction()">
-                                        Select Avatar
-                                        <span class="label--icon position-absolute ml-1">
-                                            <i class="fas fa-plus" *ngIf="isSelectAvatar == false"></i>
-                                            <i class="fas fa-minus" *ngIf="isSelectAvatar == true"></i>
-                                        </span>
-                                    </label>
-                                    <ng-container *ngIf="isSelectAvatar == true">
-                                        <input type="file" name="ImageFile" id="ImageFile" class="d-none"
-                                            accept="image/*" (change)="onSelectFile($event)">
-                                        <img [src]="DefaultandNewAvatar" [alt]="DefaultandNewAvatar" class="img-fluid"
-                                            id="avatar">
-                                    </ng-container>
-                                </div>
-                            </div>
+                           
                             <!-- Package Des -->
                             <div class="w-100 p-2">
                                 <label for="packageDes">Package Des</label>

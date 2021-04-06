@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+import { AgentGuard } from './@core/_helpers/agent.guard';
 import { AuthGuard } from './@core/_helpers/auth.guard';
 import { SellerGuard } from './@core/_helpers/seller.guard';
 import { LoginComponent } from './@theme/login/login.component';
@@ -18,6 +19,10 @@ const routes: Routes = [
     {
         canActivate: [SellerGuard],
         path: 'profile-seller', loadChildren: () => import('./customer/seller/seller.module').then(m => m.SellerModule)
+    },
+    {
+        canActivate: [AgentGuard],
+        path: 'profile-agent', loadChildren: () => import('./customer/agent/agent.module').then(m => m.AgentModule)
     },
     
     {

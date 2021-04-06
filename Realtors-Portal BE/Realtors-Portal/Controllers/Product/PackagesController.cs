@@ -111,29 +111,6 @@ namespace Realtors_Portal.Controllers.Product
             return _context.Package.Any(e => e.PackageID == id);
         }
 
-        //SaveFile Image
-        [Route("savefile")]
-        [HttpPost]
-        public JsonResult SaveFile()
-        {
-            try
-            {
-                var httpRequest = Request.Form;
-                var postedFile = httpRequest.Files[0];
-                string filename = postedFile.FileName;
-                var physicalPath = _hostEnvironment.ContentRootPath + "/Images/Packages/" + filename;
-                using (var stream = new FileStream(physicalPath, FileMode.Create))
-                {
-                    postedFile.CopyTo(stream);
-                }
-                return new JsonResult(filename);
-            }
-
-            catch (Exception)
-            {
-                return new JsonResult("Save image");
-            }
-        }
-
+    
     }
 }

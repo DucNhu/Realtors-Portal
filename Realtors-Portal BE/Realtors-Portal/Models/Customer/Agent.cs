@@ -9,8 +9,6 @@ namespace Realtors_Portal.Models
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int ID { get; set; }
-        //[Required]
-        public string NameAgent { get; set; }
 
         public int SellerID { get; set; }
 
