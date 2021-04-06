@@ -10,15 +10,20 @@ export class UserService {
     private http: HttpClient
   ) { }
 
-  getAllEmailUser() {
-    return this.http.get(environment.apiUrl + 'Users')
-  }
-
   getUserbyId(id) {
     return this.http.get(environment.apiUrl + `Users/${id}`)
   }
 
   register(val) {
     return this.http.post(environment.apiUrl + 'Users/register', val)
+  }
+
+  //  ADMIN
+  getAllUser() {
+    return this.http.get(environment.apiUrl + 'Users/getUserForAdmin')
+  }
+
+  putUserForAdmin(val) {
+    return this.http.put(environment.apiUrl + 'Users/putUserForAdmin', val)
   }
 }

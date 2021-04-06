@@ -53,13 +53,14 @@ export class RegisterComponent implements OnInit {
     // console.log(val);
     this.userService.register(val).subscribe(
       data => {
-        this.error = '';
-        this.alertSuccess = '';
-        this.router.navigate(['/Home']);
+        this.error = ''; // reset error;
+        this.alertSuccess = 'Please wait for approval from the administrator';// reset alert;Register success
+        // this.router.navigate(['/Home']);
       },
 
       err => {
         this.error = err.error.Errors;
+        this.alertSuccess = undefined;
       }
     );
 

@@ -1,15 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IdentityModel.Tokens.Jwt;
-using System.Linq;
-using System.Security.Claims;
-using System.Text;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using Realtors_Portal.Configuration;
@@ -17,6 +11,14 @@ using Realtors_Portal.Data;
 using Realtors_Portal.Models.Customer;
 using Realtors_Portal.Models.DTOs.Requests;
 using Realtors_Portal.Models.DTOs.Responses;
+using System;
+using System.Collections.Generic;
+using System.Data;
+using System.IdentityModel.Tokens.Jwt;
+using System.Linq;
+using System.Security.Claims;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace Realtors_Portal.Controllers
 {
@@ -28,8 +30,9 @@ namespace Realtors_Portal.Controllers
         private readonly UserManager<IdentityUser> _userManager;
         private readonly JwtConfig _jwtConfig;
         private readonly IWebHostEnvironment _hostEnvironment;
+        private readonly IConfiguration _configuration;
 
-        public UsersController(Realtors_PortalContext context, UserManager<IdentityUser> userManager,
+        public UsersController(Realtors_PortalContext context, IConfiguration configuration, UserManager<IdentityUser> userManager,
             IOptionsMonitor<JwtConfig> optionsMonitor,
             IWebHostEnvironment hostEnvironment)
         {
@@ -37,8 +40,10 @@ namespace Realtors_Portal.Controllers
             _userManager = userManager;
             _jwtConfig = optionsMonitor.CurrentValue;
             this._hostEnvironment = hostEnvironment;
+            _configuration = configuration;
 
         }
+
 
         // GET: api/Users
         [HttpGet]
@@ -46,6 +51,31 @@ namespace Realtors_Portal.Controllers
         {
             return await _context.User.ToListAsync();
         }
+
+
+        //Get by DítrictID
+        [Route("getUserForAdmin")]
+        [HttpGet]
+        public JsonResult Get()
+        {
+            string query = @"SELECT [User].* from [User]";
+
+            DataTable table = new DataTable();
+            string sqlDataSource = _configuration.GetConnectionString("RealtorsConnect");
+            SqlDataReader myRender;
+            using (SqlConnection myCon = new SqlConnection(sqlDataSource))
+            {
+                myCon.Open();
+                using (SqlCommand myCommand = new SqlCommand(query, myCon))
+                {
+                    myRender = myCommand.ExecuteReader();
+                    table.Load(myRender);
+                    myRender.Close(); myCon.Close();
+                }
+            }
+            return new JsonResult(table);
+        }
+
 
         // GET: api/Users/5
         [HttpGet("{id}")]
@@ -65,7 +95,7 @@ namespace Realtors_Portal.Controllers
         [HttpPut("{id}")]
         public async Task<IActionResult> PutUser(int id, User user)
         {
-            if (id != user.id)
+            if (id != user.ID)
             {
                 return BadRequest();
             }
@@ -89,6 +119,29 @@ namespace Realtors_Portal.Controllers
             }
 
             return NoContent();
+        }
+
+        // Upgrade Active or Role
+        [Route("putUserForAdmin")]
+        [HttpPut]
+        public JsonResult putUserForAdmin(User user)
+        {
+            string query = @"UPDATE [User] SET User_type = '" + user.User_type + "', Active = +" + user.Active + " WHERE ID = " + user.ID;
+
+            DataTable table = new DataTable();
+            string sqlDataSource = _configuration.GetConnectionString("RealtorsConnect");
+            SqlDataReader myRender;
+            using (SqlConnection myCon = new SqlConnection(sqlDataSource))
+            {
+                myCon.Open();
+                using (SqlCommand myCommand = new SqlCommand(query, myCon))
+                {
+                    myRender = myCommand.ExecuteReader();
+                    table.Load(myRender);
+                    myRender.Close(); myCon.Close();
+                }
+            }
+            return new JsonResult(table);
         }
 
         // POST: api/Users
@@ -124,7 +177,7 @@ namespace Realtors_Portal.Controllers
                 {
                     _context.User.Add(user);
                     await _context.SaveChangesAsync();
-                    var create = CreatedAtAction("GetUser", new { id = user.id }, user);
+                    var create = CreatedAtAction("GetUser", new { id = user.ID }, user);
 
                     var jwtToken = GenerateJwtToken(newUser);
 
@@ -227,9 +280,9 @@ namespace Realtors_Portal.Controllers
             return NoContent();
         }
 
-        private bool UserExists(int id)
+        private bool UserExists(int ID)
         {
-            return _context.User.Any(e => e.id == id);
+            return _context.User.Any(e => e.ID == ID);
         }
 
         private string GenerateJwtToken(IdentityUser user)

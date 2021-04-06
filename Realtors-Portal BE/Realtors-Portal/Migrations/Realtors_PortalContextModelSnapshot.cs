@@ -519,9 +519,27 @@ namespace Realtors_Portal.Migrations
                     b.ToTable("PackagePurchased");
                 });
 
+            modelBuilder.Entity("Realtors_Portal.Models.Customer.Roles", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("UserType")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("title")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("ID");
+
+                    b.ToTable("Roles");
+                });
+
             modelBuilder.Entity("Realtors_Portal.Models.Customer.User", b =>
                 {
-                    b.Property<int>("id")
+                    b.Property<int>("ID")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
@@ -583,7 +601,7 @@ namespace Realtors_Portal.Migrations
                     b.Property<int>("ppID")
                         .HasColumnType("int");
 
-                    b.HasKey("id");
+                    b.HasKey("ID");
 
                     b.ToTable("User");
                 });

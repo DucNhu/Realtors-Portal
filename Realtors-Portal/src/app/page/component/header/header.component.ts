@@ -29,7 +29,6 @@ export class HeaderComponent implements OnInit {
     if (this.checkLoginTrueFalse()) {
       this.getIdWhenLogin();
     }
-    
   }
   logout() {
     this.isLogin = false;
@@ -37,7 +36,7 @@ export class HeaderComponent implements OnInit {
   }
 
   checkLoginTrueFalse() {
-    if (this.currentUser) { // check token ? login register : logout
+    if (this.currentUser.Infor.User_type != "admin") { // check token ? login register : logout
       this.isLogin = true;
       return true;
     }

@@ -129,4 +129,14 @@ SELECT Are.AreName,
   FROM ImageLib
   INNER JOIN project ON project.ID = ImageLib.ImageLibID 
   go
-  select * from dbo.Admin
+  select COUNT(project.SellerID) from project
+
+
+  SELECT COUNT(project.SellerID) from project INNER JOIN [User] ON  project.SellerID = [User].id
+  go
+
+
+    select * from [User]
+
+UPDATE [User] SET User_type = 'seller', Active = 1 WHERE ID = 3; 
+

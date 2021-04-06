@@ -1,0 +1,15 @@
+.dialog--show {
+    display: block;
+    position: fixed;
+    top: 50%;
+    z-index: 90;
+    transform: scale(1.5);
+    padding: 3rem;
+    border-color: var(--green);
+    border-radius: 20px;
+}
+
+.dialog--show h3 {
+    font-size: 24px;
+    color: var(--green);
+}
