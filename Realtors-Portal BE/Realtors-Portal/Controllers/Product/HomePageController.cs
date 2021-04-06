@@ -84,5 +84,40 @@ namespace Realtors_Portal.Controllers.Product
         }
 
 
+        //Get by CountryID
+        [Route("getProductActive")]
+        [HttpGet]
+        public JsonResult getProductActive()
+        {
+            string query = @"SELECT project.ProjectName, project.ID, project.ImageBannerName, project.LevelActive,
+  project.Description, project.Title, project.Sqft, project.Price,
+  
+  Location.LocationName, Country.CountryName , City.CityName, District.DistrictName, Are.AreName,
+  Category.CategoryName
+  FROM project
+  INNER JOIN Location ON Location.LocationID = project.Location
+  INNER JOIN Country ON Country.CountryID = project.Country
+    INNER JOIN City ON City.CityID = project.City
+	  INNER JOIN District ON District.DistrictID = project.District
+	  INNER JOIN Are ON Are.AreID = project.Are
+	    INNER JOIN Category ON Category.CategoryID = project.CategoryID where LevelActive > 0";
+
+            DataTable table = new DataTable();
+            string sqlDataSource = _configuration.GetConnectionString("RealtorsConnect");
+            SqlDataReader myRender;
+            using (SqlConnection myCon = new SqlConnection(sqlDataSource))
+            {
+                myCon.Open();
+                using (SqlCommand myCommand = new SqlCommand(query, myCon))
+                {
+                    myRender = myCommand.ExecuteReader();
+                    table.Load(myRender);
+                    myRender.Close(); myCon.Close();
+                }
+            }
+            return new JsonResult(table);
+        }
+
+
     }
 }

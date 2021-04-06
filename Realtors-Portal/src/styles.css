@@ -8,3 +8,21 @@ a {cursor: pointer;}
 .list-style-none {
     list-style: none;
 }
+
+
+/* Frame + imge */
+.angular-property-image {
+    position: relative;
+    padding-bottom: 62.5%;
+    overflow: hidden;
+}
+
+.angular-property-image .img-fluid {
+    position: absolute;
+    top: 0;
+    height: 100%;
+    width: 100%;
+    left: 0;
+    object-fit: cover;
+}
+/* END  Frame + imge */

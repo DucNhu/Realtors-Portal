@@ -26,7 +26,6 @@ export class NewlyListedComponent implements OnInit {
     this.homePageService.getProductViewHome().subscribe(
       data => {
         this.containData = data;
-        console.log(this.containData);
 
         this.containData.forEach(e => {
           e.ImageBannerSrc = this.getImageBannerSrc;
