@@ -83,12 +83,15 @@ namespace Realtors_Portal.Controllers.Product
             return new JsonResult(table);
         }
 
-        //Get by CountryID
-        [Route("getProductViewProductList")]
-        [HttpGet]
-        public JsonResult getProductViewProductList()
-        {
-            string query = @"SELECT project.ProjectName, project.ID, project.ImageBannerName, project.LevelActive,
+        
+
+
+            ////Get by CountryID
+            [Route("getProductActive")]
+            [HttpGet]
+            public JsonResult getProductActive()
+            {
+                string query = @"SELECT project.ProjectName, project.ID, project.ImageBannerName, project.LevelActive,
   project.Description, project.Title, project.Sqft, project.Price,
   
   Location.LocationName, Country.CountryName , City.CityName, District.DistrictName, Are.AreName,
@@ -101,20 +104,20 @@ namespace Realtors_Portal.Controllers.Product
 	  INNER JOIN Are ON Are.AreID = project.Are
 	    INNER JOIN Category ON Category.CategoryID = project.CategoryID where LevelActive > 0";
 
-            DataTable table = new DataTable();
-            string sqlDataSource = _configuration.GetConnectionString("RealtorsConnect");
-            SqlDataReader myRender;
-            using (SqlConnection myCon = new SqlConnection(sqlDataSource))
-            {
-                myCon.Open();
-                using (SqlCommand myCommand = new SqlCommand(query, myCon))
+                DataTable table = new DataTable();
+                string sqlDataSource = _configuration.GetConnectionString("RealtorsConnect");
+                SqlDataReader myRender;
+                using (SqlConnection myCon = new SqlConnection(sqlDataSource))
                 {
-                    myRender = myCommand.ExecuteReader();
-                    table.Load(myRender);
-                    myRender.Close(); myCon.Close();
+                    myCon.Open();
+                    using (SqlCommand myCommand = new SqlCommand(query, myCon))
+                    {
+                        myRender = myCommand.ExecuteReader();
+                        table.Load(myRender);
+                        myRender.Close(); myCon.Close();
+                    }
                 }
+                return new JsonResult(table);
             }
-            return new JsonResult(table);
         }
     }
-}

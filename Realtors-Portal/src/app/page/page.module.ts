@@ -13,6 +13,7 @@ import { BrowseCategoryComponent } from './mainpages/browse-category/browse-cate
 import { DealsComponent } from './mainpages/deals/deals.component';
 import { AboutusComponent } from './aboutus/aboutus.component';
 import { PropertyListComponent } from './mainpages/property-list/property-list.component';
+import { ProductDetailComponent } from './component/product-detail/product-detail.component';
 
 
 @NgModule({
@@ -26,7 +27,8 @@ import { PropertyListComponent } from './mainpages/property-list/property-list.c
     BrowseCategoryComponent,
     DealsComponent,
     AboutusComponent,
-    PropertyListComponent, 
+    PropertyListComponent,
+    ProductDetailComponent, 
   ],
   providers: [AuthenticationService],
   imports: [

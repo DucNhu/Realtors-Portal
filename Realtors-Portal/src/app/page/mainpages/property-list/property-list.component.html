@@ -236,11 +236,12 @@ Listing – grid view -->
           </ul>
         </div>
         <!-- 1111 -->
-        <div class="property-item property-col-list mt-4" *ngFor='let Category of listCategory'>
+        <div class="property-item property-col-list mt-4" *ngFor='let prod of listProd'>
           <div class="row no-gutters">
             <div class="col-lg-4 col-md-5">
               <div class="property-image bg-overlay-gradient-04">
-                <img [src]="Category.ImageBannerSrc + Category.Avatar" [alt]="Category.Avatar" class="img-fluid" />
+                <img [src]="prod.ImageBannerSrc + prod.ImageBannerName" [alt]="prod.Avatar" class="img-fluid" />
+                <!-- <img [src]="prod.ImageBannerName"  class="img-fluid" /> -->
                 <!-- <img class="img-fluid" src="images/property/list/01.jpg" alt=""> -->
                 <!-- <div class="property-lable">
                   <span class="badge badge-md badge-primary">Bungalow</span>
@@ -270,7 +271,7 @@ Listing – grid view -->
                 <div class="property-details-inner">
                   <div class="property-details-inner-box">
                     <div class="property-details-inner-box-left">
-                      <h5 class="property-title"><a href="property-detail-style-01.html">{{Category.CategoryName}}</a></h5>
+                      <h5 class="property-title"><a href="property-detail-style-01.html">{{prod.ProjectName}}</a></h5>
                       <span class="property-address"><i class="fas fa-map-marker-alt fa-xs"></i>Virginia drive temple hills</span>
                       <span class="property-agent-date"><i class="far fa-clock fa-md"></i>10 days ago</span>
                     </div>

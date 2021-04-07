@@ -5,13 +5,18 @@ import { RegisterComponent } from '../@theme/register/register.component';
 import { MainpagesComponent } from './mainpages/mainpages.component';
 import { PageComponent } from './page.component';
 import { PropertyListComponent } from './mainpages/property-list/property-list.component';
+import { ProductDetailComponent } from './component/product-detail/product-detail.component';
 const routes: Routes = [
     {
 
         path: '',
         component: PageComponent,
-        children: [{
+        children: [
+        {
             path: '', component: MainpagesComponent
+        },
+        {
+          path: 'product-detail', component: ProductDetailComponent,
         },
         {
           path: 'property-list', component: PropertyListComponent,

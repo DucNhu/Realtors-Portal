@@ -18,4 +18,11 @@ export class HomePageService {
   getProductViewHome() {
     return this.http.get(environment.apiUrl + 'HomePage/getProductViewHome')
   }
+
+  // https://localhost:44338/api/HomePage/getProductActive
+
+  getProductActive(){
+    return this.http.get(environment.apiUrl + 'HomePage/getProductActive')
+  }
+
 }
