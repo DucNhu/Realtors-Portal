@@ -20,8 +20,9 @@ import { AddressComponent } from './dashboard/address/address.component';
 import { PackageControllComponent } from './dashboard/package-controll/package-controll.component';
 import { CustomerComponent } from './dashboard/customer/customer/customer.component';
 import { ListCustomerComponent } from './dashboard/customer/list-customer.component';
+import { DashboardComponent } from './dashboard/dashboard/dashboard.component';
 @NgModule({
-  declarations: [AdminComponent, NavigationComponent, ProjectControllComponent, HeaderComponent, CategoryControlComponent, LocationControllComponent, CountryControllComponent, CityControllComponent, DistrictControllComponent, AreControllComponent, AddressComponent, PackageControllComponent, CustomerComponent, ListCustomerComponent],
+  declarations: [AdminComponent, NavigationComponent, ProjectControllComponent, HeaderComponent, CategoryControlComponent, LocationControllComponent, CountryControllComponent, CityControllComponent, DistrictControllComponent, AreControllComponent, AddressComponent, PackageControllComponent, CustomerComponent, ListCustomerComponent, DashboardComponent],
   imports: [
     CommonModule,
     AdminRoutingModule,

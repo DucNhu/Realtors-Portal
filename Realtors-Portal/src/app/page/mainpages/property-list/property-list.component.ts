@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { CategoryService } from 'src/app/@core/mock/category.service';
+import { HomePageService } from 'src/app/@core/mock/Home/home-page.service';
 import { environment } from 'src/app/@core/models/Environment';
 
 @Component({
@@ -9,29 +9,29 @@ import { environment } from 'src/app/@core/models/Environment';
 })
 export class PropertyListComponent implements OnInit {
 
-  listCategory = [];
+  listProd = [];
   containData;
   getIdLength = 0;
-  getImageBannerSrc = environment.ImageUrl + "categories/";
+  getImageBannerSrc = environment.ImageProductUrl + "Banner/";
   // END khai bao bien
   constructor(
-    private productService: CategoryService,
+    private productService: HomePageService,
   ) { }
 
   ngOnInit(): void {
-    this.getAllCategory();
+    this.getAllProdActive();
   }
 
   // Get All project
-  getAllCategory() {
-    this.productService.getCategoryActive().subscribe(
+  getAllProdActive() {
+    this.productService.getProductActive().subscribe(
       data => {
         this.containData = data;
         console.log(this.containData);
 
         this.containData.forEach(e => {
           e.ImageBannerSrc = this.getImageBannerSrc;
-          this.listCategory.unshift(e);
+          this.listProd.unshift(e);
         });
       }
     )

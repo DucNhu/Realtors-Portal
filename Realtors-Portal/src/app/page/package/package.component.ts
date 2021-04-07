@@ -50,7 +50,7 @@ export class PackageComponent implements OnInit {
                   PackageID: e.PackageID,
                   UserID: this.idUser,
                   StartDate: this.StartTime,
-                  EndDate: this.EndTime
+                  EndDate: `${this.NowTime.getFullYear()}-${this.NowTime.getMonth()}-${this.NowTime.getDate() + e.Duration}`
                 }
 
                 this.packagePP.CreatePackage(PackagePurchased).subscribe(
@@ -72,32 +72,10 @@ export class PackageComponent implements OnInit {
   }
   NowTime = new Date();
   StartTime = `${this.NowTime.getFullYear()}-${this.NowTime.getMonth()}-${this.NowTime.getDate()}`
-  EndTime = `${this.NowTime.getFullYear()}-${this.NowTime.getMonth()}-${this.NowTime.getDate() + 1}`
-  PackagePurchased = {
-    ppID: 1,
-    PackageID: 1,
-    UserID: 1,
-    StartDate: this.StartTime.toString(),
-    EndDate: this.EndTime.toString()
-  }
+
 
   
-  OnBuyPackage(val) {
-    let PackagePurchased = {
-      ppID: 0,
-      PackageID: val.PackageID,
-      UserID: this.authen.currentUserValue.Infor.ID,
-      StartDate: this.PackagePurchased.StartDate,
-      EndDate: this.PackagePurchased.EndDate
-    }
 
-    this.packagePP.CreatePackage(PackagePurchased).subscribe(
-      data => {
-        console.log("OK");
-        
-      }
-    )
-  }
   OnBuyPackageTest(e) {
     console.log(e);
     

@@ -26,7 +26,7 @@ export class CategoryService {
     return this.http.post(environment.apiUrl + "Categories/savefile", val)
   }
 
-  UpdateCategory(val) {    
+  UpdateCategory(val) {
     return this.http.put(environment.apiUrl + 'Categories/' + val.CategoryID, val)
   }
 

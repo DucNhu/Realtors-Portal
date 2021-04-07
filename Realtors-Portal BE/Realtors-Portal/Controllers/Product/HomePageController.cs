@@ -84,12 +84,17 @@ namespace Realtors_Portal.Controllers.Product
         }
 
 
+
         //Get Product active
-        [Route("getProductActive")]
-        [HttpGet]
-        public JsonResult getProductActive()
-        {
-            string query = @"SELECT project.ProjectName, project.ID, project.ImageBannerName, project.LevelActive,
+
+
+            ////Get by CountryID
+            [Route("getProductActive")]
+            [HttpGet]
+            public JsonResult getProductActive()
+            {
+                string query = @"SELECT project.ProjectName, project.ID, project.ImageBannerName, project.LevelActive,
+>>>>>>> 8f01fd6ddae76a7a9683c6ae81ab1b9d327a2f45
   project.Description, project.Title, project.Sqft, project.Price,
   
   Location.LocationName, Country.CountryName , City.CityName, District.DistrictName, Are.AreName,
@@ -102,21 +107,22 @@ namespace Realtors_Portal.Controllers.Product
 	  INNER JOIN Are ON Are.AreID = project.Are
 	    INNER JOIN Category ON Category.CategoryID = project.CategoryID where LevelActive > 0";
 
-            DataTable table = new DataTable();
-            string sqlDataSource = _configuration.GetConnectionString("RealtorsConnect");
-            SqlDataReader myRender;
-            using (SqlConnection myCon = new SqlConnection(sqlDataSource))
-            {
-                myCon.Open();
-                using (SqlCommand myCommand = new SqlCommand(query, myCon))
+                DataTable table = new DataTable();
+                string sqlDataSource = _configuration.GetConnectionString("RealtorsConnect");
+                SqlDataReader myRender;
+                using (SqlConnection myCon = new SqlConnection(sqlDataSource))
                 {
-                    myRender = myCommand.ExecuteReader();
-                    table.Load(myRender);
-                    myRender.Close(); myCon.Close();
+                    myCon.Open();
+                    using (SqlCommand myCommand = new SqlCommand(query, myCon))
+                    {
+                        myRender = myCommand.ExecuteReader();
+                        table.Load(myRender);
+                        myRender.Close(); myCon.Close();
+                    }
                 }
+                return new JsonResult(table);
             }
-            return new JsonResult(table);
-        }
+        
 
         //Get package active
         [Route("getPackageActive")]

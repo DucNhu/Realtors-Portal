@@ -11,21 +11,25 @@ const routes: Routes = [
 
         path: '',
         component: PageComponent,
-        children: [{
-            path: '', component: MainpagesComponent
-        },
-        {
-            path: 'property-list', component: PropertyListComponent,
-        },
-        {
-            path: 'login', component: LoginComponent
-        },
-        {
-            path: 'register', component: RegisterComponent
-        },
-        {
-            path: 'package', component: PackageComponent
-        },
+        children: [
+            {
+                path: '', component: MainpagesComponent
+            },
+            {
+                path: 'property-list', component: PropertyListComponent,
+            },
+            {
+                path: 'property-list', component: PropertyListComponent,
+            },
+            {
+                path: 'login', component: LoginComponent
+            },
+            {
+                path: 'register', component: RegisterComponent
+            },
+            {
+                path: 'package', component: PackageComponent
+            },
         ]
 
     }

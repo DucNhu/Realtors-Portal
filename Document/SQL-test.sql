@@ -158,3 +158,17 @@ and District.Active = 1 and City.Active = 1
 and Country.Active = 1 and Country.Active = 1
 and Location.Active = 1
 and project.UserID = 7 
+
+
+--count active
+select count(*) from [User] where Active = 1 and not User_type = 'admin'
+select * from [User]
+--count agent
+select count(User_type) from [User] where User_type = 'agent'
+--count seller
+select count(User_type) from [User] where User_type = 'seller'
+--count product
+select count(*) from project where LevelActive > 0
+select count(*) from Category where Active > 0
+--count package ?ã mua
+select * from PackagePurchased

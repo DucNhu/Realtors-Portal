@@ -20,15 +20,16 @@ export class PackageControllComponent implements OnInit {
     {
       id: 1,
       title: 'Day'
-    },
-    {
-      id: 2,
-      title: 'Month'
-    },
-    {
-      id: 3,
-      title: 'Year'
     }
+    // ,
+    // {
+    //   id: 2,
+    //   title: 'Month'
+    // },
+    // {
+    //   id: 3,
+    //   title: 'Year'
+    // }
   ]
 
   DataFormPackageEdit =

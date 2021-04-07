@@ -2,7 +2,6 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 import { AngularFileUploaderModule } from "angular-file-uploader";
-import { ChartsModule } from 'ng2-charts';
 
 
 import { AppRoutingModule } from './app-routing.module';
@@ -33,7 +32,6 @@ import { PackageComponent } from './page/package/package.component';
     ReactiveFormsModule,
     AngularFileUploaderModule,
     BrowserAnimationsModule,
-    ChartsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -8,12 +8,16 @@ import { AddressComponent } from './dashboard/address/address.component';
 import { PackageControllComponent } from './dashboard/package-controll/package-controll.component';
 import { CustomerComponent } from './dashboard/customer/customer/customer.component';
 import { ListCustomerComponent } from './dashboard/customer/list-customer.component';
+import { DashboardComponent } from './dashboard/dashboard/dashboard.component';
 const routes: Routes = [
     {
         path: '', component: AdminComponent,
         children: [
             {
                 path: '', component: ProjectControllComponent
+            },
+            {
+                path: 'Dashboard', component: DashboardComponent
             },
             {
                 path: 'product', component: ProjectControllComponent
