@@ -5,6 +5,7 @@ import { RegisterComponent } from '../@theme/register/register.component';
 import { MainpagesComponent } from './mainpages/mainpages.component';
 import { PageComponent } from './page.component';
 import { PropertyListComponent } from './mainpages/property-list/property-list.component';
+import { PackageComponent } from './package/package.component';
 const routes: Routes = [
     {
 
@@ -14,14 +15,17 @@ const routes: Routes = [
             path: '', component: MainpagesComponent
         },
         {
-          path: 'property-list', component: PropertyListComponent,
+            path: 'property-list', component: PropertyListComponent,
         },
         {
             path: 'login', component: LoginComponent
         },
         {
             path: 'register', component: RegisterComponent
-        }
+        },
+        {
+            path: 'package', component: PackageComponent
+        },
         ]
 
     }

@@ -26,7 +26,7 @@ namespace Realtors_Portal.Controllers.Product
             this._hostEnvironment = hostEnvironment;
             _configuration = configuration;
         }
-        //Get by CountryID
+        //Get categories active
         [Route("getCategoryActive")]
         [HttpGet]
         public JsonResult getCategoryActive()
@@ -49,7 +49,7 @@ namespace Realtors_Portal.Controllers.Product
             return new JsonResult(table);
         }
 
-        //Get by CountryID
+        //Get products in home page
         [Route("getProductViewHome")]
         [HttpGet]
         public JsonResult getProductViewHome()
@@ -84,7 +84,7 @@ namespace Realtors_Portal.Controllers.Product
         }
 
 
-        //Get by CountryID
+        //Get Product active
         [Route("getProductActive")]
         [HttpGet]
         public JsonResult getProductActive()
@@ -118,6 +118,28 @@ namespace Realtors_Portal.Controllers.Product
             return new JsonResult(table);
         }
 
+        //Get package active
+        [Route("getPackageActive")]
+        [HttpGet]
+        public JsonResult getPackageActive()
+        {
+            string query = @"SELECT * FROM package where Active > 0";
+
+            DataTable table = new DataTable();
+            string sqlDataSource = _configuration.GetConnectionString("RealtorsConnect");
+            SqlDataReader myRender;
+            using (SqlConnection myCon = new SqlConnection(sqlDataSource))
+            {
+                myCon.Open();
+                using (SqlCommand myCommand = new SqlCommand(query, myCon))
+                {
+                    myRender = myCommand.ExecuteReader();
+                    table.Load(myRender);
+                    myRender.Close(); myCon.Close();
+                }
+            }
+            return new JsonResult(table);
+        }
 
     }
 }

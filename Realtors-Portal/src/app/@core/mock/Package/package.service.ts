@@ -30,4 +30,5 @@ export class PackageService {
   deletePackage(val) {
     return this.http.delete(environment.apiUrl + 'Packages/' + val)
   }
+
 }

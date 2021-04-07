@@ -96,7 +96,8 @@ namespace Realtors_Portal.Controllers
         [HttpGet]
         public JsonResult getProductByUserID(int id)
         {
-            string query = @"SELECT project.ProjectName, project.ID, project.ImageBannerName, project.LevelActive,
+            string query = @"
+SELECT project.ProjectName, project.ID, project.ImageBannerName, project.LevelActive,
   project.Description, project.Title, project.Sqft, project.Price, 
 
   Location.LocationName, Country.CountryName , City.CityName, District.DistrictName, Are.AreName,
@@ -110,7 +111,12 @@ INNER JOIN [User] ON [User].ID = project.UserID
 	  INNER JOIN Are ON Are.AreID = project.Are	   
 	  INNER JOIN Category ON Category.CategoryID = project.CategoryID
 
-where project.UserID  = " + id;
+
+where Category.Active = 0 and Are.Active = 1
+and District.Active = 1 and City.Active = 1
+and Country.Active = 1 and Country.Active = 1
+and Location.Active = 1
+and project.UserID = " + id;
 
             DataTable table = new DataTable();
             string sqlDataSource = _configuration.GetConnectionString("RealtorsConnect");

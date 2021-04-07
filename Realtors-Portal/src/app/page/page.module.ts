@@ -3,6 +3,9 @@ import { CommonModule } from '@angular/common';
 import { PageComponent } from './page.component';
 import { PageRoutingModule } from './page-routing.module';
 import { HeaderComponent } from './component/header/header.component';
+import { MaterialModule } from './../admin/material/material.module';
+
+
 import { FooterComponent } from './component/footer/footer.component';
 import { MainpagesComponent } from './mainpages/mainpages.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -13,6 +16,7 @@ import { BrowseCategoryComponent } from './mainpages/browse-category/browse-cate
 import { DealsComponent } from './mainpages/deals/deals.component';
 import { AboutusComponent } from './aboutus/aboutus.component';
 import { PropertyListComponent } from './mainpages/property-list/property-list.component';
+import { BuyPackageComponent } from './package/buy-package/buy-package.component';
 
 
 @NgModule({
@@ -26,12 +30,14 @@ import { PropertyListComponent } from './mainpages/property-list/property-list.c
     BrowseCategoryComponent,
     DealsComponent,
     AboutusComponent,
-    PropertyListComponent, 
+    PropertyListComponent,
+    BuyPackageComponent,
   ],
   providers: [AuthenticationService],
   imports: [
     CommonModule,
     PageRoutingModule,
-    FormsModule, ReactiveFormsModule  ]
+    FormsModule, ReactiveFormsModule,
+    MaterialModule  ]
 })
 export class PageModule { }

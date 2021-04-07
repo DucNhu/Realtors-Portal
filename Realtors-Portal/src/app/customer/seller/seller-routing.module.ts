@@ -5,6 +5,7 @@ import { CategoryControlComponent } from 'src/app/admin/dashboard/category-contr
 import { ListCustomerComponent } from 'src/app/admin/dashboard/customer/list-customer.component';
 import { PackageControllComponent } from 'src/app/admin/dashboard/package-controll/package-controll.component';
 import { ProjectControllComponent } from 'src/app/admin/dashboard/project-controll/project-controll.component';
+import { PackageComponent } from 'src/app/page/package/package.component';
 import { AuthGuard } from '../..//@core/_helpers/auth.guard';
 import { LoginComponent } from '../../@theme/login/login.component';
 import { NotfoundComponent } from '../../@theme/notfound/notfound.component';
@@ -19,6 +20,9 @@ const routes: Routes = [
             },
             {
                 path: 'product', component: ProductComponent
+            },
+            {
+                path: 'package', component: PackageComponent
             }
         ]
     },

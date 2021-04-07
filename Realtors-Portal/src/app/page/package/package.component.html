@@ -1,0 +1,29 @@
+<section class="space-ptb">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="section-title text-center">
+                    <h2>Choose the plan that works for you</h2>
+                    <span>Flexible pricing options to suit your real estate business</span>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-3 col-sm-6" *ngFor="let p of listPackage">
+                <div class="pricing item-package">
+                    <h5 class="pricing-title">{{p.PackageName}}</h5>
+                    <span class="pricing-price d-block mb-2"><strong>${{p.Price}}</strong>/mo</span>
+                    <p>{{p.PackageTitle}}</p>
+                   
+                    <div [id]="'paypal-button-container' + p.PackageID">
+                    </div>
+                    <ul class="list-unstyled pricing-list">
+                        <li>You have {{ p.Duration }} {{ p.TypeDuration }} to post for free</li>
+                        <li>{{p.PackageDesciption}}</li>
+                    </ul>
+                </div>
+            </div>
+            
+        </div>
+    </div>
+</section>

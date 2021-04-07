@@ -2,6 +2,8 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 import { AngularFileUploaderModule } from "angular-file-uploader";
+import { ChartsModule } from 'ng2-charts';
+
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -13,7 +15,7 @@ import { UserRegisterComponent } from './@theme/register/user-register/user-regi
 import { AugentRegisterComponent } from './@theme/register/augent-register/augent-register.component';
 import { SellerRegisterComponent } from './@theme/register/seller-register/seller-register.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-
+import { PackageComponent } from './page/package/package.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -22,7 +24,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     NotfoundComponent,
     UserRegisterComponent,
     AugentRegisterComponent,
-    SellerRegisterComponent,
+    SellerRegisterComponent, PackageComponent
   ], 
   imports: [
     BrowserModule, HttpClientModule,
@@ -31,6 +33,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     ReactiveFormsModule,
     AngularFileUploaderModule,
     BrowserAnimationsModule,
+    ChartsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

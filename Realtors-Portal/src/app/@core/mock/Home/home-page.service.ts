@@ -18,4 +18,9 @@ export class HomePageService {
   getProductViewHome() {
     return this.http.get(environment.apiUrl + 'HomePage/getProductViewHome')
   }
+
+  // Get package active
+  getPackageActive() {
+    return this.http.get(environment.apiUrl + 'HomePage/getPackageActive')
+  }
 }

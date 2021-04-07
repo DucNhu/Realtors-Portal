@@ -152,4 +152,9 @@ INNER JOIN [User] ON [User].ID = project.UserID
 	  INNER JOIN Are ON Are.AreID = project.Are	   
 	  INNER JOIN Category ON Category.CategoryID = project.CategoryID
 
-where project.UserID = 7
+
+where Category.Active = 0 and Are.Active = 1
+and District.Active = 1 and City.Active = 1
+and Country.Active = 1 and Country.Active = 1
+and Location.Active = 1
+and project.UserID = 7 

@@ -36,10 +36,10 @@ export class PackageControllComponent implements OnInit {
       "PackageID": 12,
       "PackageName": "PackageName",
       "Price": 0,
-      "PromotionPrice": 0,
+      // "PromotionPrice": 0,
       "PackageTitle": "PackageTitle",
       "PackageDesciption": "PackageDesctiption",
-      "NumberOfAds": 0,
+      // "NumberOfAds": 0,
       "Duration": 0,
       "PackageAvatar": "AvatarDefault.jpg",
       "Active": 0,
@@ -65,11 +65,12 @@ export class PackageControllComponent implements OnInit {
   getAllPackage() {
     this._PackageService.getAllPackage().subscribe(
       data => {
+        console.log(data);
+        
         this.containData = data;
         this.containData.forEach(e => {
           this.listPackage.unshift(e);
         });
-        console.log(this.containData);
 
       }
     );
@@ -84,7 +85,6 @@ export class PackageControllComponent implements OnInit {
     data.Active = data.Active == true ? 1 : 0;
     data.PackageAvatar = this.DataFormPackageEdit.PackageAvatar;
     // delete (data.TypeDuration);
-    console.log(data);
 
     this._PackageService.CreatePackage(data)
       .subscribe(res => {
@@ -205,9 +205,9 @@ export class PackageControllComponent implements OnInit {
 
       PackageTitle: ['PackageTitle'],
       Price: [0, [Validators.required]],
-      PromotionPrice: [0],
+      // PromotionPrice: [0],
 
-      NumberOfAds: [0, [Validators.required]],
+      // NumberOfAds: [0, [Validators.required]],
       Duration: [0, [Validators.required]],
       TypeDuration: [this.DataFormPackageEdit.TypeDuration],
       PackageDesciption: ['PackageDesctiption'],
@@ -234,7 +234,7 @@ export class PackageControllComponent implements OnInit {
     this.formValidator.controls.Price.patchValue(val.Price);
 
     this.formValidator.controls.Duration.patchValue(val.Duration);
-    this.formValidator.controls.NumberOfAds.patchValue(val.NumberOfAds);
+    // this.formValidator.controls.NumberOfAds.patchValue(val.NumberOfAds);
 
     this.formValidator.controls.PackageTitle.patchValue(val.PackageTitle);
     // this.formValidator.controls.Duration.patchValue(val.Duration);
