@@ -2,9 +2,8 @@
     <div>
         <ul class="breadcrumb">
             <li class="breadcrumb-item"><a href="#">PAGES</a></li>
-            <li class="breadcrumb-item active">categoris</li>
+            <li class="breadcrumb-item active">Location</li>
         </ul>
-        <h1 class="page-header mb-0">categoris</h1>
         <div class="">
             <div class="alert-group">
                 <!-- Success -->
@@ -20,12 +19,19 @@
         </div>
     </div>
     <div class="ml-auto">
-        <button class="button-add btn btn-link dropdown-toggle dropdown-toggle-split m-0 p-0" data-toggle="modal"
+        <!-- <button class="button-add btn btn-link dropdown-toggle dropdown-toggle-split m-0 p-0" data-toggle="modal"
             data-target="#modal-form-AddEdit" (click)="GetDataCheckisAddorEdit(true, DataFormLocationEdit)">
             <span class="icon icon-sm icon-gray">
                 <i class="fa fa-plus-circle fa-fw mr-1"></i>
                 Add Location
             </span>
+        </button> -->
+        <button mat-raised-button color="accent"
+          class="button-add btn btn-link dropdown-toggle dropdown-toggle-split m-0 p-0"
+          data-toggle="modal"
+          data-target="#modal-form-AddEdit"
+          (click)="GetDataCheckisAddorEdit(true, DataFormLocationEdit)">
+          Add Location
         </button>
     </div>
 </div>
@@ -36,7 +42,7 @@
             <tr>
                 <th>Name</th>
                 <th>Image</th>
-                <th class="text-center">A Letter</th>
+                <!-- <th class="text-center">A Letter</th> -->
                 <th class="text-center">Active</th>
                 <th>Action</th>
             </tr>
@@ -49,7 +55,7 @@
                         <img [src]="c.ImageBannerSrc + c.Avatar" [alt]="c.Avatar" class="img-fluid">
                     </div>
                 </td>
-                <td class="text-center">{{ c.LocationLetter }}</td>
+                <!-- <td class="text-center">{{ c.LocationLetter }}</td> -->
                 <th class="th-active">
                     <div [ngSwitch]="c.Active" class="box-active">
                         <div *ngSwitchCase="false">
@@ -86,7 +92,7 @@
 <div class="modal fade" id="modal-form-AddEdit" tabindex="-1" role="dialog" aria-labelledby="modal-form-signup"
     aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content angular-form__add-edit col-6">
+        <div class="modal-content angular-form__add-edit col-4">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
@@ -117,11 +123,11 @@
 
                                             </div>
                                             <!-- Letter -->
-                                            <div class="w-100 p-2">
+                                            <!-- <div class="w-100 p-2">
                                                 <label for="address">Letter</label>
                                                 <input type="text" class="form-control" maxlength="1" formControlName="LocationLetter"
                                                     (blur)="checkValidForm('LocationLetter')">
-                                            </div>
+                                            </div> -->
                                         </div>
                                         <!-- Select Avatar Location -->
                                         <div class="mb-3 select-img">
@@ -136,9 +142,13 @@
                                         </div>
 
                                         <!-- Active -->
-                                        <div class="mb-4">
-                                            <label for="">Active</label>
-                                            <input type="checkbox" formControlName="Active" />
+                                        <div class="mt-4">
+                                          <label for="Active">Active</label>
+                                          <mat-slide-toggle
+                                          class="example-margin"
+                                          formControlName="Active"
+                                          id="Active">
+                                          </mat-slide-toggle>
                                         </div>
                                         <!-- footer form -->
                                         <div class="col-12">
