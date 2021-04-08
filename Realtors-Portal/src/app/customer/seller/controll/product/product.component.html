@@ -194,7 +194,7 @@
                                                     (change)="selectByLocation()">
                                                     <option *ngFor="let Location of listLocation"
                                                         [value]="Location.LocationID"
-                                                        [selected]="Location.LocationName == formValidator.controls.Location.value">
+                                                        [selected]="Location.LocationID == formValidator.controls.Location.value">
                                                         {{ Location.LocationName }}
                                                     </option>
                                                 </select>
@@ -274,7 +274,7 @@
                                             <!-- Sqft  -->
                                             <div class="mb-4">
                                                 <label for="Sqft">Sqft</label>
-                                                <input type="number" class="form-control" name="Sqft"
+                                                <input type="number" class="form-control" 
                                                     formControlName="Sqft" (blur)="checkValidForm('Sqft')">
                                             </div>
 
@@ -300,7 +300,7 @@
 
                                         </div>
 
-                                        <div class="mb-4 des-tion">
+                                        <div class="mb-4 des-tion col-12">
                                             <label for="">Description</label>
                                             <textarea name="Description" formControlName="Description" rows="5"
                                                 class="w-100 form-control"></textarea>

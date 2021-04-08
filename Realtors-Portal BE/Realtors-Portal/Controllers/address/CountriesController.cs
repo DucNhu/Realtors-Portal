@@ -54,7 +54,38 @@ namespace Realtors_Portal.Controllers.address
         //Get by locationID
         [Route("getCountryByLocationID")]
         [HttpGet]
-        public JsonResult Get()
+        public JsonResult getCountryByLocationID()
+        {
+            string query = @"SELECT 
+                            Country.CountryName, 
+                            Country.Active, 
+                            Country.Avatar, 
+                            Country.CountryID, 
+                            Country.CountryLetter, 
+                            Country.LocationID, 
+                            Location.LocationName 
+                            FROM Country INNER JOIN Location ON Location.LocationID = Country.LocationID";
+
+            DataTable table = new DataTable();
+            string sqlDataSource = _configuration.GetConnectionString("RealtorsConnect");
+            SqlDataReader myRender;
+            using (SqlConnection myCon = new SqlConnection(sqlDataSource))
+            {
+                myCon.Open();
+                using (SqlCommand myCommand = new SqlCommand(query, myCon))
+                {
+                    myRender = myCommand.ExecuteReader();
+                    table.Load(myRender);
+                    myRender.Close(); myCon.Close();
+                }
+            }
+            return new JsonResult(table);
+        }
+
+        //Get by locationID
+        [Route("getCountryByLocationIDActive")]
+        [HttpGet]
+        public JsonResult getCountryByLocationIDActive()
         {
             string query = @"SELECT 
                             Country.CountryName, 

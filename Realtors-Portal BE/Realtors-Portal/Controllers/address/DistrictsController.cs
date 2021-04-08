@@ -55,7 +55,7 @@ namespace Realtors_Portal.Controllers.address
         //Get by CountryID
         [Route("getDistrictByCityID")]
         [HttpGet]
-        public JsonResult Get()
+        public JsonResult getDistrictByCityID()
         {
             string query = @"SELECT 
                             District.DistrictName, 
@@ -65,7 +65,7 @@ namespace Realtors_Portal.Controllers.address
                             District.DistrictLetter, 
                             District.CityID, 
                             City.CityName 
-                            FROM District INNER JOIN City ON City.CityID = District.CityID and District.Active = 1";
+                            FROM District INNER JOIN City ON City.CityID = District.CityID";
 
             DataTable table = new DataTable();
             string sqlDataSource = _configuration.GetConnectionString("RealtorsConnect");
@@ -83,7 +83,35 @@ namespace Realtors_Portal.Controllers.address
             return new JsonResult(table);
         }
 
-
+        //Get by CountryID Active
+        [Route("getDistrictByCityIDActive")]
+        [HttpGet]
+        public JsonResult getDistrictByCityIDActive()
+        {
+            string query = @"SELECT 
+                            District.DistrictName, 
+                            District.Active, 
+                            District.Avatar, 
+                            District.DistrictID, 
+                            District.DistrictLetter, 
+                            District.CityID, 
+                            City.CityName 
+                            FROM District INNER JOIN City ON City.CityID = District.CityID and District.Active = 1";
+            DataTable table = new DataTable();
+            string sqlDataSource = _configuration.GetConnectionString("RealtorsConnect");
+            SqlDataReader myRender;
+            using (SqlConnection myCon = new SqlConnection(sqlDataSource))
+            {
+                myCon.Open();
+                using (SqlCommand myCommand = new SqlCommand(query, myCon))
+                {
+                    myRender = myCommand.ExecuteReader();
+                    table.Load(myRender);
+                    myRender.Close(); myCon.Close();
+                }
+            }
+            return new JsonResult(table);
+        }
         // PUT: api/Districts/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
@@ -155,7 +183,7 @@ namespace Realtors_Portal.Controllers.address
             try
             {
                 var httpRequest = Request.Form;
-                var postedFile = httpRequest.Files[0]; 
+                var postedFile = httpRequest.Files[0];
                 string filename = postedFile.FileName;
                 var physicalPath = _hostEnvironment.ContentRootPath + "/Images/Address/Districts/" + filename;
                 using (var stream = new FileStream(physicalPath, FileMode.Create))

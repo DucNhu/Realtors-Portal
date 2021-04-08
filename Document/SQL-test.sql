@@ -136,7 +136,7 @@ SELECT Are.AreName,
 
 select * from [User] where [User].ID = 1
 select * from project where project.UserID = 7
-UPDATE [User] SET Active = 1; 
+UPDATE [User] SET [User].PackageID = 1 where id = 7; 
 
 SELECT project.ProjectName, project.ID, project.ImageBannerName, project.LevelActive,
   project.Description, project.Title, project.Sqft, project.Price, 
@@ -172,3 +172,25 @@ select count(*) from project where LevelActive > 0
 select count(*) from Category where Active > 0
 --count package đã mua
 select * from PackagePurchased
+
+
+
+SELECT project.ProjectName, project.ID, project.ImageBannerName, project.LevelActive,
+  project.Description, project.Title, project.Sqft, project.Price, 
+
+  Location.LocationName, Country.CountryName , City.CityName, District.DistrictName, Are.AreName,
+  Category.CategoryName 
+  FROM project
+INNER JOIN [User] ON [User].ID = project.UserID 
+  INNER JOIN Location ON Location.LocationID = project.Location
+  INNER JOIN Country ON Country.CountryID = project.Country
+    INNER JOIN City ON City.CityID = project.City
+	  INNER JOIN District ON District.DistrictID = project.District
+	  INNER JOIN Are ON Are.AreID = project.Are	   
+	  INNER JOIN Category ON Category.CategoryID = project.CategoryID
+
+where Category.Active = 1 and Are.Active = 1
+and District.Active = 1 and City.Active = 1
+and Country.Active = 1 and Country.Active = 1
+and Location.Active = 1
+and project.UserID = 7

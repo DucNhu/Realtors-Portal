@@ -10,7 +10,7 @@
         </div>
         <div class="row">
             <div class="col-lg-3 col-sm-6" *ngFor="let p of listPackage">
-                <div class="pricing item-package">
+                <div class="pricing item-package" [class]="packageIDForUser == p.PackageID ? 'before-done' : ''">
                     <h5 class="pricing-title">{{p.PackageName}}</h5>
                     <span class="pricing-price d-block mb-2"><strong>${{p.Price}}</strong>/mo</span>
                     <p>{{p.PackageTitle}}</p>

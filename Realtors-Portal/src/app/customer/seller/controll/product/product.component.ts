@@ -71,20 +71,24 @@ export class ProductComponent implements OnInit {
     this.getAllProjectByID(this.authenticationService.currentUserValue.Infor.ID);
     this.ValidatorForm();
     console.log(this.authenticationService.currentUserValue);
-    
+
     this.getsetAllAddress(); // call function set data address
   }
 
   // ======== CRUD ============
   listProject = [];
+  InforUser;
   containData;
   getIDLast = 0;
 
   // Get All project
   getAllProjectByID(id) {
+    console.log(id);
+
     this.userService.GetProductByUserID(id).subscribe(
       data => {
         this.containData = data;
+        console.log(data);
         
         this.containData.forEach(e => {
           e.ImageBannerSrc = this.getImageBannerSrc;
@@ -93,6 +97,13 @@ export class ProductComponent implements OnInit {
       }
     );
 
+    this.userService.getUserbyId(this.authenticationService.currentUserValue.Infor.ID).subscribe(
+      data => {
+        this.InforUser = data;
+        console.log(this.InforUser);
+
+      }
+    )
     //  Call function get all category
     this.getsetAllCategory();
   }
@@ -103,7 +114,7 @@ export class ProductComponent implements OnInit {
   CreateProject(data) {
     data.ID = 0;
     data.UserID = this.authenticationService.currentUserValue.Infor.ID;
-    
+
     if (this.upPhoto() && this.upPhotoImageFeature) {        // this.upPhoto(); // Insert Image
       data.ImageBannerName = this.DataFormProjectEdit.ImageBannerName;
       // let getIDLast = this.listProject[length].ID;
@@ -427,6 +438,8 @@ export class ProductComponent implements OnInit {
   get ProjectName() { return this.formValidator.get('ProjectName') }
 
   SetDataForEditorForm(val) {
+    console.log(this.listCountry);
+
     this.DefaultandNewAvatar = (val.ImageBannerName.indexOf(this.getImageBannerSrc) > -1 ? '' : this.getImageBannerSrc) + val.ImageBannerName;
     if (val.ImageBannerName.indexOf("base64") > -1) {
       this.DefaultandNewAvatar = val.ImageBannerName;
@@ -444,23 +457,24 @@ export class ProductComponent implements OnInit {
 
     // this.DefaultandNewAvatar = environment.Imageurl + val.ImageBannerName;
     this.formValidator.controls.ProjectName.patchValue(val.ProjectName);
-    this.formValidator.controls.Are.patchValue(val.Are);
     this.formValidator.controls.CategoryID.patchValue(val.CategoryID);
 
+    this.formValidator.controls.Location.patchValue(val.LocationID);
     this.formValidator.controls.City.patchValue(val.City);
     this.formValidator.controls.Country.patchValue(val.Country);
     this.formValidator.controls.District.patchValue(val.District);
+    this.formValidator.controls.Are.patchValue(val.Are);
+
 
     this.formValidator.controls.ID.patchValue(val.ID);
-    this.formValidator.controls.ImageFile.patchValue(val.ImageFile);
-    this.formValidator.controls.Location.patchValue(val.Location);
+    // this.formValidator.controls.ImageFile.patchValue(val.ImageFile);
 
     this.formValidator.controls.Price.patchValue(val.Price);
-    this.formValidator.controls.SellerID.patchValue(val.SellerID);
+    // this.formValidator.controls.SellerID.patchValue(val.SellerID);
     this.formValidator.controls.Sqft.patchValue(val.Sqft);
 
     this.formValidator.controls.Description.patchValue(val.Description);
-    this.formValidator.controls.LevelActive.patchValue(val.LevelActive);
+    // this.formValidator.controls.LevelActive.patchValue(val.LevelActive);
     this.formValidator.controls.Title.patchValue(val.Title);
 
     this.formValidator.controls.ImageBannerName.patchValue(val.ImageBannerName);
@@ -472,7 +486,7 @@ export class ProductComponent implements OnInit {
     this.selectByDistrict();
 
     this.selectByCity();
-  }
+   }
 
 
   // Alert variable
@@ -549,22 +563,24 @@ export class ProductComponent implements OnInit {
     // listLocation
     this._ProjectService.getAllLocationActive().subscribe(data => {
       this.listLocation = data;
+      
     })
     // listCountry
-    this._ProjectService.getAllCountryByLocationID().subscribe(data => {
+    this._ProjectService.getAllCountryByLocationIDActive().subscribe(data => {
       this.countryInLocation = data;
+      
     })
     // listCity
-    this._ProjectService.getAllCityByCountryID().subscribe(data => {
-      this.cityInCountry = data;
+    this._ProjectService.getAllCityByCountryIDActive().subscribe(data => {
+      this.cityInCountry = data;      
     })
     // listDistrict
-    this._ProjectService.getAllDistrictByCityID().subscribe(data => {
+    this._ProjectService.getAllDistrictByCityIDActive().subscribe(data => {
       this.districtInCity = data;
 
     })
     // listAre
-    this._ProjectService.getAreByDistrictID().subscribe(data => {
+    this._ProjectService.getAreByDistrictIDActive().subscribe(data => {
       this.areInDistrict = data;
     })
   }

@@ -54,7 +54,37 @@ namespace Realtors_Portal.Controllers.address
         //Get by DítrictID
         [Route("getAreByDistrictID")]
         [HttpGet]
-        public JsonResult Get()
+        public JsonResult getAreByDistrictID()
+        {
+            string query = @"SELECT Are.AreName, 
+                            Are.Active, 
+                            Are.Avatar, 
+                            Are.AreID, 
+                            Are.AreLetter, 
+                            Are.DistrictID, 
+                            District.DistrictName  FROM Are INNER JOIN District ON
+                            District.DistrictID = Are.DistrictID";
+
+            DataTable table = new DataTable();
+            string sqlDataSource = _configuration.GetConnectionString("RealtorsConnect");
+            SqlDataReader myRender;
+            using (SqlConnection myCon = new SqlConnection(sqlDataSource))
+            {
+                myCon.Open();
+                using (SqlCommand myCommand = new SqlCommand(query, myCon))
+                {
+                    myRender = myCommand.ExecuteReader();
+                    table.Load(myRender);
+                    myRender.Close(); myCon.Close();
+                }
+            }
+            return new JsonResult(table);
+        }
+
+        //Get by DítrictID
+        [Route("getAreByDistrictIDActive")]
+        [HttpGet]
+        public JsonResult getAreByDistrictIDActive()
         {
             string query = @"SELECT Are.AreName, 
                             Are.Active, 

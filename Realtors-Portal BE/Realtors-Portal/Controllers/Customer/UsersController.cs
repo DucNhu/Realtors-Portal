@@ -54,7 +54,7 @@ namespace Realtors_Portal.Controllers
         }
 
 
-        //Get by DítrictID
+        //Get by DistrictID
         [Route("getUserForAdmin")]
         [HttpGet]
         public JsonResult Get()
@@ -92,7 +92,7 @@ namespace Realtors_Portal.Controllers
         }
 
 
-        [Route("getProductByUserID")]
+        [Route("getProductByUserID/user/{id}")]
         [HttpGet]
         public JsonResult getProductByUserID(int id)
         {
@@ -101,7 +101,9 @@ SELECT project.ProjectName, project.ID, project.ImageBannerName, project.LevelAc
   project.Description, project.Title, project.Sqft, project.Price, 
 
   Location.LocationName, Country.CountryName , City.CityName, District.DistrictName, Are.AreName,
-  Category.CategoryName 
+  Category.CategoryName,
+Location.LocationID, Country.CountryID , City.CityID, District.DistrictID, Are.AreID,
+  Category.CategoryID 
   FROM project
 INNER JOIN [User] ON [User].ID = project.UserID 
   INNER JOIN Location ON Location.LocationID = project.Location
@@ -111,8 +113,7 @@ INNER JOIN [User] ON [User].ID = project.UserID
 	  INNER JOIN Are ON Are.AreID = project.Are	   
 	  INNER JOIN Category ON Category.CategoryID = project.CategoryID
 
-
-where Category.Active = 0 and Are.Active = 1
+where Category.Active = 1 and Are.Active = 1
 and District.Active = 1 and City.Active = 1
 and Country.Active = 1 and Country.Active = 1
 and Location.Active = 1
@@ -219,6 +220,29 @@ and project.UserID = " + id;
         public JsonResult putAllUserActiveForAdmin()
         {
             string query = @"UPDATE [User] SET Active = 1";
+
+            DataTable table = new DataTable();
+            string sqlDataSource = _configuration.GetConnectionString("RealtorsConnect");
+            SqlDataReader myRender;
+            using (SqlConnection myCon = new SqlConnection(sqlDataSource))
+            {
+                myCon.Open();
+                using (SqlCommand myCommand = new SqlCommand(query, myCon))
+                {
+                    myRender = myCommand.ExecuteReader();
+                    table.Load(myRender);
+                    myRender.Close(); myCon.Close();
+                }
+            }
+            return new JsonResult(table);
+        }
+
+        // Upgrade Package ID 
+        [Route("putUserUpgradePackageID/user/{UserID}")]
+        [HttpPut]
+        public JsonResult putAllUserActiveForAdmin( int UserID, Package PackageID)
+        {
+            string query = @"UPDATE [User] SET [User].PackageID = "+ PackageID.PackageID + " where id = " + UserID;
 
             DataTable table = new DataTable();
             string sqlDataSource = _configuration.GetConnectionString("RealtorsConnect");
