@@ -5,6 +5,7 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { NgForm } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../../@core/models/Environment';
+import {ThemePalette} from '@angular/material/core';
 
 @Component({
   selector: 'app-are-controll',
@@ -12,6 +13,12 @@ import { environment } from '../../../../@core/models/Environment';
   styleUrls: ['../../../admin.component.css', './are-controll.component.css']
 })
 export class AreControllComponent implements OnInit {
+  // matterial
+  color: ThemePalette = 'accent';
+  checked = false;
+  disabled = false;
+  // enfd material
+
 
   // Khai bao bien
   listDistrict;
@@ -182,7 +189,7 @@ export class AreControllComponent implements OnInit {
 
   // function CreateEmployee:
   DeleteEmPloyee(id) {
-    if (confirm("Are your ok?")) {
+    if (confirm("Are you ok?")) {
       this._AreService.deleteAre(id).subscribe(
         data => {
           this.Alert_successFunction("Success Delete");
@@ -270,14 +277,14 @@ export class AreControllComponent implements OnInit {
   Alert_successFunction(value) {
     this.alert_Text = value;
     this.alert_success = true;
-    // call function set alert_success = true  
+    // call function set alert_success = true
     this.AlertFunction(true);
   }
   Alert_dangerFunction(value) {
     this.alert_Text = value;
     this.alert_danger = true;
 
-    // call function set alert_danger = true  
+    // call function set alert_danger = true
     this.AlertFunction(false);
   }
 
@@ -299,7 +306,7 @@ export class AreControllComponent implements OnInit {
     this._DistrictService.getAllDistrictByCityID().subscribe(data => {
       this.listDistrict = data;
       console.log(data);
-      
+
     })
   }
 

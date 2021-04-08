@@ -181,7 +181,7 @@ export class CountryControllComponent implements OnInit {
 
   // function CreateEmployee:
   DeleteEmPloyee(id) {
-    if (confirm("Are your ok?")) {
+    if (confirm("Are you ok?")) {
       this._CountryService.deleteCountry(id).subscribe(
         data => {
           this.Alert_successFunction("Success Delete");

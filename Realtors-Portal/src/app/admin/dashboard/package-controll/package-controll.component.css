@@ -2,3 +2,6 @@
 label {
     cursor: pointer;
 }
+.box-action.d-flex.justify-content-end {
+  justify-content: center !important;
+}

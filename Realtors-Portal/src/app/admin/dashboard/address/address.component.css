@@ -1,3 +1,12 @@
 .nav-link {
     cursor: pointer;
 }
+th.th-active {
+  text-align: center;
+}
+table.table.table-hover {
+  text-align: center;
+}
+.d-flex {
+  justify-content: center;
+}

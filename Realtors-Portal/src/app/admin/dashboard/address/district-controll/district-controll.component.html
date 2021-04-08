@@ -2,9 +2,8 @@
     <div>
         <ul class="breadcrumb">
             <li class="breadcrumb-item"><a href="#">PAGES</a></li>
-            <li class="breadcrumb-item active">categoris</li>
+            <li class="breadcrumb-item active">District</li>
         </ul>
-        <h1 class="page-header mb-0">categoris</h1>
         <div class="">
             <div class="alert-group">
                 <!-- Success -->
@@ -19,12 +18,20 @@
         </div>
     </div>
     <div class="ml-auto">
-        <button class="button-add btn btn-link dropdown-toggle dropdown-toggle-split m-0 p-0" data-toggle="modal"
+        <!-- <button class="button-add btn btn-link dropdown-toggle dropdown-toggle-split m-0 p-0" data-toggle="modal"
             data-target="#modal-form-AddEdit" (click)="GetDataCheckisAddorEdit(true, DataFormDistrictEdit)">
             <span class="icon icon-sm icon-gray">
                 <i class="fa fa-plus-circle fa-fw mr-1"></i>
                 Add District
             </span>
+        </button> -->
+
+        <button mat-raised-button color="accent"
+          class="button-add btn btn-link dropdown-toggle dropdown-toggle-split m-0 p-0"
+          data-toggle="modal"
+          data-target="#modal-form-AddEdit"
+          (click)="GetDataCheckisAddorEdit(true, DataFormDistrictEdit)">
+          Add District
         </button>
     </div>
 </div>
@@ -35,7 +42,7 @@
             <tr>
                 <th>Name</th>
                 <th>Image</th>
-                <th>A Letter</th>
+                <!-- <th>A Letter</th> -->
                 <th>City</th>
                 <th class="text-center">Active</th>
                 <th>Action</th>
@@ -49,7 +56,7 @@
                         <img [src]="c.ImageBannerSrc + c.Avatar" [alt]="c.Avatar" class="img-fluid">
                     </div>
                 </td>
-                <td class="text-center">{{ c.DistrictLetter }}</td>
+                <!-- <td class="text-center">{{ c.DistrictLetter }}</td> -->
                 <td class="text-center">{{c.CityName}}</td>
 
                 <th class="th-active">
@@ -88,7 +95,7 @@
 <div class="modal fade" id="modal-form-AddEdit" tabindex="-1" role="dialog" aria-labelledby="modal-form-signup"
     aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content angular-form__add-edit col-6">
+        <div class="modal-content angular-form__add-edit col-4">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
@@ -112,18 +119,18 @@
                                     <div class="col-12 mb-4">
                                         <!-- header form -->
                                         <div class="row">
-                                            <div class="col12 col-sm-6 w-100 p-2">
+                                            <div class=" col-sm-6 w-100">
                                                 <label>District Name</label>
                                                 <input type="text" class="form-control" formControlName="DistrictName"
                                                     (blur)="checkValidForm('DistrictName'); SetDistrictLetterWhenEnterName(formValidator.controls.DistrictName.value)">
                                             </div>
                                             <!-- Letter -->
-                                            <div class="col12 col-sm-6 w-100 p-2">
+                                            <!-- <div class="col12 col-sm-6 w-100 p-2">
                                                 <label for="address">Letter</label>
                                                 <input type="text" class="form-control" maxlength="1"
                                                     formControlName="DistrictLetter" (blur)="checkValidForm('DistrictLetter')">
-                                            </div>
-                                            <div class="col12 col-sm-6 form-file mb-3">
+                                            </div> -->
+                                            <div class=" col-sm-6 form-file">
                                                 <label class="form-file-label position-relative" for="phone">
                                                     <span class="form-file-text">City</span>
                                                 </label>
@@ -136,9 +143,13 @@
                                                 </select>
                                             </div>
                                             <!-- Active -->
-                                            <div class="col12 col-sm-6 mb-4">
-                                                <label for="">Active</label>
-                                                <input type="checkbox" formControlName="Active" />
+                                            <div class=" col-sm-6 mt-4">
+                                              <label for="Active">Active</label>
+                                              <mat-slide-toggle
+                                              class="example-margin"
+                                              formControlName="Active"
+                                              id="Active">
+                                              </mat-slide-toggle>
                                             </div>
                                         </div>
                                     </div>

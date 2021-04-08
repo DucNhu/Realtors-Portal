@@ -180,7 +180,7 @@ export class DistrictControllComponent implements OnInit {
 
   // function CreateEmployee:
   DeleteEmPloyee(id) {
-    if (confirm("Are your ok?")) {
+    if (confirm("Are you ok?")) {
       this._DistrictService.deleteDistrict(id).subscribe(
         data => {
           this.Alert_successFunction("Success Delete");
@@ -268,14 +268,14 @@ export class DistrictControllComponent implements OnInit {
   Alert_successFunction(value) {
     this.alert_Text = value;
     this.alert_success = true;
-    // call function set alert_success = true  
+    // call function set alert_success = true
     this.AlertFunction(true);
   }
   Alert_dangerFunction(value) {
     this.alert_Text = value;
     this.alert_danger = true;
 
-    // call function set alert_danger = true  
+    // call function set alert_danger = true
     this.AlertFunction(false);
   }
 

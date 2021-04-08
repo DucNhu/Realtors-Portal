@@ -42,7 +42,7 @@ button:focus > .fa-ellipsis-h {
 .overflowX-auto {
     overflow-x: auto;
 }
-/*  ================= 
+/*  =================
         ICON
 ============= */
 
@@ -50,12 +50,12 @@ button:focus > .fa-ellipsis-h {
     display: none;
 }
 
-/*  ================= 
+/*  =================
     END   ICON
 ============= */
 
 /*  ===============
-        fORM 
+        fORM
 =================*/
 input[type="number"]::-webkit-inner-spin-button,
 input[type="number"]::-webkit-outer-spin-button {
@@ -95,5 +95,11 @@ input[type="number"]::-webkit-outer-spin-button {
 }
 /* END list-image__Lib */
 /*  ===============
-      END  fORM 
+      END  fORM
 =================*/
+thead.angular-thead {
+  text-align: center;
+}
+tr {
+  text-align: center;
+}

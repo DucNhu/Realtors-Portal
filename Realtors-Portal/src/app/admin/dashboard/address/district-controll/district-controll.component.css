@@ -1,0 +1,15 @@
+th.th-active {
+  text-align: center;
+}
+table.table.table-hover {
+  text-align: center;
+}
+.d-flex {
+  justify-content: center;
+}
+.modal-content.angular-form__add-edit.col-4 {
+  margin: auto;
+}
+.mat-flat-button.mat-accent, .mat-raised-button.mat-accent, .mat-fab.mat-accent, .mat-mini-fab.mat-accent {
+  background-color: var(--green) !important;
+}

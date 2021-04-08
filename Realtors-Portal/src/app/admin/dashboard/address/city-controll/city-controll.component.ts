@@ -181,7 +181,7 @@ export class CityControllComponent implements OnInit {
 
   // function CreateEmployee:
   DeleteEmPloyee(id) {
-    if (confirm("Are your ok?")) {
+    if (confirm("Are you ok?")) {
       this._CityService.deleteCity(id).subscribe(
         data => {
           this.Alert_successFunction("Success Delete");
