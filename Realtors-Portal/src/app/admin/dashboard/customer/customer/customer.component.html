@@ -40,8 +40,14 @@
                 </td>
                 <td class="text-center">
                     <div class="mb-4">
-                        <label for="">Active</label>
-                        <input type="checkbox" />
+                        <!-- <label for="">Active</label>
+                        <input type="checkbox" /> -->
+                        <label for="Active">Active</label>
+                          <mat-slide-toggle
+                            class="example-margin"
+                            formControlName="Active"
+                            id="Active">
+                          </mat-slide-toggle>
                     </div>
                 </td>
                 <td class="text-center">
@@ -92,7 +98,7 @@
                 <td>
                     <span class="dropdown">
                         <!-- <span class="dropdown-menu p-0" aria-labelledby="dropdownMenu2"> -->
-                        <span class="d-flex box-action justify-content-around">
+                        <span class="d-flex box-action">
                             <button class="dropdown-item detail" type="button" data-toggle="modal"
                                 data-target="#modal-view--detail" (click)="GetDataCheckisAddorEdit(false,c)">
                                 <i class="far fa-lg fa-fw me-2 fa-eye"></i>
@@ -151,9 +157,15 @@
                                                 </select>
                                             </div>
                                             <!-- Active -->
-                                            <div class="mb-4">
-                                                <label for="">Active</label>
-                                                <input type="checkbox" formControlName="Active" />
+                                            <div class="mt-5 mr-5">
+                                                <!-- <label for="">Active</label>
+                                                <input type="checkbox" formControlName="Active" /> -->
+                                                <label for="Active">Active</label>
+                                                <mat-slide-toggle
+                                                  class="example-margin"
+                                                  formControlName="Active"
+                                                  id="Active">
+                                                </mat-slide-toggle>
                                             </div>
                                         </div>
 

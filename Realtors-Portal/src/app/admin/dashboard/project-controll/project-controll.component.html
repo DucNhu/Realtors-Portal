@@ -19,12 +19,19 @@
         </div>
     </div>
     <div class="ml-auto">
-        <button class="button-add btn btn-link dropdown-toggle dropdown-toggle-split m-0 p-0" data-toggle="modal"
+        <!-- <button class="button-add btn btn-link dropdown-toggle dropdown-toggle-split m-0 p-0" data-toggle="modal"
             data-target="#modal-form-AddEdit" (click)="GetDataCheckisAddorEdit(true, DataFormProjectEdit)">
             <span class="icon icon-sm icon-gray">
                 <i class="fa fa-plus-circle fa-fw mr-1"></i>
                 Add Project
             </span>
+        </button> -->
+        <button mat-raised-button color="accent"
+          class="button-add btn btn-link dropdown-toggle dropdown-toggle-split m-0 p-0"
+          data-toggle="modal"
+          data-target="#modal-form-AddEdit"
+          (click)="GetDataCheckisAddorEdit(true, DataFormProjectEdit)">
+          Add Project
         </button>
     </div>
 </div>
