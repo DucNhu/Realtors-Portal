@@ -67,7 +67,7 @@ export class PackageControllComponent implements OnInit {
     this._PackageService.getAllPackage().subscribe(
       data => {
         console.log(data);
-        
+
         this.containData = data;
         this.containData.forEach(e => {
           this.listPackage.unshift(e);
@@ -89,7 +89,11 @@ export class PackageControllComponent implements OnInit {
 
     this._PackageService.CreatePackage(data)
       .subscribe(res => {
-        let getIDLength = this.listPackage[0].PackageID;
+        let getIDLength = 0;
+        try{
+          getIDLength = this.listPackage[0].PackageID;
+        }
+        catch (e) { getIDLength = 0;}
         data.PackageID = getIDLength += 1;
         data.PackageAvatar = this.DefaultandNewAvatar;
         this.listPackage.unshift(data);
@@ -264,14 +268,14 @@ export class PackageControllComponent implements OnInit {
     this.alert_Text = value;
     this.alert_success = true;
 
-    // call function set alert_success = true  
+    // call function set alert_success = true
     this.AlertFunction(true);
   }
   Alert_dangerFunction(value) {
     this.alert_Text = value;
     this.alert_danger = true;
 
-    // call function set alert_danger = true  
+    // call function set alert_danger = true
     this.AlertFunction(false);
   }
 

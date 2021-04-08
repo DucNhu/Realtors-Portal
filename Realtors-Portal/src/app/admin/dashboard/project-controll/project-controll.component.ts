@@ -7,6 +7,8 @@ import { environment } from '../../../@core/models/Environment';
 
 import { CategoryService } from 'src/app/@core/mock/category.service';
 import { ImageLibService } from 'src/app/@core/mock/product/image-lib.service';
+
+
 @Component({
   selector: 'app-project-controll',
   templateUrl: './project-controll.component.html',
@@ -14,7 +16,7 @@ import { ImageLibService } from 'src/app/@core/mock/product/image-lib.service';
 })
 
 export class ProjectControllComponent implements OnInit {
-  // Khai bao bien  
+  // Khai bao bien
   getImageBannerSrc = environment.ImageProductUrl + 'banner/';
 
   listCategies;
@@ -174,7 +176,7 @@ export class ProjectControllComponent implements OnInit {
           this.Alert_successFunction("Create done");
           getIDLast++;
           getIDImageLibLast++;
-          
+
         });
 
 
@@ -455,7 +457,7 @@ export class ProjectControllComponent implements OnInit {
     this.formValidator.controls.City.patchValue(val.City);
     this.formValidator.controls.Country.patchValue(val.Country);
     this.formValidator.controls.District.patchValue(val.District);
-    
+
     this.formValidator.controls.ID.patchValue(val.ID);
     this.formValidator.controls.ImageFile.patchValue(val.ImageFile);
     this.formValidator.controls.Location.patchValue(val.Location);
@@ -472,10 +474,10 @@ export class ProjectControllComponent implements OnInit {
 
     // set lai gia tri address:
     this.selectByLocation();
-    
+
     this.selectByCountry();
     this.selectByDistrict();
-    
+
     this.selectByCity();
   }
 
@@ -501,14 +503,14 @@ export class ProjectControllComponent implements OnInit {
   Alert_successFunction(value) {
     this.alert_Text = value;
     this.alert_success = true;
-    // call function set alert_success = true  
+    // call function set alert_success = true
     this.AlertFunction(true);
   }
   Alert_dangerFunction(value) {
     this.alert_Text = value;
     this.alert_danger = true;
 
-    // call function set alert_danger = true  
+    // call function set alert_danger = true
     this.AlertFunction(false);
   }
 

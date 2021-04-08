@@ -121,7 +121,12 @@
                             <!-- Active -->
                             <div class="mb-4">
                                 <label for="Active">Active</label>
-                                <input type="checkbox" formControlName="Active" id="Active" />
+                                <!-- <input type="checkbox" formControlName="Active" id="Active" /> -->
+                                <mat-slide-toggle
+                                class="example-margin"
+                                formControlName="Active"
+                                id="Active">
+                              </mat-slide-toggle>
                             </div>
 
                             <!-- footer form -->
