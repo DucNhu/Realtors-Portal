@@ -1,1 +1,32 @@
-<p>dashboard works!</p>
+<div class="row list-dashboard">
+    <div class="col-12 col-sm-6 col-md-4 item">
+        <h4>count product active</h4>
+        <div class="box-infor rounded-circle" [class]="objData.countProductActive[0].countProductActive > 999 ? 'font-small': ''">
+            <h4>{{ objData.countProductActive[0].countProductActive }}</h4>
+        </div>
+    </div>
+    <div class="col-12 col-sm-6 col-md-4 item">
+        <h4>Count Accout Active</h4>
+        <div class="box-infor rounded-circle" [class]="objData.countProductActive[0].countProductActive > 999 ? 'font-small': ''">
+            <h4>{{ objData.countaccActiveNotAd[0].accActiveNotAd }}</h4>
+        </div>
+    </div>
+    <div class="col-12 col-sm-6 col-md-4 item">
+        <h4>count accout Agent Active</h4>
+        <div class="box-infor rounded-circle" [class]="objData.countProductActive[0].countProductActive > 999 ? 'font-small': ''">
+            <h4>{{ objData.countaccAgentActive[0].accAgentActive }}</h4>
+        </div>
+    </div>
+    <div class="col-12 col-sm-6 col-md-4 item">
+        <h4>count accout Seller Active</h4>
+        <div class="box-infor rounded-circle" [class]="objData.countProductActive[0].countProductActive > 999 ? 'font-small': ''">
+            <h4>{{ objData.countaccSellerActive[0].accSellerActive }}</h4>
+        </div>
+    </div>
+    <div class="col-12 col-sm-6 col-md-4 item">
+        <h4>count package Purchased</h4>
+        <div class="box-infor rounded-circle" [class]="objData.countProductActive[0].countProductActive > 999 ? 'font-small': ''">
+            <h4>{{ objData.countpackagePurchased[0].PackagePurchased }}</h4>
+        </div>
+    </div>
+</div>

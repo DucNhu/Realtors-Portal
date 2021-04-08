@@ -23,7 +23,7 @@ export class ProductComponent implements OnInit {
   listLevelActive = [
     {
       lvl: 0,
-      Title: "Suspended",
+      Title: "sold",
       selected: true
     },
     {

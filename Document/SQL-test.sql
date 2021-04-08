@@ -1,4 +1,4 @@
-
+﻿
 create  database realtors01
 use  realtors01
 create table test(test varchar(1))
@@ -170,5 +170,5 @@ select count(User_type) from [User] where User_type = 'seller'
 --count product
 select count(*) from project where LevelActive > 0
 select count(*) from Category where Active > 0
---count package ?� mua
+--count package đã mua
 select * from PackagePurchased

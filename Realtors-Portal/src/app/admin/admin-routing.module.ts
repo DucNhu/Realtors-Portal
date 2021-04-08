@@ -17,7 +17,7 @@ const routes: Routes = [
                 path: '', component: ProjectControllComponent
             },
             {
-                path: 'Dashboard', component: DashboardComponent
+                path: 'dashboard', component: DashboardComponent
             },
             {
                 path: 'product', component: ProjectControllComponent

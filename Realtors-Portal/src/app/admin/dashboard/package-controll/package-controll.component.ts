@@ -89,7 +89,7 @@ export class PackageControllComponent implements OnInit {
 
     this._PackageService.CreatePackage(data)
       .subscribe(res => {
-        let getIDLength = this.listPackage[0].PackageID;
+        let getIDLength = 0;
         data.PackageID = getIDLength += 1;
         data.PackageAvatar = this.DefaultandNewAvatar;
         this.listPackage.unshift(data);

@@ -1,0 +1,38 @@
+.list-dashboard .item {
+    margin: 15px 0px;
+}
+.list-dashboard .item .box-infor {
+    width: 100%;
+    height: 17rem;
+    max-height: 18rem;
+    max-width: 18rem;
+
+    background-color: rgba(164, 162, 162, 0.707);
+    box-shadow: 0px 0px 3px gray;
+
+    position: relative;
+    margin: 10px auto;
+}
+
+.list-dashboard .item h4 {
+    text-align: center;
+    font-size: 30px;
+    font-weight: bold;
+}
+
+.list-dashboard .item .box-infor h4 {
+    position: absolute;
+    top: 50%;
+
+    left: 50%;
+    transform: translate(-50%, -50%);
+
+    font-weight: bold;
+    color: white;
+    font-size: 10rem;
+}
+
+
+.font-small {
+font-size: 5rem;
+}
