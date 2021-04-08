@@ -112,12 +112,7 @@ INNER JOIN [User] ON [User].ID = project.UserID
 	  INNER JOIN District ON District.DistrictID = project.District
 	  INNER JOIN Are ON Are.AreID = project.Are	   
 	  INNER JOIN Category ON Category.CategoryID = project.CategoryID
-
-where Category.Active = 1 and Are.Active = 1
-and District.Active = 1 and City.Active = 1
-and Country.Active = 1 and Country.Active = 1
-and Location.Active = 1
-and project.UserID = " + id;
+    where project.UserID = " + id;
 
             DataTable table = new DataTable();
             string sqlDataSource = _configuration.GetConnectionString("RealtorsConnect");

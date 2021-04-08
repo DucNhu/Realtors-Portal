@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ProjectService } from '../../../../@core/mock/project.service';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { TooltipPosition } from '@angular/material/tooltip';
 
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../../@core/models/Environment';
@@ -56,6 +57,7 @@ export class ProductComponent implements OnInit {
   DefaultandNewAvatar = environment.defaultImage; // default  banner img
 
   idLength;
+  checkBuyPackage = false;
   // END khai bao bien
   constructor(
     private FormBuilder: FormBuilder,
@@ -68,9 +70,9 @@ export class ProductComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.getAllProjectByID(this.authenticationService.currentUserValue.Infor.ID);
+    this.getAllProjectandInforByID(this.authenticationService.currentUserValue.Infor.ID);
     this.ValidatorForm();
-    console.log(this.authenticationService.currentUserValue);
+    console.log(this.authenticationService.currentUserValue.Infor);
 
     this.getsetAllAddress(); // call function set data address
   }
@@ -82,14 +84,10 @@ export class ProductComponent implements OnInit {
   getIDLast = 0;
 
   // Get All project
-  getAllProjectByID(id) {
-    console.log(id);
-
+  getAllProjectandInforByID(id) {
     this.userService.GetProductByUserID(id).subscribe(
       data => {
-        this.containData = data;
-        console.log(data);
-        
+        this.containData = data;        
         this.containData.forEach(e => {
           e.ImageBannerSrc = this.getImageBannerSrc;
           this.listProject.unshift(e);
@@ -100,7 +98,11 @@ export class ProductComponent implements OnInit {
     this.userService.getUserbyId(this.authenticationService.currentUserValue.Infor.ID).subscribe(
       data => {
         this.InforUser = data;
-        console.log(this.InforUser);
+        console.log(data);
+        
+        if (this.InforUser.PackageID > 0) {
+          this.checkBuyPackage = true
+        }
 
       }
     )
@@ -467,14 +469,14 @@ export class ProductComponent implements OnInit {
 
 
     this.formValidator.controls.ID.patchValue(val.ID);
-    // this.formValidator.controls.ImageFile.patchValue(val.ImageFile);
+    this.formValidator.controls.ImageFile.patchValue(val.ImageFile);
 
     this.formValidator.controls.Price.patchValue(val.Price);
-    // this.formValidator.controls.SellerID.patchValue(val.SellerID);
+    this.formValidator.controls.UserID.patchValue(this.authenticationService.currentUserValue.Infor.ID);
     this.formValidator.controls.Sqft.patchValue(val.Sqft);
 
     this.formValidator.controls.Description.patchValue(val.Description);
-    // this.formValidator.controls.LevelActive.patchValue(val.LevelActive);
+    this.formValidator.controls.LevelActive.patchValue(val.LevelActive);
     this.formValidator.controls.Title.patchValue(val.Title);
 
     this.formValidator.controls.ImageBannerName.patchValue(val.ImageBannerName);

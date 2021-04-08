@@ -18,9 +18,11 @@
             </div>
         </div>
     </div>
-    <div class="ml-auto">
+    <div class="ml-auto" [matTooltip]="checkBuyPackage == false ? 'Purchase our package so you can use it' : ''">
         <button class="button-add btn btn-link dropdown-toggle dropdown-toggle-split m-0 p-0" data-toggle="modal"
-            data-target="#modal-form-AddEdit" (click)="GetDataCheckisAddorEdit(true, DataFormProjectEdit)">
+            data-target="#modal-form-AddEdit" (click)="GetDataCheckisAddorEdit(true, DataFormProjectEdit)"
+            [disabled]="checkBuyPackage == false"
+            >
             <span class="icon icon-sm icon-gray">
                 <i class="fa fa-plus-circle fa-fw mr-1"></i>
                 Add Project
@@ -292,7 +294,7 @@
                                                 <select class="form-select form-control" name="LevelActive"
                                                     formControlName="LevelActive">
                                                     <option *ngFor="let lvl of listLevelActive" [value]="lvl.lvl"
-                                                        [selected]="lvl.lvl == formValidator.controls.LevelActive.value">
+                                                        [selected]="lvl.Title == formValidator.controls.LevelActive.value">
                                                         {{lvl.Title}}
                                                     </option>
                                                 </select>

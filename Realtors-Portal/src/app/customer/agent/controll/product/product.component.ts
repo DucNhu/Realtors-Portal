@@ -57,6 +57,7 @@ export class ProductComponent implements OnInit {
   DefaultandNewAvatar = environment.defaultImage; // default  banner img
 
   idLength;
+  checkBuyPackage = false;
   // END khai bao bien
   constructor(
     private FormBuilder: FormBuilder,
@@ -77,11 +78,12 @@ export class ProductComponent implements OnInit {
 
   // ======== CRUD ============
   listProject = [];
+  InforUser;
   containData;
   getIDLast = 0;
 
   // Get All project
-  getAllProjectByID(id) {
+  getAllProjectByID(id) {    
     this.userService.GetProductByUserID(id).subscribe(
       data => {
         this.containData = data;
@@ -94,6 +96,17 @@ export class ProductComponent implements OnInit {
       }
     );
 
+    this.userService.getUserbyId(this.authenticationService.currentUserValue.Infor.ID).subscribe(
+      data => {
+        this.InforUser = data;
+        console.log(data);
+
+        if (this.InforUser.PackageID > 0) {
+          this.checkBuyPackage = true
+        }
+
+      }
+    )
     //  Call function get all category
     this.getsetAllCategory();
   }
@@ -453,7 +466,7 @@ export class ProductComponent implements OnInit {
     this.formValidator.controls.Location.patchValue(val.Location);
 
     this.formValidator.controls.Price.patchValue(val.Price);
-    this.formValidator.controls.SellerID.patchValue(val.SellerID);
+    this.formValidator.controls.UserID.patchValue(this.authenticationService.currentUserValue.Infor.ID);
     this.formValidator.controls.Sqft.patchValue(val.Sqft);
 
     this.formValidator.controls.Description.patchValue(val.Description);
