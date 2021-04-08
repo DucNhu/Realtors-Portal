@@ -44,8 +44,6 @@ namespace Realtors_Portal.Models.Customer
 
         public int Active { get; set; }
 
-        public int ProductID { get; set; }
-
         public int PackageID { get; set; }
 
         public int ppID { get; set; }

@@ -9,6 +9,7 @@ export class User {
     token?: string;
     Infor: {
         ID: number,
+        PackageID: number;
         User_type: string
     }
 }

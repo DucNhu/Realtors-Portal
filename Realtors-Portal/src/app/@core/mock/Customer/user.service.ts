@@ -31,6 +31,17 @@ export class UserService {
     return this.http.put(environment.apiUrl + 'Users/putAllUserActiveForAdmin', val)
   }
 
+  
+  putUserUpgradePackageID(idUser, PackageID) {
+    let val = {
+      UserID: idUser,
+      PackageID: PackageID
+    }
+    console.log(val);
+    
+    return this.http.put(environment.apiUrl + 'Users/putUserUpgradePackageID/user/' + idUser, val)
+
+  }
   // User
   UpdateAvatarInDb(val) {
     return this.http.put(environment.apiUrl + 'Users/updateAvatar', val)
@@ -42,7 +53,7 @@ export class UserService {
 
 
   GetProductByUserID(id) {
-    return this.http.get(environment.apiUrl + `Users/getProductByUserID?id=${id}`)
+    return this.http.get(environment.apiUrl + `Users/getProductByUserID/user/${id}`)
   }
 
 }

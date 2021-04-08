@@ -37,7 +37,7 @@ export class ProjectService {
 
 
 
-  //  Address
+  //  Address not active
   getAllLocationActive() {
     return this.http.get(environment.apiUrl + 'Locations/getLocationActive')
   }
@@ -52,5 +52,21 @@ export class ProjectService {
   }
   getAllDistrictByCityID() {
     return this.http.get(environment.apiUrl + 'Districts/getDistrictByCityID')
+  }
+  //  Address not Active
+  // getAllLocationActive() {
+  //   return this.http.get(environment.apiUrl + 'Locations/getLocationActive')
+  // }
+  getAllCountryByLocationIDActive() {
+    return this.http.get(environment.apiUrl + 'Countries/getCountryByLocationIDActive')
+  }
+  getAllCityByCountryIDActive() {
+    return this.http.get(environment.apiUrl + 'Cities/getCountryByCountryIDActive')
+  }
+  getAreByDistrictIDActive() {
+    return this.http.get(environment.apiUrl + 'Are/getAreByDistrictIDActive')
+  }
+  getAllDistrictByCityIDActive() {
+    return this.http.get(environment.apiUrl + 'Districts/getDistrictByCityIDActive')
   }
 }

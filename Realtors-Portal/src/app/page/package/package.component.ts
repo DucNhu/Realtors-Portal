@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { HomePageService } from './../../@core/mock/Home/home-page.service';
 import { PackageppService } from './../../@core/mock/Package/packagepp.service';
 import { AuthenticationService } from './../../@core/mock/Authentication.Service';
+import { UserService } from 'src/app/@core/mock/Customer/user.service';
 
 @Component({
   selector: 'app-package',
@@ -14,15 +15,20 @@ export class PackageComponent implements OnInit {
   constructor(
     private packageService: HomePageService,
     private packagePP: PackageppService,
-    private authen: AuthenticationService
+    private authen: AuthenticationService,
+    private userService: UserService
   ) { }
 
   idUser = this.authen.currentUserValue.Infor.ID;
+  packageIDForUser = 0;
   ngOnInit(): void {
     // paypal.Buttons().render('#paypal-button-container');
-    this.getPackageActive();    
+    this.getPackageActiveAndInforUser();
+       
   }
-  getPackageActive() {
+
+  contain;
+  getPackageActiveAndInforUser() {
     this.packageService.getPackageActive().subscribe(
       data => {
         this.listPackage = data;
@@ -55,10 +61,15 @@ export class PackageComponent implements OnInit {
 
                 this.packagePP.CreatePackage(PackagePurchased).subscribe(
                   data => {
-                    alert(`Thank ${details.payer.name.given_name} for supporting the site, you have ${e.Duration} days free`);
                   }
                 );
-                
+                // upgrade packadeID in User table
+                this.userService.putUserUpgradePackageID(this.idUser, e.PackageID).subscribe(
+                  data => {
+                    alert(`Thank ${details.payer.name.given_name} for supporting the site, you have ${e.Duration} days free`);
+                    window.location.reload();
+                  }
+                );
                 
               });
             }
@@ -67,6 +78,12 @@ export class PackageComponent implements OnInit {
 
         });
         // this.createPayApp()
+      }
+    )
+    this.userService.getUserbyId(this.idUser).subscribe(
+      data => {
+        this.contain = data;
+        this.packageIDForUser = this.contain.PackageID
       }
     )
   }

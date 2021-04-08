@@ -64,6 +64,37 @@ namespace Realtors_Portal.Controllers.address
                             City.CityLetter, 
                             City.CountryID, 
                             Country.CountryName 
+                            FROM City INNER JOIN Country ON Country.CountryID = City.CountryID";
+
+            DataTable table = new DataTable();
+            string sqlDataSource = _configuration.GetConnectionString("RealtorsConnect");
+            SqlDataReader myRender;
+            using (SqlConnection myCon = new SqlConnection(sqlDataSource))
+            {
+                myCon.Open();
+                using (SqlCommand myCommand = new SqlCommand(query, myCon))
+                {
+                    myRender = myCommand.ExecuteReader();
+                    table.Load(myRender);
+                    myRender.Close(); myCon.Close();
+                }
+            }
+            return new JsonResult(table);
+        }
+
+        //Get by getCountryByCountryIDActive
+        [Route("getCountryByCountryIDActive")]
+        [HttpGet]
+        public JsonResult getCountryByCountryIDActive()
+        {
+            string query = @"SELECT 
+                            City.CityName, 
+                            City.Active, 
+                            City.Avatar, 
+                            City.CityID, 
+                            City.CityLetter, 
+                            City.CountryID, 
+                            Country.CountryName 
                             FROM City INNER JOIN Country ON Country.CountryID = City.CountryID  and City.Active = 1";
 
             DataTable table = new DataTable();
