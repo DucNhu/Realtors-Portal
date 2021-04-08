@@ -4,7 +4,6 @@
             <li class="breadcrumb-item"><a href="#">PAGES -</a></li>
             <li class="breadcrumb-item active">Categoris</li>
         </ul>
-        <h1 class="page-header mb-0">Categoris</h1>
         <div class="">
             <div class="alert-group">
                 <!-- Success -->
@@ -23,12 +22,19 @@
         </div>
     </div>
     <div class="ml-auto">
-        <button class="button-add btn btn-link dropdown-toggle dropdown-toggle-split m-0 p-0" data-toggle="modal"
+        <!-- <button class="button-add btn btn-link dropdown-toggle dropdown-toggle-split m-0 p-0" data-toggle="modal"
             data-target="#modal-form-AddEdit" (click)="GetDataCheckisAddorEdit(true, DataFormCategoryEdit)">
             <span class="icon icon-sm icon-gray">
                 <i class="fa fa-plus-circle fa-fw mr-1"></i>
                 Add Category
             </span>
+        </button> -->
+        <button mat-raised-button color="accent"
+          class="button-add btn btn-link dropdown-toggle dropdown-toggle-split m-0 p-0"
+          data-toggle="modal"
+          data-target="#modal-form-AddEdit"
+          (click)="GetDataCheckisAddorEdit(true, DataFormCategoryEdit)">
+          Add Category
         </button>
     </div>
 </div>

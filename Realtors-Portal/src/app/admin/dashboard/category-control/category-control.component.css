@@ -15,4 +15,10 @@ tr {
 .d-flex {
   justify-content: center;
 }
+.mat-flat-button.mat-accent, .mat-raised-button.mat-accent, .mat-fab.mat-accent, .mat-mini-fab.mat-accent {
+  background-color: var(--green) !important;
+}
+.dropdown-toggle-split.m-0.p-0.mat-raised-button.mat-button-base.mat-accent {
+  padding: 0px 10px 0px !important;
+}
 
