@@ -73,7 +73,7 @@ export class LoginComponent implements OnInit {
             }
           }
           else {
-            this.error = "Đợi Admin Phê Duyệt, Chưa chuỷen thành Tiếg ANh";
+            this.error = "Wait for administrator approval";
             this.loading = false;
           }
         },
