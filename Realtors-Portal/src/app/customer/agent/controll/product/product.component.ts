@@ -10,6 +10,8 @@ import { ImageLibService } from 'src/app/@core/mock/product/image-lib.service';
 
 import { AuthenticationService } from '../../../../@core/mock/Authentication.Service';
 import { UserService } from 'src/app/@core/mock/Customer/user.service';
+
+import { PackageppService } from 'src/app/@core/mock/Package/packagepp.service';
 @Component({
   selector: 'app-product',
   templateUrl: './product.component.html',
@@ -58,6 +60,7 @@ export class ProductComponent implements OnInit {
 
   idLength;
   checkBuyPackage = false;
+  checkEndTimePackage;
   // END khai bao bien
   constructor(
     private FormBuilder: FormBuilder,
@@ -66,11 +69,13 @@ export class ProductComponent implements OnInit {
     private _ProjectService: ProjectService,
     private userService: UserService,
     private http: HttpClient,
-    private authenticationService: AuthenticationService
+    private authenticationService: AuthenticationService,
+    private packageppService: PackageppService
   ) { }
 
   ngOnInit(): void {
     this.getAllProjectByID(this.authenticationService.currentUserValue.Infor.ID);
+    this.getInforuserAndCheckBuypackge();
     this.ValidatorForm();
 
     this.getsetAllAddress(); // call function set data address
@@ -82,13 +87,36 @@ export class ProductComponent implements OnInit {
   containData;
   getIDLast = 0;
 
+
+  getInforuserAndCheckBuypackge() {
+    // Lấy ra infor của user trog db và xác đjnh mua gói chưa
+    this.userService.getUserbyId(this.authenticationService.currentUserValue.Infor.ID).subscribe( // Lấy ra infor của user
+      data => {
+        this.InforUser = data;
+        console.log(data);
+
+        if (this.InforUser.PackageID > 0) { // xác đjnh mua gói chưa
+          this.checkBuyPackage = true;
+          console.log("OK");
+
+          // xác đjnh gói đó còn hạn ko ( check end time == now time ? block : ok )
+          this.packageppService.getDayMaxOfMonthMaxOfYearMax(this.authenticationService.currentUserValue.Infor.ID).subscribe(
+            data => {
+              this.checkEndTimePackage = data;
+              console.log(this.checkEndTimePackage);
+            }
+          )
+        }
+
+      }
+    )
+  }
+
   // Get All project
-  getAllProjectByID(id) {    
-    this.userService.GetProductByUserID(id).subscribe(
+  getAllProjectByID(id) {
+    this.userService.GetProductByUserID(id).subscribe( // lấy product của user đó 
       data => {
         this.containData = data;
-        console.log(data);
-        
         this.containData.forEach(e => {
           e.ImageBannerSrc = this.getImageBannerSrc;
           this.listProject.unshift(e);
@@ -96,17 +124,6 @@ export class ProductComponent implements OnInit {
       }
     );
 
-    this.userService.getUserbyId(this.authenticationService.currentUserValue.Infor.ID).subscribe(
-      data => {
-        this.InforUser = data;
-        console.log(data);
-
-        if (this.InforUser.PackageID > 0) {
-          this.checkBuyPackage = true
-        }
-
-      }
-    )
     //  Call function get all category
     this.getsetAllCategory();
   }

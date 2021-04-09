@@ -194,3 +194,22 @@ and District.Active = 1 and City.Active = 1
 and Country.Active = 1 and Country.Active = 1
 and Location.Active = 1
 and project.UserID = 7
+
+
+select max(YEAR(EndDate)) from PackagePurchased where UserID = 4
+select max(MONTH(EndDate)) from PackagePurchased 
+select max(DAY(EndDate)) from PackagePurchased 
+
+select max(MONTH(EndDate)) as MonthMax from PackagePurchased where YEAR(EndDate) = (select max(YEAR(EndDate)) from PackagePurchased where UserID = 4) 
+
+select 
+max(YEAR(EndDate)) as YearMax, 
+max(MONTH(EndDate)) as MonthMaxOfYearMax, 
+max(DAY(EndDate)) as DayMaxOfMonthMaxOfYearMax
+from PackagePurchased where 
+MONTH(EndDate) = (select max(MONTH(EndDate)) 
+from PackagePurchased where 
+YEAR(EndDate) = (select max(YEAR(EndDate)) 
+from PackagePurchased where UserID = 4)) 
+
+select * from PackagePurchased  inner join  package on PackagePurchased.PackageID = Package.PackageID  where USERID = 7  

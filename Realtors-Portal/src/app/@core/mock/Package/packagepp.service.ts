@@ -15,6 +15,13 @@ export class PackageppService {
   getAllPackage() {
     return this.http.get(environment.apiUrl + 'PackagePurchaseds')
   }
+  getAllPackageByUserID(id) {
+    return this.http.get(environment.apiUrl + `PackagePurchaseds/getPackageByUserID/user/${id}`)
+  }
+
+  getDayMaxOfMonthMaxOfYearMax(id) {
+    return this.http.get(environment.apiUrl + `PackagePurchaseds/DayMaxOfMonthMaxOfYearMax/user/${id}`)
+  }
 
   CreatePackage(val) {
     return this.http.post(environment.apiUrl + 'PackagePurchaseds', val)
