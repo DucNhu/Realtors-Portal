@@ -21,7 +21,7 @@
         </div>
     </div>
     <div class="row">
-        <div class="col-lg-3 col-sm-6 col-12" *ngFor="let p of listPackage">
+        <div class="col-lg-3 col-sm-6 col-12 my-2" *ngFor="let p of listPackage">
             <div class="pricing">
                 <h5 class="pricing-title">{{p.PackageName}}</h5>
                 <!-- <img [src]="p.ImageBannerSrc + p.PackageAvatar" [alt]="p.PackageAvatar" class="img-fluid"
@@ -57,7 +57,7 @@
         </div>
 
         <!-- Form -->
-        <div class="col-lg-4 col-sm-6 col-12 mt-4 mt-lg-0">
+        <div class="col-lg-3 col-sm-6 col-12 my-2">
             <div class="pricing">
                 <div class="border d-flex justify-content-center">
                     <button class="btn btnAddPackage"
@@ -100,7 +100,8 @@
                                         <div class="w-100 p-2">
                                             <label for="Duration">Duration</label>
                                             <input type="number" class="form-control" formControlName="Duration"
-                                                id="Duration" (blur)="checkValidForm('PackageLetter')">
+                                                id="Duration" (keyup)="checkValidForm('Duration')">
+                                                <p class="text-danger">{{ errorAlert }}</p>
                                         </div>
                                     </div>
                                 </div>

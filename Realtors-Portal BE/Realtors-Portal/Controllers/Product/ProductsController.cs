@@ -85,6 +85,28 @@ namespace Realtors_Portal.Controllers
         }
 
 
+        [Route("getCountProductByUserID/user/{id}")]
+        [HttpGet]
+        public JsonResult getProductByUserID(int id)
+        {
+            string query = @"SELECT count(project.UserID) as 'count' FROM project where project.UserID = " + id;
+
+            DataTable table = new DataTable();
+            string sqlDataSource = _configuration.GetConnectionString("RealtorsConnect");
+            SqlDataReader myRender;
+            using (SqlConnection myCon = new SqlConnection(sqlDataSource))
+            {
+                myCon.Open();
+                using (SqlCommand myCommand = new SqlCommand(query, myCon))
+                {
+                    myRender = myCommand.ExecuteReader();
+                    table.Load(myRender);
+                    myRender.Close(); myCon.Close();
+                }
+            }
+            return new JsonResult(table);
+        }
+
 
         // PUT: api/projects/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754

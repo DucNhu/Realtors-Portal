@@ -2375,9 +2375,10 @@ button {
 
 .agent.agent-03 .agent-avatar {
   text-align: center;
+  padding-bottom: 100%;
   margin-bottom: 0; }
   .agent.agent-03 .agent-avatar img {
-    height: auto; }
+    height: 100%; }
 
 .agent.agent-03 .agent-listing {
   border-top: 1px solid #eeeeee; }

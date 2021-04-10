@@ -26,6 +26,99 @@ namespace Realtors_Portal.Controllers.Product
             this._hostEnvironment = hostEnvironment;
             _configuration = configuration;
         }
+
+
+        //Get Advanced search
+        //[Route("getDataByAdvancedSearch")]
+
+        [Route("getDataByAdvancedSearch/{category}/{User_type}/{LocationName}/{CountryName}/{CityName}/{DistrictName}/{AreName}/{sqftMin}/{sqftMax}/{priceMin}/{priceMax}")]
+        [HttpGet]
+        public JsonResult getDataByAdvancedSearch(string category, string User_type, string LocationName, string CountryName, string CityName, string DistrictName, string AreName, int sqftMin, int sqftMax, int priceMin, int priceMax)
+        {
+            string query = @"
+SELECT project.* FROM project 
+
+inner JOIN [User] on project.UserID = [User].ID
+INNER JOIN Category ON Category.CategoryID = project.CategoryID	
+
+INNER JOIN Location ON Location.LocationID = project.Location
+INNER JOIN Country ON Country.CountryID = project.Country
+INNER JOIN City ON City.CityID = project.City
+INNER JOIN District ON District.DistrictID = project.District
+INNER JOIN Are ON Are.AreID = project.Are	 
+
+where Category.CategoryName = '" + category + @"' and [User].User_type = '" + User_type + @"'
+and Location.LocationName = '" + LocationName + @"'
+and Country.CountryName = '" + CountryName + @"'
+and City.CityName = '" + CityName + @"' and District.DistrictName = '" + DistrictName + @"'
+and Are.AreName = '" + AreName + @"'
+
+and Sqft between " + sqftMin + @" and " + sqftMax + @"
+and Price between " + priceMin + @" and " + priceMax + @"
+and LevelActive > 0
+";
+
+            DataTable table = new DataTable();
+            string sqlDataSource = _configuration.GetConnectionString("RealtorsConnect");
+            SqlDataReader myRender;
+            using (SqlConnection myCon = new SqlConnection(sqlDataSource))
+            {
+                myCon.Open();
+                using (SqlCommand myCommand = new SqlCommand(query, myCon))
+                {
+                    myRender = myCommand.ExecuteReader();
+                    table.Load(myRender);
+                    myRender.Close(); myCon.Close();
+                }
+            }
+            return new JsonResult(table);
+        }
+
+        [Route("maxPirce")]
+        [HttpGet]
+        public JsonResult maxPirce()
+        {
+            string query = @"SELECT max(Price) as maxPrice FROM project";
+
+            DataTable table = new DataTable();
+            string sqlDataSource = _configuration.GetConnectionString("RealtorsConnect");
+            SqlDataReader myRender;
+            using (SqlConnection myCon = new SqlConnection(sqlDataSource))
+            {
+                myCon.Open();
+                using (SqlCommand myCommand = new SqlCommand(query, myCon))
+                {
+                    myRender = myCommand.ExecuteReader();
+                    table.Load(myRender);
+                    myRender.Close(); myCon.Close();
+                }
+            }
+            return new JsonResult(table);
+        }
+
+        [Route("maxSqft")]
+        [HttpGet]
+        public JsonResult maxSqft()
+        {
+            string query = @"SELECT max(Sqft) as maxSqft FROM project";
+
+            DataTable table = new DataTable();
+            string sqlDataSource = _configuration.GetConnectionString("RealtorsConnect");
+            SqlDataReader myRender;
+            using (SqlConnection myCon = new SqlConnection(sqlDataSource))
+            {
+                myCon.Open();
+                using (SqlCommand myCommand = new SqlCommand(query, myCon))
+                {
+                    myRender = myCommand.ExecuteReader();
+                    table.Load(myRender);
+                    myRender.Close(); myCon.Close();
+                }
+            }
+            return new JsonResult(table);
+        }
+
+
         //Get categories active
         [Route("getCategoryActive")]
         [HttpGet]
@@ -88,13 +181,12 @@ namespace Realtors_Portal.Controllers.Product
         //Get Product active
 
 
-            ////Get by CountryID
-            [Route("getProductActive")]
-            [HttpGet]
-            public JsonResult getProductActive()
-            {
-                string query = @"SELECT project.ProjectName, project.ID, project.ImageBannerName, project.LevelActive,
->>>>>>> 8f01fd6ddae76a7a9683c6ae81ab1b9d327a2f45
+        ////Get by CountryID
+        [Route("getProductActive")]
+        [HttpGet]
+        public JsonResult getProductActive()
+        {
+            string query = @"SELECT project.ProjectName, project.ID, project.ImageBannerName, project.LevelActive,
   project.Description, project.Title, project.Sqft, project.Price,
   
   Location.LocationName, Country.CountryName , City.CityName, District.DistrictName, Are.AreName,
@@ -107,22 +199,22 @@ namespace Realtors_Portal.Controllers.Product
 	  INNER JOIN Are ON Are.AreID = project.Are
 	    INNER JOIN Category ON Category.CategoryID = project.CategoryID where LevelActive > 0";
 
-                DataTable table = new DataTable();
-                string sqlDataSource = _configuration.GetConnectionString("RealtorsConnect");
-                SqlDataReader myRender;
-                using (SqlConnection myCon = new SqlConnection(sqlDataSource))
+            DataTable table = new DataTable();
+            string sqlDataSource = _configuration.GetConnectionString("RealtorsConnect");
+            SqlDataReader myRender;
+            using (SqlConnection myCon = new SqlConnection(sqlDataSource))
+            {
+                myCon.Open();
+                using (SqlCommand myCommand = new SqlCommand(query, myCon))
                 {
-                    myCon.Open();
-                    using (SqlCommand myCommand = new SqlCommand(query, myCon))
-                    {
-                        myRender = myCommand.ExecuteReader();
-                        table.Load(myRender);
-                        myRender.Close(); myCon.Close();
-                    }
+                    myRender = myCommand.ExecuteReader();
+                    table.Load(myRender);
+                    myRender.Close(); myCon.Close();
                 }
-                return new JsonResult(table);
             }
-        
+            return new JsonResult(table);
+        }
+
 
         //Get package active
         [Route("getPackageActive")]

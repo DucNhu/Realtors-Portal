@@ -17,6 +17,7 @@ import { DealsComponent } from './mainpages/deals/deals.component';
 import { AboutusComponent } from './aboutus/aboutus.component';
 import { PropertyListComponent } from './mainpages/property-list/property-list.component';
 import { BuyPackageComponent } from './package/buy-package/buy-package.component';
+import { DeltailUserComponent } from './deltail-user/deltail-user.component';
 
 
 @NgModule({
@@ -32,12 +33,13 @@ import { BuyPackageComponent } from './package/buy-package/buy-package.component
     AboutusComponent,
     PropertyListComponent,
     BuyPackageComponent,
+    DeltailUserComponent,
   ],
   providers: [AuthenticationService],
   imports: [
     CommonModule,
     PageRoutingModule,
     FormsModule, ReactiveFormsModule,
-    MaterialModule  ]
+    MaterialModule]
 })
 export class PageModule { }

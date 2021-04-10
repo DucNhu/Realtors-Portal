@@ -5,6 +5,10 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; height: 100
 
 a {cursor: pointer;}
 
+input::-webkit-calendar-picker-indicator {
+  display: none;
+}
+
 .list-style-none {
     list-style: none;
 }

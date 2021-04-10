@@ -84,11 +84,11 @@ select
 max(YEAR(EndDate)) as YearMax, 
 max(MONTH(EndDate)) as MonthMaxOfYearMax, 
 max(DAY(EndDate)) as DayMaxOfMonthMaxOfYearMax
-from PackagePurchased where 
+from PackagePurchased where UserID = " + id + @" and 
 MONTH(EndDate) = (select max(MONTH(EndDate)) 
-from PackagePurchased where 
+from PackagePurchased where UserID = " + id + @" and 
 YEAR(EndDate) = (select max(YEAR(EndDate)) 
-from PackagePurchased where UserID = " + id + "))";
+from PackagePurchased where UserID = " + id + @"))";
 
             DataTable table = new DataTable();
             string sqlDataSource = _configuration.GetConnectionString("RealtorsConnect");

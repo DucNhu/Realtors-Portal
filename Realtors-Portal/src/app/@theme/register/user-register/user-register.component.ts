@@ -55,8 +55,17 @@ export class UserRegisterComponent implements OnInit {
       "active": 0,
       "productID": 0,
       "ppID": 0,
+      "Title": "null",
+      "Description": "null",
+      "NetWorkID": "null",
+      "Location": "null",
+      "Country": "null",
+      "City": "null",
+      "District": "null",
+      "Are": "null",
       "user_type": "user"
     }
+    
     this.dataUser.emit(data);
     // this.register(val);
   }

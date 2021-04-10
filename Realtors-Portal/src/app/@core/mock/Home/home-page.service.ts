@@ -19,6 +19,10 @@ export class HomePageService {
     return this.http.get(environment.apiUrl + 'HomePage/getProductViewHome')
   }
 
+  getProductListBySearch(data) {
+    return this.http.get(environment.apiUrl + "HomePage/getDataByAdvancedSearch", data)
+  }
+  
   // Get package active
   getPackageActive() {
     return this.http.get(environment.apiUrl + 'HomePage/getPackageActive')
@@ -29,4 +33,36 @@ export class HomePageService {
     return this.http.get(environment.apiUrl + 'HomePage/getProductActive')
   }
 
+
+
+
+
+
+  // Address
+  getAllLocationsActive() {
+    return this.http.get(environment.apiUrl + 'Locations/getLocationActive')
+  }
+
+  getAllCountryActive() {
+    return this.http.get(environment.apiUrl + 'Countries/getCountryByLocationIDActive')
+  }
+
+  getAllCityActive() {
+    return this.http.get(environment.apiUrl + 'Cities/getCountryByCountryIDActive')
+  }
+  
+  getAllDistrictsActive() {
+    return this.http.get(environment.apiUrl + 'Districts/getDistrictByCityIDActive')
+  }
+
+  getAllAresActive() {
+    return this.http.get(environment.apiUrl + 'Are/getAreByDistrictIDActive')
+  }
+
+  getMaxPrice() {
+    return this.http.get(environment.apiUrl + 'HomePage/maxPirce')
+  }
+  getmaxSqft() {
+    return this.http.get(environment.apiUrl + 'HomePage/maxSqft')
+  }
 }

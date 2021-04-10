@@ -11,6 +11,7 @@ import { ImageLibService } from 'src/app/@core/mock/product/image-lib.service';
 
 import { AuthenticationService } from '../../../../@core/mock/Authentication.Service';
 import { UserService } from 'src/app/@core/mock/Customer/user.service';
+import { PackageppService } from 'src/app/@core/mock/Package/packagepp.service';
 @Component({
   selector: 'app-product',
   templateUrl: './product.component.html',
@@ -58,6 +59,7 @@ export class ProductComponent implements OnInit {
 
   idLength;
   checkBuyPackage = false;
+  checkEndTimePackage;
   // END khai bao bien
   constructor(
     private FormBuilder: FormBuilder,
@@ -66,7 +68,8 @@ export class ProductComponent implements OnInit {
     private _ProjectService: ProjectService,
     private userService: UserService,
     private http: HttpClient,
-    private authenticationService: AuthenticationService
+    private authenticationService: AuthenticationService,
+    private packageppService: PackageppService
   ) { }
 
   ngOnInit(): void {
@@ -98,11 +101,25 @@ export class ProductComponent implements OnInit {
     this.userService.getUserbyId(this.authenticationService.currentUserValue.Infor.ID).subscribe(
       data => {
         this.InforUser = data;
-        console.log(data);
         
-        if (this.InforUser.PackageID > 0) {
-          this.checkBuyPackage = true
+        if (this.InforUser.PackageID > 0) { // xác đjnh mua gói chưa
+          this.checkBuyPackage = true;
+
+          // xác đjnh gói đó còn hạn ko ( check end time == now time ? block : ok )
+          this.packageppService.getDayMaxOfMonthMaxOfYearMax(this.authenticationService.currentUserValue.Infor.ID).subscribe(
+            data => {
+              this.checkEndTimePackage = data;
+              if (
+                this.checkEndTimePackage[0].YearMax == new Date().getFullYear() &&
+                this.checkEndTimePackage[0].MonthMaxOfYearMax == new Date().getMonth() &&
+                this.checkEndTimePackage[0].DayMaxOfMonthMaxOfYearMax == new Date().getDate()
+              ) {
+                this.checkBuyPackage = false
+              }
+            }
+          )
         }
+
 
       }
     )

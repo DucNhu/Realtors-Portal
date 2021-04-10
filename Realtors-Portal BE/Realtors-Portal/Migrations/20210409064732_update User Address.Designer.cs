@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Realtors_Portal.Data;
 
 namespace Realtors_Portal.Migrations
 {
     [DbContext(typeof(Realtors_PortalContext))]
-    partial class Realtors_PortalContextModelSnapshot : ModelSnapshot
+    [Migration("20210409064732_update User Address")]
+    partial class updateUserAddress
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -535,29 +537,29 @@ namespace Realtors_Portal.Migrations
                     b.Property<int>("Active")
                         .HasColumnType("int");
 
-                    b.Property<string>("Are")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("Are")
+                        .HasColumnType("int");
 
                     b.Property<string>("Avatar")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("City")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("City")
+                        .HasColumnType("int");
 
-                    b.Property<string>("Country")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("Country")
+                        .HasColumnType("int");
 
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("District")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("District")
+                        .HasColumnType("int");
 
                     b.Property<string>("Email")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Location")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("Location")
+                        .HasColumnType("int");
 
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
@@ -613,8 +615,8 @@ namespace Realtors_Portal.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<bool>("ActiveAgent")
-                        .HasColumnType("bit");
+                    b.Property<int>("ActiveAgent")
+                        .HasColumnType("int");
 
                     b.Property<int>("AgentID")
                         .HasColumnType("int");

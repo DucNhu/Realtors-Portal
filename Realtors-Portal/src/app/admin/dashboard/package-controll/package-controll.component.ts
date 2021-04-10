@@ -90,10 +90,10 @@ export class PackageControllComponent implements OnInit {
     this._PackageService.CreatePackage(data)
       .subscribe(res => {
         let getIDLength = 0;
-        try{
+        try {
           getIDLength = this.listPackage[0].PackageID;
         }
-        catch (e) { getIDLength = 0;}
+        catch (e) { getIDLength = 0; }
         data.PackageID = getIDLength += 1;
         data.PackageAvatar = this.DefaultandNewAvatar;
         this.listPackage.unshift(data);
@@ -213,7 +213,7 @@ export class PackageControllComponent implements OnInit {
       // PromotionPrice: [0],
 
       // NumberOfAds: [0, [Validators.required]],
-      Duration: [0, [Validators.required]],
+      Duration: [0, [Validators.required, Validators.min(0)]],
       TypeDuration: [this.DataFormPackageEdit.TypeDuration],
       PackageDesciption: ['PackageDesctiption'],
 
@@ -283,10 +283,17 @@ export class PackageControllComponent implements OnInit {
 
 
   // checkValidForm
+  errorAlert;
   checkValidForm(val) {
-    // switch (val) {
-    //   case "PackageName": console.log(this.formValidator.controls.Price);
-    // }
+    switch (val) {
+      case "Duration":
+        if (this.formValidator.controls.Duration.errors.min.min > this.formValidator.controls.Duration.errors.min.actual) {
+          this.errorAlert = "Not value < 0";
+        }
+
+
+        ; break;
+    }
   }
   // END checkValidForm
 

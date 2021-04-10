@@ -19,6 +19,10 @@ export class ProjectService {
     return this.http.get(environment.apiUrl + 'products/getProjectByFK')
   }
 
+  getCountProductByUserID(id) {
+    return this.http.get(environment.apiUrl + `products/getCountProductByUserID/user/${id}`)
+  }
+
   CreateProj(val) {
     return this.http.post(environment.apiUrl + 'products', val)
   }

@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Realtors_Portal.Data;
 
 namespace Realtors_Portal.Migrations
 {
     [DbContext(typeof(Realtors_PortalContext))]
-    partial class Realtors_PortalContextModelSnapshot : ModelSnapshot
+    [Migration("20210409065207_update User Address type")]
+    partial class updateUserAddresstype
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -613,8 +615,8 @@ namespace Realtors_Portal.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<bool>("ActiveAgent")
-                        .HasColumnType("bit");
+                    b.Property<int>("ActiveAgent")
+                        .HasColumnType("int");
 
                     b.Property<int>("AgentID")
                         .HasColumnType("int");

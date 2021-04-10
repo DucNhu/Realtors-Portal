@@ -83,7 +83,7 @@ namespace Realtors_Portal.Controllers.Product
 
 
 
-        //Get by CountryID
+        //Get by ProductID
         [Route("getImageLibByProductID")]
         [HttpGet]
         public JsonResult Get()

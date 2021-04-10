@@ -31,7 +31,6 @@ export class UserService {
     return this.http.put(environment.apiUrl + 'Users/putAllUserActiveForAdmin', val)
   }
 
-  
   putUserUpgradePackageID(idUser, PackageID) {
     let val = {
       UserID: idUser,
@@ -51,9 +50,12 @@ export class UserService {
     return this.http.post(environment.apiUrl + "Users/savefile", val)
   }
 
-
   GetProductByUserID(id) {
     return this.http.get(environment.apiUrl + `Users/getProductByUserID/user/${id}`)
+  }
+
+  getUserDetail(id) {
+    return this.http.get(environment.apiUrl + `Users/getUserDetail/user/${id}`)
   }
 
 }
