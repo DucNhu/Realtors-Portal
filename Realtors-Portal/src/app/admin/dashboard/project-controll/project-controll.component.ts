@@ -547,10 +547,7 @@ export class ProjectControllComponent implements OnInit {
   listImageFeature;
   // areInDistrict
   getsetAllAddress() {
-    // imageLib
-    this.imageLibService.getImageLibByProductID().subscribe(data => {
-      this.listImageFeature = data;
-    })
+
 
     // ADDRESS
     // listLocation

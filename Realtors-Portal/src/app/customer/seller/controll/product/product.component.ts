@@ -49,7 +49,7 @@ export class ProductComponent implements OnInit {
     Location: undefined,
     Price: undefined,
     ProjectName: "",
-    SellerID: undefined,
+    UserID: undefined,
     Sqft: undefined,
     Description: "",
     LevelActive: undefined,
@@ -74,8 +74,8 @@ export class ProductComponent implements OnInit {
 
   ngOnInit(): void {
     this.getAllProjectandInforByID(this.authenticationService.currentUserValue.Infor.ID);
+
     this.ValidatorForm();
-    console.log(this.authenticationService.currentUserValue.Infor);
 
     this.getsetAllAddress(); // call function set data address
   }
@@ -287,7 +287,6 @@ export class ProductComponent implements OnInit {
 
         formData.append('ImageFile', this.ArrayAvatarFeature[i], this.ArrayCRDFeature[i].NameinSert);
         this.imageLibService.PostPhotoFeature(formData).subscribe(() => {
-          this.Alert_successFunction("Add image success");
           this.ArrayAvatarFeature = [];
         });
       }
@@ -304,7 +303,8 @@ export class ProductComponent implements OnInit {
     let i = -1;
     this.ArrayCRDFeature.forEach(e => {
       i++;
-      if (e.ImageLibID == data.ImageLibID) {
+      
+      if (e.NameinSert == data.NameinSert) {
         this.ArrayCRDFeature.splice(i, 1);
       }
     })
@@ -457,7 +457,6 @@ export class ProductComponent implements OnInit {
   get ProjectName() { return this.formValidator.get('ProjectName') }
 
   SetDataForEditorForm(val) {
-    console.log(this.listCountry);
 
     this.DefaultandNewAvatar = (val.ImageBannerName.indexOf(this.getImageBannerSrc) > -1 ? '' : this.getImageBannerSrc) + val.ImageBannerName;
     if (val.ImageBannerName.indexOf("base64") > -1) {
@@ -573,11 +572,6 @@ export class ProductComponent implements OnInit {
   listImageFeature;
   // areInDistrict
   getsetAllAddress() {
-    // imageLib
-    this.imageLibService.getImageLibByProductID().subscribe(data => {
-      this.listImageFeature = data;
-    })
-
     // ADDRESS
     // listLocation
     this._ProjectService.getAllLocationActive().subscribe(data => {

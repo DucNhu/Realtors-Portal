@@ -15,6 +15,10 @@ export class ProjectService {
     return this.http.get(environment.apiUrl + 'products')
   }
 
+  getProjByID(id) {
+    return this.http.get(environment.apiUrl + `products/${id}`)
+  }
+
   getProjectByFK() {
     return this.http.get(environment.apiUrl + 'products/getProjectByFK')
   }

@@ -12,6 +12,7 @@ export class NewlyListedComponent implements OnInit {
   containData;
   getIdLength = 0;
   getImageBannerSrc = environment.ImageProductUrl + "Banner/";
+  UserSrcAvatar = environment.ImageUrl + "Customer/";
   // END khai bao bien
   constructor(
     private homePageService: HomePageService,
@@ -26,13 +27,17 @@ export class NewlyListedComponent implements OnInit {
     this.homePageService.getProductViewHome().subscribe(
       data => {
         this.containData = data;
-
         this.containData.forEach(e => {
           e.ImageBannerSrc = this.getImageBannerSrc;
+          e.UserSrcAvatar = this.UserSrcAvatar;
           this.listProduct.unshift(e);
         });
       }
     )
   }
 
+
+  // Caculator
+  ListMoneyTraTruoc = [30, 40, 50];
+  THanVayTien = [5, 15, 20];
 }

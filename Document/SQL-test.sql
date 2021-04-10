@@ -240,7 +240,7 @@ INNER JOIN City ON City.CityID = project.City
 INNER JOIN District ON District.DistrictID = project.District
 INNER JOIN Are ON Are.AreID = project.Are	 
 
-where Category.CategoryName = 'Location1'and [User].User_type = 'seller'
+where Category.CategoryName = 'Category1'and [User].User_type = 'seller'
 and Location.LocationName = 'Location2'
 and Country.CountryName = 'Country2'
 and City.CityName = 'City1' and District.DistrictName = 'District1'
@@ -260,5 +260,39 @@ SELECT max(Sqft) as maxSqft FROM project
 select * from ImageLib where ProductID = 1
 
 
+SELECT project.ProjectName, project.ID, project.ImageBannerName, project.LevelActive,
+  project.Description, project.Title, project.Sqft, project.Price, project.UserID,
+
+  [User].Name, [User].Avatar, [User].Email, [User].Phone, [User].User_type,
+  
+  Location.LocationName, Country.CountryName , City.CityName, District.DistrictName, Are.AreName,
+  Category.CategoryName
+  FROM project
+  INNER JOIN [User] ON [User].ID = project.UserID
+
+  INNER JOIN Location ON Location.LocationID = project.Location
+  INNER JOIN Country ON Country.CountryID = project.Country
+    INNER JOIN City ON City.CityID = project.City
+	  INNER JOIN District ON District.DistrictID = project.District
+	  INNER JOIN Are ON Are.AreID = project.Are
+
+	    INNER JOIN Category ON Category.CategoryID = project.CategoryID
+		where LevelActive > 0
+
+
+SELECT top 6 project.ProjectName, project.ID, project.ImageBannerName, project.LevelActive,
+  project.Description, project.Title, project.Sqft, project.Price,
+  
+  Location.LocationName, Country.CountryName , City.CityName, District.DistrictName, Are.AreName,
+  Category.CategoryName 
+  FROM project
+INNER JOIN [User] ON [User].ID = project.UserID
+
+  INNER JOIN Location ON Location.LocationID = project.Location
+  INNER JOIN Country ON Country.CountryID = project.Country
+    INNER JOIN City ON City.CityID = project.City
+	  INNER JOIN District ON District.DistrictID = project.District
+	  INNER JOIN Are ON Are.AreID = project.Are
+	    INNER JOIN Category ON Category.CategoryID = project.CategoryID where LevelActive = 2
 use realtors01
 

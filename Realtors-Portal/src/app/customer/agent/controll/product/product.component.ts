@@ -570,10 +570,7 @@ export class ProductComponent implements OnInit {
   listImageFeature;
   // areInDistrict
   getsetAllAddress() {
-    // imageLib
-    this.imageLibService.getImageLibByProductID().subscribe(data => {
-      this.listImageFeature = data;
-    })
+
 
     // ADDRESS
     // listLocation

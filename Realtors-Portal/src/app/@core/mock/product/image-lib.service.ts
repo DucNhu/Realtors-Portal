@@ -15,8 +15,8 @@ export class ImageLibService {
     return this.http.get(environment.apiUrl + 'ImageLibs')
   }
 
-  getImageLibByProductID() {
-    return this.http.get(environment.apiUrl + 'ImageLibs/getImageLibByProductID')
+  getImageLibByProductID(id) {
+    return this.http.get(environment.apiUrl + `ImageLibs/getImageLibByProductID/${id}`)
   }
 
   CreateProj(val) {

@@ -7,6 +7,7 @@ import { DeltailUserComponent } from 'src/app/page/deltail-user/deltail-user.com
 import { PackageComponent } from 'src/app/page/package/package.component';
 
 import { NotfoundComponent } from '../../@theme/notfound/notfound.component';
+import { EditProductComponent } from './controll/product/edit-product/edit-product.component';
 import { ProductComponent } from './controll/product/product.component';
 import { SellerComponent } from './seller.component';
 
@@ -23,9 +24,14 @@ const routes: Routes = [
             {
                 path: 'package', component: PackageComponent
             },
-            
             {
                 path: 'detail/id/:id', component: DeltailUserComponent
+            },
+            {
+                path: 'product/edit/id/:id', component: EditProductComponent
+            },
+            {
+                path: 'profile-seller/edit/id/:id', component: EditProductComponent
             }
         ]
     },

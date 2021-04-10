@@ -7,13 +7,15 @@ import { NavigationComponent } from './component/navigation/navigation.component
 import { ProductComponent } from './controll/product/product.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { EditProductComponent } from './controll/product/edit-product/edit-product.component';
 
 @NgModule({
   declarations: [
     SellerComponent,
     HeaderComponent,
     NavigationComponent,
-    ProductComponent
+    ProductComponent,
+    EditProductComponent
   ],
   imports: [
     CommonModule,

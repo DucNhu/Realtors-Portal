@@ -19,7 +19,10 @@ const routes: Routes = [
                 path: 'property-list', component: PropertyListComponent,
             },
             {
-                path: 'property-list', component: PropertyListComponent,
+                path: 'property-list/property-detail/id/:id', component: PropertyListComponent,
+            },
+            {
+                path: 'user-detail/id/:id', component: PropertyListComponent,
             },
             {
                 path: 'login', component: LoginComponent

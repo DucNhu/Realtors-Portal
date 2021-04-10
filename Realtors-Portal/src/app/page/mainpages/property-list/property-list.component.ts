@@ -13,6 +13,7 @@ export class PropertyListComponent implements OnInit {
   containData;
   getIdLength = 0;
   getImageBannerSrc = environment.ImageProductUrl + "Banner/";
+  UserSrcAvatar = environment.ImageUrl + "Customer/";
   // END khai bao bien
   constructor(
     private productService: HomePageService,
@@ -31,6 +32,7 @@ export class PropertyListComponent implements OnInit {
 
         this.containData.forEach(e => {
           e.ImageBannerSrc = this.getImageBannerSrc;
+          e.UserSrcAvatar = this.UserSrcAvatar;
           this.listProd.unshift(e);
         });
       }
