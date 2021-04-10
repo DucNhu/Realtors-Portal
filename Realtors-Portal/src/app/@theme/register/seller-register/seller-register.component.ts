@@ -49,7 +49,7 @@ export class SellerRegisterComponent implements OnInit {
       "password": val.password,
       "address": "Nothing",
       "phone": "0000000000",
-      "avatar": "https://scontent.fhan2-1.fna.fbcdn.net/v/t1.0-9/133549349_1281976232160042_6231890056107915313_n.jpg?_nc_cat=102&ccb=1-3&_nc_sid=174925&_nc_ohc=iz0UXfScNF4AX_WeTKA&_nc_ht=scontent.fhan2-1.fna&oh=baa30ca55c3ef86e510aca541ac9a2f2&oe=6077C815",
+      "avatar": "AvatarDefault.jpg",
       "active": 0,
       "PackageID": 0,
       "productID": 0,
