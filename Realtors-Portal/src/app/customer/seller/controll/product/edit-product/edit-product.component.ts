@@ -268,9 +268,16 @@ export class EditProductComponent implements OnInit {
     let formData: FormData = new FormData();
 
     try {
-      formData.append('ImageFile', this.dataImage, this.DataFormProjectEdit.ImageBannerName);
-      this._ProjectService.UpdatePhotoBanner(formData).subscribe(() => {
-      });
+      if(this.dataImage != undefined) {
+        formData.append('ImageFile', this.dataImage, this.DataFormProjectEdit.ImageBannerName);
+        this._ProjectService.UpdatePhotoBanner(formData).subscribe(() => {
+        });
+      }
+
+      else {
+        console.log("Nothing");
+        
+      }
     }
     catch (e) {
       console.log(e);
@@ -351,9 +358,6 @@ export class EditProductComponent implements OnInit {
       )
     }
 
-    
-
-
   }
   // END Update Image Feature when select change
 
@@ -383,7 +387,13 @@ export class EditProductComponent implements OnInit {
           this.imageLibService.CreateProj(dataImageLib).subscribe(data => {
           })
         });
-        window.location.assign(this.returnUrl + "profile-seller/product");
+          if (this.InforUser.User_type == 'agent') {
+          window.location.assign(this.returnUrl + "profile-agent/product");
+        }
+
+        else if(this.InforUser.User_type == 'seller') {
+          window.location.assign(this.returnUrl + "profile-seller/product");
+        }
 
         this.EditByIdInArray(data);
       },

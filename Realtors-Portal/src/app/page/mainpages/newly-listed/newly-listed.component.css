@@ -1,0 +1,14 @@
+.ketqua {
+    text-transform: capitalize;
+    position: relative;
+}
+
+.ketqua::before {
+    content: '$';
+    position: absolute;
+    /* margin-right: -1rem; */
+    top: 41px;
+    left: 6px;
+    /* margin-right: 34px; */
+    z-index: 90;
+}

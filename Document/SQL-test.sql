@@ -294,5 +294,10 @@ INNER JOIN [User] ON [User].ID = project.UserID
 	  INNER JOIN District ON District.DistrictID = project.District
 	  INNER JOIN Are ON Are.AreID = project.Are
 	    INNER JOIN Category ON Category.CategoryID = project.CategoryID where LevelActive = 2
+
+
+select * from project
+
+update project set LevelActive = 2 from project where project.ID = 17
 use realtors01
 

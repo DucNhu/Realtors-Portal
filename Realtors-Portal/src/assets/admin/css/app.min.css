@@ -27089,6 +27089,7 @@ a.text-gray-900:hover {
     display: flex;
     -ms-flex-align: center;
     align-items: center;
+    cursor: pointer;
 }
 .app-header .brand .brand-logo .logo {
     display: block;

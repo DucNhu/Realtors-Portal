@@ -131,6 +131,8 @@ export class ProductComponent implements OnInit {
   dataImage;
   selectedFile: File = null;
   CreateProject(data) {
+    console.log(data);
+    
     data.ID = 0;
     data.UserID = this.authenticationService.currentUserValue.Infor.ID;
 

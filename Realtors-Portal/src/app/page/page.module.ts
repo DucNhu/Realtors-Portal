@@ -18,6 +18,7 @@ import { AboutusComponent } from './aboutus/aboutus.component';
 import { PropertyListComponent } from './mainpages/property-list/property-list.component';
 import { BuyPackageComponent } from './package/buy-package/buy-package.component';
 import { DeltailUserComponent } from './deltail-user/deltail-user.component';
+import { ProductDetailComponent } from './product-detail/product-detail.component';
 
 
 @NgModule({
@@ -34,6 +35,7 @@ import { DeltailUserComponent } from './deltail-user/deltail-user.component';
     PropertyListComponent,
     BuyPackageComponent,
     DeltailUserComponent,
+    ProductDetailComponent,
   ],
   providers: [AuthenticationService],
   imports: [

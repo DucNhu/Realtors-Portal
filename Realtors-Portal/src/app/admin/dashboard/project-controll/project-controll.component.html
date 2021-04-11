@@ -26,13 +26,13 @@
                 Add Project
             </span>
         </button> -->
-        <button mat-raised-button color="accent"
+        <!-- <button mat-raised-button color="accent"
           class="button-add btn btn-link dropdown-toggle dropdown-toggle-split m-0 p-0"
           data-toggle="modal"
           data-target="#modal-form-AddEdit"
           (click)="GetDataCheckisAddorEdit(true, DataFormProjectEdit)">
           Add Project
-        </button>
+        </button> -->
     </div>
 </div>
 
@@ -89,14 +89,16 @@
                             <i class="fas fa-lg fa-fw me-2 fa-ellipsis-h"></i>
                         </button>
                         <div class="dropdown-menu p-0" aria-labelledby="dropdownMenu2">
-                            <div class="d-flex box-action">
+                            <div class="d-flex box-action position-relative">
                                 <button class="dropdown-item view" type="button">
                                     <i class="far fa-eye"></i>
                                 </button>
-                                <button class="dropdown-item detail" type="button" data-toggle="modal"
-                                    data-target="#modal-form-AddEdit" (click)="GetDataCheckisAddorEdit(false,p)">
-                                    <i class="far fa-lg fa-fw me-2 fa-edit"></i>
-                                </button>
+                              
+                                <ul class="list-group">
+                                    <li class="list-group-item" *ngFor="let lvl of listLevelActive">
+                                        <a (click)="upgradeLevelActive(p.UserID ,p.ProductID, p)">{{lvl.Title}}</a>
+                                    </li>
+                                </ul>
                                 <button class="dropdown-item delete" type="button" (click)="DeleteEmPloyee(p.ID)">
                                     <i class="far fa-lg fa-fw  fa-trash-alt"></i>
                                 </button>
@@ -125,7 +127,14 @@
                 <div class="py-4">
                     <div class="d-flex justify-content-between w-100 flex-wrap">
                         <div class="mb-3 mb-lg-0">
-                            <h2 class="Title pl-4">{{isAddProjectForm ? 'Add Project' : 'Edit Project'}}</h2>
+                            <div class="">
+                                <div class="alert-group">
+                                    <!-- Danger -->
+                                    <div class="d-none" [class]="alert_danger ? 'd-block alert alert-danger' : ''">
+                                        {{ alert_Text }}
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -157,7 +166,8 @@
                                             <div class="mb-3 select-img">
                                                 <div class="angular-property-image bg-overlay-gradient-04">
                                                     <label for="ImageFile"
-                                                        class="position-absolute select--banner">Select banner</label>
+                                                        class="position-absolute select--banner">Select
+                                                        banner</label>
                                                     <input type="file" name="ImageFile" id="ImageFile" class="d-none"
                                                         accept="image/*" (change)="onSelectFile($event)">
                                                     <img [src]="DefaultandNewAvatar" [alt]="DefaultandNewAvatar"
@@ -169,9 +179,11 @@
                                             <div class="overflow-auto row list-image__Lib">
                                                 <div class="text-center w-100">Select feature Image</div>
                                                 <div class="col-3 image__Lib" *ngFor="let feature of ArrayCRDFeature">
-                                                    <img [src]="feature.url + feature.Name" [alt]="feature.Name" class="img-fluid">
+                                                    <img [src]="feature.url + feature.Name" [alt]="feature.Name"
+                                                        class="img-fluid">
 
-                                                    <span class="fas fa-times-circle" (click)="deleteAnfeature(feature)">
+                                                    <span class="fas fa-times-circle"
+                                                        (click)="deleteAnfeature(feature)">
                                                     </span>
                                                 </div>
                                                 <div class="col-12 text-center">
@@ -182,6 +194,7 @@
                                                         (change)="onSelectFileFeature($event)">
 
                                                 </div>
+
                                             </div>
                                             <!-- Select img feature -->
 
@@ -200,7 +213,7 @@
                                                     (change)="selectByLocation()">
                                                     <option *ngFor="let Location of listLocation"
                                                         [value]="Location.LocationID"
-                                                        [selected]="Location.LocationName == formValidator.controls.Location.value">
+                                                        [selected]="Location.LocationID == formValidator.controls.Location.value">
                                                         {{ Location.LocationName }}
                                                     </option>
                                                 </select>
@@ -276,18 +289,12 @@
                                                     </option>
                                                 </select>
                                             </div>
-                                            <!-- By Seller -->
-                                            <div class="mb-4">
-                                                <label for="SellerID">By Seller</label>
-                                                <input type="number" class="form-control" name="SellerID"
-                                                    formControlName="SellerID" (blur)="checkValidForm('SellerID')">
-                                            </div>
 
                                             <!-- Sqft  -->
                                             <div class="mb-4">
                                                 <label for="Sqft">Sqft</label>
-                                                <input type="number" class="form-control" name="Sqft"
-                                                    formControlName="Sqft" (blur)="checkValidForm('Sqft')">
+                                                <input type="number" class="form-control" formControlName="Sqft"
+                                                    (blur)="checkValidForm('Sqft')">
                                             </div>
 
                                             <!-- ImageBannerName  -->
@@ -304,7 +311,7 @@
                                                 <select class="form-select form-control" name="LevelActive"
                                                     formControlName="LevelActive">
                                                     <option *ngFor="let lvl of listLevelActive" [value]="lvl.lvl"
-                                                        [selected]="lvl.lvl == formValidator.controls.LevelActive.value">
+                                                        [selected]="lvl.Title == formValidator.controls.LevelActive.value">
                                                         {{lvl.Title}}
                                                     </option>
                                                 </select>
@@ -312,7 +319,7 @@
 
                                         </div>
 
-                                        <div class="mb-4 des-tion">
+                                        <div class="mb-4 des-tion col-12">
                                             <label for="">Description</label>
                                             <textarea name="Description" formControlName="Description" rows="5"
                                                 class="w-100 form-control"></textarea>
@@ -320,12 +327,8 @@
 
                                         <div class="col-12">
                                             <button type="submit"
-                                                class="btn btn-success btn-outline-success d-block mx-auto"
-                                                (click)="isAddProjectForm ? CreateProject(formValidator.value) : UpdateProject(formValidator.value);
-                                                 upPhotoImageFeature();
-
-                                                 "
-                                                data-dismiss="modal" aria-label="Close"
+                                                class="btn btn-success btn-outline-success d-block mx-auto" (click)="UpdateProject(formValidator.value);
+                                                             upPhotoImageFeature();"
                                                 [disabled]="formValidator.status == 'INVALID'">
                                                 Sumit
                                             </button>
