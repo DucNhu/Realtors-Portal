@@ -81,6 +81,7 @@ export class EditProductComponent implements OnInit {
   ngOnInit(): void {
     this.getAllProjectandInforByID(this.authenticationService.currentUserValue.Infor.ID);
     this.getArrayCRDFeature(this.ActivatedRoute.snapshot.paramMap.get("id"));
+
     this.ValidatorForm();
 
     this.getsetAllAddress(); // call function set data address
@@ -131,8 +132,6 @@ export class EditProductComponent implements OnInit {
             }
           )
         }
-
-
       }
     )
     //  Call function get all category
@@ -146,7 +145,6 @@ export class EditProductComponent implements OnInit {
     this.imageLibService.getImageLibByProductID(id).subscribe(
       data => {
         dataContain = data;
-        console.log(data);
 
         dataContain.forEach(e => {
           e.url = this.getImageFeatureSrc;
@@ -323,6 +321,7 @@ export class EditProductComponent implements OnInit {
   // insertImgFeatureInArray() {
   //   this.ArrayCRDFeature
   // }
+  checkInsertImgFeture = false;
   upPhotoImageFeature() { // insert img vao o cung ( /products/imglibs/ )
     let formData: FormData = new FormData();
 
@@ -336,6 +335,9 @@ export class EditProductComponent implements OnInit {
           // this.NewArrayAvatarFeature = []; // reset tránh + dồn
         });
       }
+
+      this.checkInsertImgFeture = true;
+      
     }
     catch (e) {
       console.error(e);
@@ -349,14 +351,14 @@ export class EditProductComponent implements OnInit {
     let i = -1;
 
     if (confirm("Are you ok?")) {
+      this.ArrayCRDFeature.forEach(e => {
+        i++;
+        if (e.ImageLibID == data.ImageLibID) {
+          this.ArrayCRDFeature.splice(i, 1);
+        }
+      })
       this.imageLibService.deleteProj(data.ImageLibID).subscribe(
         res => {
-          this.ArrayCRDFeature.forEach(e => {
-            i++;
-            if (e.ImageLibID == data.ImageLibID) {
-              this.ArrayCRDFeature.splice(i, 1);
-            }
-          })
         }
       )
     }
@@ -368,8 +370,9 @@ export class EditProductComponent implements OnInit {
 
   // Function Edit Project
   upgrade = false;
+  disabled = false;
   UpdateProject(data) {
-
+    this.disabled = true;
     data.ImageBannerName = this.DataFormProjectEdit.ImageBannerName;
     if (this.upPhoto() && this.upPhotoImageFeature) {        // this.upPhoto(); // Insert Image
       this._ProjectService.UpdateProj(data.ID, data).subscribe(
@@ -391,11 +394,15 @@ export class EditProductComponent implements OnInit {
             })
           });
           if (this.InforUser.User_type == 'agent') {
-            window.location.assign(this.returnUrl + "profile-agent/product");
+            if(this.checkInsertImgFeture) {
+              window.location.assign(this.returnUrl + "profile-agent/product");
+            }
           }
 
           else if (this.InforUser.User_type == 'seller') {
-            window.location.assign(this.returnUrl + "profile-seller/product");
+            if(this.checkInsertImgFeture) {
+              window.location.assign(this.returnUrl + "profile-seller/product");
+            }
           }
 
           this.EditByIdInArray(data);

@@ -194,7 +194,7 @@
                                 <button type="submit" class="btn btn-success btn-outline-success d-block mx-auto"
                                     (click)="UpdateProject(formValidator.value);
                                                  upPhotoImageFeature();"
-                                    [disabled]="formValidator.status == 'INVALID'">
+                                    [disabled]="formValidator.status == 'INVALID' || disabled">
                                     Sumit
                                 </button>
                             </div>

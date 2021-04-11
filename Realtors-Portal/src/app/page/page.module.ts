@@ -19,6 +19,7 @@ import { PropertyListComponent } from './mainpages/property-list/property-list.c
 import { BuyPackageComponent } from './package/buy-package/buy-package.component';
 import { DeltailUserComponent } from './deltail-user/deltail-user.component';
 import { ProductDetailComponent } from './product-detail/product-detail.component';
+import { ResultBySearchComponent } from './result-by-search/result-by-search.component';
 
 
 @NgModule({
@@ -36,6 +37,7 @@ import { ProductDetailComponent } from './product-detail/product-detail.componen
     BuyPackageComponent,
     DeltailUserComponent,
     ProductDetailComponent,
+    ResultBySearchComponent,
   ],
   providers: [AuthenticationService],
   imports: [

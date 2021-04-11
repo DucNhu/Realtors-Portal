@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ProjectService } from '../../../../@core/mock/project.service';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { TooltipPosition } from '@angular/material/tooltip';
+import { ActivatedRoute, Router } from '@angular/router';
 
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../../@core/models/Environment';
@@ -69,7 +70,8 @@ export class ProductComponent implements OnInit {
     private userService: UserService,
     private http: HttpClient,
     private authenticationService: AuthenticationService,
-    private packageppService: PackageppService
+    private packageppService: PackageppService,
+    private ActivatedRoute: ActivatedRoute,
   ) { }
 
   ngOnInit(): void {
@@ -85,12 +87,12 @@ export class ProductComponent implements OnInit {
   InforUser;
   containData;
   getIDLast = 0;
-
+  returnUrl = this.ActivatedRoute.snapshot.queryParams['returnUrl'] || '/';
   // Get All project
   getAllProjectandInforByID(id) {
     this.userService.GetProductByUserID(id).subscribe(
       data => {
-        this.containData = data;        
+        this.containData = data;
         this.containData.forEach(e => {
           e.ImageBannerSrc = this.getImageBannerSrc;
           this.listProject.unshift(e);
@@ -101,7 +103,7 @@ export class ProductComponent implements OnInit {
     this.userService.getUserbyId(this.authenticationService.currentUserValue.Infor.ID).subscribe(
       data => {
         this.InforUser = data;
-        
+
         if (this.InforUser.PackageID > 0) { // xác đjnh mua gói chưa
           this.checkBuyPackage = true;
 
@@ -130,8 +132,9 @@ export class ProductComponent implements OnInit {
   // function CreateProject:
   dataImage;
   selectedFile: File = null;
-  CreateProject(data) {  
-      
+  disabled = false;
+  CreateProject(data) {
+    this.disabled = true;
     data.ID = 0;
     data.UserID = this.authenticationService.currentUserValue.Infor.ID;
 
@@ -150,18 +153,19 @@ export class ProductComponent implements OnInit {
           // Insert Image in table ImageLib trog sql
           let idlastofProduct = getIDLast;
           this.ArrayCRDFeature.forEach(e => {
-            
+
             let dataImageLib = {
               "imageLibID": 0,
-              "productID": idlastofProduct+=1,
+              "productID": idlastofProduct += 1,
               "name": e.NameinSert,
             }
-            
+
             this.imageLibService.CreateProj(dataImageLib).subscribe(data => {
-              
             });
+            
             idlastofProduct = getIDLast; // return channh + don
           });
+
           data.ID = getIDLast += 1;
           data.ImageBannerSrc = '';
           data.ImageBannerName = this.DefaultandNewAvatar;
@@ -207,7 +211,17 @@ export class ProductComponent implements OnInit {
 
         });
 
+      if (this.InforUser.User_type == 'agent') {
+        // if (this.checkInsertImgFeture) {
+          window.location.assign(this.returnUrl + "profile-agent/product");
+        // }
+      }
 
+      else if (this.InforUser.User_type == 'seller') {
+        // if (this.checkInsertImgFeture) {
+          window.location.assign(this.returnUrl + "profile-seller/product");
+        // }
+      }
     }
     else {
       this.Alert_dangerFunction("Create false, try again, pls");
@@ -261,9 +275,8 @@ export class ProductComponent implements OnInit {
   DataFeature;
   ArrayCRDFeature = [];
   ArrayUpdateFeature = []; // chua gia tri khi them moi 1 obj
-
+  
   onSelectFileFeature(e) {
-    this.newImage = true;
     this.DataFeature = e.target.files.item(0);
     let dateNow = new Date();
 
@@ -280,9 +293,8 @@ export class ProductComponent implements OnInit {
       }
     }
   }
-  // insertImgFeatureInArray() {
-  //   this.ArrayCRDFeature
-  // }
+
+  checkInsertImgFeture = false;
   upPhotoImageFeature() { // insert img vao o cung ( /products/imglibs/ )
     let formData: FormData = new FormData();
 
@@ -295,6 +307,7 @@ export class ProductComponent implements OnInit {
           this.ArrayAvatarFeature = [];
         });
       }
+      this.checkInsertImgFeture = true;
     }
     catch (e) {
       console.error(e);
@@ -308,7 +321,7 @@ export class ProductComponent implements OnInit {
     let i = -1;
     this.ArrayCRDFeature.forEach(e => {
       i++;
-      
+
       if (e.NameinSert == data.NameinSert) {
         this.ArrayCRDFeature.splice(i, 1);
       }
@@ -509,7 +522,7 @@ export class ProductComponent implements OnInit {
     this.selectByDistrict();
 
     this.selectByCity();
-   }
+  }
 
 
   // Alert variable
@@ -581,16 +594,16 @@ export class ProductComponent implements OnInit {
     // listLocation
     this._ProjectService.getAllLocationActive().subscribe(data => {
       this.listLocation = data;
-      
+
     })
     // listCountry
     this._ProjectService.getAllCountryByLocationIDActive().subscribe(data => {
       this.countryInLocation = data;
-      
+
     })
     // listCity
     this._ProjectService.getAllCityByCountryIDActive().subscribe(data => {
-      this.cityInCountry = data;      
+      this.cityInCountry = data;
     })
     // listDistrict
     this._ProjectService.getAllDistrictByCityIDActive().subscribe(data => {

@@ -28,7 +28,7 @@ const routes: Routes = [
                 path: 'product/edit/id/:id', component: EditProductComponent
             },
             {
-                path: 'profile-seller/edit/id/:id', component: EditProductComponent
+                path: 'edit/id/:id', component: EditProductComponent
             }
         ]
     },

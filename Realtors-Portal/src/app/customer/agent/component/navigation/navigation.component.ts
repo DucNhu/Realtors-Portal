@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { AuthenticationService } from './../../../../@core/mock/Authentication.Service';
 
 @Component({
   selector: 'app-navigation',
@@ -7,9 +8,11 @@ import { Component, OnInit } from '@angular/core';
 })
 export class NavigationComponent implements OnInit {
 
-  constructor() { }
+  constructor(private authenticationService: AuthenticationService) { }
 
+  UserID = 0;
   ngOnInit(): void {
+    this.UserID = this.authenticationService.currentUserValue.Infor.ID
   }
 
 }

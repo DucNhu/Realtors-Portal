@@ -14,12 +14,12 @@ Browse properties -->
             <div class="col-12">
                 <div class="category">
                     <ul class="list-unstyled mb-0">
-                        <li class="category-item" *ngFor='let Category of listCategory'>
-                            <a routerLink="Category/{{Category.CategoryName}}">
-                                <div class="category-icon">
+                        <li class="category-item position-relative" *ngFor='let Category of listCategory'>
+                            <a routerLink="category/{{Category.CategoryName}}">
+                                <div class="category-icon angular-property-image w-100">
                                     <img [src]="Category.ImageBannerSrc + Category.Avatar" [alt]="Category.Avatar" class="img-fluid" />
                                 </div>
-                                <h6 class="mb-0">{{Category.CategoryName}}</h6>
+                                <h6 class="mb-0 category-title">{{Category.CategoryName}}</h6>
                                 <!-- <span>(457)</span> -->
                             </a>
                         </li>

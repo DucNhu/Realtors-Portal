@@ -299,5 +299,46 @@ INNER JOIN [User] ON [User].ID = project.UserID
 select * from ImageLib where ProductID = 17
 
 update project set LevelActive = 2 from project where project.ID = 17
+
+
+
+
+
+
+SELECT  project.ProjectName, project.ID, project.ImageBannerName, project.LevelActive,
+  project.Description, project.Title, project.Sqft, project.Price, project.UserID,
+
+  [User].Name, [User].Avatar, [User].Email, [User].Phone, [User].User_type,
+  
+  Location.LocationName, Country.CountryName , City.CityName, District.DistrictName, Are.AreName,
+  Category.CategoryName FROM project 
+
+INNER join [User] on project.UserID = [User].ID
+INNER JOIN Category ON Category.CategoryID = project.CategoryID	
+
+INNER JOIN Location ON Location.LocationID = project.Location
+INNER JOIN Country ON Country.CountryID = project.Country
+INNER JOIN City ON City.CityID = project.City
+INNER JOIN District ON District.DistrictID = project.District
+INNER JOIN Are ON Are.AreID = project.Are	
+
+where Category.CategoryName = 'category1' and project.LevelActive > 0
+
+
+
+  select COUNT(project.ID) as 'SoLuongProductTimDuoc' from project
+INNER join [User] on project.UserID = [User].ID
+INNER JOIN Category ON Category.CategoryID = project.CategoryID	
+
+INNER JOIN Location ON Location.LocationID = project.Location
+INNER JOIN Country ON Country.CountryID = project.Country
+INNER JOIN City ON City.CityID = project.City
+INNER JOIN District ON District.DistrictID = project.District
+INNER JOIN Are ON Are.AreID = project.Are	
+
+where Category.CategoryName = 'category1' and project.LevelActive > 0
+
+
+
 use realtors01
 
