@@ -164,11 +164,11 @@ select count(*) as accActiveNotAd from [User] where Active = 1 and not User_type
         }
 
         // Update LevelActive product
-        [Route("LevelActiveProduct/productID/{productID}/level/{id}")]
+        [Route("LevelActiveProduct/productID/{productID}/LevelActive/{LevelActive}")]
         [HttpPut]
-        public JsonResult LevelActiveProduct(int id, int productID)
+        public JsonResult LevelActiveProduct(int productID, int LevelActive)
         {
-            string query = @"update project set LevelActive = " + id + " from project where project.ID = " + productID;
+            string query = @"update project set LevelActive = " + LevelActive + " from project where project.ID = " + productID;
 
             DataTable table = new DataTable();
             string sqlDataSource = _configuration.GetConnectionString("RealtorsConnect");

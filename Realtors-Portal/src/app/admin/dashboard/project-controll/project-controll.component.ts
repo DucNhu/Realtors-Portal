@@ -107,19 +107,29 @@ export class ProjectControllComponent implements OnInit {
     this.getsetAllCategory();
   }
 
-  upgradeLevelActive(userID, LevelActive, val) {
+  upgradeLevelActive(ProductID, LevelActive, data) {
+    console.log(ProductID, LevelActive, data);
     if(confirm("Are you ok?")) {
-      console.log(userID, LevelActive);
-      let i = -1;
-      this.listProject.forEach(element => {
-        i++;
+      let val = {
+        ProductID: ProductID, LevelActive: LevelActive
+      }
+      console.log(val);
+      
+      this.admin.putLevelActiveProduct(val).subscribe(
+        () => {
+          let i = -1;
+          this.listProject.forEach(element => {
+            i++;
 
-        if (element.ID == val.ID) {
-          val.LevelActive = LevelActive;
-          this.listProject.splice(i, 1, val);
-          // this.resetImageArray();
+            if (element.ID == data.ID) {
+              data.LevelActive = LevelActive;
+              this.listProject.splice(i, 1, data);
+              // this.resetImageArray();
+            }
+          });
         }
-      });
+      )
+      
     }
     
   }

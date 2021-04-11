@@ -96,7 +96,7 @@
                               
                                 <ul class="list-group">
                                     <li class="list-group-item" *ngFor="let lvl of listLevelActive">
-                                        <a (click)="upgradeLevelActive(p.UserID ,p.ProductID, p)">{{lvl.Title}}</a>
+                                        <a (click)="upgradeLevelActive(p.ID ,lvl.lvl, p)">{{lvl.Title}}</a>
                                     </li>
                                 </ul>
                                 <button class="dropdown-item delete" type="button" (click)="DeleteEmPloyee(p.ID)">

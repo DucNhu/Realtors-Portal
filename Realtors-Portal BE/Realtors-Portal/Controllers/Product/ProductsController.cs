@@ -56,11 +56,15 @@ namespace Realtors_Portal.Controllers
         public JsonResult Get()
         {
             string query = @"SELECT project.ProjectName, project.ID, project.ImageBannerName, project.LevelActive,
-  project.Description, project.Title, project.Sqft, project.Price,
+  project.Description, project.Title, project.Sqft, project.Price, project.UserID,
+  [User].Name, [User].Avatar, [User].Email, [User].Phone, [User].User_type, 
+
+
   project.Location, project.Country, project.City, project.District, project.CategoryID, project.Are,
   Location.LocationName, Country.CountryName , City.CityName, District.DistrictName, Are.AreName,
   Category.CategoryName
   FROM project
+INNER JOIN [User] ON [User].ID = project.UserID
   INNER JOIN Location ON Location.LocationID = project.Location
   INNER JOIN Country ON Country.CountryID = project.Country
     INNER JOIN City ON City.CityID = project.City
