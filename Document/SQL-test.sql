@@ -296,7 +296,7 @@ INNER JOIN [User] ON [User].ID = project.UserID
 	    INNER JOIN Category ON Category.CategoryID = project.CategoryID where LevelActive = 2
 
 
-select * from project
+select * from ImageLib where ProductID = 17
 
 update project set LevelActive = 2 from project where project.ID = 17
 use realtors01

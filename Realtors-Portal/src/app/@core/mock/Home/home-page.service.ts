@@ -33,7 +33,13 @@ export class HomePageService {
     return this.http.get(environment.apiUrl + 'HomePage/getProductActive')
   }
 
+  getProductDetail(id) {
+    return this.http.get(environment.apiUrl + `HomePage/getProductDetail/id/${id}`)
+  }
 
+  getImageFeatureByProductID(id) {    
+    return this.http.get(environment.apiUrl + `HomePage/getImageFeatureByProductID/id/${id}`)
+  }
 
 
 

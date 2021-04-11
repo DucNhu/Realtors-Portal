@@ -16,7 +16,7 @@ const routes: Routes = [
         path: '', component: SellerComponent,
         children: [
             {
-                path: '', component: ProductComponent
+                path: '', component: DeltailUserComponent
             },
             {
                 path: 'product', component: ProductComponent
@@ -29,9 +29,6 @@ const routes: Routes = [
             },
             {
                 path: 'product/edit/id/:id', component: EditProductComponent
-            },
-            {
-                path: 'profile-seller/edit/id/:id', component: EditProductComponent
             }
         ]
     },

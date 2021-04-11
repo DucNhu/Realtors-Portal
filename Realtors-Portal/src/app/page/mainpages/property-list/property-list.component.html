@@ -201,12 +201,12 @@ Listing – grid view -->
               </a></li>
           </ul>
         </div>
-        <!-- 1111 -->
+        <!-- Product List -->
         <div class="property-item property-col-list mt-4" *ngFor='let prod of listProduct'>
           <div class="row no-gutters">
             <div class="col-lg-4 col-md-5">
-              <div class="property-image bg-overlay-gradient-04">
-                <img [src]="prod.ImageBannerSrc + prod.ImageBannerName" [alt]="prod.Avatar" class="img-fluid" />
+              <div class="property-image bg-overlay-gradient-04 angular-property-image">
+                <img [src]="prod.ImageBannerSrc + prod.ImageBannerName" [alt]="prod.ImageBannerName" class="img-fluid" />
                 <div class="property-agent">
                   <div class="property-agent-image">
                     <img class="img-fluid h-100" [src]="prod.UserSrcAvatar + prod.Avatar" [alt]="prod.Avatar"

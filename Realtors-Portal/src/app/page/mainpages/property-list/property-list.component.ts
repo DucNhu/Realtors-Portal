@@ -40,8 +40,6 @@ export class PropertyListComponent implements OnInit {
 
   onCaculator(data) {
     this.caculatorProduct = data;
-    console.log(data);
-
   }
 
 
@@ -87,7 +85,6 @@ export class PropertyListComponent implements OnInit {
   // TotalPrice = 0;
   originalFeeForOneYearFunction(TotalPrice) {
     this.prepayment = TotalPrice * (this.prepaymentSelect / 100); // tien tra trc
-    console.log(this.prepayment);
 
     this.originalFeeForOneYear = (TotalPrice - this.prepayment) / this.loanTermSelect;
     this.interestInOneYear = (TotalPrice - this.prepayment) * (this.interestRate / 100);

@@ -141,10 +141,10 @@ export class EditProductComponent implements OnInit {
 
 
 
-  getArrayCRDFeature(id) {    
+  getArrayCRDFeature(id) {
     let dataContain;
     this.imageLibService.getImageLibByProductID(id).subscribe(
-      data => {  
+      data => {
         dataContain = data;
         console.log(data);
 
@@ -152,7 +152,7 @@ export class EditProductComponent implements OnInit {
           e.url = this.getImageFeatureSrc;
           this.ArrayCRDFeature.push(e)
         });
-        
+
       }
     );
   }
@@ -177,15 +177,18 @@ export class EditProductComponent implements OnInit {
           this.upPhoto(); // Insert Image
 
           // Insert Image in table ImageLib trog sql
+          let idlastofProduct = getIDLast;
           this.ArrayCRDFeature.forEach(e => {
 
             let dataImageLib = {
               "imageLibID": 0,
-              "productID": getIDLast += 1,
+              "productID": idlastofProduct += 1,
               "name": e.NameinSert,
             }
+
             this.imageLibService.CreateProj(dataImageLib).subscribe(data => {
-            })
+
+            });
           });
           data.ID = getIDLast += 1;
           data.ImageBannerSrc = '';
@@ -268,7 +271,7 @@ export class EditProductComponent implements OnInit {
     let formData: FormData = new FormData();
 
     try {
-      if(this.dataImage != undefined) {
+      if (this.dataImage != undefined) {
         formData.append('ImageFile', this.dataImage, this.DataFormProjectEdit.ImageBannerName);
         this._ProjectService.UpdatePhotoBanner(formData).subscribe(() => {
         });
@@ -276,12 +279,12 @@ export class EditProductComponent implements OnInit {
 
       else {
         console.log("Nothing");
-        
+
       }
     }
     catch (e) {
       console.log(e);
-      
+
       return false;
     }
     return true;
@@ -330,7 +333,7 @@ export class EditProductComponent implements OnInit {
         formData.append('ImageFile', this.NewArrayAvatarFeature[i], this.NewArrayCRDFeature[i].NameinSert);
         this.imageLibService.PostPhotoFeature(formData).subscribe(() => {
 
-          this.NewArrayAvatarFeature = []; // reset tránh + dồn
+          // this.NewArrayAvatarFeature = []; // reset tránh + dồn
         });
       }
     }
@@ -345,7 +348,7 @@ export class EditProductComponent implements OnInit {
   deleteAnfeature(data) {
     let i = -1;
 
-    if(confirm("Are you ok?")) {
+    if (confirm("Are you ok?")) {
       this.imageLibService.deleteProj(data.ImageLibID).subscribe(
         res => {
           this.ArrayCRDFeature.forEach(e => {
@@ -366,41 +369,41 @@ export class EditProductComponent implements OnInit {
   // Function Edit Project
   upgrade = false;
   UpdateProject(data) {
-    
+
     data.ImageBannerName = this.DataFormProjectEdit.ImageBannerName;
     if (this.upPhoto() && this.upPhotoImageFeature) {        // this.upPhoto(); // Insert Image
       this._ProjectService.UpdateProj(data.ID, data).subscribe(
-      val => {
-        if (this.newImage == true) {
-          this.upPhoto();
-          this.newImage = false
-        }
-        // Insert Image in table ImageLib trog sql
-          this.NewArrayCRDFeature.forEach(e => {
-          console.log(e);
-          
-          let dataImageLib = {
-            "imageLibID": 0,
-            "productID": data.ID,
-            "name": e.NameinSert,
+        val => {
+          if (this.newImage == true) {
+            this.upPhoto();
+            this.newImage = false
           }
-          this.imageLibService.CreateProj(dataImageLib).subscribe(data => {
-          })
-        });
+          // Insert Image in table ImageLib trog sql
+          this.NewArrayCRDFeature.forEach(e => {
+            console.log(e);
+
+            let dataImageLib = {
+              "imageLibID": 0,
+              "productID": data.ID,
+              "name": e.NameinSert,
+            }
+            this.imageLibService.CreateProj(dataImageLib).subscribe(data => {
+            })
+          });
           if (this.InforUser.User_type == 'agent') {
-          window.location.assign(this.returnUrl + "profile-agent/product");
-        }
+            window.location.assign(this.returnUrl + "profile-agent/product");
+          }
 
-        else if(this.InforUser.User_type == 'seller') {
-          window.location.assign(this.returnUrl + "profile-seller/product");
-        }
+          else if (this.InforUser.User_type == 'seller') {
+            window.location.assign(this.returnUrl + "profile-seller/product");
+          }
 
-        this.EditByIdInArray(data);
-      },
-      error => {
-        this.Alert_dangerFunction("Error Update")
-      }
-    );
+          this.EditByIdInArray(data);
+        },
+        error => {
+          this.Alert_dangerFunction("Error Update")
+        }
+      );
     }
     else {
       this.Alert_dangerFunction("Create false, try again, pls");

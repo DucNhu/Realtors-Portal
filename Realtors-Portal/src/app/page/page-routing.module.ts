@@ -7,6 +7,7 @@ import { PageComponent } from './page.component';
 import { PropertyListComponent } from './mainpages/property-list/property-list.component';
 import { PackageComponent } from './package/package.component';
 import { ProductDetailComponent } from './product-detail/product-detail.component';
+import { DeltailUserComponent } from './deltail-user/deltail-user.component';
 const routes: Routes = [
     {
 
@@ -19,11 +20,16 @@ const routes: Routes = [
             {
                 path: 'property-list', component: PropertyListComponent,
             },
+
             {
                 path: 'property-list/property-detail/id/:id', component: ProductDetailComponent,
             },
             {
-                path: 'user-detail/id/:id', component: PropertyListComponent,
+                path: 'property-detail/id/:id', component: ProductDetailComponent,
+            },
+
+            {
+                path: 'user-detail/id/:id', component: DeltailUserComponent,
             },
             {
                 path: 'login', component: LoginComponent

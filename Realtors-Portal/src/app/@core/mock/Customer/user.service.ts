@@ -54,6 +54,11 @@ export class UserService {
     return this.http.get(environment.apiUrl + `Users/getProductByUserID/user/${id}`)
   }
 
+  getProductByUserIDActive(id) {
+    return this.http.get(environment.apiUrl + `Users/getProductByUserIDActive/user/${id}`)
+  }
+
+
   getUserDetail(id) {
     return this.http.get(environment.apiUrl + `Users/getUserDetail/user/${id}`)
   }

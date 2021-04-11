@@ -130,9 +130,8 @@ export class ProductComponent implements OnInit {
   // function CreateProject:
   dataImage;
   selectedFile: File = null;
-  CreateProject(data) {
-    console.log(data);
-    
+  CreateProject(data) {  
+      
     data.ID = 0;
     data.UserID = this.authenticationService.currentUserValue.Infor.ID;
 
@@ -149,21 +148,25 @@ export class ProductComponent implements OnInit {
           this.upPhoto(); // Insert Image
 
           // Insert Image in table ImageLib trog sql
+          let idlastofProduct = getIDLast;
           this.ArrayCRDFeature.forEach(e => {
-
+            
             let dataImageLib = {
               "imageLibID": 0,
-              "productID": getIDLast += 1,
+              "productID": idlastofProduct+=1,
               "name": e.NameinSert,
             }
+            
             this.imageLibService.CreateProj(dataImageLib).subscribe(data => {
-            })
+              
+            });
+            idlastofProduct = getIDLast; // return channh + don
           });
           data.ID = getIDLast += 1;
           data.ImageBannerSrc = '';
           data.ImageBannerName = this.DefaultandNewAvatar;
 
-          // dữ liệu truyền vào là id, nên lặp để tìm r gắn lại name vào mảng
+          // dữ liệu truyền vào là id, nên lặp để tìm r gắn lại name vào mảng          
           this.listLocation.forEach(e => {
             if (e.LocationID == data.Location) {
               data.LocationName = e.LocationName;

@@ -50,7 +50,7 @@ namespace Realtors_Portal.Controllers
             return project;
         }
 
-        //Get by CountryID  (Admin)
+        //Get by CountryID (Admin)
         [Route("getProjectByFK")]
         [HttpGet]
         public JsonResult Get()

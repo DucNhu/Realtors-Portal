@@ -77,7 +77,7 @@ namespace Realtors_Portal.Controllers.Product
         [HttpGet]
         public JsonResult getCategoryActive()
         {
-            string query = @"select * from Category where Active = 1";
+            string query = @"select top 6 * from Category where Active = 1";
 
             DataTable table = new DataTable();
             string sqlDataSource = _configuration.GetConnectionString("RealtorsConnect");
@@ -137,7 +137,66 @@ INNER JOIN [User] ON [User].ID = project.UserID
 
 
 
-        //Get Product active
+        //Get Product Detail
+        [Route("getProductDetail/id/{id}")]
+        [HttpGet]
+        public JsonResult getProductDetail(int id)
+        {
+            string query = @"
+SELECT project.ProjectName, project.ID, project.ImageBannerName, project.LevelActive,
+  project.Description, project.Title, project.Sqft, project.Price,project.UserID,
+
+  [User].Name, [User].Avatar, [User].Email, [User].Phone, [User].User_type,  
+
+  Location.LocationName, Country.CountryName , City.CityName, District.DistrictName, Are.AreName,
+  Category.CategoryName 
+  FROM project
+INNER JOIN [User] ON [User].ID = project.UserID
+
+  INNER JOIN Location ON Location.LocationID = project.Location
+  INNER JOIN Country ON Country.CountryID = project.Country
+    INNER JOIN City ON City.CityID = project.City
+	  INNER JOIN District ON District.DistrictID = project.District
+	  INNER JOIN Are ON Are.AreID = project.Are
+	    INNER JOIN Category ON Category.CategoryID = project.CategoryID where project.ID = " + id;
+
+            DataTable table = new DataTable();
+            string sqlDataSource = _configuration.GetConnectionString("RealtorsConnect");
+            SqlDataReader myRender;
+            using (SqlConnection myCon = new SqlConnection(sqlDataSource))
+            {
+                myCon.Open();
+                using (SqlCommand myCommand = new SqlCommand(query, myCon))
+                {
+                    myRender = myCommand.ExecuteReader();
+                    table.Load(myRender);
+                    myRender.Close(); myCon.Close();
+                }
+            }
+            return new JsonResult(table);
+        }
+        //Get image feature
+        [Route("getImageFeatureByProductID/id/{id}")]
+        [HttpGet]
+        public JsonResult getImageFeatureByProductID(int id)
+        {
+            string query = @"select * from ImageLib where ProductID = " + id;
+
+            DataTable table = new DataTable();
+            string sqlDataSource = _configuration.GetConnectionString("RealtorsConnect");
+            SqlDataReader myRender;
+            using (SqlConnection myCon = new SqlConnection(sqlDataSource))
+            {
+                myCon.Open();
+                using (SqlCommand myCommand = new SqlCommand(query, myCon))
+                {
+                    myRender = myCommand.ExecuteReader();
+                    table.Load(myRender);
+                    myRender.Close(); myCon.Close();
+                }
+            }
+            return new JsonResult(table);
+        }
 
 
         ////Get by CountryID
@@ -206,9 +265,6 @@ INNER JOIN [User] ON [User].ID = project.UserID
 
 
 
-
-
-
         [HttpGet("getDataByAdvancedSearch/{category}/{User_type}/{LocationName}/{CountryName}/{CityName}/{DistrictName}/{AreName}/{sqftMin}/{sqftMax}/{priceMin}/{priceMax}")]
         public JsonResult getDataByAdvancedSearch(string category, string User_type, string LocationName, string CountryName, string CityName, string DistrictName, string AreName, int sqftMin, int sqftMax, int priceMin, int priceMax)
         {
@@ -249,6 +305,46 @@ and Price between " + priceMin + @" and " + priceMax + @"
             }
             return new JsonResult(table);
         }
+
+
+        // Get prouct by Category active
+//        [Route("getProductByUserIDActive/user/{id}")]
+//        [HttpGet]
+//        public JsonResult getProductByUserIDActive(int id)
+//        {
+//            string query = @"
+//SELECT project.ProjectName, project.ID, project.ImageBannerName, project.LevelActive,
+//  project.Description, project.Title, project.Sqft, project.Price, 
+
+//  Location.LocationName, Country.CountryName , City.CityName, District.DistrictName, Are.AreName,
+//  Category.CategoryName,
+//Location.LocationID, Country.CountryID , City.CityID, District.DistrictID, Are.AreID,
+//  Category.CategoryID 
+//  FROM project
+//INNER JOIN [User] ON [User].ID = project.UserID 
+//  INNER JOIN Location ON Location.LocationID = project.Location
+//  INNER JOIN Country ON Country.CountryID = project.Country
+//    INNER JOIN City ON City.CityID = project.City
+//	  INNER JOIN District ON District.DistrictID = project.District
+//	  INNER JOIN Are ON Are.AreID = project.Are	   
+//	  INNER JOIN Category ON Category.CategoryID = project.CategoryID
+//    where project.LevelActive > 0 and project.UserID = " + id;
+
+//            DataTable table = new DataTable();
+//            string sqlDataSource = _configuration.GetConnectionString("RealtorsConnect");
+//            SqlDataReader myRender;
+//            using (SqlConnection myCon = new SqlConnection(sqlDataSource))
+//            {
+//                myCon.Open();
+//                using (SqlCommand myCommand = new SqlCommand(query, myCon))
+//                {
+//                    myRender = myCommand.ExecuteReader();
+//                    table.Load(myRender);
+//                    myRender.Close(); myCon.Close();
+//                }
+//            }
+//            return new JsonResult(table);
+//        }
 
     }
 }
