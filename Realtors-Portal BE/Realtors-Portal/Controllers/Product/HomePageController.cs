@@ -263,9 +263,10 @@ INNER JOIN [User] ON [User].ID = project.UserID
             return new JsonResult(table);
         }
 
+        //[HttpGet("getDataByAdvancedSearch/{category}/{User_type}/{LocationName}/{CountryName}/{CityName}/{DistrictName}/{AreName}/{sqftMin}/{sqftMax}/{priceMin}/{priceMax}")]
 
-
-        [HttpGet("getDataByAdvancedSearch/{category}/{User_type}/{LocationName}/{CountryName}/{CityName}/{DistrictName}/{AreName}/{sqftMin}/{sqftMax}/{priceMin}/{priceMax}")]
+        [Route("getDataByAdvancedSearch")]
+        [HttpGet]
         public JsonResult getDataByAdvancedSearch(string category, string User_type, string LocationName, string CountryName, string CityName, string DistrictName, string AreName, int sqftMin, int sqftMax, int priceMin, int priceMax)
         {
             string query = @"
@@ -278,7 +279,7 @@ SELECT project.ProjectName, project.ID, project.ImageBannerName, project.LevelAc
   Category.CategoryName
 FROM project 
 
-INNER join [User] on project.UserID = [User].ID
+INNER JOIN [User] on project.UserID = [User].ID
 INNER JOIN Category ON Category.CategoryID = project.CategoryID	
 
 INNER JOIN Location ON Location.LocationID = project.Location
@@ -287,16 +288,16 @@ INNER JOIN City ON City.CityID = project.City
 INNER JOIN District ON District.DistrictID = project.District
 INNER JOIN Are ON Are.AreID = project.Are	 
 
-where Category.CategoryName = '" + category + @"' and [User].User_type = '" + User_type + @"'
-and Location.LocationName = '" + LocationName + @"'
-and Country.CountryName = '" + CountryName + @"'
-and City.CityName = '" + CityName + @"' and District.DistrictName = '" + DistrictName + @"'
-and Are.AreName = '" + AreName + @"'
+where project.LevelActive > 0 AND Category.CategoryName like '%" + category + @"%' 
+AND ([User].User_type like '%" + User_type + @"%')
+AND (Location.LocationName like '%" + LocationName + @"%')
+AND (Country.CountryName like '%" + CountryName + @"%')
+AND (City.CityName like '%" + CityName + @"%')
+AND (District.DistrictName like '%" + DistrictName + @"%')
+AND (Are.AreName like '%" + AreName + @"%')
 
-and Sqft between " + sqftMin + @" and " + sqftMax + @"
-and Price between " + priceMin + @" and " + priceMax + @"
-
- and project.LevelActive > 0
+AND (Sqft between " + sqftMin + @" and " + sqftMax + @")
+AND (Price between " + priceMin + @" and " + priceMax + @")
 ";
 
             DataTable table = new DataTable();

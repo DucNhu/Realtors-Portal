@@ -28,9 +28,40 @@ input::-webkit-calendar-picker-indicator {
     width: 100%;
     left: 0;
     object-fit: cover;
+    transition: 1s;
+}
+
+.angular-property-image:hover .img-fluid {
+    transform: scale(1.5);
+    transition: 1s;
+}
+
+.property-agent .property-agent-image .img-fluid {
+    transform: scale(1) !important;
 }
 /* END  Frame + imge */
 
+.ketqua {
+    text-transform: capitalize;
+    position: relative;
+}
+
+.ketqua::before {
+    content: '$';
+    position: absolute;
+    /* margin-right: -1rem; */
+    top: 41px;
+    left: 6px;
+    /* margin-right: 34px; */
+    z-index: 90;
+}
+
+.property-compare .fa-calculator:before {
+    font-size: 15px;
+}
+
+
+/* Material */
 .mat-badge-content {
     font-weight: 600;
     font-size: 12px;
@@ -1756,7 +1787,7 @@ td.mat-footer-cell {
     color: rgba(0, 0, 0, 0.54);
 }
 .mat-form-field-appearance-legacy .mat-form-field-underline {
-    background-color: rgba(0, 0, 0, 0.42);
+    background-color: var(--green);
 }
 .mat-form-field-appearance-legacy.mat-form-field-disabled .mat-form-field-underline {
     background-image: linear-gradient(to right, rgba(0, 0, 0, 0.42) 0%, rgba(0, 0, 0, 0.42) 33%, transparent 0%);

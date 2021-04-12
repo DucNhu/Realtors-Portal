@@ -3,12 +3,12 @@ import { HomePageService } from 'src/app/@core/mock/Home/home-page.service';
 import { environment } from 'src/app/@core/models/Environment';
 
 @Component({
-  selector: 'app-property-list',
+  selector: 'app-result-by-search',
   templateUrl: './property-list.component.html',
   styleUrls: ['./property-list.component.css']
 })
-export class PropertyListComponent implements OnInit {
-  listProduct = [];
+export class ResultBySearchBoxComponent implements OnInit {
+  listProduct;
   containData;
   getIdLength = 0;
   ImageBannerSrc = environment.ImageProductUrl + "Banner/";
@@ -18,25 +18,16 @@ export class PropertyListComponent implements OnInit {
     private homePageService: HomePageService,
   ) { }
 
+  countResults = 0;
   ngOnInit(): void {
-    this.getAllProduct();
+    let i = 0;
+    this.listProduct = this.homePageService.getValueBySearch();
+    this.listProduct.forEach(e => {
+      this.countResults = ++i;
+    });
   }
 
   // Get All project
-  countResults = 0;
-  getAllProduct() {
-    this.homePageService.getProductActive().subscribe(
-      data => {
-        let i = 0;
-        this.containData = data;
-        this.containData.forEach(e => {
-          this.countResults = ++i;
-          e.UserSrcAvatar = this.UserSrcAvatar;
-          this.listProduct.unshift(e);
-        });
-      }
-    )
-  }
 
   onCaculator(data) {
     this.caculatorProduct = data;
