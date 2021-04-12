@@ -268,6 +268,35 @@ export class LocationControllComponent implements OnInit {
   SetLocationLetterWhenEnterName(value) {
     this.formValidator.controls.LocationLetter.patchValue(value.substr(0, 1));
   }
+
+       // panigate ( phân trang )
+       page = 1;
+       count = 0;
+       tableSize = 5;
+       tableSizes = [3, 6, 9, 12];
+
+       fetchPosts(): void {
+         this._LocationService.getAllLocation().subscribe(
+           (response) => {
+             this.containData = response;
+           },
+           (error) => {
+             console.log(error);
+           }
+         );
+       }
+
+       onTableDataChange(event) {
+         this.page = event;
+         this.fetchPosts();
+       }
+
+       onTableSizeChange(event): void {
+         this.tableSize = event.target.value;
+         this.page = 1;
+         this.fetchPosts();
+       }
+
 }
 
 // Mục Lục

@@ -7,6 +7,7 @@ import { NavigationComponent } from './component/navigation/navigation.component
 import { ProductComponent } from './controll/product/product.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { NgxPaginationModule } from 'ngx-pagination';
 
 
 @NgModule({
@@ -15,7 +16,8 @@ import { MatTooltipModule } from '@angular/material/tooltip';
     CommonModule,
     AppRoutingModule,
     FormsModule, ReactiveFormsModule,
-    MatTooltipModule
+    MatTooltipModule,
+    NgxPaginationModule
   ]
 })
 export class AgentModule { }

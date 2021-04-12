@@ -3386,10 +3386,14 @@ button {
 }
 .property-details .property-details-inner .property-title,
 .property-details .property-details-inner .property-name {
-  white-space: nowrap;
+  /* white-space: nowrap; */
   overflow: hidden;
   text-overflow: ellipsis;
-  line-height: 1.1;
+  line-height: 1.2;
+
+    display: -webkit-box !important;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 1;
 }
 .property-details .property-details-inner .property-address {
   margin-right: 10px;
@@ -3535,6 +3539,14 @@ button {
   align-items: flex-start;
   -ms-flex-wrap: wrap;
   flex-wrap: wrap;
+}
+.property-details .property-details-inner p{
+      word-wrap: break-word;
+    overflow: hidden;
+    display: -webkit-box !important;
+    text-overflow: ellipsis;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
 }
 .property-col-list .property-details .property-details-inner-box .property-price {
   margin-left: auto;

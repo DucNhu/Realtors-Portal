@@ -40,8 +40,22 @@ export class HomePageService {
 
 
   // Get By Search active
+  dataBySearchBox;
   getProductListBySearch(data) {
-    return this.http.get(environment.apiUrl + "HomePage/getDataByAdvancedSearch", data)
+    console.log(`HomePage/getDataByAdvancedSearch?category=${data.category}&User_type=${data.User_type}&LocationName=${data.LocationName}&CountryName=${data.CountryName}&CityName=${data.CityName}&DistrictName=${data.DistrictName}&AreName=${data.AreName}&sqftMin=${data.sqftMin}&sqftMax=${data.sqftMax}&priceMin=${data.priceMin}&priceMax=${data.priceMax}`);
+    return this.http.get(environment.apiUrl + `HomePage/getDataByAdvancedSearch?category=${data.category}&User_type=${data.User_type}&LocationName=${data.LocationName}&CountryName=${data.CountryName}&CityName=${data.CityName}&DistrictName=${data.DistrictName}&AreName=${data.AreName}&sqftMin=${data.sqftMin}&sqftMax=${data.sqftMax}&priceMin=${data.priceMin}&priceMax=${data.priceMax}`)
+  }
+
+  setValueBySearch(data) {
+    
+    this.dataBySearchBox = data;
+    console.log(this.dataBySearchBox);
+    this.getValueBySearch()
+  }
+  getValueBySearch() {
+    console.log(this.dataBySearchBox);
+      
+      return this.dataBySearchBox;
   }
 
   getProductListByCategory(category) {

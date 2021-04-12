@@ -51,7 +51,10 @@
             </tr>
         </thead>
         <tbody>
-            <tr *ngFor="let c of listCategory">
+            <tr *ngFor="let c of listCategory | paginate : {
+              itemsPerPage: tableSize,
+              currentPage: page,
+              totalItems: count}">
                 <td>{{ c.CategoryName }}</td>
                 <td>
                     <div class="angular-property-image bg-overlay-gradient-04">
@@ -87,6 +90,16 @@
 
         </tbody>
     </table>
+
+    <div class="d-flex justify-content-center">
+      <pagination-controls
+        responsive="true"
+        previousLabel="Prev"
+        nextLabel="Next"
+        (pageChange)="onTableDataChange($event)">
+      </pagination-controls>
+      </div>
+
 </div>
 
 

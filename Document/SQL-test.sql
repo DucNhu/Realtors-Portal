@@ -305,24 +305,34 @@ update project set LevelActive = 2 from project where project.ID = 17
 
 
 
-SELECT  project.ProjectName, project.ID, project.ImageBannerName, project.LevelActive,
+SELECT project.ProjectName, project.ID, project.ImageBannerName, project.LevelActive,
   project.Description, project.Title, project.Sqft, project.Price, project.UserID,
 
   [User].Name, [User].Avatar, [User].Email, [User].Phone, [User].User_type,
   
   Location.LocationName, Country.CountryName , City.CityName, District.DistrictName, Are.AreName,
-  Category.CategoryName FROM project 
+  Category.CategoryName
+FROM project 
 
-INNER join [User] on project.UserID = [User].ID
+INNER JOIN [User] on project.UserID = [User].ID
 INNER JOIN Category ON Category.CategoryID = project.CategoryID	
 
 INNER JOIN Location ON Location.LocationID = project.Location
 INNER JOIN Country ON Country.CountryID = project.Country
 INNER JOIN City ON City.CityID = project.City
 INNER JOIN District ON District.DistrictID = project.District
-INNER JOIN Are ON Are.AreID = project.Are	
+INNER JOIN Are ON Are.AreID = project.Are	 
 
-where Category.CategoryName = 'category1' and project.LevelActive > 0
+where project.LevelActive > 0 and Category.CategoryName like '%category1%' 
+ and [User].User_type like '%%'
+and (Location.LocationName like '%%')
+and (Country.CountryName like '%%')
+and (City.CityName like '%%')
+and (District.DistrictName like '%%')
+and (Are.AreName like '%%')
+
+and (Sqft between 0 and  1110)
+and (Price between 0 and 1110)
 
 
 

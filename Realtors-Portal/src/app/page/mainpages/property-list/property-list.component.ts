@@ -11,7 +11,7 @@ export class PropertyListComponent implements OnInit {
   listProduct = [];
   containData;
   getIdLength = 0;
-  getImageBannerSrc = environment.ImageProductUrl + "Banner/";
+  ImageBannerSrc = environment.ImageProductUrl + "Banner/";
   UserSrcAvatar = environment.ImageUrl + "Customer/";
   // END khai bao bien
   constructor(
@@ -23,14 +23,14 @@ export class PropertyListComponent implements OnInit {
   }
 
   // Get All project
+  countResults = 0;
   getAllProduct() {
     this.homePageService.getProductActive().subscribe(
       data => {
-        console.log(data);
-
+        let i = 0;
         this.containData = data;
         this.containData.forEach(e => {
-          e.ImageBannerSrc = this.getImageBannerSrc;
+          this.countResults = ++i;
           e.UserSrcAvatar = this.UserSrcAvatar;
           this.listProduct.unshift(e);
         });

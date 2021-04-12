@@ -313,6 +313,35 @@ export class AreControllComponent implements OnInit {
   SetAreLetterWhenEnterName(value) {
     this.formValidator.controls.AreLetter.patchValue(value.substr(0, 1));
   }
+
+
+// panigate ( phân trang )
+page = 1;
+count = 0;
+tableSize = 5;
+tableSizes = [3, 6, 9, 12];
+
+fetchPosts(): void {
+  this._AreService.getAreByDistrictID().subscribe(
+    (response) => {
+      this.containData = response;
+    },
+    (error) => {
+      console.log(error);
+    }
+  );
+}
+
+onTableDataChange(event) {
+  this.page = event;
+  this.fetchPosts();
+}
+
+onTableSizeChange(event): void {
+  this.tableSize = event.target.value;
+  this.page = 1;
+  this.fetchPosts();
+}
 }
 
 // Mục Lục

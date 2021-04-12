@@ -21,6 +21,7 @@ import { PackageControllComponent } from './dashboard/package-controll/package-c
 import { CustomerComponent } from './dashboard/customer/customer/customer.component';
 import { ListCustomerComponent } from './dashboard/customer/list-customer.component';
 import { DashboardComponent } from './dashboard/dashboard/dashboard.component';
+import { NgxPaginationModule } from 'ngx-pagination';
 
 @NgModule({
   declarations: [AdminComponent, NavigationComponent, ProjectControllComponent, HeaderComponent, CategoryControlComponent, LocationControllComponent, CountryControllComponent, CityControllComponent, DistrictControllComponent, AreControllComponent, AddressComponent, PackageControllComponent, CustomerComponent, ListCustomerComponent, DashboardComponent],
@@ -30,6 +31,7 @@ import { DashboardComponent } from './dashboard/dashboard/dashboard.component';
     FormsModule, ReactiveFormsModule,
     AngularFileUploaderModule,
     MaterialModule,
+    NgxPaginationModule,
   ]
 })
 export class AdminModule {

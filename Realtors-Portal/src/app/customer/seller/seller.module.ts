@@ -8,6 +8,7 @@ import { ProductComponent } from './controll/product/product.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { EditProductComponent } from './controll/product/edit-product/edit-product.component';
+import { NgxPaginationModule } from 'ngx-pagination';
 
 @NgModule({
   declarations: [
@@ -21,7 +22,8 @@ import { EditProductComponent } from './controll/product/edit-product/edit-produ
     CommonModule,
     AppRoutingModule,
     FormsModule, ReactiveFormsModule,
-    MatTooltipModule
+    MatTooltipModule,
+    NgxPaginationModule
   ]
 })
 export class SellerModule { }

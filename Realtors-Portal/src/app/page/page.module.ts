@@ -20,8 +20,9 @@ import { BuyPackageComponent } from './package/buy-package/buy-package.component
 import { DeltailUserComponent } from './deltail-user/deltail-user.component';
 import { ProductDetailComponent } from './product-detail/product-detail.component';
 import { ResultBySearchComponent } from './result-by-search/result-by-search.component';
+import { ResultBySearchBoxComponent } from './mainpages/property-list/result-by-search.component';
 
-
+import { NgxPaginationModule } from "ngx-pagination";
 @NgModule({
   declarations: [
     PageComponent,
@@ -38,12 +39,13 @@ import { ResultBySearchComponent } from './result-by-search/result-by-search.com
     DeltailUserComponent,
     ProductDetailComponent,
     ResultBySearchComponent,
+    ResultBySearchBoxComponent
   ],
   providers: [AuthenticationService],
   imports: [
     CommonModule,
     PageRoutingModule,
     FormsModule, ReactiveFormsModule,
-    MaterialModule]
+    MaterialModule, NgxPaginationModule]
 })
 export class PageModule { }

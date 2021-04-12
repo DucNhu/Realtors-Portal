@@ -15,6 +15,9 @@ import { AugentRegisterComponent } from './@theme/register/augent-register/augen
 import { SellerRegisterComponent } from './@theme/register/seller-register/seller-register.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { PackageComponent } from './page/package/package.component';
+
+
+import { NgxPaginationModule } from "ngx-pagination";
 @NgModule({
   declarations: [
     AppComponent,
@@ -24,7 +27,7 @@ import { PackageComponent } from './page/package/package.component';
     UserRegisterComponent,
     AugentRegisterComponent,
     SellerRegisterComponent, PackageComponent
-  ], 
+  ],
   imports: [
     BrowserModule, HttpClientModule,
     AppRoutingModule,
@@ -32,6 +35,7 @@ import { PackageComponent } from './page/package/package.component';
     ReactiveFormsModule,
     AngularFileUploaderModule,
     BrowserAnimationsModule,
+    NgxPaginationModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -55,7 +55,10 @@
             </tr>
         </thead>
         <tbody>
-            <tr *ngFor="let p of listProject">
+            <tr *ngFor="let p of listProject | paginate : {
+              itemsPerPage: tableSize,
+              currentPage: page,
+              totalItems: count}">
                 <td>{{ p.ProjectName }}</td>
                 <td>
                     <div class="angular-property-image bg-overlay-gradient-04">
@@ -93,7 +96,7 @@
                                 <button class="dropdown-item view" type="button">
                                     <i class="far fa-eye"></i>
                                 </button>
-                              
+
                                 <ul class="list-group">
                                     <li class="list-group-item" *ngFor="let lvl of listLevelActive">
                                         <a (click)="upgradeLevelActive(p.ID ,lvl.lvl, p)">{{lvl.Title}}</a>
@@ -109,6 +112,16 @@
             </tr>
         </tbody>
     </table>
+
+    <div class="d-flex justify-content-center">
+      <pagination-controls
+        responsive="true"
+        previousLabel="Prev"
+        nextLabel="Next"
+        (pageChange)="onTableDataChange($event)">
+      </pagination-controls>
+      </div>
+
 </div>
 
 

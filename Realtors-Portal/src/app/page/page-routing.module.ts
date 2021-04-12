@@ -9,6 +9,7 @@ import { PackageComponent } from './package/package.component';
 import { ProductDetailComponent } from './product-detail/product-detail.component';
 import { DeltailUserComponent } from './deltail-user/deltail-user.component';
 import { ResultBySearchComponent } from './result-by-search/result-by-search.component';
+import { ResultBySearchBoxComponent } from './mainpages/property-list/result-by-search.component';
 const routes: Routes = [
     {
 
@@ -21,7 +22,9 @@ const routes: Routes = [
             {
                 path: 'property-list', component: PropertyListComponent,
             },
-
+            {
+                path: 'property-list-search-result', component: ResultBySearchBoxComponent,
+            },
             {
                 path: 'property-list/property-detail/id/:id', component: ProductDetailComponent,
             },

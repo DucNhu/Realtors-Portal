@@ -6,6 +6,8 @@ import { map } from 'rxjs/operators';
 import { CategoryService } from './../../../@core/mock/category.service';
 import { HomePageService } from './../../../@core/mock/Home/home-page.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Route } from '@angular/compiler/src/core';
 
 @Component({
   selector: 'app-banner',
@@ -27,7 +29,9 @@ export class BannerComponent implements OnInit {
   constructor(
     private categoryService: CategoryService,
     private homePageService: HomePageService,
-    private FormBuilder: FormBuilder
+    private FormBuilder: FormBuilder,
+    private activatedRoute: ActivatedRoute,
+    private route: Router
   ) { }
 
   ngOnInit(): void {
@@ -35,14 +39,17 @@ export class BannerComponent implements OnInit {
     this.getAddressActive();
     this.homePageService.getmaxSqft().subscribe(
       data => {
-        this.maxSqft = data;      }
+        this.maxSqft = data;
+        this.formValidator.controls.sqftMax.patchValue(this.maxSqft[0].maxSqft);
+      }
     )
     this.homePageService.getMaxPrice().subscribe(
       data => {
-        this.maxPrice = data;                
+        this.maxPrice = data; 
+        this.formValidator.controls.priceMax.patchValue(this.maxPrice[0].maxPrice);
+
       }
     )
-
     this.ValidatorForm();
   }
 
@@ -68,8 +75,9 @@ export class BannerComponent implements OnInit {
     })
   }
 
-  submit(val) {
-    let data ={
+  setFullData = false;
+  OnSearch(val) {
+    let data = {
       category: val.category,
       User_type: val.User_type,
       LocationName: val.LocationName,
@@ -86,12 +94,13 @@ export class BannerComponent implements OnInit {
       priceMin: val.priceMin,
       priceMax: val.priceMax
     }
-    console.log(data);
-    
+
     this.homePageService.getProductListBySearch(data).subscribe(
       data => {
-        console.log(data);
-        
+        this.route.navigate(['/property-list-search-result'])
+
+        this.homePageService.setValueBySearch(data);
+
       }
     )
   }
@@ -104,8 +113,6 @@ export class BannerComponent implements OnInit {
     this.categoryService.getCategoryActive().subscribe(
       data => {
         this.listCategory = data;
-        console.log(data);
-        
       }
     )
   }
@@ -113,7 +120,7 @@ export class BannerComponent implements OnInit {
   getAddressActive() {
     this.homePageService.getAllLocationsActive().subscribe(
       data => {
-        this.listLocation = data;        
+        this.listLocation = data;
       }
     );
     this.homePageService.getAllCountryActive().subscribe(
