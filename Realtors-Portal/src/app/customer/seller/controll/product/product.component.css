@@ -1,0 +1,5 @@
+.modal-content {
+    transform: scale(.9);
+    max-height: 90vh;
+    overflow: scroll;
+}

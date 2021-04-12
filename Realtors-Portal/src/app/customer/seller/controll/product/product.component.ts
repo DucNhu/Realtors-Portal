@@ -159,7 +159,7 @@ export class ProductComponent implements OnInit {
               "productID": idlastofProduct += 1,
               "name": e.NameinSert,
             }
-
+            
             this.imageLibService.CreateProj(dataImageLib).subscribe(data => {
             });
             
@@ -204,24 +204,14 @@ export class ProductComponent implements OnInit {
           });
 
           this.listProject.unshift(data);
-          this.resetImageArray();
+          this.isAddProjectForm = false;
           this.Alert_successFunction("Create done");
+          this.disabled = false;
           getIDLast++;
           getIDImageLibLast++;
 
         });
 
-      if (this.InforUser.User_type == 'agent') {
-        // if (this.checkInsertImgFeture) {
-          window.location.assign(this.returnUrl + "profile-agent/product");
-        // }
-      }
-
-      else if (this.InforUser.User_type == 'seller') {
-        // if (this.checkInsertImgFeture) {
-          window.location.assign(this.returnUrl + "profile-seller/product");
-        // }
-      }
     }
     else {
       this.Alert_dangerFunction("Create false, try again, pls");
@@ -290,6 +280,8 @@ export class ProductComponent implements OnInit {
         this.ArrayCRDFeature.push({ Name: event.target.result, url: '', NameinSert: dateNow.getTime() + this.DataFeature.name });
 
         // }
+        console.log(this.ArrayCRDFeature);
+        
       }
     }
   }
@@ -426,16 +418,14 @@ export class ProductComponent implements OnInit {
   }
   // ======== END CRUD ============
 
+  
   isAddProjectForm;
   // GetDataCheckisAddorEdit: true ? add : edit
-  GetDataCheckisAddorEdit(bl, val) {
+  Showdialog(bl) {
     if (bl) {
-      this.DefaultandNewAvatar = environment.defaultImage;
-      this.ArrayCRDFeature = [];  // return list image feature when create new product
       return this.isAddProjectForm = true;
     }
     else {
-      this.SetDataForEditorForm(val);
       return this.isAddProjectForm = false;
     }
   }

@@ -19,8 +19,7 @@
         </div>
     </div>
     <div class="ml-auto" [matTooltip]="checkBuyPackage == false ? 'Purchase our package so you can use it' : ''">
-        <button class="button-add btn btn-link dropdown-toggle dropdown-toggle-split m-0 p-0" data-toggle="modal"
-            data-target="#modal-form-AddEdit" (click)="GetDataCheckisAddorEdit(true, DataFormProjectEdit)"
+        <button class="button-add btn btn-link dropdown-toggle dropdown-toggle-split m-0 p-0" (click)="Showdialog(true)"
             [disabled]="checkBuyPackage == false">
             <span class="icon icon-sm icon-gray">
                 <i class="fa fa-plus-circle fa-fw mr-1"></i>
@@ -108,23 +107,16 @@
 
 
 <!-- Form Add / Edit -->
-<div class="modal fade col-sm-12" id="modal-form-AddEdit" tabindex="-1" role="dialog"
-    aria-labelledby="modal-form-signup" aria-hidden="true">
+<div class="modal fade col-sm-12" id="modal-form-AddEdit" [class]="isAddProjectForm ? 'd-block opacity-10' : ''" >
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <button type="button" class="close" (click)="Showdialog(false)">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body p-0">
-                <div class="py-4">
-                    <div class="d-flex justify-content-between w-100 flex-wrap">
-                        <div class="mb-3 mb-lg-0">
-                            <h2 class="Title pl-4">{{isAddProjectForm ? 'Add Project' : 'Edit Project'}}</h2>
-                        </div>
-                    </div>
-                </div>
+              
 
                 <div class="row text-left">
                     <div class="col-12 mb-4">
@@ -315,9 +307,7 @@
                                         <div class="col-12">
                                             <button type="submit"
                                                 class="btn btn-success btn-outline-success d-block mx-auto" (click)="CreateProject(formValidator.value);
-                                                 upPhotoImageFeature();
-                                                 
-                                                 " data-dismiss="modal" aria-label="Close"
+                                                 upPhotoImageFeature()" data-dismiss="modal" aria-label="Close"
                                                 [disabled]="formValidator.status == 'INVALID' || disabled">
                                                 Sumit
                                             </button>
@@ -328,8 +318,13 @@
                         </div>
                     </div>
                 </div>
+
+                
             </div>
         </div>
     </div>
 </div>
+
+
 <!-- End of Form Add / Edit -->
+<div class="modal-backdrop  fade" [class]="isAddProjectForm ? 'show' : 'd-none'"></div>

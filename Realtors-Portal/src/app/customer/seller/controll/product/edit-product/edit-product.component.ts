@@ -383,28 +383,28 @@ export class EditProductComponent implements OnInit {
           }
           // Insert Image in table ImageLib trog sql
           this.NewArrayCRDFeature.forEach(e => {
-            console.log(e);
 
             let dataImageLib = {
               "imageLibID": 0,
               "productID": data.ID,
               "name": e.NameinSert,
             }
+            
             this.imageLibService.CreateProj(dataImageLib).subscribe(data => {
+              
             })
           });
           if (this.InforUser.User_type == 'agent') {
-            if(this.checkInsertImgFeture) {
+            if (this.upPhotoImageFeature) {
               window.location.assign(this.returnUrl + "profile-agent/product");
             }
           }
 
           else if (this.InforUser.User_type == 'seller') {
-            if(this.checkInsertImgFeture) {
+            if (this.upPhotoImageFeature) {
               window.location.assign(this.returnUrl + "profile-seller/product");
             }
           }
-
           this.EditByIdInArray(data);
         },
         error => {
@@ -546,7 +546,7 @@ export class EditProductComponent implements OnInit {
     this.formValidator.controls.ProjectName.patchValue(val.ProjectName);
     this.formValidator.controls.CategoryID.patchValue(val.CategoryID);
 
-    this.formValidator.controls.Location.patchValue(val.LocationID);
+    this.formValidator.controls.Location.patchValue(val.Location);
     this.formValidator.controls.City.patchValue(val.City);
     this.formValidator.controls.Country.patchValue(val.Country);
     this.formValidator.controls.District.patchValue(val.District);
@@ -570,9 +570,8 @@ export class EditProductComponent implements OnInit {
     this.selectByLocation();
 
     this.selectByCountry();
-    this.selectByDistrict();
-
     this.selectByCity();
+    this.selectByDistrict();
   }
 
 
