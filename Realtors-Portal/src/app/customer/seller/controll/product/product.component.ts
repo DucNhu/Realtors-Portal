@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ProjectService } from '../../../../@core/mock/project.service';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { TooltipPosition } from '@angular/material/tooltip';
+import { ActivatedRoute, Router } from '@angular/router';
 
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../../@core/models/Environment';
@@ -11,6 +12,7 @@ import { ImageLibService } from 'src/app/@core/mock/product/image-lib.service';
 
 import { AuthenticationService } from '../../../../@core/mock/Authentication.Service';
 import { UserService } from 'src/app/@core/mock/Customer/user.service';
+import { PackageppService } from 'src/app/@core/mock/Package/packagepp.service';
 @Component({
   selector: 'app-product',
   templateUrl: './product.component.html',
@@ -48,7 +50,7 @@ export class ProductComponent implements OnInit {
     Location: undefined,
     Price: undefined,
     ProjectName: "",
-    SellerID: undefined,
+    UserID: undefined,
     Sqft: undefined,
     Description: "",
     LevelActive: undefined,
@@ -58,6 +60,7 @@ export class ProductComponent implements OnInit {
 
   idLength;
   checkBuyPackage = false;
+  checkEndTimePackage;
   // END khai bao bien
   constructor(
     private FormBuilder: FormBuilder,
@@ -66,13 +69,15 @@ export class ProductComponent implements OnInit {
     private _ProjectService: ProjectService,
     private userService: UserService,
     private http: HttpClient,
-    private authenticationService: AuthenticationService
+    private authenticationService: AuthenticationService,
+    private packageppService: PackageppService,
+    private ActivatedRoute: ActivatedRoute,
   ) { }
 
   ngOnInit(): void {
     this.getAllProjectandInforByID(this.authenticationService.currentUserValue.Infor.ID);
+
     this.ValidatorForm();
-    console.log(this.authenticationService.currentUserValue.Infor);
 
     this.getsetAllAddress(); // call function set data address
   }
@@ -82,12 +87,12 @@ export class ProductComponent implements OnInit {
   InforUser;
   containData;
   getIDLast = 0;
-
+  returnUrl = this.ActivatedRoute.snapshot.queryParams['returnUrl'] || '/';
   // Get All project
   getAllProjectandInforByID(id) {
     this.userService.GetProductByUserID(id).subscribe(
       data => {
-        this.containData = data;        
+        this.containData = data;
         this.containData.forEach(e => {
           e.ImageBannerSrc = this.getImageBannerSrc;
           this.listProject.unshift(e);
@@ -98,11 +103,25 @@ export class ProductComponent implements OnInit {
     this.userService.getUserbyId(this.authenticationService.currentUserValue.Infor.ID).subscribe(
       data => {
         this.InforUser = data;
-        console.log(data);
-        
-        if (this.InforUser.PackageID > 0) {
-          this.checkBuyPackage = true
+
+        if (this.InforUser.PackageID > 0) { // xác đjnh mua gói chưa
+          this.checkBuyPackage = true;
+
+          // xác đjnh gói đó còn hạn ko ( check end time == now time ? block : ok )
+          this.packageppService.getDayMaxOfMonthMaxOfYearMax(this.authenticationService.currentUserValue.Infor.ID).subscribe(
+            data => {
+              this.checkEndTimePackage = data;
+              if (
+                this.checkEndTimePackage[0].YearMax == new Date().getFullYear() &&
+                this.checkEndTimePackage[0].MonthMaxOfYearMax == new Date().getMonth() &&
+                this.checkEndTimePackage[0].DayMaxOfMonthMaxOfYearMax == new Date().getDate()
+              ) {
+                this.checkBuyPackage = false
+              }
+            }
+          )
         }
+
 
       }
     )
@@ -113,7 +132,9 @@ export class ProductComponent implements OnInit {
   // function CreateProject:
   dataImage;
   selectedFile: File = null;
+  disabled = false;
   CreateProject(data) {
+    this.disabled = true;
     data.ID = 0;
     data.UserID = this.authenticationService.currentUserValue.Infor.ID;
 
@@ -130,21 +151,26 @@ export class ProductComponent implements OnInit {
           this.upPhoto(); // Insert Image
 
           // Insert Image in table ImageLib trog sql
+          let idlastofProduct = getIDLast;
           this.ArrayCRDFeature.forEach(e => {
 
             let dataImageLib = {
               "imageLibID": 0,
-              "productID": getIDLast += 1,
+              "productID": idlastofProduct += 1,
               "name": e.NameinSert,
             }
+
             this.imageLibService.CreateProj(dataImageLib).subscribe(data => {
-            })
+            });
+            
+            idlastofProduct = getIDLast; // return channh + don
           });
+
           data.ID = getIDLast += 1;
           data.ImageBannerSrc = '';
           data.ImageBannerName = this.DefaultandNewAvatar;
 
-          // dữ liệu truyền vào là id, nên lặp để tìm r gắn lại name vào mảng
+          // dữ liệu truyền vào là id, nên lặp để tìm r gắn lại name vào mảng          
           this.listLocation.forEach(e => {
             if (e.LocationID == data.Location) {
               data.LocationName = e.LocationName;
@@ -185,7 +211,17 @@ export class ProductComponent implements OnInit {
 
         });
 
+      if (this.InforUser.User_type == 'agent') {
+        // if (this.checkInsertImgFeture) {
+          window.location.assign(this.returnUrl + "profile-agent/product");
+        // }
+      }
 
+      else if (this.InforUser.User_type == 'seller') {
+        // if (this.checkInsertImgFeture) {
+          window.location.assign(this.returnUrl + "profile-seller/product");
+        // }
+      }
     }
     else {
       this.Alert_dangerFunction("Create false, try again, pls");
@@ -239,9 +275,8 @@ export class ProductComponent implements OnInit {
   DataFeature;
   ArrayCRDFeature = [];
   ArrayUpdateFeature = []; // chua gia tri khi them moi 1 obj
-
+  
   onSelectFileFeature(e) {
-    this.newImage = true;
     this.DataFeature = e.target.files.item(0);
     let dateNow = new Date();
 
@@ -258,9 +293,8 @@ export class ProductComponent implements OnInit {
       }
     }
   }
-  // insertImgFeatureInArray() {
-  //   this.ArrayCRDFeature
-  // }
+
+  checkInsertImgFeture = false;
   upPhotoImageFeature() { // insert img vao o cung ( /products/imglibs/ )
     let formData: FormData = new FormData();
 
@@ -270,10 +304,10 @@ export class ProductComponent implements OnInit {
 
         formData.append('ImageFile', this.ArrayAvatarFeature[i], this.ArrayCRDFeature[i].NameinSert);
         this.imageLibService.PostPhotoFeature(formData).subscribe(() => {
-          this.Alert_successFunction("Add image success");
           this.ArrayAvatarFeature = [];
         });
       }
+      this.checkInsertImgFeture = true;
     }
     catch (e) {
       console.error(e);
@@ -287,7 +321,8 @@ export class ProductComponent implements OnInit {
     let i = -1;
     this.ArrayCRDFeature.forEach(e => {
       i++;
-      if (e.ImageLibID == data.ImageLibID) {
+
+      if (e.NameinSert == data.NameinSert) {
         this.ArrayCRDFeature.splice(i, 1);
       }
     })
@@ -440,7 +475,6 @@ export class ProductComponent implements OnInit {
   get ProjectName() { return this.formValidator.get('ProjectName') }
 
   SetDataForEditorForm(val) {
-    console.log(this.listCountry);
 
     this.DefaultandNewAvatar = (val.ImageBannerName.indexOf(this.getImageBannerSrc) > -1 ? '' : this.getImageBannerSrc) + val.ImageBannerName;
     if (val.ImageBannerName.indexOf("base64") > -1) {
@@ -488,7 +522,7 @@ export class ProductComponent implements OnInit {
     this.selectByDistrict();
 
     this.selectByCity();
-   }
+  }
 
 
   // Alert variable
@@ -556,25 +590,20 @@ export class ProductComponent implements OnInit {
   listImageFeature;
   // areInDistrict
   getsetAllAddress() {
-    // imageLib
-    this.imageLibService.getImageLibByProductID().subscribe(data => {
-      this.listImageFeature = data;
-    })
-
     // ADDRESS
     // listLocation
     this._ProjectService.getAllLocationActive().subscribe(data => {
       this.listLocation = data;
-      
+
     })
     // listCountry
     this._ProjectService.getAllCountryByLocationIDActive().subscribe(data => {
       this.countryInLocation = data;
-      
+
     })
     // listCity
     this._ProjectService.getAllCityByCountryIDActive().subscribe(data => {
-      this.cityInCountry = data;      
+      this.cityInCountry = data;
     })
     // listDistrict
     this._ProjectService.getAllDistrictByCityIDActive().subscribe(data => {

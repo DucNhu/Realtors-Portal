@@ -7,6 +7,7 @@ import { environment } from '../../../@core/models/Environment';
 
 import { CategoryService } from 'src/app/@core/mock/category.service';
 import { ImageLibService } from 'src/app/@core/mock/product/image-lib.service';
+import { AdminService } from 'src/app/@core/mock/Customer/admin.service';
 
 
 @Component({
@@ -68,8 +69,8 @@ export class ProjectControllComponent implements OnInit {
     private imageLibService: ImageLibService,
     private _ProjectService: ProjectService,
     private http: HttpClient,
-
-    // private _location: LocationService,
+    
+    private admin: AdminService,
     // private _countryService: CountryService,
     // private _cityService: CityService,
     // private _districtService: DistrictService,
@@ -93,7 +94,8 @@ export class ProjectControllComponent implements OnInit {
     this._ProjectService.getProjectByFK().subscribe(
       data => {
         this.containData = data;
-
+        console.log(data);
+        
         this.containData.forEach(e => {
           e.ImageBannerSrc = this.getImageBannerSrc;
           this.listProject.unshift(e);
@@ -105,6 +107,32 @@ export class ProjectControllComponent implements OnInit {
     this.getsetAllCategory();
   }
 
+  upgradeLevelActive(ProductID, LevelActive, data) {
+    console.log(ProductID, LevelActive, data);
+    if(confirm("Are you ok?")) {
+      let val = {
+        ProductID: ProductID, LevelActive: LevelActive
+      }
+      console.log(val);
+      
+      this.admin.putLevelActiveProduct(val).subscribe(
+        () => {
+          let i = -1;
+          this.listProject.forEach(element => {
+            i++;
+
+            if (element.ID == data.ID) {
+              data.LevelActive = LevelActive;
+              this.listProject.splice(i, 1, data);
+              // this.resetImageArray();
+            }
+          });
+        }
+      )
+      
+    }
+    
+  }
   // function CreateProject:
   dataImage;
   selectedFile: File = null;
@@ -547,10 +575,7 @@ export class ProjectControllComponent implements OnInit {
   listImageFeature;
   // areInDistrict
   getsetAllAddress() {
-    // imageLib
-    this.imageLibService.getImageLibByProductID().subscribe(data => {
-      this.listImageFeature = data;
-    })
+
 
     // ADDRESS
     // listLocation

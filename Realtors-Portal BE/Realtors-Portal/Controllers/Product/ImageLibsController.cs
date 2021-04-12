@@ -83,14 +83,14 @@ namespace Realtors_Portal.Controllers.Product
 
 
 
-        //Get by CountryID
-        [Route("getImageLibByProductID")]
+        //Get by ProductID
+        [Route("getImageLibByProductID/{id}")]
         [HttpGet]
-        public JsonResult Get()
+        public JsonResult Get(int id)
         {
             string query = @"SELECT ImageLib.ImageLibID, Name, ProductID 
                     FROM ImageLib
-                    INNER JOIN project ON project.ID = ImageLib.ProductID ";
+                    INNER JOIN project ON project.ID = ImageLib.ProductID where ImageLib.ProductID = " + id;
 
             DataTable table = new DataTable();
             string sqlDataSource = _configuration.GetConnectionString("RealtorsConnect");

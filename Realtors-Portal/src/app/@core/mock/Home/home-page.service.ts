@@ -19,14 +19,71 @@ export class HomePageService {
     return this.http.get(environment.apiUrl + 'HomePage/getProductViewHome')
   }
 
+ 
+  
   // Get package active
   getPackageActive() {
     return this.http.get(environment.apiUrl + 'HomePage/getPackageActive')
   }
-  // https://localhost:44338/api/HomePage/getProductActive
 
   getProductActive(){
     return this.http.get(environment.apiUrl + 'HomePage/getProductActive')
   }
 
+  getProductDetail(id) {
+    return this.http.get(environment.apiUrl + `HomePage/getProductDetail/id/${id}`)
+  }
+
+  getImageFeatureByProductID(id) {    
+    return this.http.get(environment.apiUrl + `HomePage/getImageFeatureByProductID/id/${id}`)
+  }
+
+
+  // Get By Search active
+  getProductListBySearch(data) {
+    return this.http.get(environment.apiUrl + "HomePage/getDataByAdvancedSearch", data)
+  }
+
+  getProductListByCategory(category) {
+    return this.http.get(environment.apiUrl + `HomePage/getDataByCategory/${category}`)
+  }
+
+
+  // Address
+  getAllLocationsActive() {
+    return this.http.get(environment.apiUrl + 'Locations/getLocationActive')
+  }
+
+  getAllCountryActive() {
+    return this.http.get(environment.apiUrl + 'Countries/getCountryByLocationIDActive')
+  }
+
+  getAllCityActive() {
+    return this.http.get(environment.apiUrl + 'Cities/getCountryByCountryIDActive')
+  }
+  
+  getAllDistrictsActive() {
+    return this.http.get(environment.apiUrl + 'Districts/getDistrictByCityIDActive')
+  }
+
+  getAllAresActive() {
+    return this.http.get(environment.apiUrl + 'Are/getAreByDistrictIDActive')
+  }
+
+
+  // Price
+  getMaxPrice() {
+    return this.http.get(environment.apiUrl + 'HomePage/maxPirce')
+  }
+  getmaxSqft() {
+    return this.http.get(environment.apiUrl + 'HomePage/maxSqft')
+  }
 }
+
+/**
+ * 
+ * Get Category, product
+ * Get by search
+ * Get Address
+ * Get Price
+ */

@@ -23,19 +23,19 @@ namespace Realtors_Portal.Models.Customer
         public string NetWorkID { get; set; }
 
         //[Required]
-        public int LocationID { get; set; }
+        public string Location { get; set; }
 
         //[Required]
-        public int CountryID { get; set; }
+        public string Country { get; set; }
 
         //[Required]
-        public int CityID { get; set; }
+        public string City { get; set; }
 
         //[Required]
-        public int DistrictID { get; set; }
+        public string District { get; set; }
 
         //[Required]
-        public int AreID { get; set; }
+        public string Are { get; set; }
 
         [Phone]
         public string Phone { get; set; }

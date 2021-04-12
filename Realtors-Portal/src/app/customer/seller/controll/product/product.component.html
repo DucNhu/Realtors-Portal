@@ -21,8 +21,7 @@
     <div class="ml-auto" [matTooltip]="checkBuyPackage == false ? 'Purchase our package so you can use it' : ''">
         <button class="button-add btn btn-link dropdown-toggle dropdown-toggle-split m-0 p-0" data-toggle="modal"
             data-target="#modal-form-AddEdit" (click)="GetDataCheckisAddorEdit(true, DataFormProjectEdit)"
-            [disabled]="checkBuyPackage == false"
-            >
+            [disabled]="checkBuyPackage == false">
             <span class="icon icon-sm icon-gray">
                 <i class="fa fa-plus-circle fa-fw mr-1"></i>
                 Add Project
@@ -87,8 +86,11 @@
                                 <button class="dropdown-item view" type="button">
                                     <i class="far fa-eye"></i>
                                 </button>
-                                <button class="dropdown-item detail" type="button" data-toggle="modal"
+                                <!-- <button class="dropdown-item detail" type="button" data-toggle="modal"
                                     data-target="#modal-form-AddEdit" (click)="GetDataCheckisAddorEdit(false,p)">
+                                    <i class="far fa-lg fa-fw me-2 fa-edit"></i>
+                                </button> -->
+                                <button class="dropdown-item detail" type="button" routerLink="edit/id/{{ p.ID }}">
                                     <i class="far fa-lg fa-fw me-2 fa-edit"></i>
                                 </button>
                                 <button class="dropdown-item delete" type="button" (click)="DeleteEmPloyee(p.ID)">
@@ -171,13 +173,15 @@
                                                     </span>
                                                 </div>
                                                 <div class="col-12 text-center">
-                                                    <label for="ImageFeature"
-                                                        class="position-absolute select--banner"><span><i
-                                                                class="fas fa-plus-circle"></i></span></label>
+                                                    <label for="ImageFeature" class="position-absolute select--banner">
+                                                        <span>
+                                                            <i class="fas fa-plus-circle"></i>
+                                                        </span>
+                                                    </label>
                                                     <input type="file" name="ImageFile" id="ImageFeature" class="d-none"
                                                         (change)="onSelectFileFeature($event)">
-
                                                 </div>
+                                                
                                             </div>
                                             <!-- Select img feature -->
 
@@ -276,8 +280,8 @@
                                             <!-- Sqft  -->
                                             <div class="mb-4">
                                                 <label for="Sqft">Sqft</label>
-                                                <input type="number" class="form-control" 
-                                                    formControlName="Sqft" (blur)="checkValidForm('Sqft')">
+                                                <input type="number" class="form-control" formControlName="Sqft"
+                                                    (blur)="checkValidForm('Sqft')">
                                             </div>
 
                                             <!-- ImageBannerName  -->
@@ -310,11 +314,11 @@
 
                                         <div class="col-12">
                                             <button type="submit"
-                                                class="btn btn-success btn-outline-success d-block mx-auto" (click)="isAddProjectForm ? CreateProject(formValidator.value) : UpdateProject(formValidator.value);
+                                                class="btn btn-success btn-outline-success d-block mx-auto" (click)="CreateProject(formValidator.value);
                                                  upPhotoImageFeature();
                                                  
                                                  " data-dismiss="modal" aria-label="Close"
-                                                [disabled]="formValidator.status == 'INVALID'">
+                                                [disabled]="formValidator.status == 'INVALID' || disabled">
                                                 Sumit
                                             </button>
                                         </div>

@@ -50,17 +50,21 @@ namespace Realtors_Portal.Controllers
             return project;
         }
 
-        //Get by CountryID  (Admin)
+        //Get by CountryID (Admin)
         [Route("getProjectByFK")]
         [HttpGet]
         public JsonResult Get()
         {
             string query = @"SELECT project.ProjectName, project.ID, project.ImageBannerName, project.LevelActive,
-  project.Description, project.Title, project.Sqft, project.Price,
+  project.Description, project.Title, project.Sqft, project.Price, project.UserID,
+  [User].Name, [User].Avatar, [User].Email, [User].Phone, [User].User_type, 
+
+
   project.Location, project.Country, project.City, project.District, project.CategoryID, project.Are,
   Location.LocationName, Country.CountryName , City.CityName, District.DistrictName, Are.AreName,
   Category.CategoryName
   FROM project
+INNER JOIN [User] ON [User].ID = project.UserID
   INNER JOIN Location ON Location.LocationID = project.Location
   INNER JOIN Country ON Country.CountryID = project.Country
     INNER JOIN City ON City.CityID = project.City
@@ -84,6 +88,28 @@ namespace Realtors_Portal.Controllers
             return new JsonResult(table);
         }
 
+
+        [Route("getCountProductByUserID/user/{id}")]
+        [HttpGet]
+        public JsonResult getProductByUserID(int id)
+        {
+            string query = @"SELECT count(project.UserID) as 'count' FROM project where project.UserID = " + id;
+
+            DataTable table = new DataTable();
+            string sqlDataSource = _configuration.GetConnectionString("RealtorsConnect");
+            SqlDataReader myRender;
+            using (SqlConnection myCon = new SqlConnection(sqlDataSource))
+            {
+                myCon.Open();
+                using (SqlCommand myCommand = new SqlCommand(query, myCon))
+                {
+                    myRender = myCommand.ExecuteReader();
+                    table.Load(myRender);
+                    myRender.Close(); myCon.Close();
+                }
+            }
+            return new JsonResult(table);
+        }
 
 
         // PUT: api/projects/5

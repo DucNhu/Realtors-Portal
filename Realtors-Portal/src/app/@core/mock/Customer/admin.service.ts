@@ -15,4 +15,8 @@ export class AdminService {
   register(val) {
     return this.http.post(environment.apiUrl + 'Admins/register', val)
   }
+
+  putLevelActiveProduct(val) {    
+    return this.http.put(environment.apiUrl + `Admins/LevelActiveProduct/productID/${val.ProductID}/LevelActive/${val.LevelActive}`, val.LevelActive)
+  }
 }

@@ -16,7 +16,18 @@ create table agent(AgentID int identity
 
 insert into agent values ('AgentName', 'AgentAddress', 'AgentPhone', 'AgentEmail', 0 ,'AgentAvatar', 'AgentDateCreate', 1);
 
-select * from User
+
+SELECT [User].Name, [User].ID, [User].Avatar, [User].Active,
+  [User].Description, [User].Title, [User].Email, [User].Phone,
+  
+  Location.LocationName, Country.CountryName , City.CityName, District.DistrictName, Are.AreName
+  FROM [User]
+  INNER JOIN Location ON Location.LocationID = [User].LocationID
+  INNER JOIN Country ON Country.CountryID = [User].CountryID
+    INNER JOIN City ON City.CityID = [User].CityID
+	  INNER JOIN District ON District.DistrictID = [User].DistrictID
+	  INNER JOIN Are ON Are.AreID = [User].AreID where [User].ID = 4
+
 select * from agent
 --Seller 
 create table seller(SellID
@@ -182,6 +193,7 @@ SELECT project.ProjectName, project.ID, project.ImageBannerName, project.LevelAc
   Category.CategoryName 
   FROM project
 INNER JOIN [User] ON [User].ID = project.UserID 
+
   INNER JOIN Location ON Location.LocationID = project.Location
   INNER JOIN Country ON Country.CountryID = project.Country
     INNER JOIN City ON City.CityID = project.City
@@ -206,10 +218,127 @@ select
 max(YEAR(EndDate)) as YearMax, 
 max(MONTH(EndDate)) as MonthMaxOfYearMax, 
 max(DAY(EndDate)) as DayMaxOfMonthMaxOfYearMax
-from PackagePurchased where 
+from PackagePurchased where UserID = 2 and 
 MONTH(EndDate) = (select max(MONTH(EndDate)) 
-from PackagePurchased where 
+from PackagePurchased where UserID = 2 and 
 YEAR(EndDate) = (select max(YEAR(EndDate)) 
-from PackagePurchased where UserID = 4)) 
+from PackagePurchased where UserID = 2)) 
 
 select * from PackagePurchased  inner join  package on PackagePurchased.PackageID = Package.PackageID  where USERID = 7  
+
+SELECT *  FROM [User] where [User].ID = 4
+SELECT count(project.UserID)  FROM project where project.UserID = 0
+
+SELECT project.* FROM project 
+
+inner join [User] on project.UserID = [User].ID
+INNER JOIN Category ON Category.CategoryID = project.CategoryID	
+
+INNER JOIN Location ON Location.LocationID = project.Location
+INNER JOIN Country ON Country.CountryID = project.Country
+INNER JOIN City ON City.CityID = project.City
+INNER JOIN District ON District.DistrictID = project.District
+INNER JOIN Are ON Are.AreID = project.Are	 
+
+where Category.CategoryName = 'Category1'and [User].User_type = 'seller'
+and Location.LocationName = 'Location2'
+and Country.CountryName = 'Country2'
+and City.CityName = 'City1' and District.DistrictName = 'District1'
+and Are.AreName = 'Are1'
+
+and Sqft between 0 and 900
+and Price between 0 and 900
+and LevelActive > 0
+
+
+SELECT max(Price) as maxPrice FROM project 
+SELECT max(Sqft) as maxSqft FROM project 
+
+
+
+-- Select list image feature product
+select * from ImageLib where ProductID = 1
+
+
+SELECT project.ProjectName, project.ID, project.ImageBannerName, project.LevelActive,
+  project.Description, project.Title, project.Sqft, project.Price, project.UserID,
+
+  [User].Name, [User].Avatar, [User].Email, [User].Phone, [User].User_type,
+  
+  Location.LocationName, Country.CountryName , City.CityName, District.DistrictName, Are.AreName,
+  Category.CategoryName
+  FROM project
+  INNER JOIN [User] ON [User].ID = project.UserID
+
+  INNER JOIN Location ON Location.LocationID = project.Location
+  INNER JOIN Country ON Country.CountryID = project.Country
+    INNER JOIN City ON City.CityID = project.City
+	  INNER JOIN District ON District.DistrictID = project.District
+	  INNER JOIN Are ON Are.AreID = project.Are
+
+	    INNER JOIN Category ON Category.CategoryID = project.CategoryID
+		where LevelActive > 0
+
+
+SELECT top 6 project.ProjectName, project.ID, project.ImageBannerName, project.LevelActive,
+  project.Description, project.Title, project.Sqft, project.Price,
+  
+  Location.LocationName, Country.CountryName , City.CityName, District.DistrictName, Are.AreName,
+  Category.CategoryName 
+  FROM project
+INNER JOIN [User] ON [User].ID = project.UserID
+
+  INNER JOIN Location ON Location.LocationID = project.Location
+  INNER JOIN Country ON Country.CountryID = project.Country
+    INNER JOIN City ON City.CityID = project.City
+	  INNER JOIN District ON District.DistrictID = project.District
+	  INNER JOIN Are ON Are.AreID = project.Are
+	    INNER JOIN Category ON Category.CategoryID = project.CategoryID where LevelActive = 2
+
+
+select * from ImageLib where ProductID = 17
+
+update project set LevelActive = 2 from project where project.ID = 17
+
+
+
+
+
+
+SELECT  project.ProjectName, project.ID, project.ImageBannerName, project.LevelActive,
+  project.Description, project.Title, project.Sqft, project.Price, project.UserID,
+
+  [User].Name, [User].Avatar, [User].Email, [User].Phone, [User].User_type,
+  
+  Location.LocationName, Country.CountryName , City.CityName, District.DistrictName, Are.AreName,
+  Category.CategoryName FROM project 
+
+INNER join [User] on project.UserID = [User].ID
+INNER JOIN Category ON Category.CategoryID = project.CategoryID	
+
+INNER JOIN Location ON Location.LocationID = project.Location
+INNER JOIN Country ON Country.CountryID = project.Country
+INNER JOIN City ON City.CityID = project.City
+INNER JOIN District ON District.DistrictID = project.District
+INNER JOIN Are ON Are.AreID = project.Are	
+
+where Category.CategoryName = 'category1' and project.LevelActive > 0
+
+
+
+  select COUNT(project.ID) as 'SoLuongProductTimDuoc' from project
+INNER join [User] on project.UserID = [User].ID
+INNER JOIN Category ON Category.CategoryID = project.CategoryID	
+
+INNER JOIN Location ON Location.LocationID = project.Location
+INNER JOIN Country ON Country.CountryID = project.Country
+INNER JOIN City ON City.CityID = project.City
+INNER JOIN District ON District.DistrictID = project.District
+INNER JOIN Are ON Are.AreID = project.Are	
+
+where Category.CategoryName = 'category1' and project.LevelActive > 0
+
+
+
+use realtors01
+

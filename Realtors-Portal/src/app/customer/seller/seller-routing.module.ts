@@ -1,16 +1,16 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { AddressComponent } from 'src/app/admin/dashboard/address/address.component';
-import { CategoryControlComponent } from 'src/app/admin/dashboard/category-control/category-control.component';
-import { ListCustomerComponent } from 'src/app/admin/dashboard/customer/list-customer.component';
-import { PackageControllComponent } from 'src/app/admin/dashboard/package-controll/package-controll.component';
-import { ProjectControllComponent } from 'src/app/admin/dashboard/project-controll/project-controll.component';
+
+import { SellerGuard } from 'src/app/@core/_helpers/seller.guard';
+import { DeltailUserComponent } from 'src/app/page/deltail-user/deltail-user.component';
+
 import { PackageComponent } from 'src/app/page/package/package.component';
-import { AuthGuard } from '../..//@core/_helpers/auth.guard';
-import { LoginComponent } from '../../@theme/login/login.component';
+
 import { NotfoundComponent } from '../../@theme/notfound/notfound.component';
+import { EditProductComponent } from './controll/product/edit-product/edit-product.component';
 import { ProductComponent } from './controll/product/product.component';
 import { SellerComponent } from './seller.component';
+
 const routes: Routes = [
     {
         path: '', component: SellerComponent,
@@ -23,6 +23,15 @@ const routes: Routes = [
             },
             {
                 path: 'package', component: PackageComponent
+            },
+            {
+                path: 'detail/id/:id', component: DeltailUserComponent
+            },
+            {
+                path: 'product/edit/id/:id', component: EditProductComponent
+            },
+            {
+                path: 'edit/id/:id', component: EditProductComponent
             }
         ]
     },

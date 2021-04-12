@@ -162,6 +162,31 @@ select count(*) as accActiveNotAd from [User] where Active = 1 and not User_type
             }
             return new JsonResult(table);
         }
-      
+
+        // Update LevelActive product
+        [Route("LevelActiveProduct/productID/{productID}/LevelActive/{LevelActive}")]
+        [HttpPut]
+        public JsonResult LevelActiveProduct(int productID, int LevelActive)
+        {
+            string query = @"update project set LevelActive = " + LevelActive + " from project where project.ID = " + productID;
+
+            DataTable table = new DataTable();
+            string sqlDataSource = _configuration.GetConnectionString("RealtorsConnect");
+            SqlDataReader myRender;
+            using (SqlConnection myCon = new SqlConnection(sqlDataSource))
+            {
+                myCon.Open();
+                using (SqlCommand myCommand = new SqlCommand(query, myCon))
+                {
+                    myRender = myCommand.ExecuteReader();
+                    table.Load(myRender);
+                    myRender.Close(); myCon.Close();
+                }
+            }
+            return new JsonResult(table);
+        }
+
+
+        
     }
 }

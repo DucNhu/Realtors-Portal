@@ -15,23 +15,25 @@
                         <img class="img-fluid" [src]="product.ImageBannerSrc + product.ImageBannerName"
                             [alt]="product.ImageBannerName">
 
-                        <!-- <div class="property-agent">
+                        <div class="property-agent">
                             <div class="property-agent-image">
-                                <img class="img-fluid" [src]="product.ImageBannerSrc + product.ImageBannerSrc" [alt]="product.ImageBannerSrc">
+                                <img class="img-fluid h-100" [src]="product.UserSrcAvatar + product.Avatar"
+                                    [alt]="product.Avatar" routerLink="/user-detail/id/{{ product.UserID }}">
                             </div>
                             <div class="property-agent-info">
-                                <a class="property-agent-name" href="#">Alice Williams</a>
-                                <span class="d-block">Company Agent</span>
+                                <a class="property-agent-name" routerLink="/user-detail/id/{{ product.UserID }}">{{
+                                    product.Name }}</a>
+                                <span class="d-block">Company {{ product.User_type }}</span>
                                 <ul class="property-agent-contact list-unstyled">
-                                    <li><a href="#"><i class="fas fa-mobile-alt"></i> </a></li>
-                                    <li><a href="#"><i class="fas fa-envelope"></i> </a></li>
+                                    <li><a href="tel:{{product.Phone}}"><i class="fas fa-mobile-alt"></i> </a></li>
+                                    <li><a href="mailto:{{product.Email}}"><i class="fas fa-envelope"></i> </a></li>
                                 </ul>
                             </div>
-                        </div> -->
+                        </div>
                     </div>
                     <div class="property-details">
                         <div class="property-details-inner">
-                            <h5 class="property-title"><a routerLink="product/productName/{{ product.ProjectName }}">{{
+                            <h5 class="property-title"><a routerLink="property-detail/id/{{ product.ID }}">{{
                                     product.ProjectName }}</a></h5>
                             <ul class="list-style-none p-0">
                                 <li>
@@ -63,105 +65,10 @@
 
                             <div class="property-price-caculator">
                                 <span class="property-price">$ {{ product.Price }}</span>
-                                <span class="float-right" data-toggle="modal" data-target="#caculator">
+                                <span class="float-right" data-toggle="modal" data-target="#caculator" (click)="onCaculator(product)">
                                     <a><i class="fas fa-calculator"></i></a>
                                 </span>
-                                <!-- Modal -->
-                                <div class="modal fade" id="caculator" tabindex="-1" role="dialog"
-                                    aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-                                    <div class="modal-dialog modal-dialog-centered" role="document">
-                                        <div class="modal-content col-6 mx-auto">
-                                            <div class="modal-header">
-                                                <h5 class="modal-title" id="exampleModalCenterTitle">Modal title</h5>
-                                                <button type="button" class="close" data-dismiss="modal"
-                                                    aria-label="Close">
-                                                    <span aria-hidden="true">&times;</span>
-                                                </button>
-                                            </div>
-                                            <div class="modal-body">
-                                                <div class="col-10 mx-auto">
-                                                    <div class="row">
-                                                        <div class="d-none d-sm-block col-12 col-sm-6">
-                                                            <h3 class="text-center">Infor</h3>
-                                                            <div class="caculator-box__infor">
-                                                                <h5 class="property-title"><a routerLink="product/productName/{{ product.ProjectName }}">{{
-                                                                        product.ProjectName }}</a>
-                                                                </h5>
-                                                                <ul class="list-style-none p-0">
-                                                                    <li>
-                                                                        <span class="property-address">
-                                                                            <i class="fas fa-map-marker-alt fa-xs"></i>
-                                                                            {{ product.LocationName }}
-                                                                        </span>
-                                                                    </li>
-                                                                    <li>
-                                                                        <span class="property-address">
-                                                                            <i class="far fa-flag"></i>
-                                                                            {{ product.CountryName }}
-                                                                        </span>
-                                                                    </li>
-                                                                
-                                                                    <li>
-                                                                        <span class="property-address">
-                                                                            <i class="far fa-building"></i>
-                                                                            {{ product.CountryName }}
-                                                                        </span>
-                                                                    </li>
-                                                                    <li>
-                                                                        <span class="flex-fill property-m-sqft">
-                                                                            <i class="far fa-square"></i>
-                                                                            sqft<span>{{ product.Sqft }}m</span>
-                                                                        </span>
-                                                                    </li>
-                                                                </ul>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-12 col-sm-6">
-                                                            <h3 class="text-center">Caculator</h3>
-                                                            <div class="caculator-box__form">
-                                                                <h5 class="property-title"><a routerLink="product/productName/{{ product.ProjectName }}">{{
-                                                                        product.ProjectName }}</a>
-                                                                </h5>
-                                                                <ul class="list-style-none p-0">
-                                                                    <li>
-                                                                        <span class="property-address">
-                                                                            <i class="fas fa-map-marker-alt fa-xs"></i>
-                                                                            {{ product.LocationName }}
-                                                                        </span>
-                                                                    </li>
-                                                                    <li>
-                                                                        <span class="property-address">
-                                                                            <i class="far fa-flag"></i>
-                                                                            {{ product.CountryName }}
-                                                                        </span>
-                                                                    </li>
-                                                            
-                                                                    <li>
-                                                                        <span class="property-address">
-                                                                            <i class="far fa-building"></i>
-                                                                            {{ product.CountryName }}
-                                                                        </span>
-                                                                    </li>
-                                                                    <li>
-                                                                        <span class="flex-fill property-m-sqft">
-                                                                            <i class="far fa-square"></i>
-                                                                            sqft<span>{{ product.Sqft }}m</span>
-                                                                        </span>
-                                                                    </li>
-                                                                </ul>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="modal-footer">
-                                                <button type="button" class="btn btn-secondary"
-                                                    data-dismiss="modal">Close</button>
-                                                <button type="button" class="btn btn-primary">Save changes</button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+                                
                             </div>
 
                         </div>
@@ -180,3 +87,133 @@
         </div>
     </div>
 </section>
+
+<!-- Modal Caculator -->
+<div class="modal fade" id="caculator" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content col-6 mx-auto">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalCenterTitle">Modal title</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="col-10 mx-auto">
+                    <div class="row">
+                        <div class="d-none d-sm-block col-12 col-sm-6">
+                            <h3 class="text-center">Infor</h3>
+                            <div class="caculator-box__infor">
+                                <h5 class="property-title">
+                                    <a routerLink="product/productName/{{ caculatorProduct.ProjectName }}">
+                                        {{ caculatorProduct.ProjectName }}</a>
+
+                                </h5>
+                                <ul class="list-style-none p-0  text-left">
+                                    <li>
+                                        <span class="property-address">
+                                            ${{ caculatorProduct.Price }}
+                                        </span>
+                                    </li>
+                                    <li class="text-center">
+                                        <div class="property-image bg-overlay-gradient-04">
+                                            <img [src]="caculatorProduct.ImageBannerSrc + caculatorProduct.ImageBannerName"
+                                                [alt]="caculatorProduct.Avatar" class="img-fluid" />
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <span class="property-address">
+                                            <i class="fas fa-map-marker-alt fa-xs"></i>
+                                            {{ caculatorProduct.LocationName }}
+                                        </span>
+                                    </li>
+                                    <li>
+                                        <span class="property-address">
+                                            <i class="far fa-flag"></i>
+                                            {{ caculatorProduct.CountryName }}
+                                        </span>
+                                    </li>
+
+                                    <li>
+                                        <span class="property-address">
+                                            <i class="far fa-building"></i>
+                                            {{ caculatorProduct.CityName }}
+                                        </span>
+                                    </li>
+                                    <li>
+                                        <span class="flex-fill property-m-sqft">
+                                            <i class="far fa-square"></i>
+                                            sqft<span>{{ caculatorProduct.Sqft }}m</span>
+                                        </span>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="col-12 col-sm-6">
+                            <h3 class="text-center">Caculator</h3>
+                            <div class="caculator-box__form">
+                                <!-- <h5 class="property-title">{{
+                                    caculatorProduct.Name }}
+                                </h5> -->
+                                <ul class="list-style-none p-0">
+
+                                    <li>
+                                        <label for="">pre payment Select</label>
+                                        <span class="property-address">
+                                            <select [(ngModel)]="prepaymentSelect" class="form-control"
+                                                (change)="originalFeeForOneYearFunction(caculatorProduct.Price)">
+                                                <option *ngFor="let tienTraTrc of prepaymentList" [value]="tienTraTrc" [selected]="tienTraTrc == 0">
+                                                    {{tienTraTrc}}%
+                                                </option>
+                                            </select>
+                                        </span>
+                                    </li>
+
+                                    <li>
+                                        <label for="">loan Term Select</label>
+                                        <span class="property-address">
+                                            <select class="form-control" [(ngModel)]="loanTermSelect" (change)="originalFeeForOneYearFunction(caculatorProduct.Price)">
+                                                <option *ngFor="let loanTerm of loanTermList" [value]="loanTerm">
+                                                    {{loanTerm}} year</option>
+                                            </select>
+                                        </span>
+                                    </li>
+                                    <li>
+                                        <label for="">interest</label>
+                                        <input type="text" disabled class="form-control" [value]="interestRate + '%'">
+                                    </li>
+                                    <li>
+                                        <!-- Cuoc goc tra trog 1 nam -->
+                                        <span class="flex-fill ketqua">
+                                            <label for="">original Fee For One Year</label>
+                                            <input disabled type="number" [value]="originalFeeForOneYear | number: '0.0-4'" class="form-control" />
+                                        </span>
+                                    </li>
+                                    <li>
+                                        <!-- tien lai trog 1 nam -->
+                                        <span class="flex-fill ketqua">
+                                            <label for="">interest In One Year</label>
+                                            <input disabled type="number" [value]="interestInOneYear | number: '0.0-4'" class="form-control" />
+                                        </span>
+                                    </li>
+                                    <li>
+                                        <!-- tien tra trog 1 nam -->
+                                        <span class="flex-fill ketqua">
+                                            <label for="">total</label>
+                                            <input disabled type="number" [value]="total | number: '0.0-4'" class="form-control" />
+                                        </span>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Save changes</button>
+            </div>
+        </div>
+    </div>
+</div>

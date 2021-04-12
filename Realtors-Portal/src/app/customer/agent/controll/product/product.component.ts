@@ -93,17 +93,20 @@ export class ProductComponent implements OnInit {
     this.userService.getUserbyId(this.authenticationService.currentUserValue.Infor.ID).subscribe( // Lấy ra infor của user
       data => {
         this.InforUser = data;
-        console.log(data);
-
         if (this.InforUser.PackageID > 0) { // xác đjnh mua gói chưa
           this.checkBuyPackage = true;
-          console.log("OK");
 
           // xác đjnh gói đó còn hạn ko ( check end time == now time ? block : ok )
           this.packageppService.getDayMaxOfMonthMaxOfYearMax(this.authenticationService.currentUserValue.Infor.ID).subscribe(
             data => {
               this.checkEndTimePackage = data;
-              console.log(this.checkEndTimePackage);
+              if (
+                this.checkEndTimePackage[0].YearMax == new Date().getFullYear() &&
+                this.checkEndTimePackage[0].MonthMaxOfYearMax == new Date().getMonth() &&
+                this.checkEndTimePackage[0].DayMaxOfMonthMaxOfYearMax == new Date().getDate()
+                ) {
+                this.checkBuyPackage = false
+              }
             }
           )
         }
@@ -567,10 +570,7 @@ export class ProductComponent implements OnInit {
   listImageFeature;
   // areInDistrict
   getsetAllAddress() {
-    // imageLib
-    this.imageLibService.getImageLibByProductID().subscribe(data => {
-      this.listImageFeature = data;
-    })
+
 
     // ADDRESS
     // listLocation

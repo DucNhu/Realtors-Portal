@@ -1,0 +1,125 @@
+<!--=================================
+Listing – grid view -->
+<section class="space-ptb">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="agent agent-03">
+                    <div class="row no-gutters">
+                        <div class="col-3 text-center border-right">
+                            <div class="d-flex flex-column h-100 p-3">
+                                <div class="agent-avatar my-auto angular-property-image">
+                                    <img class="img-fluid rounded-circle h-100" src="{{ imgsrc + UserInfor[0].Avatar }}" alt="{{ UserInfor[0].Avatar }}">
+                                </div>
+                                <div class="agent-listing text-center mt-3 mx-auto">
+                                    <a><strong class="text-primary mr-2 d-inline-block">{{ countProductByUser[0].count }}</strong>Listed
+                                        Properties </a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-9">
+                            <div class="d-flex h-100 flex-column">
+                                <div class="agent-detail">
+                                    <div class="d-block d-sm-flex">
+                                        <div class="agent-name mb-3 mt-sm-0">
+                                            <h2> <a href="#">{{ UserInfor[0].Name }}</a></h2>
+                                            <span>{{ UserInfor[0].Title }}</span>
+                                        </div>
+                                        <!-- <div class="agent-social ml-auto">
+                                            <ul class="list-unstyled list-inline">
+                                                <li class="list-inline-item"><a href="#"><i
+                                                            class="fab fa-facebook-f"></i> </a></li>
+                                                <li class="list-inline-item"><a href="#"><i class="fab fa-twitter"></i>
+                                                    </a></li>
+                                                <li class="list-inline-item"><a href="#"><i class="fab fa-linkedin"></i>
+                                                    </a></li>
+                                            </ul>
+                                        </div> -->
+                                    </div>
+                                    <div class="agent-info">
+                                        <p class="mt-3 mb-3">
+                                            {{ UserInfor[0].Description }}
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row mt-5">
+            <div class="col-md-4 mt-sm-5">
+                <div class="p-4 bg-light">
+                    <div class="section-title mb-4">
+                        <h4>Contact Detail</h4>
+                    </div>
+                    <ul class="list-unstyled mb-0">
+                        <li class="mb-2"><strong class="text-dark d-inline-block mr-2">Location:</strong>{{
+                            UserInfor[0].Location }}</li>
+                        <li class="mb-2"><strong class="text-dark d-inline-block mr-2">Country:</strong>{{
+                            UserInfor[0].Country }}</li>
+                        <li class="mb-2"><strong class="text-dark d-inline-block mr-2">City:</strong>{{
+                            UserInfor[0].City }}</li>
+                        <!-- <li class="mb-2"><strong
+                                class="text-dark d-inline-block mr-2">Website:</strong>potenzaglobalsolutions.com</li> -->
+                        <li class="mb-2"><strong class="text-dark d-inline-block mr-2">Phone:</strong>{{
+                            UserInfor[0].Phone }}
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-md-8 mt-5">
+                <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
+                    <div class="carousel-inner">
+                        <div class="carousel-item" *ngFor="let prod of listProductOfUser; let i = index" [class]="i == 1 ? 'active' : ''">
+                            <!-- Product List -->
+                            <div class="property-item property-col-list mt-4">
+                                <div class="row no-gutters">
+                                    <div class="col-lg-4 col-md-5">
+                                        <div class="property-image bg-overlay-gradient-04">
+                                            <img [src]="ImageBannerSrc + prod.ImageBannerName" [alt]="prod.ImageBannerName" class="img-fluid" />
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-8 col-md-7">
+                                        <div class="property-details">
+                                            <div class="property-details-inner">
+                                                <div class="property-details-inner-box">
+                                                    <div class="property-details-inner-box-left">
+                                                        <h5 class="property-name"><a
+                                                                routerLink="/property-detail/id/{{ prod.ID }}">{{prod.ProjectName}}</a></h5>
+                                                        <span class="property-address"><i
+                                                                class="fas fa-map-marker-alt fa-xs"></i>{{prod.LocationName}}</span>
+                                                    </div>
+                                                    <div class="property-price">${{ prod.Price }}</div>
+                                                </div>
+                                                <ul class="property-info list-unstyled d-flex">
+                                                    <li class="flex-fill property-m-sqft"><i
+                                                            class="far fa-square"></i>sqft<span>{{prod.Sqft}}m</span>
+                                                    </li>
+                                                </ul>
+                                                <p class="mb-0 d-none d-block mt-3">{{ prod.Title }}</p>
+                                            </div>
+                                            <div class="property-btn">
+                                                <a class="property-link" routerLink="/property-detail/id/{{ prod.ID }}">See Details</a>
+                                                
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="sr-only">Previous</span>
+                    </a>
+                    <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="sr-only">Next</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

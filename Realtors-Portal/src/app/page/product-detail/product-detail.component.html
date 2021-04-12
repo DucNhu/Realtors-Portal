@@ -1,0 +1,325 @@
+<!--=================================
+Breadcrumb -->
+<div class="bg-light">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <ol class="breadcrumb mb-0">
+                    <li class="breadcrumb-item"><a href="/"> <i class="fas fa-home"></i> </a></li>
+                    <li class="breadcrumb-item"> <i class="fas fa-chevron-right"></i> <a href="#">Pages</a></li>
+                    <li class="breadcrumb-item active"> <i class="fas fa-chevron-right"></i> <span>
+                            {{ InforProduct[0].ProjectName }}
+                        </span></li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</div>
+<!--=================================
+Breadcrumb -->
+<div class="wrapper">
+    <!--=================================
+  Property details -->
+
+    <section class="space-pt mb-5">
+        <div class="container">
+            <div class="row alic">
+
+                <div class="col-12">
+                    <div class="property-detail-title">
+                        <h3>{{ InforProduct[0].ProjectName }}</h3>
+                        <span class="d-block mb-4"><i class="fas fa-map-marker-alt fa-xs pr-2"></i>
+                            {{ InforProduct[0].LocationName + " " + InforProduct[0].CountryName + " " +InforProduct[0].CityName
+                            }}
+                        </span>
+                    </div>
+                </div>
+
+                <div class="col-lg-4 mb-5 mb-lg-0 order-lg-2">
+                    <div class="sticky-top">
+                        <div class="mb-4">
+                            <h3>{{ InforProduct[0].ProjectName }}</h3>
+                            <span class="d-block mb-3"><i class="fas fa-map-marker-alt fa-xs pr-2"></i>{{
+                                InforProduct[0].LocationName }}</span>
+                            <span class="price font-xll text-primary d-block">${{ InforProduct[0].Price }}</span>
+                            <span class="sub-price font-lg text-dark d-block"><b>{{ InforProduct[0].Sqft }}Sqft </b>
+                            </span>
+
+                        </div>
+                        <div class="agent-contact">
+                            <div class="d-flex align-items-center p-4 border border-bottom-0">
+                                <div class="agent-contact-avatar mr-3">
+                                    <img class="img-fluid rounded-circle avatar avatar-xl"
+                                        [src]="ImageUserSrc + InforProduct[0].Avatar" [alt]="InforProduct[0].Avatar">
+                                </div>
+                                <div class="agent-contact-name">
+                                    <h6 routerLink="user-detail/id/{{ InforProduct[0].UserID }}">{{ InforProduct[0].Name }}
+                                    </h6>
+                                    <span>Company {{ InforProduct[0].User_type }}</span>
+                                    <span class="d-block"><i class="fas fa-phone-volume pr-2 mt-2"></i> {{
+                                        InforProduct[0].Phone }} </span>
+                                </div>
+                            </div>
+                            <div class="d-flex">
+                                <a routerLink="/user-detail/id/{{ InforProduct[0].UserID }}" class="btn btn-primary col ml-0 b-radius-none">Request info</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-8 order-lg-1">
+                    <div class="property-detail-img popup-gallery">
+                        <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
+                            <div class="carousel-inner">
+                                <div class="carousel-item" *ngFor="let item of listImageFeature; let i = index" [class]="i == 1 ? 'active' : ''">
+                                    <div class="angular-property-image">
+                                        <img [src]="ImageFeatureSrc + item.Name" class="img-fluid w-100" [alt]="item.Name">
+                                    </div>
+                                </div>
+                            </div>
+                            <a class="carousel-control-prev" href="#carouselExampleControls" role="button"
+                                data-slide="prev">
+                                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                <span class="sr-only">Previous</span>
+                            </a>
+                            <a class="carousel-control-next" href="#carouselExampleControls" role="button"
+                                data-slide="next">
+                                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                <span class="sr-only">Next</span>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="property-info mt-5">
+                        <div class="row">
+                            <div class="col-sm-3 mb-3 mb-sm-0">
+                                <h5>Property details</h5>
+                            </div>
+                            <div class="col-sm-9">
+                                <div class="row mb-3">
+                                    <div class="col-sm-6">
+                                        <ul class="property-list list-unstyled">
+                                            <li><b>Property ID:</b> {{ InforProduct[0].ID }}</li>
+                                            <li><b>Price:</b> ${{ InforProduct[0].Price }}</li>
+                                            <li><b>Property Size:</b> {{ InforProduct[0].Sqft }} Sqft</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <hr class="mt-4 mb-4 mb-sm-5 mt-sm-5">
+                    <div class="property-description">
+                        <div class="row">
+                            <div class="col-sm-3 mb-3 mb-sm-0">
+                                <h5>Description</h5>
+                            </div>
+                            <div class="col-sm-9">
+                                <p>{{ InforProduct[0].Description }}</p>
+                            </div>
+                        </div>
+                    </div>
+                    <hr class="mt-4 mb-4 mb-sm-5 mt-sm-5">
+
+                    <div class="property-address">
+                        <div class="row">
+                            <div class="col-sm-3 mb-3 mb-sm-0">
+                                <h5>Address</h5>
+                            </div>
+                            <div class="col-sm-9">
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <ul class="property-list list-unstyled mb-0">
+                                            <li><b>Location:</b> {{ InforProduct[0].LocationName }}</li>
+                                            <li><b>County:</b> {{ InforProduct[0].CountryName }}</li>
+                                            <li><b>District:</b> {{ InforProduct[0].DistrictName }}</li>
+                                            
+                                        </ul>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <ul class="property-list list-unstyled mb-0">
+                                            <li><b>City:</b> {{ InforProduct[0].CityName }}</li>
+                                            <li><b>Country:</b> {{ InforProduct[0].CountryName }}</li>
+                                            <li><b>Area:</b> {{ InforProduct[0].AreName }}</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+    </section> 
+    <!-- <section class="space-pt">
+        <div class="container">
+            <hr class="mb-5 mt-0">
+            <h5 class="mb-4">Similar properties</h5>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="property-item">
+                        <div class="property-image bg-overlay-gradient-04">
+                            <img class="img-fluid" src="images/property/grid/01.jpg" alt="">
+                            <div class="property-lable">
+                                <span class="badge badge-md badge-primary">Bungalow</span>
+                                <span class="badge badge-md badge-info">Sale </span>
+                            </div>
+                            <span class="property-trending" title="trending"><i class="fas fa-bolt"></i></span>
+                            <div class="property-agent">
+                                <div class="property-agent-image">
+                                    <img class="img-fluid" src="images/avatar/01.jpg" alt="">
+                                </div>
+                                <div class="property-agent-info">
+                                    <a class="property-agent-name" href="#">Alice Williams</a>
+                                    <span class="d-block">Company Agent</span>
+                                    <ul class="property-agent-contact list-unstyled">
+                                        <li><a href="#"><i class="fas fa-mobile-alt"></i> </a></li>
+                                        <li><a href="#"><i class="fas fa-envelope"></i> </a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="property-agent-popup">
+                                <a href="#"><i class="fas fa-camera"></i> 06</a>
+                            </div>
+                        </div>
+                        <div class="property-details">
+                            <div class="property-details-inner">
+                                <h5 class="property-title"><a href="property-detail-style-01.html">Ample apartment at
+                                        last floor </a></h5>
+                                <span class="property-address"><i class="fas fa-map-marker-alt fa-xs"></i>Virginia drive
+                                    temple hills</span>
+                                <span class="property-agent-date"><i class="far fa-clock fa-md"></i>10 days ago</span>
+                                <div class="property-price">$150.00<span> / month</span> </div>
+                                <ul class="property-info list-unstyled d-flex">
+                                    <li class="flex-fill property-bed"><i class="fas fa-bed"></i>Bed<span>1</span></li>
+                                    <li class="flex-fill property-bath"><i class="fas fa-bath"></i>Bath<span>2</span>
+                                    </li>
+                                    <li class="flex-fill property-m-sqft"><i
+                                            class="far fa-square"></i>sqft<span>145m</span></li>
+                                </ul>
+                            </div>
+                            <div class="property-btn">
+                                <a class="property-link" href="property-detail-style-01.html">See Details</a>
+                                <ul class="property-listing-actions list-unstyled mb-0">
+                                    <li class="property-compare"><a data-toggle="tooltip" data-placement="top"
+                                            title="Compare" href="#"><i class="fas fa-exchange-alt"></i></a></li>
+                                    <li class="property-favourites"><a data-toggle="tooltip" data-placement="top"
+                                            title="Favourite" href="#"><i class="far fa-heart"></i></a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="property-item">
+                        <div class="property-image bg-overlay-gradient-04">
+                            <img class="img-fluid" src="images/property/grid/02.jpg" alt="">
+                            <div class="property-lable">
+                                <span class="badge badge-md badge-primary">Apartment</span>
+                                <span class="badge badge-md badge-info">New </span>
+                            </div>
+                            <div class="property-agent">
+                                <div class="property-agent-image">
+                                    <img class="img-fluid" src="images/avatar/02.jpg" alt="">
+                                </div>
+                                <div class="property-agent-info">
+                                    <a class="property-agent-name" href="#">John doe</a>
+                                    <span class="d-block">Company Agent</span>
+                                    <ul class="property-agent-contact list-unstyled">
+                                        <li><a href="#"><i class="fas fa-mobile-alt"></i> </a></li>
+                                        <li><a href="#"><i class="fas fa-envelope"></i> </a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="property-agent-popup">
+                                <a href="#"><i class="fas fa-camera"></i> 12</a>
+                            </div>
+                        </div>
+                        <div class="property-details">
+                            <div class="property-details-inner">
+                                <h5 class="property-title"><a href="property-detail-style-01.html">Awesome family
+                                        home</a></h5>
+                                <span class="property-address"><i class="fas fa-map-marker-alt fa-xs"></i>Vermont dr.
+                                    hephzibah</span>
+                                <span class="property-agent-date"><i class="far fa-clock fa-md"></i>2 months ago</span>
+                                <div class="property-price">$326.00<span> / month</span> </div>
+                                <ul class="property-info list-unstyled d-flex">
+                                    <li class="flex-fill property-bed"><i class="fas fa-bed"></i>Bed<span>2</span></li>
+                                    <li class="flex-fill property-bath"><i class="fas fa-bath"></i>Bath<span>3</span>
+                                    </li>
+                                    <li class="flex-fill property-m-sqft"><i
+                                            class="far fa-square"></i>sqft<span>215m</span></li>
+                                </ul>
+                            </div>
+                            <div class="property-btn">
+                                <a class="property-link" href="property-detail-style-01.html">See Details</a>
+                                <ul class="property-listing-actions list-unstyled mb-0">
+                                    <li class="property-compare"><a data-toggle="tooltip" data-placement="top"
+                                            title="Compare" href="#"><i class="fas fa-exchange-alt"></i></a></li>
+                                    <li class="property-favourites"><a data-toggle="tooltip" data-placement="top"
+                                            title="Favourite" href="#"><i class="far fa-heart"></i></a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="property-item">
+                        <div class="property-image bg-overlay-gradient-04">
+                            <img class="img-fluid" src="images/property/grid/03.jpg" alt="">
+                            <div class="property-lable">
+                                <span class="badge badge-md badge-primary">Summer House</span>
+                                <span class="badge badge-md badge-info">Hot </span>
+                            </div>
+                            <span class="property-trending" title="trending"><i class="fas fa-bolt"></i></span>
+                            <div class="property-agent">
+                                <div class="property-agent-image">
+                                    <img class="img-fluid" src="images/avatar/03.jpg" alt="">
+                                </div>
+                                <div class="property-agent-info">
+                                    <a class="property-agent-name" href="#">Felica queen</a>
+                                    <span class="d-block">Investment</span>
+                                    <ul class="property-agent-contact list-unstyled">
+                                        <li><a href="#"><i class="fas fa-mobile-alt"></i> </a></li>
+                                        <li><a href="#"><i class="fas fa-envelope"></i> </a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="property-agent-popup">
+                                <a href="#"><i class="fas fa-camera"></i> 03</a>
+                            </div>
+                        </div>
+                        <div class="property-details">
+                            <div class="property-details-inner">
+                                <h5 class="property-title"><a href="property-detail-style-01.html">Contemporary
+                                        apartment</a></h5>
+                                <span class="property-address"><i class="fas fa-map-marker-alt fa-xs"></i>Newport st.
+                                    mebane, nc</span>
+                                <span class="property-agent-date"><i class="far fa-clock fa-md"></i>6 months ago</span>
+                                <div class="property-price">$658.00<span> / month</span> </div>
+                                <ul class="property-info list-unstyled d-flex">
+                                    <li class="flex-fill property-bed"><i class="fas fa-bed"></i>Bed<span>3</span></li>
+                                    <li class="flex-fill property-bath"><i class="fas fa-bath"></i>Bath<span>4</span>
+                                    </li>
+                                    <li class="flex-fill property-m-sqft"><i
+                                            class="far fa-square"></i>sqft<span>3,189m</span></li>
+                                </ul>
+                            </div>
+                            <div class="property-btn">
+                                <a class="property-link" href="property-detail-style-01.html">See Details</a>
+                                <ul class="property-listing-actions list-unstyled mb-0">
+                                    <li class="property-compare"><a data-toggle="tooltip" data-placement="top"
+                                            title="Compare" href="#"><i class="fas fa-exchange-alt"></i></a></li>
+                                    <li class="property-favourites"><a data-toggle="tooltip" data-placement="top"
+                                            title="Favourite" href="#"><i class="far fa-heart"></i></a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section> -->
+    <!--=================================
+  Property details -->
+
+</div>

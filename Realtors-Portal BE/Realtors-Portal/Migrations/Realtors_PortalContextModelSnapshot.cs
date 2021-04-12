@@ -535,29 +535,29 @@ namespace Realtors_Portal.Migrations
                     b.Property<int>("Active")
                         .HasColumnType("int");
 
-                    b.Property<int>("AreID")
-                        .HasColumnType("int");
+                    b.Property<string>("Are")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Avatar")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("CityID")
-                        .HasColumnType("int");
+                    b.Property<string>("City")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("CountryID")
-                        .HasColumnType("int");
+                    b.Property<string>("Country")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("DistrictID")
-                        .HasColumnType("int");
+                    b.Property<string>("District")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Email")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("LocationID")
-                        .HasColumnType("int");
+                    b.Property<string>("Location")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
@@ -613,8 +613,8 @@ namespace Realtors_Portal.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("ActiveAgent")
-                        .HasColumnType("int");
+                    b.Property<bool>("ActiveAgent")
+                        .HasColumnType("bit");
 
                     b.Property<int>("AgentID")
                         .HasColumnType("int");

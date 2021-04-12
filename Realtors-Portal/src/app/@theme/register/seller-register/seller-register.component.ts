@@ -47,13 +47,21 @@ export class SellerRegisterComponent implements OnInit {
       "name": val.fullName,
       "email": val.email,
       "password": val.password,
+      "indentificationNumber": "000000000000",
       "address": "Nothing",
       "phone": "0000000000",
-      "avatar": "https://scontent.fhan2-1.fna.fbcdn.net/v/t1.0-9/133549349_1281976232160042_6231890056107915313_n.jpg?_nc_cat=102&ccb=1-3&_nc_sid=174925&_nc_ohc=iz0UXfScNF4AX_WeTKA&_nc_ht=scontent.fhan2-1.fna&oh=baa30ca55c3ef86e510aca541ac9a2f2&oe=6077C815",
+      "avatar": "AvatarDefault.jpg",
       "active": 0,
-      "PackageID": 0,
       "productID": 0,
       "ppID": 0,
+      "Title": "Company Seller",
+      "Description": "What is the exact sequence of events that will take you to where you want to be? Have a think consciously of what you need to do. Every outcome begins with the first step. When you decide you want to have a romantic meal for two, there are many steps that you need.Success isn’t really that difficult.There is a significant portion of the population here in North America, that actually want and need success to be hard! Why? So they then have a built-in excuse when things don’t go their way! Pretty sad situation, to say the least.Have some fun and hypnotize yourself to be your very own “Ghost of Christmas future” and see what the future holds for you.",
+      "NetWorkID": "null",
+      "Location": "null",
+      "Country": "null",
+      "City": "null",
+      "District": "null",
+      "Are": "null",
       "user_type": "seller"
     }
     this.dataUser.emit(data);

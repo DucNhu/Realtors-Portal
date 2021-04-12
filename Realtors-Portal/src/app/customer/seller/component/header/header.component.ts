@@ -35,8 +35,6 @@ export class HeaderComponent implements OnInit {
   ngOnInit(): void {
     this.infor = this.authenticationService.currentUserValue.Infor;
     this.infor.src = environment.ImageUrl + 'Customer/';
-    console.log(this.infor);
-    
   }
   
   

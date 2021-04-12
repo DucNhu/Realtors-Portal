@@ -11,8 +11,7 @@ namespace Realtors_Portal.Models
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int ID { get; set; }
 
-        [Required]
-        public int ActiveAgent { get; set; }
+        public Boolean ActiveAgent { get; set; }
 
         public int AgentID { get; set; }
 
