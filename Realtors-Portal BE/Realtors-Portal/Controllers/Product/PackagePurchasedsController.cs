@@ -1,10 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using Realtors_Portal.Data;
 using Realtors_Portal.Models.Customer;
 
@@ -15,10 +19,14 @@ namespace Realtors_Portal.Controllers.Product
     public class PackagePurchasedsController : ControllerBase
     {
         private readonly Realtors_PortalContext _context;
+        private readonly IWebHostEnvironment _hostEnvironment;
+        private readonly IConfiguration _configuration;
 
-        public PackagePurchasedsController(Realtors_PortalContext context)
+        public PackagePurchasedsController(Realtors_PortalContext context, IConfiguration configuration, IWebHostEnvironment hostEnvironment)
         {
             _context = context;
+            this._hostEnvironment = hostEnvironment;
+            _configuration = configuration;
         }
 
         // GET: api/PackagePurchaseds
@@ -41,6 +49,63 @@ namespace Realtors_Portal.Controllers.Product
 
             return packagePurchased;
         }
+
+
+
+        [Route("getPackageByUserID/user/{id}")]
+        [HttpGet]
+        public JsonResult getPackageByUserID(int id)
+        {
+            string query = @"select * from PackagePurchased  inner join  package on PackagePurchased.PackageID = Package.PackageID  where USERID =" + id;
+
+            DataTable table = new DataTable();
+            string sqlDataSource = _configuration.GetConnectionString("RealtorsConnect");
+            SqlDataReader myRender;
+            using (SqlConnection myCon = new SqlConnection(sqlDataSource))
+            {
+                myCon.Open();
+                using (SqlCommand myCommand = new SqlCommand(query, myCon))
+                {
+                    myRender = myCommand.ExecuteReader();
+                    table.Load(myRender);
+                    myRender.Close(); myCon.Close();
+                }
+            }
+            return new JsonResult(table);
+        }
+
+        // Get Max year => Max Month => Max day of package by User sold
+        [Route("DayMaxOfMonthMaxOfYearMax/user/{id}")]
+        [HttpGet]
+        public JsonResult DayMaxOfMonthMaxOfYearMax(int id)
+        {
+            string query = @"
+select 
+max(YEAR(EndDate)) as YearMax, 
+max(MONTH(EndDate)) as MonthMaxOfYearMax, 
+max(DAY(EndDate)) as DayMaxOfMonthMaxOfYearMax
+from PackagePurchased where 
+MONTH(EndDate) = (select max(MONTH(EndDate)) 
+from PackagePurchased where 
+YEAR(EndDate) = (select max(YEAR(EndDate)) 
+from PackagePurchased where UserID = " + id + "))";
+
+            DataTable table = new DataTable();
+            string sqlDataSource = _configuration.GetConnectionString("RealtorsConnect");
+            SqlDataReader myRender;
+            using (SqlConnection myCon = new SqlConnection(sqlDataSource))
+            {
+                myCon.Open();
+                using (SqlCommand myCommand = new SqlCommand(query, myCon))
+                {
+                    myRender = myCommand.ExecuteReader();
+                    table.Load(myRender);
+                    myRender.Close(); myCon.Close();
+                }
+            }
+            return new JsonResult(table);
+        }
+   
 
         // PUT: api/PackagePurchaseds/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
