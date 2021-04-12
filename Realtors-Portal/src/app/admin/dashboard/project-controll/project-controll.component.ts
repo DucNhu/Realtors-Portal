@@ -69,7 +69,7 @@ export class ProjectControllComponent implements OnInit {
     private imageLibService: ImageLibService,
     private _ProjectService: ProjectService,
     private http: HttpClient,
-    
+
     private admin: AdminService,
     // private _countryService: CountryService,
     // private _cityService: CityService,
@@ -95,7 +95,7 @@ export class ProjectControllComponent implements OnInit {
       data => {
         this.containData = data;
         console.log(data);
-        
+
         this.containData.forEach(e => {
           e.ImageBannerSrc = this.getImageBannerSrc;
           this.listProject.unshift(e);
@@ -114,7 +114,7 @@ export class ProjectControllComponent implements OnInit {
         ProductID: ProductID, LevelActive: LevelActive
       }
       console.log(val);
-      
+
       this.admin.putLevelActiveProduct(val).subscribe(
         () => {
           let i = -1;
@@ -129,9 +129,9 @@ export class ProjectControllComponent implements OnInit {
           });
         }
       )
-      
+
     }
-    
+
   }
   // function CreateProject:
   dataImage;
@@ -651,6 +651,34 @@ export class ProjectControllComponent implements OnInit {
       }
     });
   }
+
+    // panigate ( phân trang )
+    page = 1;
+    count = 0;
+    tableSize = 5;
+    tableSizes = [3, 6, 9, 12];
+
+    fetchPosts(): void {
+      this._ProjectService.getProjectByFK().subscribe(
+        (response) => {
+          this.containData = response;
+        },
+        (error) => {
+          console.log(error);
+        }
+      );
+    }
+
+    onTableDataChange(event) {
+      this.page = event;
+      this.fetchPosts();
+    }
+
+    onTableSizeChange(event): void {
+      this.tableSize = event.target.value;
+      this.page = 1;
+      this.fetchPosts();
+    }
 
 }
 

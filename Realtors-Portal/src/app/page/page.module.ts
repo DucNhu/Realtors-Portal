@@ -23,7 +23,7 @@ import { ResultBySearchComponent } from './result-by-search/result-by-search.com
 import { ResultBySearchBoxComponent } from './mainpages/property-list/result-by-search.component';
 import { ListUserComponent } from './list-user/list-user.component';
 
-
+import { NgxPaginationModule } from "ngx-pagination";
 @NgModule({
   declarations: [
     PageComponent,
@@ -48,6 +48,6 @@ import { ListUserComponent } from './list-user/list-user.component';
     CommonModule,
     PageRoutingModule,
     FormsModule, ReactiveFormsModule,
-    MaterialModule]
+    MaterialModule, NgxPaginationModule]
 })
 export class PageModule { }
