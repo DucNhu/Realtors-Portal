@@ -45,7 +45,7 @@ export class BannerComponent implements OnInit {
     )
     this.homePageService.getMaxPrice().subscribe(
       data => {
-        this.maxPrice = data; 
+        this.maxPrice = data;
         this.formValidator.controls.priceMax.patchValue(this.maxPrice[0].maxPrice);
 
       }
@@ -97,10 +97,8 @@ export class BannerComponent implements OnInit {
 
     this.homePageService.getProductListBySearch(data).subscribe(
       data => {
-        this.route.navigate(['/property-list-search-result'])
-
         this.homePageService.setValueBySearch(data);
-
+        this.route.navigate(['/property-list-search-result'])
       }
     )
   }

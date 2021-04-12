@@ -21,6 +21,7 @@ import { DeltailUserComponent } from './deltail-user/deltail-user.component';
 import { ProductDetailComponent } from './product-detail/product-detail.component';
 import { ResultBySearchComponent } from './result-by-search/result-by-search.component';
 import { ResultBySearchBoxComponent } from './mainpages/property-list/result-by-search.component';
+import { ListUserComponent } from './list-user/list-user.component';
 
 
 @NgModule({
@@ -39,7 +40,8 @@ import { ResultBySearchBoxComponent } from './mainpages/property-list/result-by-
     DeltailUserComponent,
     ProductDetailComponent,
     ResultBySearchComponent,
-    ResultBySearchBoxComponent
+    ResultBySearchBoxComponent,
+    ListUserComponent
   ],
   providers: [AuthenticationService],
   imports: [

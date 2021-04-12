@@ -350,5 +350,13 @@ where Category.CategoryName = 'category1' and project.LevelActive > 0
 
 
 
+select [User].Name ,
+count(project.UserID) from [User]
+INNER join project on project.UserID = [User].ID
+where [User].Active = 1
+group by [User].Name
+
+
+
 use realtors01
 

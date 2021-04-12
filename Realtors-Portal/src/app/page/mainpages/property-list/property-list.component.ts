@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormGroup, FormBuilder } from '@angular/forms';
 import { HomePageService } from 'src/app/@core/mock/Home/home-page.service';
 import { environment } from 'src/app/@core/models/Environment';
 
@@ -16,10 +17,12 @@ export class PropertyListComponent implements OnInit {
   // END khai bao bien
   constructor(
     private homePageService: HomePageService,
+    private FormBuilder: FormBuilder
   ) { }
 
   ngOnInit(): void {
     this.getAllProduct();
+    this.ValidatorForm();
   }
 
   // Get All project
@@ -37,6 +40,61 @@ export class PropertyListComponent implements OnInit {
       }
     )
   }
+
+  formValidator: FormGroup;
+  ValidatorForm() {
+    this.formValidator = this.FormBuilder.group({
+      category: [''],
+      User_type: [''],
+      LocationName: [''],
+
+      CountryName: [''],
+      CityName: [''],
+      DistrictName: [''],
+
+      AreName: [''],
+
+      sqftMin: [0],
+      sqftMax: [0],
+
+      priceMin: [0],
+      priceMax: [0]
+    })
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
   onCaculator(data) {
     this.caculatorProduct = data;
