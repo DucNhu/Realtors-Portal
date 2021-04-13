@@ -121,7 +121,7 @@ where [User].User_type not like 'admin' and [User].Active = 1";
         [HttpGet]
         public JsonResult getUserInAdmin()
         {
-            string query = @"select Package.PackageName, Package.Price, Package.PackageTitle, Package.PackageDesciption, Package.Duration from Package";
+            string query = @"select [User].* from [User]";
 
             DataTable table = new DataTable();
             string sqlDataSource = _configuration.GetConnectionString("RealtorsConnect");
@@ -147,7 +147,7 @@ where [User].User_type not like 'admin' and [User].Active = 1";
         public JsonResult getPackageByUserInAdmin(int id)
         {
             string query = @"
-select Package.PackageName, Package.Price, Package.PackageTitle, Package.PackageDesciption, Package.Duration
+select Package.PackageID, Package.PackageName, Package.Price, Package.PackageTitle, Package.PackageDesciption, Package.Duration
 from Package
 
 INNER join PackagePurchased on PackagePurchased.PackageID = Package.PackageID

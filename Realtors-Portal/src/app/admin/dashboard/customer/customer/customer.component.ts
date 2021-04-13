@@ -6,6 +6,7 @@ import { environment } from '../../../../@core/models/Environment';
 
 import { UserService } from '../../../../@core/mock/Customer/user.service';
 import { RolesService } from '../../../../@core/mock/Customer/role/roles.service';
+import { AdminService } from 'src/app/@core/mock/Customer/admin.service';
 
 @Component({
   selector: 'app-customer',
@@ -22,6 +23,7 @@ export class CustomerComponent implements OnInit {
   constructor(
     private FormBuilder: FormBuilder,
     private userService: UserService,
+    private adminService: AdminService,
     private http: HttpClient,
     private rolesService: RolesService
   ) { }
@@ -39,7 +41,7 @@ export class CustomerComponent implements OnInit {
   getIdLength = 0;
   // Get All project
   getAllUser() {
-    this.userService.getAllUser().subscribe(
+    this.adminService.getAllUser().subscribe(
       data => {
         this.containData = data;
         console.log(data);

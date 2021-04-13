@@ -12,6 +12,11 @@ export class AdminService {
   getAllEmailUser() {
     return this.http.get(environment.apiUrl + 'Admins')
   }
+
+  getAllUser() {
+    return this.http.get(environment.apiUrl + 'Users/getUserInAdmin')
+  }
+
   register(val) {
     return this.http.post(environment.apiUrl + 'Admins/register', val)
   }
