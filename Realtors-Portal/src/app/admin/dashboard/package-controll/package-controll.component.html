@@ -21,7 +21,10 @@
         </div>
     </div>
     <div class="row">
-        <div class="col-lg-3 col-sm-6 col-12 my-2" *ngFor="let p of listPackage">
+        <div class="col-lg-3 col-sm-6 col-12 my-2" *ngFor="let p of listPackage | paginate : {
+                itemsPerPage: tableSize,
+                currentPage: page,
+                totalItems: count}">
             <div class="pricing">
                 <h5 class="pricing-title">{{p.PackageName}}</h5>
                 <!-- <img [src]="p.ImageBannerSrc + p.PackageAvatar" [alt]="p.PackageAvatar" class="img-fluid"
@@ -146,6 +149,16 @@
         </div>
         <!-- END form -->
     </div>
+
+    <div class="d-flex justify-content-center">
+      <pagination-controls
+        responsive="true"
+        previousLabel="Prev"
+        nextLabel="Next"
+        (pageChange)="onTableDataChange($event)">
+      </pagination-controls>
+    </div>
+
 </div>
 
 <!-- Form Edit -->
@@ -228,7 +241,12 @@
                                         <!-- Active -->
                                         <div class="mb-4">
                                             <label for="Active">Active</label>
-                                            <input type="checkbox" formControlName="Active" id="Active" />
+                                            <!-- <input type="checkbox" formControlName="Active" id="Active" /> -->
+                                            <mat-slide-toggle
+                                              class="example-margin"
+                                              formControlName="Active"
+                                              id="Active">
+                                            </mat-slide-toggle>
                                         </div>
 
                                         <!-- footer form -->
@@ -252,3 +270,5 @@
     </div>
 </div>
 <!-- End of Form Add / Edit -->
+
+
