@@ -29,61 +29,28 @@ Breadcrumb -->
                     <div class="property-detail-title">
                         <h3>{{ InforProduct[0].ProjectName }}</h3>
                         <span class="d-block mb-4"><i class="fas fa-map-marker-alt fa-xs pr-2"></i>
-                            {{ InforProduct[0].LocationName + " " + InforProduct[0].CountryName + " " +InforProduct[0].CityName
+                            {{ InforProduct[0].LocationName + " " + InforProduct[0].CountryName + " "
+                            +InforProduct[0].CityName
                             }}
                         </span>
                     </div>
                 </div>
-
-                <div class="col-lg-4 mb-5 mb-lg-0 order-lg-2">
-                    <div class="sticky-top">
-                        <div class="mb-4">
-                            <h3>{{ InforProduct[0].ProjectName }}</h3>
-                            <span class="d-block mb-3"><i class="fas fa-map-marker-alt fa-xs pr-2"></i>{{
-                                InforProduct[0].LocationName }}</span>
-                            <span class="price font-xll text-primary d-block">${{ InforProduct[0].Price }}</span>
-                            <span class="sub-price font-lg text-dark d-block"><b>{{ InforProduct[0].Sqft }}Sqft </b>
-                            </span>
-
-                        </div>
-                        <div class="agent-contact">
-                            <div class="d-flex align-items-center p-4 border border-bottom-0">
-                                <div class="agent-contact-avatar mr-3">
-                                    <img class="img-fluid rounded-circle avatar avatar-xl"
-                                        [src]="ImageUserSrc + InforProduct[0].Avatar" [alt]="InforProduct[0].Avatar">
-                                </div>
-                                <div class="agent-contact-name">
-                                    <h6 routerLink="user-detail/id/{{ InforProduct[0].UserID }}">{{ InforProduct[0].Name }}
-                                    </h6>
-                                    <span>Company {{ InforProduct[0].User_type }}</span>
-                                    <span class="d-block"><i class="fas fa-phone-volume pr-2 mt-2"></i> {{
-                                        InforProduct[0].Phone }} </span>
-                                </div>
-                            </div>
-                            <div class="d-flex">
-                                <a href="mailto: {{ InforProduct[0].Email }}" class="btn btn-dark col b-radius-none">Send Email</a>
-                                <a routerLink="/user-detail/id/{{ InforProduct[0].UserID }}" class="btn btn-primary col ml-0 b-radius-none">Request info</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-8 order-lg-1">
+                <div class="col-lg-8">
                     <div class="property-detail-img popup-gallery">
                         <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
                             <div class="carousel-inner">
-                                <div class="carousel-item" *ngFor="let item of listImageFeature; let i = index" [class]="i == 1 ? 'active' : ''">
+                                <div class="carousel-item" *ngFor="let item of listImageFeature; let i = index"
+                                    [class]="i == 1 ? 'active' : ''">
                                     <div class="angular-property-image">
                                         <img [src]="ImageFeatureSrc + item.Name" class="img-fluid w-100" [alt]="item.Name">
                                     </div>
                                 </div>
                             </div>
-                            <a class="carousel-control-prev" href="#carouselExampleControls" role="button"
-                                data-slide="prev">
+                            <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
                                 <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                                 <span class="sr-only">Previous</span>
                             </a>
-                            <a class="carousel-control-next" href="#carouselExampleControls" role="button"
-                                data-slide="next">
+                            <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
                                 <span class="carousel-control-next-icon" aria-hidden="true"></span>
                                 <span class="sr-only">Next</span>
                             </a>
@@ -119,7 +86,7 @@ Breadcrumb -->
                         </div>
                     </div>
                     <hr class="mt-4 mb-4 mb-sm-5 mt-sm-5">
-
+                
                     <div class="property-address">
                         <div class="row">
                             <div class="col-sm-3 mb-3 mb-sm-0">
@@ -132,7 +99,7 @@ Breadcrumb -->
                                             <li><b>Location:</b> {{ InforProduct[0].LocationName }}</li>
                                             <li><b>County:</b> {{ InforProduct[0].CountryName }}</li>
                                             <li><b>District:</b> {{ InforProduct[0].DistrictName }}</li>
-                                            
+                
                                         </ul>
                                     </div>
                                     <div class="col-sm-6">
@@ -146,11 +113,111 @@ Breadcrumb -->
                             </div>
                         </div>
                     </div>
-                    
+                
                 </div>
+                
+                <!-- <aside> -->
+                <div class="col-lg-4 mb-5 mb-lg-0">
+                    <div class="sticky-top">
+                        <div class="mb-4">
+                            <h3>{{ InforProduct[0].ProjectName }}</h3>
+                            <span class="d-block mb-3"><i class="fas fa-map-marker-alt fa-xs pr-2"></i>{{
+                                InforProduct[0].LocationName }}</span>
+                            <span class="price font-xll text-primary d-block">${{ InforProduct[0].Price }}</span>
+                            <span class="sub-price font-lg text-dark d-block"><b>{{ InforProduct[0].Sqft }}Sqft </b>
+                            </span>
+
+                        </div>
+                        <div class="agent-contact">
+                            <div class="d-flex align-items-center p-4 border border-bottom-0">
+                                <div class="agent-contact-avatar mr-3">
+                                    <img class="img-fluid rounded-circle avatar avatar-xl"
+                                        [src]="ImageUserSrc + InforProduct[0].Avatar" [alt]="InforProduct[0].Avatar">
+                                </div>
+                                <div class="agent-contact-name">
+                                    <h6 routerLink="user-detail/id/{{ InforProduct[0].UserID }}">{{ InforProduct[0].Name
+                                        }}
+                                    </h6>
+                                    <span>Company {{ InforProduct[0].User_type }}</span>
+                                    <span class="d-block"><i class="fas fa-phone-volume pr-2 mt-2"></i> {{
+                                        InforProduct[0].Phone }} </span>
+                                </div>
+                            </div>
+
+                            <div class="d-flex">
+                                <a href="mailto: {{ InforProduct[0].Email }}"
+                                    class="btn btn-dark col b-radius-none">Send Email</a>
+                                <a routerLink="/user-detail/id/{{ InforProduct[0].UserID }}"
+                                    class="btn btn-primary col ml-0 b-radius-none">Request info</a>
+                            </div>
+                        </div>
+                        <div class="box-caculator mt-3">
+                            <h3 class="text-center">Caculator</h3>
+                            <div class="caculator-box__form">
+                                <!-- <h5 class="property-title">{{
+                                                                            caculatorProduct.Name }}
+                                                                        </h5> -->
+                                <ul class="list-style-none p-0">
+
+                                    <li>
+                                        <label for="">pre payment Select</label>
+                                        <span class="property-address">
+                                            <select [(ngModel)]="prepaymentSelect" class="form-control"
+                                                (change)="originalFeeForOneYearFunction()">
+                                                <option *ngFor="let tienTraTrc of prepaymentList" [value]="tienTraTrc"
+                                                    [selected]="tienTraTrc == 0">
+                                                    {{tienTraTrc}}%
+                                                </option>
+                                            </select>
+                                        </span>
+                                    </li>
+
+                                    <li>
+                                        <label for="">loan Term Select</label>
+                                        <span class="property-address">
+                                            <select class="form-control" [(ngModel)]="loanTermSelect"
+                                                (change)="originalFeeForOneYearFunction()">
+                                                <option *ngFor="let loanTerm of loanTermList; let i = index" [value]="loanTerm" [value]="loanTerm">
+                                                    {{loanTerm}} year</option>
+                                            </select>
+                                        </span>
+                                    </li>
+                                    <li>
+                                        <label for="">interest</label>
+                                        <input type="text" disabled class="form-control" [value]="interestRate + '%'">
+                                    </li>
+                                    <li>
+                                        <!-- Cuoc goc tra trog 1 nam -->
+                                        <span class="flex-fill">
+                                            <label for="">original Fee For One Year</label>
+                                                <p><b>{{ originalFeeForOneYear | currency :'$' :true: '1.0-3' }}</b></p>
+                                        </span>
+                                    </li>
+                                    <li>
+                                        <!-- tien lai trog 1 nam -->
+                                        <span class="flex-fill">
+                                            <label for="">interest In One Year </label>
+                                            <p><b>{{ interestInOneYear | currency :'$' :true: '1.0-3' }}</b></p>
+                                        </span>
+                                    </li>
+                                    <li>
+                                        <!-- tien tra trog 1 nam -->
+                                        <span class="flex-fill">
+                                            <label for="">total</label>
+                                            <p><b>{{ total | currency :'$' :true: '1.0-3' }}</b></p>
+                                        </span>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+
+
             </div>
         </div>
-    </section> 
+    </section>
     <!-- <section class="space-pt">
         <div class="container">
             <hr class="mb-5 mt-0">

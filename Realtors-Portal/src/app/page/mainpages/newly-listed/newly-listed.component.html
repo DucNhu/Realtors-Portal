@@ -73,7 +73,7 @@
 
                         </div>
                         <div class="property-btn">
-                            <a class="property-link" routerLink="product/productName/{{ product.ProjectName }}">See
+                            <a class="property-link" routerLink="property-detail/id/{{ product.ID }}">See
                                 Details</a>
                             <ul class="property-listing-actions list-unstyled mb-0">
                                 <li class="property-compare">
@@ -194,27 +194,23 @@
                                     </li>
                                     <li>
                                         <!-- Cuoc goc tra trog 1 nam -->
-                                        <span class="flex-fill ketqua">
+                                        <span class="flex-fill">
                                             <label for="">original Fee For One Year</label>
-                                            <input disabled type="number"
-                                                [value]="originalFeeForOneYear | number: '0.0-4'"
-                                                class="form-control" />
+                                            <p><b>{{ originalFeeForOneYear | currency :'$' :true: '1.0-3' }}</b></p>
                                         </span>
                                     </li>
                                     <li>
                                         <!-- tien lai trog 1 nam -->
-                                        <span class="flex-fill ketqua">
-                                            <label for="">interest In One Year</label>
-                                            <input disabled type="number" [value]="interestInOneYear | number: '0.0-4'"
-                                                class="form-control" />
+                                        <span class="flex-fill">
+                                            <label for="">interest In One Year </label>
+                                            <p><b>{{ interestInOneYear | currency :'$' :true: '1.0-3' }}</b></p>
                                         </span>
                                     </li>
                                     <li>
                                         <!-- tien tra trog 1 nam -->
-                                        <span class="flex-fill ketqua">
+                                        <span class="flex-fill">
                                             <label for="">total</label>
-                                            <input disabled type="number" [value]="total | number: '0.0-4'"
-                                                class="form-control" />
+                                            <p><b>{{ total | currency :'$' :true: '1.0-3' }}</b></p>
                                         </span>
                                     </li>
                                 </ul>

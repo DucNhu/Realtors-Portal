@@ -137,6 +137,10 @@ export class ResultBySearchComponent implements OnInit {
 
     this.originalFeeForOneYear = (TotalPrice - this.prepayment) / this.loanTermSelect;
     this.interestInOneYear = (TotalPrice - this.prepayment) * (this.interestRate / 100);
-    this.total = (this.interestInOneYear + this.originalFeeForOneYear)
+    this.total = (this.interestInOneYear + this.originalFeeForOneYear);
+
+    this.originalFeeForOneYear.toFixed(2);
+    this.interestInOneYear.toFixed(2);
+    this.total.toFixed(2);
   }
 }

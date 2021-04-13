@@ -35,14 +35,15 @@ export class ListUserComponent implements OnInit {
   ListRoles;
   containData;
   getIdLength = 0;
+  resultCount = 0;
   // Get All project
   getAllUser() {
     this.userService.getAllUser().subscribe(
       data => {
         this.containData = data;
-        console.log(data);
-
+        let i =0;
         this.containData.forEach(e => {
+          this.resultCount = ++i;
           e.ImageAvatarSrc = this.getImageAvatarSrc;
           this.listSeller.unshift(e);
         });
