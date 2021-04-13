@@ -18,11 +18,11 @@ export class UserService {
     return this.http.post(environment.apiUrl + 'Users/register', val)
   }
 
-  //  ADMIN
-  getAllUser() {
-    return this.http.get(environment.apiUrl + 'Users/getUserForAdmin')
-  }
 
+  getAllUser() {
+    return this.http.get(environment.apiUrl + 'Users/getUserActive')
+  }
+  //  ADMIN
   putUserForAdmin(val) {
     return this.http.put(environment.apiUrl + 'Users/putUserForAdmin', val)
   }

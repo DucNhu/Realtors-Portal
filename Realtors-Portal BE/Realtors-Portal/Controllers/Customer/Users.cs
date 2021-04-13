@@ -89,11 +89,71 @@ namespace Realtors_Portal.Controllers
 
 
         //Get User in Admin page
-        [Route("getUserForAdmin")]
+        [Route("getUserActive")]
         [HttpGet]
-        public JsonResult Get()
+        public JsonResult getUserActive()
         {
-            string query = @"SELECT [User].* from [User]";
+            string query = @"
+select [User].ID, [User].Name, [User].Email, [User].Title, [User].Description, [User].Phone, [User].Email,[User].User_type, [User].Avatar, [User].Active, [User].PackageID
+from [User]
+where [User].User_type not like 'admin' and [User].Active = 1";
+
+            DataTable table = new DataTable();
+            string sqlDataSource = _configuration.GetConnectionString("RealtorsConnect");
+            SqlDataReader myRender;
+            using (SqlConnection myCon = new SqlConnection(sqlDataSource))
+            {
+                myCon.Open();
+                using (SqlCommand myCommand = new SqlCommand(query, myCon))
+                {
+                    myRender = myCommand.ExecuteReader();
+                    table.Load(myRender);
+                    myRender.Close(); myCon.Close();
+                }
+            }
+            return new JsonResult(table);
+        }
+
+
+
+        //Get User in Admin page
+        [Route("getUserInAdmin")]
+        [HttpGet]
+        public JsonResult getUserInAdmin()
+        {
+            string query = @"select Package.PackageName, Package.Price, Package.PackageTitle, Package.PackageDesciption, Package.Duration from Package";
+
+            DataTable table = new DataTable();
+            string sqlDataSource = _configuration.GetConnectionString("RealtorsConnect");
+            SqlDataReader myRender;
+            using (SqlConnection myCon = new SqlConnection(sqlDataSource))
+            {
+                myCon.Open();
+                using (SqlCommand myCommand = new SqlCommand(query, myCon))
+                {
+                    myRender = myCommand.ExecuteReader();
+                    table.Load(myRender);
+                    myRender.Close(); myCon.Close();
+                }
+            }
+            return new JsonResult(table);
+        }
+
+
+
+        //Get Package by UserID in Admin page
+        [Route("getPackageByUserInAdmin/{id}")]
+        [HttpGet]
+        public JsonResult getPackageByUserInAdmin(int id)
+        {
+            string query = @"
+select Package.PackageName, Package.Price, Package.PackageTitle, Package.PackageDesciption, Package.Duration
+from Package
+
+INNER join PackagePurchased on PackagePurchased.PackageID = Package.PackageID
+
+where PackagePurchased.UserID =
+" + id;
 
             DataTable table = new DataTable();
             string sqlDataSource = _configuration.GetConnectionString("RealtorsConnect");

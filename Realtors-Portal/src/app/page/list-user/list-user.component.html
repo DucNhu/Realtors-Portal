@@ -39,8 +39,8 @@ Listing – grid view -->
                                 <img class="img-fluid" [src]="getImageAvatarSrc + user.Avatar" [alt]="user.Avatar">
                             </div>
                             <div class="agent-listing text-center mt-auto">
-                                <a href="#"> <strong class="text-primary d-inline-block mr-2">20</strong>Listed
-                                    Properties </a>
+                                <!-- <a href="#"> <strong class="text-primary d-inline-block mr-2">20</strong>Listed
+                                    Properties </a> -->
                             </div>
                         </div>
                     </div>
@@ -49,7 +49,7 @@ Listing – grid view -->
                             <div class="agent-detail">
                                 <div class="d-sm-flex">
                                     <div class="agent-name">
-                                        <h5 class="mb-0"> <a routerLink="/user-detail/id/{{ user.ID }}">Nhu Hoang Minh Duc</a></h5>
+                                        <h5 class="mb-0"> <a routerLink="/user-detail/id/{{ user.ID }}">{{ user.Name }}</a></h5>
                                         <!-- <span>Pomegranate real estates</span> -->
                                     </div>
                                     <!-- <div class="agent-social ml-auto mt-2 mt-sm-0">
