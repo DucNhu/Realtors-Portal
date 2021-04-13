@@ -3,3 +3,7 @@
     max-height: 90vh;
     overflow: scroll;
 }
+
+label[for*="ImageFeature"] {
+    cursor: pointer;
+}

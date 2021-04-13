@@ -153,7 +153,7 @@
                                             </div>
 
                                             <div class="overflow-auto row list-image__Lib">
-                                                <div class="text-center w-100">Select feature Image</div>
+                                                <div class="text-center w-100"><label for="ImageFeature">Select feature Image</label></div>
                                                 <div class="col-3 image__Lib" *ngFor="let feature of ArrayCRDFeature">
                                                     <img [src]="feature.url + feature.Name" [alt]="feature.Name"
                                                         class="img-fluid">
@@ -305,7 +305,7 @@
                                         <div class="col-12">
                                             <button type="submit"
                                                 class="btn btn-success btn-outline-success d-block mx-auto" (click)="CreateProject(formValidator.value);
-                                                 upPhotoImageFeature()" data-dismiss="modal" aria-label="Close"
+                                                 upPhotoImageFeature()" 
                                                 [disabled]="formValidator.status == 'INVALID' || disabled">
                                                 Sumit
                                             </button>

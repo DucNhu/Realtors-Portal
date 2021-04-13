@@ -158,87 +158,7 @@ export class EditProductComponent implements OnInit {
   // function CreateProject:
   dataImage;
   selectedFile: File = null;
-  CreateProject(data) {
-    data.ID = 0;
-    data.UserID = this.authenticationService.currentUserValue.Infor.ID;
 
-    if (this.upPhoto() && this.upPhotoImageFeature) {        // this.upPhoto(); // Insert Image
-      data.ImageBannerName = this.DataFormProjectEdit.ImageBannerName;
-      // let getIDLast = this.listProject[length].ID;
-      let getIDLast = 0;
-      try { getIDLast = this.listProject[length].ID; } catch { getIDLast = 0; }
-      // let getIDImageLibLast = this.listImageFeature[length].ID;
-      let getIDImageLibLast = 0;
-      try { getIDImageLibLast = this.listImageFeature[length].ID; } catch { getIDImageLibLast = 0; }
-      this._ProjectService.CreateProj(data)
-        .subscribe(res => {
-          this.upPhoto(); // Insert Image
-
-          // Insert Image in table ImageLib trog sql
-          let idlastofProduct = getIDLast;
-          this.ArrayCRDFeature.forEach(e => {
-
-            let dataImageLib = {
-              "imageLibID": 0,
-              "productID": idlastofProduct += 1,
-              "name": e.NameinSert,
-            }
-
-            this.imageLibService.CreateProj(dataImageLib).subscribe(data => {
-
-            });
-          });
-          data.ID = getIDLast += 1;
-          data.ImageBannerSrc = '';
-          data.ImageBannerName = this.DefaultandNewAvatar;
-
-          // dữ liệu truyền vào là id, nên lặp để tìm r gắn lại name vào mảng
-          this.listLocation.forEach(e => {
-            if (e.LocationID == data.Location) {
-              data.LocationName = e.LocationName;
-            }
-          });
-          this.listCountry.forEach(e => {
-            if (e.CountryID == data.Country) {
-              data.CountryName = e.CountryName;
-            }
-          });
-          this.listCity.forEach(e => {
-            if (e.CityID == data.City) {
-              data.CityName = e.CityName;
-            }
-          });
-          this.listDistrict.forEach(e => {
-            if (e.DistrictID == data.District) {
-              data.DistrictName = e.DistrictName;
-            }
-          });
-          this.listAre.forEach(e => {
-            if (e.AreID == data.Are) {
-              data.AreName = e.AreName;
-            }
-          });
-
-          this.listCategies.forEach(e => {
-            if (e.CategoryID == data.CategoryID) {
-              data.CategoryName = e.CategoryName;
-            }
-          });
-
-          this.listProject.unshift(data);
-          this.resetImageArray();
-          this.Alert_successFunction("Create done");
-          getIDLast++;
-          getIDImageLibLast++;
-
-        });
-
-
-    }
-    else {
-      this.Alert_dangerFunction("Create false, try again, pls");
-    }
-  }
 
 
   resetImageArray() { // because update in array
@@ -402,7 +322,9 @@ export class EditProductComponent implements OnInit {
 
           else if (this.InforUser.User_type == 'seller') {
             if (this.upPhotoImageFeature) {
-              window.location.assign(this.returnUrl + "profile-seller/product");
+              setTimeout(() => {
+                window.location.assign(this.returnUrl + "profile-seller/product");
+              }, 2000);
             }
           }
           this.EditByIdInArray(data);
