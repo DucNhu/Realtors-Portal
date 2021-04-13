@@ -74,7 +74,10 @@
             </tr>
         </thead>
         <tbody>
-            <tr *ngFor="let c of listSeller">
+            <tr *ngFor="let c of listSeller | paginate : {
+              itemsPerPage: tableSize,
+              currentPage: page,
+              totalItems: count}">
                 <td>{{ c.ID }}</td>
                 <td>
                     <div class="angular-property-image bg-overlay-gradient-04">
@@ -114,6 +117,16 @@
 
         </tbody>
     </table>
+
+    <div class="d-flex justify-content-center">
+      <pagination-controls
+        responsive="true"
+        previousLabel="Prev"
+        nextLabel="Next"
+        (pageChange)="onTableDataChange($event)">
+      </pagination-controls>
+      </div>
+
 </div>
 
 <!-- Form Add / Edit -->

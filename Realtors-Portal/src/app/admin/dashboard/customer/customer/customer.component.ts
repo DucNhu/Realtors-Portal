@@ -45,7 +45,7 @@ export class CustomerComponent implements OnInit {
       data => {
         this.containData = data;
         console.log(data);
-        
+
         this.containData.forEach(e => {
           e.ImageBannerSrc = this.getImageBannerSrc;
           this.listSeller.unshift(e);
@@ -175,23 +175,52 @@ export class CustomerComponent implements OnInit {
   Alert_successFunction(value) {
     this.alert_Text = value;
     this.alert_success = true;
-    // call function set alert_success = true  
+    // call function set alert_success = true
     this.AlertFunction(true);
   }
   Alert_dangerFunction(value) {
     this.alert_Text = value;
     this.alert_danger = true;
 
-    // call function set alert_danger = true  
+    // call function set alert_danger = true
     this.AlertFunction(false);
   }
+
+  // panigate ( phân trang )
+  page = 1;
+  count = 0;
+  tableSize = 5;
+  tableSizes = [3, 6, 9, 12];
+
+  fetchPosts(): void {
+    this.userService.getAllUser().subscribe(
+      (response) => {
+        this.containData = response;
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
+  }
+
+  onTableDataChange(event) {
+    this.page = event;
+    this.fetchPosts();
+  }
+
+  onTableSizeChange(event): void {
+    this.tableSize = event.target.value;
+    this.page = 1;
+    this.fetchPosts();
+  }
+
 
   // END Function show alert
 
   // handFileInput
   // imageBannertoUpload: File = null;
   // handFileInput(file: FileList) {
-  //   this.imageBannertoUpload = file.item(0)    
+  //   this.imageBannertoUpload = file.item(0)
   // }
   // END handFileInput
 }
