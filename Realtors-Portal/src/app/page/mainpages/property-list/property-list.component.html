@@ -79,7 +79,10 @@ Listing – grid view -->
           </ul>
         </div> -->
         <!-- Product List -->
-        <div class="property-item property-col-list mt-4" *ngFor='let prod of listProduct'>
+        <div class="property-item property-col-list mt-4" *ngFor="let prod of listProduct | paginate : {
+          itemsPerPage: tableSize,
+          currentPage: page,
+          totalItems: count}">
           <div class="row no-gutters">
             <div class="col-lg-4 col-md-5">
               <div class="property-image bg-overlay-gradient-04 angular-property-image">
@@ -140,7 +143,15 @@ Listing – grid view -->
           </div>
         </div>
 
-        <div class="row">
+        <div class="d-flex justify-content-center">
+          <pagination-controls
+            responsive="true"
+            previousLabel="Prev"
+            nextLabel="Next"
+            (pageChange)="onTableDataChange($event)">
+          </pagination-controls>
+        </div>
+        <!-- <div class="row">
           <div class="col-12">
             <ul class="pagination mt-3">
               <li class="page-item disabled mr-auto">
@@ -155,7 +166,7 @@ Listing – grid view -->
               </li>
             </ul>
           </div>
-        </div>
+        </div> -->
       </div>
     </div>
   </div>

@@ -161,30 +161,6 @@ export class ResultBySearchBoxComponent implements OnInit {
     );
   }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
   // Caculator
   caculatorProduct = {
     "ProjectName": "Project Name edited by new form",
@@ -219,10 +195,10 @@ export class ResultBySearchBoxComponent implements OnInit {
   loanTermSelect = 0;
 
   originalFeeForOneYear = 0; // Cuoc goc tra trog 1 nam
-  interestInOneYear = 0; // tien lãi in 1 year 
+  interestInOneYear = 0; // tien lãi in 1 year
   total = 0;// tien trả in 1 year
 
-  loanTerm = 0; // thoi han cho vay 
+  loanTerm = 0; // thoi han cho vay
   prepayment = 0; // tien tra trc
   // TotalPrice = 0;
   originalFeeForOneYearFunction(TotalPrice) {
@@ -232,4 +208,32 @@ export class ResultBySearchBoxComponent implements OnInit {
     this.interestInOneYear = (TotalPrice - this.prepayment) * (this.interestRate / 100);
     this.total = (this.interestInOneYear + this.originalFeeForOneYear)
   }
+
+    // panigate ( phân trang )
+    page = 1;
+    count = 0;
+    tableSize = 5;
+    tableSizes = [3, 6, 9, 12];
+
+    fetchPosts(): void {
+      this.homePageService.getProductActive().subscribe(
+        (response) => {
+          this.containData = response;
+        },
+        (error) => {
+          console.log(error);
+        }
+      );
+    }
+
+    onTableDataChange(event) {
+      this.page = event;
+      this.fetchPosts();
+    }
+
+    onTableSizeChange(event): void {
+      this.tableSize = event.target.value;
+      this.page = 1;
+      this.fetchPosts();
+    }
 }

@@ -31,7 +31,10 @@ Listing – grid view -->
         </div>
 
         <div class="col-lg-12 col-md-12">
-            <div class="agent agent-03 mt-4" *ngFor="let user of listSeller">
+            <div class="agent agent-03 mt-4" *ngFor="let user of listSeller | paginate : {
+              itemsPerPage: tableSize,
+              currentPage: page,
+              totalItems: count}">
                 <div class="row no-gutters">
                     <div class="col-lg-4 text-center border-right">
                         <div class="d-flex flex-column h-100">
@@ -78,26 +81,18 @@ Listing – grid view -->
                     </div>
                 </div>
             </div>
-           
-            <div class="row">
-                <div class="col-12">
-                    <ul class="pagination mt-5">
-                        <li class="page-item disabled mr-auto">
-                            <span class="page-link b-radius-none">Prev</span>
-                        </li>
-                        <li class="page-item active" aria-current="page"><span class="page-link">1 </span> <span
-                                class="sr-only">(current)</span></li>
-                        <li class="page-item"><a class="page-link" href="#">2</a></li>
-                        <li class="page-item"><a class="page-link" href="#">3</a></li>
-                        <li class="page-item ml-auto">
-                            <a class="page-link b-radius-none" href="#">Next</a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
         </div>
-    </div>
-   
+      </div>
 </section>
+
+<div class="d-flex justify-content-center">
+  <pagination-controls
+    responsive="true"
+    previousLabel="Prev"
+    nextLabel="Next"
+    (pageChange)="onTableDataChange($event)">
+  </pagination-controls>
+ </div>
+
 <!--=================================
 Listing – grid view -->
