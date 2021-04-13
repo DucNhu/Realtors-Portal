@@ -3,6 +3,7 @@ import { UserService } from 'src/app/@core/mock/Customer/user.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ProjectService } from 'src/app/@core/mock/project.service';
 import { environment } from 'src/app/@core/models/Environment';
+import { AuthenticationService } from 'src/app/@core/mock/Authentication.Service';
 
 @Component({
   selector: 'app-deltail-user',
@@ -15,46 +16,72 @@ export class DeltailUserComponent implements OnInit {
     private userService: UserService,
     private activatedRoute: ActivatedRoute,
     private projectService: ProjectService,
-
+    private authenticationService: AuthenticationService
   ) { }
 
   UserInfor;
   countProductByUser;
+  countPackage = 0;
   imgsrc = environment.ImageUrl + "Customer/";
   ImageBannerSrc = environment.ImageProductUrl + "Banner/";
-  listProductOfUser;
-  ngOnInit(): void {    
+  listProductOfUser; TotalPrice = 0;
+  listPackage;
+  ngOnInit(): void {
     this.geUSerDetail();
-    this.projectService.getCountProductByUserID(this.activatedRoute.snapshot.params['id']).subscribe( 
+    this.projectService.getCountProductByUserID(this.activatedRoute.snapshot.params['id']).subscribe(
       data => {
-        this.countProductByUser = data
+        this.countProductByUser = data;
       }
     )
 
-    // Property Others 
+    // Property of user 
     this.userService.getProductByUserIDActive(this.activatedRoute.snapshot.params['id']).subscribe(
       data => {
-        this.listProductOfUser = data; 
-        console.log(this.listProductOfUser);
-               
+        this.listProductOfUser = data;
+
+        this.TotalPrice = this.listProductOfUser[0].Price;
       }
     )
+
+    // Package By UserID 
+    if (this.authenticationService.currentUserValue) {
+      if (this.authenticationService.currentUserValue.Infor.ID == this.activatedRoute.snapshot.params['id']) {
+        this.userService.getPackageByUserId(this.activatedRoute.snapshot.params['id']).subscribe(
+          data => {
+            this.listPackage = data;
+            
+            this.listPackage.forEach(e => {
+              ++this.countPackage;
+            });
+            // this.TotalPackage = this.listpackage[0].Price;
+          }
+        )
+      }
+      else if (this.authenticationService.currentUserValue.Infor.User_type == 'admin') {
+        this.userService.getPackageByUserId(this.activatedRoute.snapshot.params['id']).subscribe(
+          data => {
+            this.listPackage = data;
+            this.listPackage.forEach(e => {
+              ++this.countPackage;
+            });
+          }
+        )
+      }
+    }
+
+
   }
 
   geUSerDetail() {
     this.userService.getUserDetail(this.activatedRoute.snapshot.params['id']).subscribe(
       data => {
         this.UserInfor = data;
-        console.log(this.UserInfor);
-
       }
     )
   }
 
   onCaculator(data) {
     this.caculatorProduct = data;
-    console.log(data);
-
   }
 
 
@@ -67,7 +94,7 @@ export class DeltailUserComponent implements OnInit {
     "Description": "3212",
     "Title": "Project Name",
     "Sqft": 321,
-    "Price": 1,
+    "Price": this.TotalPrice,
     "UserID": 7,
     "Name": "Nhữ Hoàng Minh Đức",
     "Avatar": "AvatarDefault.jpg",
@@ -97,12 +124,15 @@ export class DeltailUserComponent implements OnInit {
 
   loanTerm = 0; // thoi han cho vay 
   prepayment = 0; // tien tra trc
-  // TotalPrice = 0;
-  originalFeeForOneYearFunction(TotalPrice) {
-    this.prepayment = TotalPrice * (this.prepaymentSelect / 100); // tien tra trc
+  originalFeeForOneYearFunction() {
+    this.prepayment = this.TotalPrice * (this.prepaymentSelect / 100); // tien tra trc
 
-    this.originalFeeForOneYear = (TotalPrice - this.prepayment) / this.loanTermSelect;
-    this.interestInOneYear = (TotalPrice - this.prepayment) * (this.interestRate / 100);
-    this.total = (this.interestInOneYear + this.originalFeeForOneYear)
+    this.originalFeeForOneYear = (this.TotalPrice - this.prepayment) / this.loanTermSelect;
+    this.interestInOneYear = (this.TotalPrice - this.prepayment) * (this.interestRate / 100);
+    this.total = (this.interestInOneYear + this.originalFeeForOneYear);
+
+    this.originalFeeForOneYear.toFixed(2);
+    this.interestInOneYear.toFixed(2);
+    this.total.toFixed(2);
   }
 }

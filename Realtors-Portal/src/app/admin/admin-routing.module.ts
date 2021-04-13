@@ -9,6 +9,8 @@ import { PackageControllComponent } from './dashboard/package-controll/package-c
 import { CustomerComponent } from './dashboard/customer/customer/customer.component';
 import { ListCustomerComponent } from './dashboard/customer/list-customer.component';
 import { DashboardComponent } from './dashboard/dashboard/dashboard.component';
+import { DeltailUserComponent } from '../page/deltail-user/deltail-user.component';
+import { ProductDetailComponent } from '../page/product-detail/product-detail.component';
 const routes: Routes = [
     {
         path: '', component: AdminComponent,
@@ -33,6 +35,15 @@ const routes: Routes = [
             },
             {
                 path: 'customer', component: ListCustomerComponent
+            },
+            {
+                path: 'customer/user-detail/id/:id', component: DeltailUserComponent,
+            },
+            {
+                path: 'product/property-detail/id/:id', component: ProductDetailComponent,
+            },
+            {
+                path: 'property-detail/id/:id', component: ProductDetailComponent,
             }
         ]
     },

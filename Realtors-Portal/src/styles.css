@@ -41,6 +41,10 @@ input::-webkit-calendar-picker-indicator {
 }
 /* END  Frame + imge */
 
+td {
+    width: 200px;
+}
+
 .ketqua {
     text-transform: capitalize;
     position: relative;

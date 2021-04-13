@@ -13,9 +13,9 @@
                         {{ alert_Text }}
                     </div>
                     <!-- Danger -->
-                    <div class="d-none" [class]="alert_danger ? 'd-block alert alert-danger' : ''">
+                    <!-- <div class="d-none" [class]="alert_danger ? 'd-block alert alert-danger' : ''">
                         {{ alert_Text }}
-                    </div>
+                    </div> -->
                 </div>
             </div>
         </div>
@@ -31,10 +31,10 @@
                     *ngIf="p.PackageAvatar != null"> -->
                 <ul class="list-style-none p-0">
                     <li class="pricing-price d-block mb-2">
-                        <span><strong>${{p.Price}}</strong>/mo</span>
+                        <span><strong>${{p.Price}}</strong></span>
                     </li>
                     <li>{{p.PackageTitle}}</li>
-                    <li>Duration: {{ p.Duration }} {{ p.TypeDuration }}</li>
+                    <li>Duration: {{ p.Duration }} days</li>
                     <li>Active:
                         <mat-slide-toggle class="example-margin" [checked]="p.Active == 1 ? true : false"
                             [disabled]="true">
@@ -43,7 +43,7 @@
                 </ul>
 
                 <p>
-                    You have {{ p.Duration }} {{ p.TypeDuration }} to post for free
+                    You have {{ p.Duration }} days to post for free
                     <br>
                     {{p.PackageDesciption}}
                 </p>
@@ -199,19 +199,19 @@
                                                 <div class="w-100 p-2">
                                                     <label for="price">Price</label>
                                                     <input type="number" class="form-control" formControlName="Price"
-                                                        id="price" (blur)="checkValidForm('PackageLetter')">
+                                                        id="price" (blur)="checkValidForm('Price')">
                                                 </div>
                                                 <div class="d-flex w-100">
                                                     <div class="d-flex w-100">
                                                         <!-- Select duration: day?, month?, year? -->
-                                                        <select formControlName="TypeDuration" id="TypeDuration"
+                                                        <!-- <select formControlName="TypeDuration" id="TypeDuration"
                                                             class="form-control position-absolute mt-2 right-0 h-auto p-0 w-auto">
                                                             <option *ngFor="let type of listTypeDuration"
                                                                 [value]="type.title"
                                                                 [selected]="type.title == formValidator.controls.TypeDuration.value">
                                                                 {{type.title}}
                                                             </option>
-                                                        </select>
+                                                        </select> -->
                                                         <!-- Duration -->
                                                         <div class="w-100 p-2">
                                                             <label for="Duration">Duration</label>

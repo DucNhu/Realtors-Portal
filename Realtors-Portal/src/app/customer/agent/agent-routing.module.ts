@@ -8,6 +8,7 @@ import { NotfoundComponent } from '../../@theme/notfound/notfound.component';
 import { EditProductComponent } from '../seller/controll/product/edit-product/edit-product.component';
 import { AgentComponent } from './agent.component';
 import { ProductComponent } from './../seller/controll/product/product.component';
+import { ProductDetailComponent } from 'src/app/page/product-detail/product-detail.component';
 const routes: Routes = [
     {
         path: '', component: AgentComponent,
@@ -29,6 +30,12 @@ const routes: Routes = [
             },
             {
                 path: 'edit/id/:id', component: EditProductComponent
+            },
+            {
+                path: 'property-detail/id/:id', component: ProductDetailComponent,
+            },
+            {
+                path: 'product/property-detail/id/:id', component: ProductDetailComponent,
             }
         ]
     },

@@ -29,10 +29,10 @@
 
     font-weight: bold;
     color: white;
-    font-size: 10rem;
+    font-size: 10rem !important;
 }
 
 
 .font-small {
-font-size: 5rem;
+font-size: 5rem !important;
 }

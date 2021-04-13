@@ -26,6 +26,8 @@ export class ProductDetailComponent implements OnInit {
     this.homePageService.getProductDetail(this.ActivatedRoute.snapshot.paramMap.get("id")).subscribe(
       data => {
         this.InforProduct = data;   
+        console.log(this.ActivatedRoute.snapshot.paramMap.get("id"));
+
         this.TotalPrice = this.InforProduct[0].Price;        
       }
     )

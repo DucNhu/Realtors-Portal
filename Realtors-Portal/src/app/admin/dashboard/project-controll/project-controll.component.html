@@ -62,10 +62,10 @@
                 <td>{{ p.ProjectName }}</td>
                 <td>
                     <div class="angular-property-image bg-overlay-gradient-04">
-                        <img [src]="p.ImageBannerSrc + p.ImageBannerName" [alt]="p.ImageBannerName" class="img-fluid">
+                        <img [src]="p.ImageBannerSrc + p.ImageBannerName" [alt]="p.ImageBannerName" class="img-fluid" routerLink="property-detail/id/{{ p.ID }}">
                     </div>
                 </td>
-                <td>{{ p.CategoryName }}</td>
+                <td><a routerLink="property-detail/id/{{ p.ID }}">{{ p.CategoryName }}</a></td>
                 <td>{{ p.LocationName }}</td>
                 <td>{{ p.CountryName }}</td>
 
@@ -74,7 +74,7 @@
                 <td>{{ p.AreName }}</td>
 
                 <td>{{p.Price}}</td>
-                <th class="th-active">
+                <td class="th-active">
                     <div [ngSwitch]="p.LevelActive" class="box-active">
                         <div *ngSwitchCase="0">
                             <span class="suspended rounded">Suspended</span>
@@ -83,28 +83,24 @@
                         <div *ngSwitchCase="2"><span class="viewhome">View Home</span></div>
                         <div *ngSwitchDefault><span class="suspended">Error</span></div>
                     </div>
-                </th>
+                </td>
                 <!-- Action BOX-->
                 <td>
-                    <div class="dropdown">
+                    <div class="dropdown d-flex justify-content-around box-action">
                         <button class="btn p-0 dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown"
                             aria-haspopup="true" aria-expanded="false">
                             <i class="fas fa-lg fa-fw me-2 fa-ellipsis-h"></i>
                         </button>
+                        <button class="dropdown-item delete" type="button" (click)="DeleteEmPloyee(p.ID)">
+                            <i class="far fa-lg fa-fw  fa-trash-alt"></i>
+                        </button>
                         <div class="dropdown-menu p-0" aria-labelledby="dropdownMenu2">
-                            <div class="d-flex box-action position-relative">
-                                <button class="dropdown-item view" type="button">
-                                    <i class="far fa-eye"></i>
-                                </button>
-
-                                <ul class="list-group">
+                            <div class="d-flex position-relative">
+                                <ul class="list-group w-100">
                                     <li class="list-group-item" *ngFor="let lvl of listLevelActive">
                                         <a (click)="upgradeLevelActive(p.ID ,lvl.lvl, p)">{{lvl.Title}}</a>
                                     </li>
                                 </ul>
-                                <button class="dropdown-item delete" type="button" (click)="DeleteEmPloyee(p.ID)">
-                                    <i class="far fa-lg fa-fw  fa-trash-alt"></i>
-                                </button>
                             </div>
                         </div>
                     </div>
@@ -114,13 +110,10 @@
     </table>
 
     <div class="d-flex justify-content-center">
-      <pagination-controls
-        responsive="true"
-        previousLabel="Prev"
-        nextLabel="Next"
-        (pageChange)="onTableDataChange($event)">
-      </pagination-controls>
-      </div>
+        <pagination-controls responsive="true" previousLabel="Prev" nextLabel="Next"
+            (pageChange)="onTableDataChange($event)">
+        </pagination-controls>
+    </div>
 
 </div>
 

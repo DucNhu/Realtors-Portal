@@ -361,7 +361,12 @@ group by [User].Name
 select [User].ID, [User].Name, [User].Email, [User].Title, [User].Description, [User].Phone, [User].Email,[User].User_type, [User].Avatar, [User].Active, [User].PackageID from [User]
 where [User].User_type not like 'admin' and [User].Active = 1
 
-select Package.PackageName, Package.Price, Package.PackageTitle, Package.PackageDesciption, Package.Duration
+
+
+
+
+select Package.PackageName, Package.Price, Package.PackageTitle, Package.PackageDesciption, Package.Duration, 
+PackagePurchased.EndDate, PackagePurchased.StartDate
 from Package
 
 INNER join PackagePurchased on PackagePurchased.PackageID = Package.PackageID

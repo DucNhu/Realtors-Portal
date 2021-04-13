@@ -5,6 +5,7 @@ import { SellerGuard } from 'src/app/@core/_helpers/seller.guard';
 import { DeltailUserComponent } from 'src/app/page/deltail-user/deltail-user.component';
 
 import { PackageComponent } from 'src/app/page/package/package.component';
+import { ProductDetailComponent } from 'src/app/page/product-detail/product-detail.component';
 
 import { NotfoundComponent } from '../../@theme/notfound/notfound.component';
 import { EditProductComponent } from './controll/product/edit-product/edit-product.component';
@@ -32,6 +33,12 @@ const routes: Routes = [
             },
             {
                 path: 'edit/id/:id', component: EditProductComponent
+            },
+            {
+                path: 'property-detail/id/:id', component: ProductDetailComponent,
+            },
+            {
+                path: 'product/property-detail/id/:id', component: ProductDetailComponent,
             }
         ]
     },

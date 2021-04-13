@@ -209,7 +209,7 @@ export class PackageControllComponent implements OnInit {
       PackageName: ['PackageName', [Validators.required]],
 
       PackageTitle: ['PackageTitle'],
-      Price: [0, [Validators.required]],
+      Price: [0, [Validators.required, Validators.min(1)]],
       // PromotionPrice: [0],
 
       // NumberOfAds: [0, [Validators.required]],
@@ -288,11 +288,12 @@ export class PackageControllComponent implements OnInit {
     switch (val) {
       case "Duration":
         if (this.formValidator.controls.Duration.errors.min.min > this.formValidator.controls.Duration.errors.min.actual) {
-          this.errorAlert = "Not value < 0";
-        }
+        }; break;
 
-
-        ; break;
+      case "Price":
+        if (this.formValidator.controls.Price.errors.min.min > this.formValidator.controls.Price.errors.min.actual) {
+        }; 
+        break;
     }
   }
   // END checkValidForm

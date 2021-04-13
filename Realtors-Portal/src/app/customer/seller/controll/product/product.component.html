@@ -39,10 +39,9 @@
                 <th>Location</th>
                 <th>Country</th>
                 <th>City</th>
-                <th>District</th>
-                <th>Are</th>
+                <!-- <th>District</th> -->
                 <th>Price</th>
-                <th>Active</th>
+                <th colspan="2">Active</th>
                 <th>Action</th>
             </tr>
         </thead>
@@ -51,19 +50,18 @@
                 <td>{{ p.ProjectName }}</td>
                 <td>
                     <div class="angular-property-image bg-overlay-gradient-04">
-                        <img [src]="p.ImageBannerSrc + p.ImageBannerName" [alt]="p.ImageBannerName" class="img-fluid">
+                        <img [src]="p.ImageBannerSrc + p.ImageBannerName" [alt]="p.ImageBannerName" class="img-fluid" routerLink="property-detail/id/{{ p.ID }}">
                     </div>
                 </td>
-                <td>{{ p.CategoryName }}</td>
+                <td><a routerLink="property-detail/id/{{ p.ID }}">{{ p.CategoryName }}</a></td>
                 <td>{{ p.LocationName }}</td>
                 <td>{{ p.CountryName }}</td>
 
                 <td>{{ p.CityName }}</td>
-                <td>{{ p.DistrictName }}</td>
-                <td>{{ p.AreName }}</td>
+                <!-- <td>{{ p.DistrictName }}</td> -->
 
                 <td>{{p.Price}}</td>
-                <th class="th-active">
+                <td class="th-active" colspan="2">
                     <div [ngSwitch]="p.LevelActive" class="box-active">
                         <div *ngSwitchCase="0">
                             <span class="suspended rounded">Suspended</span>
@@ -72,7 +70,7 @@
                         <div *ngSwitchCase="2"><span class="viewhome">View Home</span></div>
                         <div *ngSwitchDefault><span class="suspended">Error</span></div>
                     </div>
-                </th>
+                </td>
                 <!-- Action BOX-->
                 <td>
                     <div class="dropdown">
@@ -81,7 +79,7 @@
                             <i class="fas fa-lg fa-fw me-2 fa-ellipsis-h"></i>
                         </button>
                         <div class="dropdown-menu p-0" aria-labelledby="dropdownMenu2">
-                            <div class="d-flex box-action">
+                            <div class="d-flex box-action justify-content-around">
                                 <button class="dropdown-item view" type="button">
                                     <i class="far fa-eye"></i>
                                 </button>

@@ -8,3 +8,8 @@ tr {
 span.d-flex.box-action {
   justify-content: center;
 }
+ .space-ptb {
+    padding: 0
+}
+
+app-deltail-user > .space-ptb { padding: 0}

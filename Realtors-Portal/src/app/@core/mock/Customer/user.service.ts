@@ -63,4 +63,8 @@ export class UserService {
     return this.http.get(environment.apiUrl + `Users/getUserDetail/user/${id}`)
   }
 
+  getPackageByUserId(id) {
+    return this.http.get(environment.apiUrl + `Users/getPackageByUserId/id/${id}`)
+  }
+
 }

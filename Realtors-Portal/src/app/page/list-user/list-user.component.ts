@@ -41,6 +41,7 @@ export class ListUserComponent implements OnInit {
     this.userService.getAllUser().subscribe(
       data => {
         this.containData = data;
+        
         let i =0;
         this.containData.forEach(e => {
           this.resultCount = ++i;

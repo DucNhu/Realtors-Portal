@@ -27,16 +27,6 @@ Listing – grid view -->
                                             <h2> <a href="#">{{ UserInfor[0].Name }}</a></h2>
                                             <span>{{ UserInfor[0].Title }}</span>
                                         </div>
-                                        <!-- <div class="agent-social ml-auto">
-                                            <ul class="list-unstyled list-inline">
-                                                <li class="list-inline-item"><a href="#"><i
-                                                            class="fab fa-facebook-f"></i> </a></li>
-                                                <li class="list-inline-item"><a href="#"><i class="fab fa-twitter"></i>
-                                                    </a></li>
-                                                <li class="list-inline-item"><a href="#"><i class="fab fa-linkedin"></i>
-                                                    </a></li>
-                                            </ul>
-                                        </div> -->
                                     </div>
                                     <div class="agent-info">
                                         <p class="mt-3 mb-3">
@@ -50,97 +40,136 @@ Listing – grid view -->
                 </div>
             </div>
         </div>
-        <div class="row mt-5">
-            <div class="col-md-4 mt-sm-5">
-                <div class="p-4 bg-light">
-                    <div class="section-title mb-4">
-                        <h4>Contact Detail</h4>
-                    </div>
-                    <ul class="list-unstyled mb-0">
-                        <li class="mb-2"><strong class="text-dark d-inline-block mr-2">Location:</strong>{{
-                            UserInfor[0].Location }}</li>
-                        <li class="mb-2"><strong class="text-dark d-inline-block mr-2">Country:</strong>{{
-                            UserInfor[0].Country }}</li>
-                        <li class="mb-2"><strong class="text-dark d-inline-block mr-2">City:</strong>{{
-                            UserInfor[0].City }}</li>
-                        <!-- <li class="mb-2"><strong
-                                class="text-dark d-inline-block mr-2">Website:</strong>potenzaglobalsolutions.com</li> -->
-                        <li class="mb-2"><strong class="text-dark d-inline-block mr-2">Phone:</strong>{{
-                            UserInfor[0].Phone }}
-                        </li>
-                    </ul>
-                </div>
-            </div>
-            <div class="col-md-8 mt-5">
-                <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
-                    <div class="carousel-inner">
-                        <div class="carousel-item" *ngFor="let prod of listProductOfUser; let i = index"
-                            [class]="i == 1 ? 'active' : ''">
-                            <!-- Product List -->
-                            <div class="property-item property-col-list mt-4">
-                                <div class="row no-gutters">
-                                    <div class="col-lg-4 col-md-5">
-                                        <div class="property-image bg-overlay-gradient-04 angular-property-image">
-                                            <img [src]="ImageBannerSrc + prod.ImageBannerName"
-                                                [alt]="prod.ImageBannerName" class="img-fluid" />
-                                            <div class="property-lable">
-                                                <span class="badge badge-md badge-primary">{{ prod.CategoryName
-                                                    }}</span>
+
+
+        <section class="space-pb">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+                        <ul class="nav nav-tabs mb-4" id="pills-tab" role="tablist">
+                            <li class="nav-item">
+                                <a class="nav-link active" id="infor-tab" data-toggle="pill" href="#infor" role="tab" aria-controls="infor"
+                                    aria-selected="false">infor</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" id="listing-tab" data-toggle="pill" href="#listing" role="tab" aria-controls="listing"
+                                    aria-selected="false">Listing</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" id="package-tab" data-toggle="pill" href="#package"
+                                    role="tab" aria-controls="package" aria-selected="true">package</a>
+                            </li>
+                            
+                        </ul>
+                        <div class="tab-content" id="pills-tabContent">
+                            <div class="tab-pane fade active show" id="infor" role="tabpanel" aria-labelledby="package-tab">
+                                <div class="row">
+                                    <div class="col-sm-4 col-12 my-2">
+                                        <div class="p-4 bg-light">
+                                            <div class="section-title mb-4">
+                                                <h4>Contact Detail</h4>
                                             </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-8 col-md-7">
-                                        <div class="property-details">
-                                            <div class="property-details-inner">
-                                                <div class="property-details-inner-box">
-                                                    <div class="property-details-inner-box-left">
-                                                        <h5 class="property-name"><a
-                                                                routerLink="/property-detail/id/{{ prod.ID }}">{{prod.ProjectName}}</a>
-                                                        </h5>
-                                                        <span class="property-address">
-                                                            <i class="fas fa-map-marker-alt fa-xs"></i>
-                                                            {{ prod.LocationName + " " + prod.CountryName + " " +
-                                                            prod.CityName}}
-                                                        </span>
-                                                    </div>
-                                                    <div class="property-price">${{ prod.Price }}</div>
-                                                </div>
-                                                <ul class="property-info list-unstyled d-flex">
-                                                    <li class="flex-fill property-m-sqft"><i
-                                                            class="far fa-square"></i>sqft<span>{{prod.Sqft}}m</span>
-                                                    </li>
-                                                </ul>
-                                                <p class="mb-0 d-none d-block mt-3">{{ prod.Title }}</p>
-                                            </div>
-                                            <div class="property-btn">
-                                                <ul class="property-listing-actions list-unstyled mb-0">
-                                                    <li class="property-compare">
-                                                        <span class="float-right" data-toggle="modal" data-target="#caculator" (click)="onCaculator(prod)">
-                                                            <a><i class="fas fa-calculator"></i></a>
-                                                        </span>
-                                                    </li>
-                                                </ul>
-                                                <a class="property-link"
-                                                    routerLink="/property-detail/id/{{ prod.ID }}">See Details</a>
-                                                
-                                            </div>
+                                            <ul class="list-unstyled mb-0">
+                                                <li class="mb-2"><strong class="text-dark d-inline-block mr-2">Location:</strong>{{
+                                                    UserInfor[0].Location }}</li>
+                                                <li class="mb-2"><strong class="text-dark d-inline-block mr-2">Country:</strong>{{
+                                                    UserInfor[0].Country }}</li>
+                                                <li class="mb-2"><strong class="text-dark d-inline-block mr-2">City:</strong>{{
+                                                    UserInfor[0].City }}</li>
+                                                <!-- <li class="mb-2"><strong
+                                                                        class="text-dark d-inline-block mr-2">Website:</strong>potenzaglobalsolutions.com</li> -->
+                                                <li class="mb-2"><strong class="text-dark d-inline-block mr-2">Phone:</strong>{{
+                                                    UserInfor[0].Phone }}
+                                                </li>
+                                            </ul>
                                         </div>
                                     </div>
                                 </div>
                             </div>
+                            <div class="tab-pane fade show" id="package" role="tabpanel"
+                                aria-labelledby="package-tab">
+                                <div class="row flex-row-reverse justify-content-end" [class]="countPackage == 0 ? 'd-none' : 'd-flex'">
+                                    <div class="col-sm-4 col-12 my-2" *ngFor="let p of listPackage">
+                                        <div class="pricing">
+                                            <h5 class="pricing-title">{{p.PackageName}}</h5>
+                                            <!-- <img [src]="p.ImageBannerSrc + p.PackageAvatar" [alt]="p.PackageAvatar" class="img-fluid"
+                                                        *ngIf="p.PackageAvatar != null"> -->
+                                            <ul class="list-style-none p-0">
+                                                <li class="pricing-price d-block mb-2">
+                                                    <span><strong>${{p.Price}}</strong></span>
+                                                </li>
+                                                <li>{{p.PackageTitle}}</li>
+                                                <li>Duration: {{ p.Duration }} {{ p.TypeDuration }} days</li>
+                                                <li>Time Buy: {{ p.StartDate | date:'d MMM y ' }}</li>
+                                                <li>End Time: {{ p.EndDate | date:'d MMM y ' }}</li>
+                                            </ul>
+
+                                            <p>
+                                                You have {{ p.Duration }} days to post for free
+                                                <br>
+                                                {{p.PackageDesciption}}
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="alert-danger" [class]="countPackage == 0 ? 'd-block' : 'd-none'">
+                                    <strong class="p-3">
+                                        No posts have been posted yet
+                                    </strong>
+                                </div>
+                            </div>
+                            <div class="tab-pane fade" id="listing" role="tabpanel" aria-labelledby="listing-tab">
+                                <div class="row" [class]="countProductByUser[0].count == 0 ? 'd-none' : 'd-flex'">
+                                    <div class="col-sm-6 col-md-4" *ngFor='let prod of listProductOfUser'>
+                                        <div class="property-item">
+                                            <div class="property-image bg-overlay-gradient-04 angular-property-image">
+                                                <img [src]="ImageBannerSrc + prod.ImageBannerName"
+                                                    [alt]="prod.ImageBannerName" class="img-fluid" />
+                                                <div class="property-lable">
+                                                    <span class="badge badge-md badge-primary">{{ prod.CategoryName }}</span>
+                                                </div>
+                                                
+                                            </div>
+                                            <div class="property-details">
+                                                <div class="property-details-inner">
+                                                    <h5 class="property-name"><a routerLink="/property-detail/id/{{ prod.ID }}">{{prod.ProjectName}}</a></h5>
+                                                    <span class="property-address">
+                                                        <i class="fas fa-map-marker-alt fa-xs"></i>
+                                                        {{ prod.LocationName + " " + prod.CountryName + " " + prod.CityName}}
+                                                    </span>
+                                                    
+                                                    <div class="property-price">${{ prod.Price }}</div>
+                                                    <ul class="property-info list-unstyled d-flex">
+                                                        <li class="flex-fill property-m-sqft"><i class="far fa-square"></i>sqft<span>{{prod.Sqft}}m</span>
+                                                        </li>
+                                                    </ul>
+                                                    <p class="mb-0 d-none d-block mt-3">{{ prod.Title }}</p>
+                                                </div>
+                                                <div class="property-btn">
+                                                    <a class="property-link" routerLink="/property-detail/id/{{ prod.ID }}">See Details</a>
+                                                    <ul class="property-listing-actions list-unstyled mb-0">
+                                                        <li class="property-compare">
+                                                            <span class="float-right" data-toggle="modal" data-target="#caculator" (click)="onCaculator(prod)">
+                                                                <a><i class="fas fa-calculator"></i></a>
+                                                            </span>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="alert-danger" [class]="countProductByUser[0].count == 0 ? 'd-block' : 'd-none'">
+                                    <strong class="p-3">
+                                        No posts have been posted yet
+                                    </strong>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                    <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
-                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                        <span class="sr-only">Previous</span>
-                    </a>
-                    <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
-                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                        <span class="sr-only">Next</span>
-                    </a>
                 </div>
             </div>
-        </div>
+        </section>
     </div>
 </section>
 
@@ -218,7 +247,7 @@ Listing – grid view -->
                                         <label for="">pre payment Select</label>
                                         <span class="property-address">
                                             <select [(ngModel)]="prepaymentSelect" class="form-control"
-                                                (change)="originalFeeForOneYearFunction(caculatorProduct.Price)">
+                                                (change)="originalFeeForOneYearFunction()">
                                                 <option *ngFor="let tienTraTrc of prepaymentList" [value]="tienTraTrc"
                                                     [selected]="tienTraTrc == 0">
                                                     {{tienTraTrc}}%
@@ -231,8 +260,9 @@ Listing – grid view -->
                                         <label for="">loan Term Select</label>
                                         <span class="property-address">
                                             <select class="form-control" [(ngModel)]="loanTermSelect"
-                                                (change)="originalFeeForOneYearFunction(caculatorProduct.Price)">
-                                                <option *ngFor="let loanTerm of loanTermList" [value]="loanTerm">
+                                                (change)="originalFeeForOneYearFunction()">
+                                                <option *ngFor="let loanTerm of loanTermList; let i = index"
+                                                    [value]="loanTerm" [value]="loanTerm">
                                                     {{loanTerm}} year</option>
                                             </select>
                                         </span>
@@ -243,27 +273,23 @@ Listing – grid view -->
                                     </li>
                                     <li>
                                         <!-- Cuoc goc tra trog 1 nam -->
-                                        <span class="flex-fill ketqua">
+                                        <span class="flex-fill">
                                             <label for="">original Fee For One Year</label>
-                                            <input disabled type="number"
-                                                [value]="originalFeeForOneYear | number: '0.0-4'"
-                                                class="form-control" />
+                                            <p><b>{{ originalFeeForOneYear | currency :'$' :true: '1.0-3' }}</b></p>
                                         </span>
                                     </li>
                                     <li>
                                         <!-- tien lai trog 1 nam -->
-                                        <span class="flex-fill ketqua">
-                                            <label for="">interest In One Year</label>
-                                            <input disabled type="number" [value]="interestInOneYear | number: '0.0-4'"
-                                                class="form-control" />
+                                        <span class="flex-fill">
+                                            <label for="">interest In One Year </label>
+                                            <p><b>{{ interestInOneYear | currency :'$' :true: '1.0-3' }}</b></p>
                                         </span>
                                     </li>
                                     <li>
                                         <!-- tien tra trog 1 nam -->
-                                        <span class="flex-fill ketqua">
+                                        <span class="flex-fill">
                                             <label for="">total</label>
-                                            <input disabled type="number" [value]="total | number: '0.0-4'"
-                                                class="form-control" />
+                                            <p><b>{{ total | currency :'$' :true: '1.0-3' }}</b></p>
                                         </span>
                                     </li>
                                 </ul>
@@ -274,7 +300,6 @@ Listing – grid view -->
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Save changes</button>
             </div>
         </div>
     </div>

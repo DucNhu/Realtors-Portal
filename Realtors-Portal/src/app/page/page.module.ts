@@ -4,7 +4,7 @@ import { PageComponent } from './page.component';
 import { PageRoutingModule } from './page-routing.module';
 import { HeaderComponent } from './component/header/header.component';
 import { MaterialModule } from './../admin/material/material.module';
-
+// import {} 
 
 import { FooterComponent } from './component/footer/footer.component';
 import { MainpagesComponent } from './mainpages/mainpages.component';

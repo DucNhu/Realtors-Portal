@@ -142,12 +142,13 @@ where [User].User_type not like 'admin' and [User].Active = 1";
 
 
         //Get Package by UserID in Admin page
-        [Route("getPackageByUserInAdmin/{id}")]
+        [Route("getPackageByUserId/id/{id}")]
         [HttpGet]
         public JsonResult getPackageByUserInAdmin(int id)
         {
             string query = @"
-select Package.PackageID, Package.PackageName, Package.Price, Package.PackageTitle, Package.PackageDesciption, Package.Duration
+select Package.PackageName, Package.Price, Package.PackageTitle, Package.PackageDesciption, Package.Duration, 
+PackagePurchased.EndDate, PackagePurchased.StartDate
 from Package
 
 INNER join PackagePurchased on PackagePurchased.PackageID = Package.PackageID

@@ -56,7 +56,7 @@ export class PackageComponent implements OnInit {
                   PackageID: e.PackageID,
                   UserID: this.idUser,
                   StartDate: this.StartTime,
-                  EndDate: `${this.NowTime.getFullYear()}-${this.NowTime.getMonth()}-${this.NowTime.getDate() + e.Duration}`
+                  EndDate: `${this.NowTime.getFullYear()}-${this.NowTime.getMonth() + 1}-${this.NowTime.getDate() + e.Duration}`
                 }
 
                 this.packagePP.CreatePackage(PackagePurchased).subscribe(

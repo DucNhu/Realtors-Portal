@@ -102,8 +102,8 @@
                     <span class="dropdown">
                         <!-- <span class="dropdown-menu p-0" aria-labelledby="dropdownMenu2"> -->
                         <span class="d-flex box-action">
-                            <button class="dropdown-item detail" type="button" data-toggle="modal"
-                                data-target="#modal-view--detail" (click)="GetDataCheckisAddorEdit(false,c)">
+                            <button class="dropdown-item detail" type="button" 
+                             routerLink="user-detail/id/{{ c.ID }}">
                                 <i class="far fa-lg fa-fw me-2 fa-eye"></i>
                             </button>
                             <button class="dropdown-item detail" type="button" data-toggle="modal"

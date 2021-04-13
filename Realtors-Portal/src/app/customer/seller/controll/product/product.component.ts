@@ -113,7 +113,7 @@ export class ProductComponent implements OnInit {
               this.checkEndTimePackage = data;
               if (
                 this.checkEndTimePackage[0].YearMax == new Date().getFullYear() &&
-                this.checkEndTimePackage[0].MonthMaxOfYearMax == new Date().getMonth() &&
+                this.checkEndTimePackage[0].MonthMaxOfYearMax == new Date().getMonth() + 1 &&
                 this.checkEndTimePackage[0].DayMaxOfMonthMaxOfYearMax == new Date().getDate()
               ) {
                 this.checkBuyPackage = false

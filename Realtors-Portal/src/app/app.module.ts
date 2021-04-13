@@ -18,6 +18,8 @@ import { PackageComponent } from './page/package/package.component';
 
 
 import { NgxPaginationModule } from "ngx-pagination";
+import { PricePipe } from './@core/_helpers/Pipe/price.pipe';
+import { PhonePipe } from './@core/_helpers/Pipe/phone.pipe';
 @NgModule({
   declarations: [
     AppComponent,
@@ -26,7 +28,7 @@ import { NgxPaginationModule } from "ngx-pagination";
     NotfoundComponent,
     UserRegisterComponent,
     AugentRegisterComponent,
-    SellerRegisterComponent, PackageComponent
+    SellerRegisterComponent, PackageComponent, PricePipe
   ],
   imports: [
     BrowserModule, HttpClientModule,
