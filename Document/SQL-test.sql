@@ -363,8 +363,8 @@ where [User].User_type not like 'admin' and [User].Active = 1
 
 
 
-
-
+select * from Package
+select * from PackagePurchased
 select Package.PackageName, Package.Price, Package.PackageTitle, Package.PackageDesciption, Package.Duration, 
 PackagePurchased.EndDate, PackagePurchased.StartDate
 from Package
@@ -374,9 +374,25 @@ INNER join PackagePurchased on PackagePurchased.PackageID = Package.PackageID
 where PackagePurchased.UserID = 9
 
 select DISTINCT count(Category.CategoryID),  count(project.CategoryID) from Category inner join project on Category.CategoryID = project.CategoryID where Category.CategoryID = project.CategoryID
-select DISTINCT count(project.CategoryID) as 'product count',  Category.CategoryName as 'category count' from project inner join Category on Category.CategoryID = project.CategoryID
 
+select DISTINCT count(project.CategoryID) as 'product count',  Category.CategoryName as 'category Name' from project inner join Category on Category.CategoryID = project.CategoryID
 group by Category.CategoryName
+
+
+select DISTINCT count(PackagePurchased.PackageID) as 'CountPackagePurchased',  Package.PackageID,Package.PackageName
+
+from PackagePurchased inner join Package on PackagePurchased.PackageID = Package.PackageID
+group by Package.PackageID, Package.PackageName
+
+
+
+
+select DISTINCT count(PackagePurchased.PackageID) as 'CountPackagePurchased', 
+Package.PackageID, Package.PackageName, Package.Price
+
+from PackagePurchased inner join Package on PackagePurchased.PackageID = Package.PackageID
+group by Package.PackageID, Package.PackageName, Package.Price
+
 
 
 use realtors01 
