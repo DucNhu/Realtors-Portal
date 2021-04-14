@@ -6,7 +6,16 @@ import { DashboardService } from './../../../@core/mock/admin/dashboard.service'
   styleUrls: ['./dashboard.component.css']
 })
 export class DashboardComponent implements OnInit {
+  chartData; // Seller / Agent
 
+  countaccActiveNotAd;
+  listAccAgentActive;
+  countProductActive;
+  listAccSellerActive;
+  countpackagePurchase;
+
+  countAccSellerActive;
+  countAccAgentActive;
   constructor(
     private dashboardService: DashboardService
   ) { }
@@ -14,44 +23,61 @@ export class DashboardComponent implements OnInit {
   ngOnInit(): void {
     this.getAllDataDashBoard();
   }
+  obs = this.dashboardService;
 
-  objData = {
-    countaccActiveNotAd: {},
-    countaccAgentActive: {},
-    countProductActive: {},
-    countaccSellerActive: {},
-    countpackagePurchased: {}
-  };
   getAllDataDashBoard() {
-    let obs = this.dashboardService;
-    
-    obs.countaccActiveNotAd().subscribe(
-      data => {        
-        this.objData.countaccActiveNotAd = data;
+
+    this.obs.countaccActiveNotAd().subscribe(
+      data => {
+        this.countaccActiveNotAd = data;
       }
     )
-    obs.countaccAgentActive().subscribe(
+    this.obs.countaccSellerActive().subscribe(
       data => {
-        this.objData.countaccAgentActive = data;
-      }
-    )
-    obs.countProductActive().subscribe(
-      data => {
-        this.objData.countProductActive = data;
-      }
-    )
-    obs.countaccSellerActive().subscribe(
-      data => {
-        this.objData.countaccSellerActive = data;
-      }
-    )
-    obs.countpackagePurchased().subscribe(
-      data => {
-        this.objData.countpackagePurchased = data;
+        this.listAccSellerActive = data;
+        this.listAccSellerActive.forEach(element => {
+          this.countAccSellerActive = element.accSellerActive;
+        });
       }
     )
 
-    console.log(this.objData);
-    
-  }
+    // Agent
+    this.obs.countaccAgentActive().subscribe(
+      data => {
+        this.listAccAgentActive = data;
+        this.listAccAgentActive.forEach(element => {
+          this.countAccAgentActive = element.accAgentActive;
+        });
+      }
+    )
+    this.obs.countProductActive().subscribe(
+      data => {
+        this.countProductActive = data;
+      }
+    )
+
+    this.obs.countpackagePurchased().subscribe(
+      data => {
+        // this.countpackagePurchased = data;
+      }
+    )
+
+
+    }
+
+  chartOptions = {
+    responsive: true,
+  };
+  chartLabels = ['Seller', 'Agent'];
+  chartColors = [{
+    backgroundColor: ['#93a8ac', '#fff'],
+    borderColor: ['#424b54', '#424b54']
+  }];
+  chartLegend = true;
+  chartPlugins = [];
+
+
+
+
+
 }

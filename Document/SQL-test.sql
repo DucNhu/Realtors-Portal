@@ -373,7 +373,11 @@ INNER join PackagePurchased on PackagePurchased.PackageID = Package.PackageID
 
 where PackagePurchased.UserID = 9
 
+select DISTINCT count(Category.CategoryID),  count(project.CategoryID) from Category inner join project on Category.CategoryID = project.CategoryID where Category.CategoryID = project.CategoryID
+select DISTINCT count(project.CategoryID) as 'product count',  Category.CategoryName as 'category count' from project inner join Category on Category.CategoryID = project.CategoryID
+
+group by Category.CategoryName
 
 
-use realtors01
+use realtors01 
 

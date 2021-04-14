@@ -163,6 +163,12 @@ select count(*) as accActiveNotAd from [User] where Active = 1 and not User_type
             return new JsonResult(table);
         }
 
+        @"select DISTINCT count(project.CategoryID) as 'product count',  Category.CategoryName as 'category count' from project inner join Category on Category.CategoryID = project.CategoryID
+
+group by Category.CategoryName"
+
+
+
         // Update LevelActive product
         [Route("LevelActiveProduct/productID/{productID}/LevelActive/{LevelActive}")]
         [HttpPut]

@@ -1,4 +1,4 @@
-<div class="row list-dashboard">
+<!-- <div class="row list-dashboard">
     <div class="col-12 col-sm-6 col-md-4 item">
         <h4>count product active</h4>
         <div class="box-infor rounded-circle" [class]="objData.countProductActive[0].countProductActive > 999 ? 'font-small': ''">
@@ -29,4 +29,48 @@
             <h4>{{ objData.countpackagePurchased[0].PackagePurchased }}</h4>
         </div>
     </div>
-</div>
+</div> -->
+<!-- 
+<div style="display: block;">
+    <canvas baseChart chartType="pie" [data]="chartData" [colors]="chartColors" [labels]="chartLabels"
+        [options]="chartOptions" [plugins]="chartPlugins" [legend]="chartLegend">
+    </canvas>
+</div> -->
+
+
+<ngx-masonry>
+    <div ngxMasonryItem class="masonry-item col-12 col-sm-4">
+        <div style="display: block;">
+            <h4>Count product active: {{ countAccAgentActive + countAccSellerActive }} members</h4>
+
+            <canvas baseChart chartType="pie" [data]="[countAccSellerActive, countAccAgentActive]"
+                [colors]="chartColors" [labels]="chartLabels" [options]="chartOptions" [plugins]="chartPlugins"
+                [legend]="chartLegend">
+            </canvas>
+        </div>
+    </div>
+
+    <div ngxMasonryItem class="masonry-item col-12 col-sm-4">
+        <div style="display: block;">
+            <canvas baseChart chartType="bar" [data]="[countAccSellerActive, countAccAgentActive]" [colors]="chartColors" [labels]="chartLabels"
+                [options]="chartOptions" [plugins]="chartPlugins" [legend]="chartLegend">
+            </canvas>
+        </div>
+    </div>
+    <!--
+    <div ngxMasonryItem class="masonry-item col-12 col-sm-4">
+        <div style="display: block;">
+            <canvas baseChart chartType="pie" [data]="chartData" [colors]="chartColors" [labels]="chartLabels"
+                [options]="chartOptions" [plugins]="chartPlugins" [legend]="chartLegend">
+            </canvas>
+        </div>
+    </div>
+
+    <div ngxMasonryItem class="masonry-item col-12 col-sm-4">
+        <div style="display: block;">
+            <canvas baseChart chartType="pie" [data]="chartData" [colors]="chartColors" [labels]="chartLabels"
+                [options]="chartOptions" [plugins]="chartPlugins" [legend]="chartLegend">
+            </canvas>
+        </div>
+    </div> -->
+</ngx-masonry>
