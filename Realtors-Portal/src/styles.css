@@ -1,5 +1,14 @@
 /*  ========== Bootstrap ============ */
-  .ngx-pagination .current {
+
+/* login - register */
+.header .topbar .login a {
+  margin-right: 10px;
+}
+span.ng-star-inserted {
+  font-size: 1.1em;
+}
+/* login - register */
+.ngx-pagination .current {
     padding: 0.1875rem 0.625rem;
     background: var(--green) !important;
     color: #fefefe;

@@ -24,7 +24,7 @@ export class PackageComponent implements OnInit {
   ngOnInit(): void {
     // paypal.Buttons().render('#paypal-button-container');
     this.getPackageActiveAndInforUser();
-       
+
   }
 
   contain;
@@ -48,7 +48,7 @@ export class PackageComponent implements OnInit {
             },
             onApprove: (data, actions) =>  {
               // This function captures the funds from the transaction.
-              
+
               return actions.order.capture().then((details) =>  {
                 // This function shows a transaction success message to your buyer.
                 let PackagePurchased = {
@@ -70,7 +70,7 @@ export class PackageComponent implements OnInit {
                     window.location.reload();
                   }
                 );
-                
+
               });
             }
             // })
@@ -91,13 +91,13 @@ export class PackageComponent implements OnInit {
   StartTime = `${this.NowTime.getFullYear()}-${this.NowTime.getMonth()}-${this.NowTime.getDate()}`
 
 
-  
+
 
   OnBuyPackageTest(e) {
     console.log(e);
-    
+
   }
-  
+
   //  Update packagePP
   UpPackagePP(val) {
     this.packagePP.UpdatePackage(val).subscribe(
@@ -108,5 +108,32 @@ export class PackageComponent implements OnInit {
     )
   }
 
-  
+   // panigate ( phân trang )
+   page = 1;
+   count = 0;
+   tableSize = 8;
+   tableSizes = [3, 6, 9, 12];
+
+   fetchPosts(): void {
+     this.packageService.getPackageActive().subscribe(
+       (response) => {
+         this.contain = response;
+       },
+       (error) => {
+         console.log(error);
+       }
+     );
+   }
+
+   onTableDataChange(event) {
+     this.page = event;
+     this.fetchPosts();
+   }
+
+   onTableSizeChange(event): void {
+     this.tableSize = event.target.value;
+     this.page = 1;
+     this.fetchPosts();
+   }
+
 }

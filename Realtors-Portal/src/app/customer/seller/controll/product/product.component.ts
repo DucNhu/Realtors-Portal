@@ -19,7 +19,7 @@ import { PackageppService } from 'src/app/@core/mock/Package/packagepp.service';
   styleUrls: ['../../../../admin/admin.component.css', './product.component.css']
 })
 export class ProductComponent implements OnInit {
-  // Khai bao bien  
+  // Khai bao bien
   getImageBannerSrc = environment.ImageProductUrl + 'banner/';
 
   listCategies;
@@ -159,10 +159,10 @@ export class ProductComponent implements OnInit {
               "productID": idlastofProduct += 1,
               "name": e.NameinSert,
             }
-            
+
             this.imageLibService.CreateProj(dataImageLib).subscribe(data => {
             });
-            
+
             idlastofProduct = getIDLast; // return channh + don
           });
 
@@ -170,7 +170,7 @@ export class ProductComponent implements OnInit {
           data.ImageBannerSrc = '';
           data.ImageBannerName = this.DefaultandNewAvatar;
 
-          // dữ liệu truyền vào là id, nên lặp để tìm r gắn lại name vào mảng          
+          // dữ liệu truyền vào là id, nên lặp để tìm r gắn lại name vào mảng
           this.listLocation.forEach(e => {
             if (e.LocationID == data.Location) {
               data.LocationName = e.LocationName;
@@ -265,7 +265,7 @@ export class ProductComponent implements OnInit {
   DataFeature;
   ArrayCRDFeature = [];
   ArrayUpdateFeature = []; // chua gia tri khi them moi 1 obj
-  
+
   onSelectFileFeature(e) {
     this.DataFeature = e.target.files.item(0);
     let dateNow = new Date();
@@ -281,7 +281,7 @@ export class ProductComponent implements OnInit {
 
         // }
         console.log(this.ArrayCRDFeature);
-        
+
       }
     }
   }
@@ -418,7 +418,7 @@ export class ProductComponent implements OnInit {
   }
   // ======== END CRUD ============
 
-  
+
   isAddProjectForm;
   // GetDataCheckisAddorEdit: true ? add : edit
   Showdialog(bl) {
@@ -536,14 +536,14 @@ export class ProductComponent implements OnInit {
   Alert_successFunction(value) {
     this.alert_Text = value;
     this.alert_success = true;
-    // call function set alert_success = true  
+    // call function set alert_success = true
     this.AlertFunction(true);
   }
   Alert_dangerFunction(value) {
     this.alert_Text = value;
     this.alert_danger = true;
 
-    // call function set alert_danger = true  
+    // call function set alert_danger = true
     this.AlertFunction(false);
   }
 
@@ -655,6 +655,34 @@ export class ProductComponent implements OnInit {
         this.listAre.push(e);
       }
     });
+  }
+
+  // panigate ( phân trang )
+  page = 1;
+  count = 0;
+  tableSize = 5;
+  tableSizes = [3, 6, 9, 12];
+
+  fetchPosts(): void {
+    this.userService.GetProductByUserID(this.authenticationService.currentUserValue.Infor.ID).subscribe(
+      (response) => {
+        this.containData = response;
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
+  }
+
+  onTableDataChange(event) {
+    this.page = event;
+    this.fetchPosts();
+  }
+
+  onTableSizeChange(event): void {
+    this.tableSize = event.target.value;
+    this.page = 1;
+    this.fetchPosts();
   }
 
 }

@@ -46,7 +46,10 @@
             </tr>
         </thead>
         <tbody>
-            <tr *ngFor="let p of listProject">
+            <tr *ngFor="let p of listProject | paginate : {
+              itemsPerPage: tableSize,
+              currentPage: page,
+              totalItems: count}">
                 <td>{{ p.ProjectName }}</td>
                 <td>
                     <div class="angular-property-image bg-overlay-gradient-04">
@@ -80,9 +83,9 @@
                         </button>
                         <div class="dropdown-menu p-0" aria-labelledby="dropdownMenu2">
                             <div class="d-flex box-action justify-content-around">
-                                <button class="dropdown-item view" type="button">
+                                <!-- <button class="dropdown-item view" type="button">
                                     <i class="far fa-eye"></i>
-                                </button>
+                                </button> -->
                                 <!-- <button class="dropdown-item detail" type="button" data-toggle="modal"
                                     data-target="#modal-form-AddEdit" (click)="GetDataCheckisAddorEdit(false,p)">
                                     <i class="far fa-lg fa-fw me-2 fa-edit"></i>
@@ -100,6 +103,17 @@
             </tr>
         </tbody>
     </table>
+
+
+    <div class="d-flex justify-content-center">
+      <pagination-controls
+        responsive="true"
+        previousLabel="Prev"
+        nextLabel="Next"
+        (pageChange)="onTableDataChange($event)">
+      </pagination-controls>
+     </div>
+
 </div>
 
 
@@ -114,7 +128,7 @@
                 </button>
             </div>
             <div class="modal-body p-0">
-              
+
 
                 <div class="row text-left">
                     <div class="col-12 mb-4">
@@ -171,7 +185,7 @@
                                                     <input type="file" name="ImageFile" id="ImageFeature" class="d-none"
                                                         (change)="onSelectFileFeature($event)">
                                                 </div>
-                                                
+
                                             </div>
                                             <!-- Select img feature -->
 
@@ -305,7 +319,7 @@
                                         <div class="col-12">
                                             <button type="submit"
                                                 class="btn btn-success btn-outline-success d-block mx-auto" (click)="CreateProject(formValidator.value);
-                                                 upPhotoImageFeature()" 
+                                                 upPhotoImageFeature()"
                                                 [disabled]="formValidator.status == 'INVALID' || disabled">
                                                 Sumit
                                             </button>
@@ -317,7 +331,7 @@
                     </div>
                 </div>
 
-                
+
             </div>
         </div>
     </div>
