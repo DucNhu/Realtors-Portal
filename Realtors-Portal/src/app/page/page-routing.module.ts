@@ -12,6 +12,9 @@ import { ResultBySearchComponent } from './result-by-search/result-by-search.com
 import { ResultBySearchBoxComponent } from './mainpages/property-list/result-by-search.component';
 import { ListCustomerComponent } from '../admin/dashboard/customer/list-customer.component';
 import { ListUserComponent } from './list-user/list-user.component';
+import { AboutComponent } from './about/about.component';
+import { ContactUsComponent } from './contact-us/contact-us.component';
+import { FaqsComponent } from './faqs/faqs.component';
 const routes: Routes = [
     {
 
@@ -51,6 +54,15 @@ const routes: Routes = [
             },
             {
                 path: 'package', component: PackageComponent
+            },
+            {
+                path: 'aboutUs', component: AboutComponent
+            },
+            {
+                path: 'contactUs', component: ContactUsComponent
+            },
+            {
+                path: 'faqs', component: FaqsComponent
             },
         ]
 

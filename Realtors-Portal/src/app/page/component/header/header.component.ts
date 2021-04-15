@@ -42,13 +42,11 @@ export class HeaderComponent implements OnInit {
       if (this.currentUser.Infor.User_type == 'agent') {
         this.checkRoles = 'agent';
         this.isLogin = true;
-        console.log(this.isLogin);
         return true;
       }
       else {
         this.checkRoles = 'seller';
         this.isLogin = true;
-        console.log(this.isLogin);
         
         return true;
       }

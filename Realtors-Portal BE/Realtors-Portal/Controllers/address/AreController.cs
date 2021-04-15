@@ -111,6 +111,30 @@ namespace Realtors_Portal.Controllers.address
             return new JsonResult(table);
         }
 
+        //Get count location Active
+        [Route("getCountAreActive")]
+        [HttpGet]
+        public JsonResult getCountLocationActive()
+        {
+            string query = @"SELECT count(*) as 'countAreActive'
+                            FROM Are INNER JOIN District ON
+                            District.DistrictID = Are.DistrictID and Are.Active = 1";
+
+            DataTable table = new DataTable();
+            string sqlDataSource = _configuration.GetConnectionString("RealtorsConnect");
+            SqlDataReader myRender;
+            using (SqlConnection myCon = new SqlConnection(sqlDataSource))
+            {
+                myCon.Open();
+                using (SqlCommand myCommand = new SqlCommand(query, myCon))
+                {
+                    myRender = myCommand.ExecuteReader();
+                    table.Load(myRender);
+                    myRender.Close(); myCon.Close();
+                }
+            }
+            return new JsonResult(table);
+        }
 
 
         // PUT: api/Are/5

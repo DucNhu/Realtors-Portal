@@ -14,7 +14,7 @@ import { BannerComponent } from './mainpages/banner/banner.component';
 import { NewlyListedComponent } from './mainpages/newly-listed/newly-listed.component';
 import { BrowseCategoryComponent } from './mainpages/browse-category/browse-category.component';
 import { DealsComponent } from './mainpages/deals/deals.component';
-import { AboutusComponent } from './aboutus/aboutus.component';
+import { AboutusComponent } from './aboutUs/aboutus/aboutus.component';
 import { PropertyListComponent } from './mainpages/property-list/property-list.component';
 import { BuyPackageComponent } from './package/buy-package/buy-package.component';
 import { DeltailUserComponent } from './deltail-user/deltail-user.component';
@@ -24,6 +24,9 @@ import { ResultBySearchBoxComponent } from './mainpages/property-list/result-by-
 import { ListUserComponent } from './list-user/list-user.component';
 
 import { NgxPaginationModule } from "ngx-pagination";
+import { AboutComponent } from './about/about.component';
+import { ContactUsComponent } from './contact-us/contact-us.component';
+import { FaqsComponent } from './faqs/faqs.component';
 @NgModule({
   declarations: [
     PageComponent,
@@ -41,7 +44,10 @@ import { NgxPaginationModule } from "ngx-pagination";
     ProductDetailComponent,
     ResultBySearchComponent,
     ResultBySearchBoxComponent,
-    ListUserComponent
+    ListUserComponent,
+    AboutComponent,
+    ContactUsComponent,
+    FaqsComponent
   ],
   providers: [AuthenticationService],
   imports: [
