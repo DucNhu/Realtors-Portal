@@ -57,7 +57,7 @@ banner -->
                                     </div>
                                 </div>
                                 <span class="align-items-center ml-3 d-none d-lg-block"><button (click)="OnSearch(formValidator.value)"
-                                    
+
                                         class="btn btn-primary d-flex align-items-center" type="submit"><i
                                             class="fas fa-search mr-1"></i><span>Search</span></button></span>
                             </div>
@@ -161,7 +161,11 @@ banner -->
                                         </div>
                                         <div class="form-group col-md-3">
                                             <mat-label>Max Price</mat-label>
+<<<<<<< HEAD
                                             <mat-slider class="d-block example-margin" [max]="maxPrice" min="0" 
+=======
+                                            <mat-slider class="d-block example-margin" [max]="maxPrice[0].maxPrice" [min]="0"
+>>>>>>> 08421d5fa554a3cbac5be40470a0145256df2f00
                                                  [thumbLabel]="true" formControlName="priceMax">
                                             </mat-slider>
                                         </div>

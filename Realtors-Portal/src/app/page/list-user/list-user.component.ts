@@ -41,7 +41,7 @@ export class ListUserComponent implements OnInit {
     this.userService.getAllUser().subscribe(
       data => {
         this.containData = data;
-        
+
         let i =0;
         this.containData.forEach(e => {
           this.resultCount = ++i;
@@ -56,7 +56,7 @@ export class ListUserComponent implements OnInit {
    // panigate ( phân trang )
    page = 1;
    count = 0;
-   tableSize = 5;
+   tableSize = 4;
    tableSizes = [3, 6, 9, 12];
 
    fetchPosts(): void {
