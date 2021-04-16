@@ -204,14 +204,15 @@ export class ProductComponent implements OnInit {
           });
 
           this.listProject.unshift(data);
-          this.isAddProjectForm = false;
+          
           this.Alert_successFunction("Create done");
-          this.disabled = false;
+          
           getIDLast++;
           getIDImageLibLast++;
 
         });
-
+      this.isAddProjectForm = false;
+      this.disabled = false;
     }
     else {
       this.Alert_dangerFunction("Create false, try again, pls");

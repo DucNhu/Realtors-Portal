@@ -95,7 +95,6 @@ select count(*) as accActiveNotAd from [User] where Active = 1 and not User_type
         [HttpGet]
         public JsonResult getDataDashBoardAccSellerActive()
         {
-
             string query = @"select count(User_type) as accSellerActive from [User] where User_type = 'seller'";
 
             DataTable table = new DataTable();
@@ -114,8 +113,7 @@ select count(*) as accActiveNotAd from [User] where Active = 1 and not User_type
             return new JsonResult(table);
         }
 
-        //--count product
-
+        //--count product Active
         [Route("getDataDashBoard-countProductActive")]
         [HttpGet]
         public JsonResult getDataDashBoardCountProductActive()
@@ -138,6 +136,31 @@ select count(*) as accActiveNotAd from [User] where Active = 1 and not User_type
             }
             return new JsonResult(table);
         }
+
+        //--count product Sold
+        [Route("getDataDashBoard-countProductSold")]
+        [HttpGet]
+        public JsonResult getDataDashBoardcountProductSold()
+        {
+
+            string query = @"select count(*) as countProductSold from project where LevelActive = 0";
+
+            DataTable table = new DataTable();
+            string sqlDataSource = _configuration.GetConnectionString("RealtorsConnect");
+            SqlDataReader myRender;
+            using (SqlConnection myCon = new SqlConnection(sqlDataSource))
+            {
+                myCon.Open();
+                using (SqlCommand myCommand = new SqlCommand(query, myCon))
+                {
+                    myRender = myCommand.ExecuteReader();
+                    table.Load(myRender);
+                    myRender.Close(); myCon.Close();
+                }
+            }
+            return new JsonResult(table);
+        }
+
 
         //--count package đã mua
         [Route("getDataDashBoard-packagePurchased")]
@@ -162,6 +185,65 @@ select count(*) as accActiveNotAd from [User] where Active = 1 and not User_type
             }
             return new JsonResult(table);
         }
+
+        // Name Package && count PackagePurchased ( xem package nào bán nhiều hơn package nào)
+        
+        [Route("getDataDashBoard-NamePackageAndCountPackagePurchased")]
+        [HttpGet]
+        public JsonResult getDataDashBoardNamePackageAndCountPackagePurchased()
+        {
+
+            string query = @"
+select DISTINCT count(PackagePurchased.PackageID) as 'CountPackagePurchased', 
+Package.PackageID, Package.PackageName, Package.Price
+
+from PackagePurchased inner join Package on PackagePurchased.PackageID = Package.PackageID
+group by Package.PackageID, Package.PackageName, Package.Price
+";
+
+            DataTable table = new DataTable();
+            string sqlDataSource = _configuration.GetConnectionString("RealtorsConnect");
+            SqlDataReader myRender;
+            using (SqlConnection myCon = new SqlConnection(sqlDataSource))
+            {
+                myCon.Open();
+                using (SqlCommand myCommand = new SqlCommand(query, myCon))
+                {
+                    myRender = myCommand.ExecuteReader();
+                    table.Load(myRender);
+                    myRender.Close(); myCon.Close();
+                }
+            }
+            return new JsonResult(table);
+        }
+
+
+        //--Name Category && count product tby this category đã mua
+        [Route("getDataDashBoard-NameCategoryAndCountProductByThisCategory")]
+        [HttpGet]
+        public JsonResult getDataDashBoardNameCategoryAndCountProductByThisCategory()
+        {
+
+            string query = @"select DISTINCT count(project.CategoryID) as 'productCount',  Category.CategoryName as 'categoryCount' from project inner join Category on Category.CategoryID = project.CategoryID
+
+                                group by Category.CategoryName";
+
+            DataTable table = new DataTable();
+            string sqlDataSource = _configuration.GetConnectionString("RealtorsConnect");
+            SqlDataReader myRender;
+            using (SqlConnection myCon = new SqlConnection(sqlDataSource))
+            {
+                myCon.Open();
+                using (SqlCommand myCommand = new SqlCommand(query, myCon))
+                {
+                    myRender = myCommand.ExecuteReader();
+                    table.Load(myRender);
+                    myRender.Close(); myCon.Close();
+                }
+            }
+            return new JsonResult(table);
+        }
+
 
         // Update LevelActive product
         [Route("LevelActiveProduct/productID/{productID}/LevelActive/{LevelActive}")]
