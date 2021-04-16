@@ -22,19 +22,10 @@
         </div>
     </div>
     <div class="ml-auto">
-        <!-- <button class="button-add btn btn-link dropdown-toggle dropdown-toggle-split m-0 p-0" data-toggle="modal"
-            data-target="#modal-form-AddEdit" (click)="GetDataCheckisAddorEdit(true, DataFormCategoryEdit)">
-            <span class="icon icon-sm icon-gray">
-                <i class="fa fa-plus-circle fa-fw mr-1"></i>
-                Add Category
-            </span>
-        </button> -->
         <button mat-raised-button color="accent"
-          class="button-add btn btn-link dropdown-toggle dropdown-toggle-split m-0 p-0"
-          data-toggle="modal"
-          data-target="#modal-form-AddEdit"
-          (click)="GetDataCheckisAddorEdit(true, DataFormCategoryEdit)">
-          Add Category
+            class="button-add btn btn-link dropdown-toggle dropdown-toggle-split m-0 p-0" data-toggle="modal"
+            data-target="#modal-form-AddEdit" (click)="GetDataCheckisAddorEdit(true, DataFormCategoryEdit)">
+            Add Category
         </button>
     </div>
 </div>
@@ -92,13 +83,10 @@
     </table>
 
     <div class="d-flex justify-content-center">
-      <pagination-controls
-        responsive="true"
-        previousLabel="Prev"
-        nextLabel="Next"
-        (pageChange)="onTableDataChange($event)">
-      </pagination-controls>
-      </div>
+        <pagination-controls responsive="true" previousLabel="Prev" nextLabel="Next"
+            (pageChange)="onTableDataChange($event)">
+        </pagination-controls>
+    </div>
 
 </div>
 
@@ -165,12 +153,10 @@
 
                                         <!-- Active -->
                                         <div class="mb-4">
-                                          <label for="Active">Active</label>
-                                          <mat-slide-toggle
-                                          class="example-margin"
-                                          formControlName="Active"
-                                          id="Active">
-                                          </mat-slide-toggle>
+                                            <label for="Active">Active</label>
+                                            <mat-slide-toggle class="example-margin" formControlName="Active"
+                                                id="Active">
+                                            </mat-slide-toggle>
                                         </div>
 
                                         <!-- footer form -->

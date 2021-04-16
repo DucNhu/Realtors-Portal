@@ -319,7 +319,20 @@ p {
   border-color: #26ae61;
   color: #ffffff;
 }
-
+.before-done::after {
+        content: 'Sold';
+    position: absolute;
+    right: 0;
+    padding: 5px 10px;
+    /* border-radius: 10px; */
+    top: 0;
+    clip-path: polygon(25% 0%, 100% 0%, 100% 100%, 25% 100%, 0% 50%);
+    border: 1px solid var(--green);
+    /* width: 100%; */
+    background: var(--green);
+    color: white;
+    transform: rotate(271deg);
+}
 .blockquote {
   font-size: 16px;
   border-left: 10px solid #26ae61;
@@ -2445,7 +2458,7 @@ button {
   }
   .header .navbar .dropdown:hover > .dropdown-menu {
     -webkit-transform: translate3d(-50%, 0, 0);
-    transform: translate3d(-50%, 0, 0);
+    transform: translate3d(0%, 0, 0);
     visibility: visible;
     opacity: 1;
   }
@@ -3618,7 +3631,7 @@ button {
 }
 
 .property-search-field .form-group {
-  padding: 24px 28px;
+  padding: 24px 18px;
   margin-bottom: 0px;
   border-left: 1px solid #eeeeee;
   border-bottom: 1px solid #eeeeee;

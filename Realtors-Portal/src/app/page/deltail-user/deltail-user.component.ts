@@ -26,19 +26,24 @@ export class DeltailUserComponent implements OnInit {
   ImageBannerSrc = environment.ImageProductUrl + "Banner/";
   listProductOfUser; TotalPrice = 0;
   listPackage;
+  packageIDForUser;
+
+  isUserTrue = false; // check co phai user do ko, dung thi se xem dc package da dag ki
   ngOnInit(): void {
-    this.geUSerDetail();
+    this.getUserInfor();
     this.projectService.getCountProductByUserID(this.activatedRoute.snapshot.params['id']).subscribe(
       data => {
-        this.countProductByUser = data;
+        let contain = data;
+        this.countProductByUser = contain;
       }
     )
 
     // Property of user 
     this.userService.getProductByUserIDActive(this.activatedRoute.snapshot.params['id']).subscribe(
       data => {
-        this.listProductOfUser = data;
-
+        let contain;
+        contain = data;
+        this.listProductOfUser = contain;
         this.TotalPrice = this.listProductOfUser[0].Price;
       }
     )
@@ -49,7 +54,9 @@ export class DeltailUserComponent implements OnInit {
         this.userService.getPackageByUserId(this.activatedRoute.snapshot.params['id']).subscribe(
           data => {
             this.listPackage = data;
-            
+
+            this.packageIDForUser = this.listPackage[0].PackageID;
+            console.log(this.packageIDForUser);
             this.listPackage.forEach(e => {
               ++this.countPackage;
             });
@@ -61,6 +68,8 @@ export class DeltailUserComponent implements OnInit {
         this.userService.getPackageByUserId(this.activatedRoute.snapshot.params['id']).subscribe(
           data => {
             this.listPackage = data;
+            
+            
             this.listPackage.forEach(e => {
               ++this.countPackage;
             });
@@ -69,13 +78,21 @@ export class DeltailUserComponent implements OnInit {
       }
     }
 
-
   }
 
-  geUSerDetail() {
+  getUserInfor() {
     this.userService.getUserDetail(this.activatedRoute.snapshot.params['id']).subscribe(
       data => {
         this.UserInfor = data;
+        let idUser = this.UserInfor[0].ID;
+        let IdByToken = this.authenticationService.currentUserValue.Infor.ID;
+        if (idUser == IdByToken) {
+          this.isUserTrue = true;
+        }
+        else {
+          this.isUserTrue = false;
+          console.log(IdByToken, idUser);
+        }
       }
     )
   }

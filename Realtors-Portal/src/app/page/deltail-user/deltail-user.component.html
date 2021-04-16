@@ -55,7 +55,7 @@ Listing – grid view -->
                                 <a class="nav-link" id="listing-tab" data-toggle="pill" href="#listing" role="tab" aria-controls="listing"
                                     aria-selected="false">Listing</a>
                             </li>
-                            <li class="nav-item">
+                            <li class="nav-item" *ngIf="isUserTrue">
                                 <a class="nav-link" id="package-tab" data-toggle="pill" href="#package"
                                     role="tab" aria-controls="package" aria-selected="true">package</a>
                             </li>
@@ -76,9 +76,7 @@ Listing – grid view -->
                                                     UserInfor[0].Country }}</li>
                                                 <li class="mb-2"><strong class="text-dark d-inline-block mr-2">City:</strong>{{
                                                     UserInfor[0].City }}</li>
-                                                <!-- <li class="mb-2"><strong
-                                                                        class="text-dark d-inline-block mr-2">Website:</strong>potenzaglobalsolutions.com</li> -->
-                                                <li class="mb-2"><strong class="text-dark d-inline-block mr-2">Phone:</strong>{{
+                                               <li class="mb-2"><strong class="text-dark d-inline-block mr-2">Phone:</strong>{{
                                                     UserInfor[0].Phone }}
                                                 </li>
                                             </ul>
@@ -90,7 +88,7 @@ Listing – grid view -->
                                 aria-labelledby="package-tab">
                                 <div class="row flex-row-reverse justify-content-end" [class]="countPackage == 0 ? 'd-none' : 'd-flex'">
                                     <div class="col-sm-4 col-12 my-2" *ngFor="let p of listPackage">
-                                        <div class="pricing">
+                                        <div class="pricing" [class]="packageIDForUser == p.PackageID ? 'before-done' : ''">
                                             <h5 class="pricing-title">{{p.PackageName}}</h5>
                                             <!-- <img [src]="p.ImageBannerSrc + p.PackageAvatar" [alt]="p.PackageAvatar" class="img-fluid"
                                                         *ngIf="p.PackageAvatar != null"> -->

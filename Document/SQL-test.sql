@@ -225,7 +225,7 @@ YEAR(EndDate) = (select max(YEAR(EndDate))
 from PackagePurchased where UserID = 2)) 
 
 select * from PackagePurchased  inner join  package on PackagePurchased.PackageID = Package.PackageID  where USERID = 7  
-
+SELECT *  FROM seller
 SELECT *  FROM [User] where [User].ID = 4
 SELECT count(project.UserID)  FROM project where project.UserID = 0
 

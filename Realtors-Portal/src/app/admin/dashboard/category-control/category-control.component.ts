@@ -18,7 +18,7 @@ import { environment } from '../../../@core/models/Environment';
 export class CategoryControlComponent implements OnInit {
   // Khai bao bien
   idLength;
-  getImageBannerSrc = environment.ImageUrl + '/categories/';
+  getImageBannerSrc = environment.ImageUrl + 'categories/';
 
   DataFormCategoryEdit = {
     CategoryID: 0,
@@ -32,7 +32,7 @@ export class CategoryControlComponent implements OnInit {
   // END khai bao bien
   constructor(
     private FormBuilder: FormBuilder,
-    private _CategoryService: CategoryService,
+    private categoryService: CategoryService,
     private http: HttpClient
   ) {}
 
@@ -47,9 +47,8 @@ export class CategoryControlComponent implements OnInit {
   getIdLength = 0;
   // Get All project
   getAllCategory() {
-    this._CategoryService.getAllCategory().subscribe((data) => {
+    this.categoryService.getAllCategory().subscribe((data) => {
       this.containData = data;
-      console.log(this.listCategory);
 
       this.containData.forEach((e) => {
         e.ImageBannerSrc = this.getImageBannerSrc;
@@ -65,7 +64,7 @@ export class CategoryControlComponent implements OnInit {
     data.CategoryID = 0;
     data.Active = data.Active == true ? 1 : 0;
     data.Avatar = this.DataFormCategoryEdit.Avatar;
-    this._CategoryService.CreateCategory(data).subscribe((res) => {
+    this.categoryService.CreateCategory(data).subscribe((res) => {
       this.upPhoto(); // Insert Image
       let CategoryID = 0;
       try {
@@ -95,7 +94,6 @@ export class CategoryControlComponent implements OnInit {
   myInfor;
   onSelectFile(e) {
     this.dataImage = e.target.files.item(0);
-    console.log(this.dataImage.name);
     let dateNow = new Date();
 
     if (e.target.files) {
@@ -118,7 +116,7 @@ export class CategoryControlComponent implements OnInit {
       this.DataFormCategoryEdit.Avatar
     );
 
-    this._CategoryService.UpdateAvatar(formData).subscribe(() => {
+    this.categoryService.UpdateAvatar(formData).subscribe(() => {
       // console.log(data);
       // this.myInfor.Avatar = data
     });
@@ -129,9 +127,8 @@ export class CategoryControlComponent implements OnInit {
   UpdateCategory(data) {
     data.Active = data.Active == true ? 1 : 0;
     data.Avatar = this.DataFormCategoryEdit.Avatar;
-    console.log(data);
 
-    this._CategoryService.UpdateCategory(data).subscribe(
+    this.categoryService.UpdateCategory(data).subscribe(
       (val) => {
         this.upPhoto();
         this.Alert_successFunction('Update Success');
@@ -144,7 +141,6 @@ export class CategoryControlComponent implements OnInit {
   }
 
   EditByIdInArray(val) {
-    console.log(val);
 
     let i = -1;
     this.listCategory.forEach((element) => {
@@ -162,7 +158,7 @@ export class CategoryControlComponent implements OnInit {
   // function CreateEmployee:
   DeleteEmPloyee(id) {
     if (confirm('Are your ok?')) {
-      this._CategoryService.deleteCategory(id).subscribe(
+      this.categoryService.deleteCategory(id).subscribe(
         (data) => {
           this.Alert_successFunction('Success Delete');
           this.FindIdToDelete(id);
@@ -194,7 +190,6 @@ export class CategoryControlComponent implements OnInit {
       // this.GetDataEditorAdd(val);
       return (this.isAddCategoryForm = true);
     } else {
-      console.log(val);
 
       this.GetDataEditorAdd(val);
       return (this.isAddCategoryForm = false);
@@ -219,12 +214,10 @@ export class CategoryControlComponent implements OnInit {
   }
 
   GetDataEditorAdd(val) {
-    console.log(val);
 
     this.DefaultandNewAvatar = this.getImageBannerSrc + val.Avatar;
     this.formValidator.controls.CategoryName.patchValue(val.CategoryName);
     this.formValidator.controls.CategoryID.patchValue(val.CategoryID);
-    console.log(val);
 
     this.formValidator.controls.Active.patchValue(
       val.Active == 0 ? false : true
@@ -282,7 +275,6 @@ export class CategoryControlComponent implements OnInit {
   checkValidForm(val) {
     switch (val) {
       case 'Price':
-        console.log(this.formValidator.controls.Price);
     }
   }
 
@@ -293,12 +285,11 @@ export class CategoryControlComponent implements OnInit {
   tableSizes = [3, 6, 9, 12];
 
   fetchPosts(): void {
-    this._CategoryService.getAllCategory().subscribe(
+    this.categoryService.getAllCategory().subscribe(
       (response) => {
         this.containData = response;
       },
       (error) => {
-        console.log(error);
       }
     );
   }

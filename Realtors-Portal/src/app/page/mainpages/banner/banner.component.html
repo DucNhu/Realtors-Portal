@@ -27,12 +27,16 @@ banner -->
                                     </mat-form-field>
                                 </div>
                             </div>
-                            <div class="form-group col-lg col-md-6">
+                             <div class="form-group col-lg col-md-6">
                                 <label>Seller</label>
-                                <select class="form-control basic-select border-bottom" formControlName="User_type">
-                                    <option value="agent">For Agent</option>
-                                    <option value="seller">For Seller</option>
-                                </select>
+                               
+                                <mat-form-field appearance="fill" formControlName="User_type">
+                                    <mat-label>Choose an option</mat-label>
+                                    <mat-select>
+                                        <mat-option value="agent">For Agent</mat-option>
+                                        <mat-option value="seller">For Seller</mat-option>
+                                    </mat-select>
+                                </mat-form-field>
                             </div>
                             <div class="form-group d-flex col-lg-5">
                                 <div class="form-group-search">
@@ -57,7 +61,7 @@ banner -->
                                         class="btn btn-primary d-flex align-items-center" type="submit"><i
                                             class="fas fa-search mr-1"></i><span>Search</span></button></span>
                             </div>
-                            <div class="form-group text-center col-lg-2">
+                        <div class="form-group text-center col-lg-2">
                                 <div class="d-flex justify-content-center d-md-inline-block">
                                     <a class="more-search p-0" data-toggle="collapse" href="#advanced-search"
                                         role="button" aria-expanded="false" aria-controls="advanced-search"> <span
@@ -85,7 +89,7 @@ banner -->
                                                 </mat-form-field>
                                             </div>
                                         </div>
-                                        <div class="form-group col-md-3">
+                                         <div class="form-group col-md-3">
                                             <label>City</label>
                                             <div class="d-flex align-items-center">
                                                 <mat-form-field class="example-full-width">
@@ -136,38 +140,38 @@ banner -->
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="form-row">
+                                   <div class="form-row">
                                         <div class="form-group col-md-3">
                                             <mat-label>Min Sqft</mat-label>
-                                            <mat-slider class="d-block example-margin" [max]="maxSqft[0].maxSqft" [min]="0"
-                                                [thumbLabel]="true" #sqftMin formControlName="sqftMin">
+                                            <mat-slider class="d-block example-margin" [max]="maxSqft" min="0"
+                                                [thumbLabel]="true" formControlName="sqftMin">
                                             </mat-slider>
                                         </div>
                                         <div class="form-group col-md-3">
                                             <mat-label>Max Sqft</mat-label>
-                                            <mat-slider class="d-block example-margin" [max]="maxSqft[0].maxSqft" [min]="0" sqftMax
+                                            <mat-slider class="d-block example-margin" [max]="maxSqft" min="0" sqftMax
                                                 [thumbLabel]="true" formControlName="sqftMax">
                                             </mat-slider>
                                         </div>
                                         <div class="form-group col-md-3">
                                             <mat-label>Min Price</mat-label>
-                                            <mat-slider class="d-block example-margin" [max]="maxPrice[0].maxPrice" [min]="0"
+                                            <mat-slider class="d-block example-margin" [max]="maxPrice" min="0"
                                                 PriceMin [thumbLabel]="true" formControlName="priceMin">
                                             </mat-slider>
                                         </div>
                                         <div class="form-group col-md-3">
                                             <mat-label>Max Price</mat-label>
-                                            <mat-slider class="d-block example-margin" [max]="maxPrice[0].maxPrice" [min]="0" 
+                                            <mat-slider class="d-block example-margin" [max]="maxPrice" min="0" 
                                                  [thumbLabel]="true" formControlName="priceMax">
                                             </mat-slider>
                                         </div>
-                                    </div>
+                                    </div> 
                                 </div>
                             </div>
                             <div class="d-lg-none btn-block btn-mobile m-3">
                                 <button class="btn btn-primary btn-block align-items-center" type="submit"><i
                                         class="fas fa-search mr-1"></i><span>Search</span></button>
-                            </div>
+                            </div> 
                         </form>
                     </div>
                 </div>

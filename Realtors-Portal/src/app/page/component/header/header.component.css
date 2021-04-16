@@ -1,0 +1,19 @@
+@media (min-width: 992px) {
+    .header .navbar .dropdown-menu.megamenu {
+        left: 0%;
+    }
+    .navbar-nav .dropdown-menu.dropdown-menu-lg {
+        min-width: 100%;
+    }
+}
+
+.dropdown {
+    position: initial;
+}
+
+.box-list__category {
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}

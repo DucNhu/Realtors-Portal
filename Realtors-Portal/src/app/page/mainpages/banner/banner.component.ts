@@ -24,8 +24,8 @@ export class BannerComponent implements OnInit {
   imgsrcDistrict = environment.ImageAddressUrl + 'Districts/';
   imgsrcAre = environment.ImageAddressUrl + 'Ares/';
 
-  maxSqft;
-  maxPrice;
+  ArrmaxSqft; maxSqft = 0;
+  ArrmaxSqftmaxPrice; maxPrice = 0;
   constructor(
     private categoryService: CategoryService,
     private homePageService: HomePageService,
@@ -39,14 +39,16 @@ export class BannerComponent implements OnInit {
     this.getAddressActive();
     this.homePageService.getmaxSqft().subscribe(
       data => {
-        this.maxSqft = data;
-        this.formValidator.controls.sqftMax.patchValue(this.maxSqft[0].maxSqft);
+        this.ArrmaxSqft = data;
+        this.maxSqft = this.ArrmaxSqft[0].maxSqft;
+        this.formValidator.controls.sqftMax.patchValue(this.maxSqft);
       }
     )
     this.homePageService.getMaxPrice().subscribe(
       data => {
-        this.maxPrice = data;
-        this.formValidator.controls.priceMax.patchValue(this.maxPrice[0].maxPrice);
+        this.ArrmaxSqftmaxPrice = data;
+        this.maxPrice = this.ArrmaxSqftmaxPrice[0].maxPrice
+        this.formValidator.controls.priceMax.patchValue(this.maxPrice);
 
       }
     )
@@ -76,7 +78,7 @@ export class BannerComponent implements OnInit {
   }
 
   setFullData = false;
-  OnSearch(val) {
+  OnSearch(val) {    
     let data = {
       category: val.category,
       User_type: val.User_type,

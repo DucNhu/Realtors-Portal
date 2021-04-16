@@ -35,8 +35,8 @@ header -->
                             </span>
                             <span *ngIf="isLogin">
                                 <div class="dropdown">
-                                    <button class="btn p-0 dropdown-toggle" type="button" id="dropdowlistactionuser" data-toggle="dropdown"
-                                        aria-haspopup="true" aria-expanded="false">
+                                    <button class="btn p-0 dropdown-toggle" type="button" id="dropdowlistactionuser"
+                                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                         <!-- {{currentUser.Infor.Name}} -->
                                         <img class="img-fluid" [src]="imgSrc + currentUser.Infor.Avatar"
                                             [alt]="currentUser.Infor.Avatar" width="30" height="30"
@@ -72,55 +72,57 @@ header -->
                     </li>
                     <li class="nav-item dropdown">
                         <a class="nav-link" id="navbarDropdown" role="button">
-                            Pages
+                            Categories
                             <i class="fas fa-chevron-down fa-xs"></i>
                         </a>
-                        <ul class="dropdown-menu megamenu dropdown-menu-lg" aria-labelledby="navbarDropdown">
-                            <li>
-                                <div class="row no-gutters d-none d-lg-block">
-                                    <div class="col-12 mb-4">
-                                        <div class="media d-flex align-items-center p-4 bg-light">
-                                            <div class="mr-4">
-                                                <i class="flaticon-pin display-4 text-primary"></i>
-                                            </div>
-                                            <div class="media-body">
-                                                <h6 class="mb-1">Find properties in these cities</h6>
-                                                <p class="mb-0">To browse in your areas of interest, look for properties
-                                                    by location.</p>
-                                            </div>
+                        <div class="dropdown-menu megamenu dropdown-menu-lg" aria-labelledby="navbarDropdown">
+                            <div class="row no-gutters d-none d-lg-block">
+                                <div class="col-12 mb-4">
+                                    <div class="media d-flex align-items-center p-4 bg-light">
+                                        <div class="mr-4">
+                                            <i class="flaticon-pin display-4 text-primary"></i>
+                                        </div>
+                                        <div class="media-body">
+                                            <h6 class="mb-xxl-1">Find properties in these cities</h6>
+                                            <p class="mb-0">To browse in your areas of interest, look for properties
+                                                by location.</p>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="row">
-                                    <div class="col-sm-8">
-                                        <h6 class="mb-3 nav-title">Pages </h6>
-                                        <ul class="list-unstyled mt-lg-3">
-                                            <li>
-                                                <a routerLink="property-list">Property list</a>
-                                            </li>
-                                            <li><a routerLink="user-list">User list</a></li>
-                                            <li><a routerLink="aboutUs">About </a></li>
-                                            <li><a routerLink="aboutUs">About </a></li>
-                                            <li><a routerLink="aboutUs">About </a></li>
-                                        </ul>
-                                    </div>
-                                    
-                                    <div class="col-sm-4">
-                                        <h6 class="mb-3 nav-title">Authentication</h6>
-                                        <ul class="list-unstyled mt-lg-3">
-                                            <li><a routerLink="login">login</a></li>
-                                            <li><a routerLink="register">register</a></li>
-                                        </ul>
-                                    </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-6 box-list__category">
+                                    <h6 class="mb-3 nav-title text-center">List Category</h6>
+                                    <ul class="list-unstyled mt-lg-3 row">
+                                        <li class="col-12 col-sm-4" *ngFor="let c of listCategory | paginate : {
+                                                          itemsPerPage: tableSize,
+                                                          currentPage: page,
+                                                          totalItems: count}" (mouseover)="OnpreviewImg(c.Avatar)">
+                                            <a routerLink="category/{{c.CategoryName}}">{{ c.CategoryName }}</a>
 
+                                        </li>
+                                    </ul>
+                                    <div class="d-flex justify-content-center mt-3">
+                                        <pagination-controls responsive="true" previousLabel="Prev" nextLabel="Next"
+                                            (pageChange)="onTableDataChange($event)">
+                                        </pagination-controls>
+                                    </div>
                                 </div>
-                            </li>
-                        </ul>
+
+                                <div class="col-sm-6">
+                                    <h6 class="mb-3 nav-title">Image illustration</h6>
+                                    <div class="angular-property-image">
+                                        <img [src]="ImageBanner" [alt]="ImageBanner" class="img-fluid">
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
                     </li>
                     <li class="nav-item dropdown"><a class="nav-link dropdown-toggle"
                             routerLink="property-list">Property list</a>
                     </li>
-                    <li class="nav-item dropdown"><a class="nav-link dropdown-toggle" routerLink="user-list">User
+                    <li class="nav-item dropdown"><a class="nav-link dropdown-toggle" routerLink="user-list">Seller
                             list</a></li>
 
                     <li class="nav-item dropdown">
@@ -139,7 +141,7 @@ header -->
 
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" routerLink="faqs">
-                            Faqs
+                            Faqss
                             <!-- <i class="fas fa-chevron-down fa-xs"></i> -->
                         </a>
                     </li>

@@ -147,7 +147,7 @@ where [User].User_type not like 'admin' and [User].Active = 1";
         public JsonResult getPackageByUserInAdmin(int id)
         {
             string query = @"
-select Package.PackageName, Package.Price, Package.PackageTitle, Package.PackageDesciption, Package.Duration, 
+select Package.PackageID, Package.PackageName, Package.Price, Package.PackageTitle, Package.PackageDesciption, Package.Duration, 
 PackagePurchased.EndDate, PackagePurchased.StartDate
 from Package
 

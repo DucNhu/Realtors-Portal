@@ -4,6 +4,7 @@ import { environment } from '../../../@core/models/Environment';
 import { map } from "rxjs/operators";
 import { AuthenticationService } from '../../../@core/mock/Authentication.Service';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
+import { CategoryService } from 'src/app/@core/mock/category.service';
 
 @Component({
   selector: 'app-header',
@@ -16,20 +17,29 @@ export class HeaderComponent implements OnInit {
   imgSrc = environment.ImageUrl + 'Customer/';
   @Input() isLogin = false;
   returnUrl: string;
+
+  containData;
+  listCategory;
+  ImageBanner = '';
   constructor(
     private route: ActivatedRoute,
     private authenticationService: AuthenticationService,
     private router: Router,
+    private categoryService: CategoryService,
   ) {
     this.currentUser = this.authenticationService.currentUserValue;
   }
 
   ngOnInit() {
     this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
-    // this.checkLoginTrueFalse();
+    this.checkLoginTrueFalse();
     if (this.checkLoginTrueFalse()) {
       this.getIdWhenLogin();
     }
+
+    this.getAllCategory();
+    this.OnpreviewImg('AvatarDefault.jpg')
+
   }
   logout() {
     this.isLogin = false;
@@ -38,41 +48,73 @@ export class HeaderComponent implements OnInit {
 
   checkRoles = 'seller';
   checkLoginTrueFalse() {
-    if (this.currentUser.Infor.User_type != "admin") { // check token ? login register : logout
-      if (this.currentUser.Infor.User_type == 'agent') {
-        this.checkRoles = 'agent';
-        this.isLogin = true;
-        return true;
+    if (this.currentUser) {
+      if (this.currentUser.Infor.User_type != "admin") { // check token ? login register : logout
+        if (this.currentUser.Infor.User_type == 'agent') {
+          this.checkRoles = 'agent';
+          this.isLogin = true;
+          return true;
+        }
+        else {
+          this.checkRoles = 'seller';
+          this.isLogin = true;
+
+          return true;
+        }
+
+
       }
       else {
-        this.checkRoles = 'seller';
-        this.isLogin = true;
-        
-        return true;
-      }
-
-      
+        this.isLogin = false;
+        return false;
+      };
     }
-    else {
-      this.isLogin = false;
-      return false;
-    };
+
   }
 
   data;
   id;
   getIdWhenLogin() {
-    // this.route.paramMap.pipe(
-    //   map((param: ParamMap) => {
-    //     // @ts-ignore
-
-    //     return param.params.id;
-    //   })
-    // ).subscribe(id => {
-    //   this.userService.getUserbyId(id).subscribe(data => {
-    //     this.data = data;
-    //   });
-    // });
     this.id = this.currentUser.Infor.id;
+  }
+
+  // Get All project
+  getAllCategory() {
+    this.categoryService.getCategoryActive().subscribe(
+      data => {
+        this.listCategory = data;
+      });
+  }
+
+  // panigate ( phân trang )
+  page = 1;
+  count = 0;
+  tableSize = 6;
+  tableSizes = [3, 6, 9, 12];
+  fetchPosts(): void {
+    this.categoryService.getAllCategory().subscribe(
+      (response) => {
+        this.containData = response;
+
+      },
+      (error) => {
+      }
+    );
+  }
+
+  onTableDataChange(event) {
+    this.page = event;
+    this.fetchPosts();
+  }
+
+  onTableSizeChange(event): void {
+    this.tableSize = event.target.value;
+    this.page = 1;
+    this.fetchPosts();
+  }
+
+
+  OnpreviewImg(ImgName) {
+    this.ImageBanner = environment.ImageUrl + "categories/" + ImgName;
   }
 }

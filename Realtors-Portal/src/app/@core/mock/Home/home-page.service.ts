@@ -47,14 +47,10 @@ export class HomePageService {
   }
 
   setValueBySearch(data) {
-    
     this.dataBySearchBox = data;
-    console.log(this.dataBySearchBox);
     this.getValueBySearch()
   }
-  getValueBySearch() {
-    console.log(this.dataBySearchBox);
-      
+  getValueBySearch() {      
       return this.dataBySearchBox;
   }
 

@@ -26,7 +26,6 @@ export class NewlyListedComponent implements OnInit {
   getAllProduct() {
     this.homePageService.getProductViewHome().subscribe(
       data => {
-        console.log(data);
         
         this.containData = data;
         this.containData.forEach(e => {
@@ -40,7 +39,6 @@ export class NewlyListedComponent implements OnInit {
 
   onCaculator(data) {
     this.caculatorProduct = data;
-    console.log(data);
     
   }
 

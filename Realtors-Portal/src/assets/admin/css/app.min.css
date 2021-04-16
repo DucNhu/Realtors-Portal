@@ -15606,6 +15606,9 @@ input[type="submit"].btn-block {
     border: 1px solid transparent;
     border-radius: 6px;
 }
+.menu-text {
+    text-transform: capitalize;
+}
 .navbar-toggler:focus,
 .navbar-toggler:hover {
     text-decoration: none;

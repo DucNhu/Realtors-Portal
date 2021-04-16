@@ -18,17 +18,3 @@
     background-color: red;
 }
 
-.before-done::after {
-        content: 'Sold';
-    position: absolute;
-    right: 0;
-    padding: 5px 10px;
-    /* border-radius: 10px; */
-    top: 0;
-    clip-path: polygon(25% 0%, 100% 0%, 100% 100%, 25% 100%, 0% 50%);
-    border: 1px solid var(--green);
-    /* width: 100%; */
-    background: var(--green);
-    color: white;
-    transform: rotate(271deg);
-}
