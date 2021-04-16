@@ -1,0 +1,14 @@
+
+    /* Thanh scrollbar */
+    .flex-nowrap.overflow-auto::-webkit-scrollbar {
+        width: 0px;
+        background: linear-gradient(white); 
+        }
+
+    .flex-nowrap.overflow-auto::-webkit-scrollbar-thumb {
+        background: #bdc3c7;
+        border-radius: 0px;
+       }
+    /* End scrollbar */
+
+    .agent-avatar { overflow: hidden;}

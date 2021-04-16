@@ -3,7 +3,7 @@ header -->
 <header class="header">
     <div class="topbar">
         <div class="container-fluid">
-    <!-- <h2 style="color:red">{{currentUser.Infor.Address}}</h2> -->
+            <!-- <h2 style="color:red">{{currentUser.Infor.Address}}</h2> -->
             <div class="row">
                 <div class="col-12">
                     <div class="d-block d-md-flex align-items-center text-center">
@@ -34,13 +34,17 @@ header -->
                                 <div class="dropdown">
                                     <button class="btn p-0 dropdown-toggle" type="button" id="dropdowlistactionuser" data-toggle="dropdown"
                                         aria-haspopup="true" aria-expanded="false">
-                                      <!-- {{currentUser.Infor.Name}} -->
-                                        <img class="img-fluid" [src]="imgSrc + currentUser.Infor.Avatar" [alt]="currentUser.Infor.Avatar" width="30" height="30" class="rounded-circle mr-3">
+                                        <!-- {{currentUser.Infor.Name}} -->
+                                        <img class="img-fluid" [src]="imgSrc + currentUser.Infor.Avatar"
+                                            [alt]="currentUser.Infor.Avatar" width="30" height="30"
+                                            class="rounded-circle mr-3">
                                         <span class="text-white">{{ currentUser.Infor.Name }}</span>
                                     </button>
                                     <div class="dropdown-menu" aria-labelledby="dropdowlistactionuser">
-                                        <a class="dropdown-item" routerLink="profile-seller" *ngIf="checkRoles == 'seller'">Profile</a>
-                                        <a class="dropdown-item" routerLink="profile-agent" *ngIf="checkRoles == 'agent'">Profile</a>
+                                        <a class="dropdown-item" routerLink="profile-seller"
+                                            *ngIf="checkRoles == 'seller'">Profile</a>
+                                        <a class="dropdown-item" routerLink="profile-agent"
+                                            *ngIf="checkRoles == 'agent'">Profile</a>
                                         <a class="dropdown-item" (click)="logout()">Log out</a>
                                     </div>
                                 </div>
@@ -64,158 +68,78 @@ header -->
                         <a class="nav-link" routerLink="/">Home</a>
                     </li>
                     <li class="nav-item dropdown">
-                        <a class="nav-link"  id="navbarDropdown" role="button" data-toggle="dropdown"
-                            aria-haspopup="true" aria-expanded="false">
+                        <a class="nav-link" id="navbarDropdown" role="button">
                             Pages
                             <i class="fas fa-chevron-down fa-xs"></i>
                         </a>
-                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <li><a routerLink="property-list">Property list</a></li>
-                            <li><a routerLink="user-list">User list</a></li>
-                            <!-- <li><a routerLink="submit-property.html">Submit property</a></li>
-                            <li><a routerLink="advertising.html">Advertising</a></li>
-                            <li><a routerLink="careers.html">careers</a></li> -->
-                        </ul>
-                    </li>
+                        <ul class="dropdown-menu megamenu dropdown-menu-lg" aria-labelledby="navbarDropdown">
+                            <li>
+                                <div class="row no-gutters d-none d-lg-block">
+                                    <div class="col-12 mb-4">
+                                        <div class="media d-flex align-items-center p-4 bg-light">
+                                            <div class="mr-4">
+                                                <i class="flaticon-pin display-4 text-primary"></i>
+                                            </div>
+                                            <div class="media-body">
+                                                <h6 class="mb-1">Find properties in these cities</h6>
+                                                <p class="mb-0">To browse in your areas of interest, look for properties
+                                                    by location.</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-8">
+                                        <h6 class="mb-3 nav-title">Pages </h6>
+                                        <ul class="list-unstyled mt-lg-3">
+                                            <li>
+                                                <a routerLink="property-list">Property list</a>
+                                            </li>
+                                            <li><a routerLink="user-list">User list</a></li>
+                                            <li><a routerLink="aboutUs">About </a></li>
+                                            <li><a routerLink="aboutUs">About </a></li>
+                                            <li><a routerLink="aboutUs">About </a></li>
+                                        </ul>
+                                    </div>
+                                    
+                                    <div class="col-sm-4">
+                                        <h6 class="mb-3 nav-title">Authentication</h6>
+                                        <ul class="list-unstyled mt-lg-3">
+                                            <li><a routerLink="login">login</a></li>
+                                            <li><a routerLink="register">register</a></li>
+                                        </ul>
+                                    </div>
 
-                    <!-- <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle"  data-toggle="dropdown" aria-haspopup="true"
-                            aria-expanded="false">
-                            Faqs
-                            <i class="fas fa-chevron-down fa-xs"></i>
-                        </a>
-                        <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" routerLink="property-list">Property list</a></li>
-                            <li><a class="dropdown-item" routerLink="property-list-map.html">Property list with map</a></li>
-                            <li><a class="dropdown-item" routerLink="property-grid.html">Property grid</a></li>
-                            <li><a class="dropdown-item" routerLink="property-grid-map.html">Property grid with map</a></li>
-                            <li class="dropdown-submenu"><a class="dropdown-item dropdown-toggle" routerLink="#">Dropdown <i
-                                        class="fas fa-chevron-right fa-xs"></i></a>
-                                <ul class="dropdown-menu">
-                                    <li><a class="dropdown-item" routerLink="#">Submenu</a></li>
-                                    <li><a class="dropdown-item" routerLink="#">Submenu</a></li>
-                                    <li class="dropdown-submenu"><a class="dropdown-item dropdown-toggle"
-                                            routerLink="#">Submenu 01 <i class="fas fa-chevron-right fa-xs"></i></a>
-                                        <ul class="dropdown-menu">
-                                            <li><a class="dropdown-item" routerLink="#">Subsubmenu 01</a></li>
-                                            <li><a class="dropdown-item" routerLink="#">Subsubmenu 01</a></li>
-                                        </ul>
-                                    </li>
-                                    <li class="dropdown-submenu"><a class="dropdown-item dropdown-toggle"
-                                            routerLink="#">Submenu 02 <i class="fas fa-chevron-right fa-xs"></i></a>
-                                        <ul class="dropdown-menu">
-                                            <li><a class="dropdown-item" routerLink="#">Subsubmenu 02</a></li>
-                                            <li><a class="dropdown-item" routerLink="#">Subsubmenu 02</a></li>
-                                        </ul>
-                                    </li>
-                                </ul>
+                                </div>
                             </li>
                         </ul>
-                    </li> -->
+                    </li>
+                    <li class="nav-item dropdown"><a class="nav-link dropdown-toggle"
+                            routerLink="property-list">Property list</a>
+                    </li>
+                    <li class="nav-item dropdown"><a class="nav-link dropdown-toggle" routerLink="user-list">User
+                            list</a></li>
+
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" routerLink="about-us.html" data-toggle="dropdown" aria-haspopup="true"
-                            aria-expanded="false">
+                        <a class="nav-link dropdown-toggle" routerLink="aboutUs">
                             About us
                             <!-- <i class="fas fa-chevron-down fa-xs"></i> -->
                         </a>
-                        <!-- <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" routerLink="property-detail-style-01.html">property detail style
-                                    01</a></li>
-                            <li><a class="dropdown-item" routerLink="property-detail-style-02.html">property detail style
-                                    02</a></li>
-                            <li><a class="dropdown-item" routerLink="property-detail-style-03.html">property detail style
-                                    03</a></li>
-                            <li><a class="dropdown-item" routerLink="property-detail-style-04.html">property detail style
-                                    04</a></li>
-                        </ul> -->
+
                     </li>
                     <li class="dropdown nav-item mega-menu">
-                        <a  class="nav-link" data-toggle="dropdown">Contact us
+                        <a class="nav-link" routerLink="contactUs">Contact us
                             <!-- <i class="fas fa-chevron-down fa-xs"></i> -->
                         </a>
-                        <!-- <ul class="dropdown-menu megamenu">
-                            <li>
-                                <div class="row">
-                                    <div class="col-sm-6 col-lg-3">
-                                        <h6 class="mb-3 nav-title">Search types</h6>
-                                        <ul class="list-unstyled mt-lg-3">
-                                            <li><a routerLink="search-style-under-banner.html">Search style under banner</a>
-                                            </li>
-                                            <li><a routerLink="search-style-above-banner.html">Search style above banner</a>
-                                            </li>
-                                            <li><a routerLink="search-style-below-banner.html">Search style below banner</a>
-                                            </li>
-                                            <li><a routerLink="search-style-advanced.html">Advanced Search style </a></li>
-                                        </ul>
-                                    </div>
-                                    <div class="col-sm-6 col-lg-3">
-                                        <h6 class="mb-3 nav-title">Search types</h6>
-                                        <ul class="list-unstyled mt-lg-3">
-                                            <li><a routerLink="search-style-classic.html">Search style classic</a></li>
-                                            <li><a routerLink="search-style-with-filter.html">Search style with filter</a>
-                                            </li>
-                                            <li><a routerLink="search-style-advanced-02.html">Advanced Search style 02 </a>
-                                            </li>
-                                            <li><a routerLink="search-style-advanced-03.html">Advanced Search style 03 </a>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                    <div class="col-sm-6 col-lg-3">
-                                        <h6 class="mb-3 nav-title">Elements</h6>
-                                        <ul class="list-unstyled mt-lg-3">
-                                            <li><a routerLink="element-feature-box.html">Feature box</a></li>
-                                            <li><a routerLink="element-testimonials.html">Testimonials</a></li>
-                                            <li><a routerLink="element-accordion.html">Accordion</a></li>
-                                            <li><a routerLink="element-tabs.html">Tabs</a></li>
-                                        </ul>
-                                    </div>
-                                    <div class="col-sm-6 col-lg-3">
-                                        <h6 class="mb-3 nav-title">Elements</h6>
-                                        <ul class="list-unstyled mt-lg-3">
-                                            <li><a routerLink="element-typography.html">Typography</a></li>
-                                            <li><a routerLink="element-counter.html">counter</a></li>
-                                            <li><a routerLink="element-countdown.html">Countdown</a></li>
-                                            <li><a routerLink="element-category.html">Category</a></li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </li>
-                        </ul> -->
                     </li>
 
 
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle"  data-toggle="dropdown" aria-haspopup="true"
-                            aria-expanded="false">
+                        <a class="nav-link dropdown-toggle" routerLink="faqs">
                             Faqs
                             <!-- <i class="fas fa-chevron-down fa-xs"></i> -->
                         </a>
                     </li>
-
-                    <!-- <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle"  data-toggle="dropdown" aria-haspopup="true"
-                            aria-expanded="false">
-                            Agent <i class="fas fa-chevron-down fa-xs"></i>
-                        </a>
-                        <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" routerLink="agent-grid.html">Agent grid</a></li>
-                            <li><a class="dropdown-item" routerLink="agent-list.html">Agent list</a></li>
-                            <li><a class="dropdown-item" routerLink="agent-detail.html">Agent detail</a></li>
-                            <li class="dropdown-submenu"><a class="dropdown-item dropdown-toggle" routerLink="#">Account <span
-                                        class="badge badge-danger ml-2">Hot</span> <i
-                                        class="fas fa-chevron-right fa-xs"></i></a>
-                                <ul class="dropdown-menu left-side">
-                                    <li><a class="dropdown-item" routerLink="account-profile.html">Profile</a></li>
-                                    <li><a class="dropdown-item" routerLink="account-my-properties.html">My properties </a>
-                                    </li>
-                                    <li><a class="dropdown-item" routerLink="account-agency-management.html">Agency
-                                            management</a></li>
-                                    <li><a class="dropdown-item" routerLink="account-saved-homes.html">Saved homes</a></li>
-                                    <li><a class="dropdown-item" routerLink="account-saved-rental.html">Saved rental</a></li>
-                                </ul>
-                            </li>
-                        </ul>
-                    </li> -->
                 </ul>
             </div>
             <div class="add-listing d-none d-sm-block">
@@ -226,136 +150,3 @@ header -->
 </header>
 <!--=================================
  header -->
-
-<!--=================================
- Modal login -->
-<div class="modal login fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="loginModalLabel"
-    aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content">
-            <div class="modal-header border-0">
-                <h5 class="modal-title" id="loginModalLabel">Log in & Register</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <ul class="nav nav-tabs nav-tabs-02 justify-content-center" id="myTab" role="tablist">
-                    <li class="nav-item">
-                        <a class="nav-link active" id="login-tab" data-toggle="tab" routerLink="#login" role="tab"
-                            aria-controls="login" aria-selected="false">Log in</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" id="register-tab" data-toggle="tab" routerLink="#register" role="tab"
-                            aria-controls="register" aria-selected="true">Register</a>
-                    </li>
-                </ul>
-                <div class="tab-content" id="myTabContent">
-                    <div class="tab-pane fade show active" id="login" role="tabpanel" aria-labelledby="login-tab">
-                        <!-- <form class="form-row mt-4 align-items-center" [formGroup]="loginForm" (ngSubmit)="onSubmit()">
-                            <div class="form-group col-sm-12">
-                                <label for="username">Username</label>
-                                <input type="text" formControlName="username" class="form-control" name="username"
-                                    [ngClass]="{ 'is-invalid': submitted && f.username.errors }" />
-                                <div *ngIf="submitted && f.username.errors" class="invalid-feedback">
-                                    <div *ngIf="f.username.errors.required">Username is required</div>
-                                </div>
-                            </div>
-                            <div class="form-group col-sm-12">
-                                <label for="password">Password</label>
-                                <input type="password" formControlName="password" class="form-control" name="password"
-                                    [ngClass]="{ 'is-invalid': submitted && f.password.errors }" />
-                                <div *ngIf="submitted && f.password.errors" class="invalid-feedback">
-                                    <div *ngIf="f.password.errors.required">Password is required</div>
-                                </div>
-                            </div>
-                            <div class="col-sm-6">
-                                <button [disabled]="loading" class="btn btn-primary btn-block">
-                                    <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
-                                    Login
-                                </button>
-                            </div>
-                            <div class="col-sm-6">
-                                <ul class="list-unstyled d-flex mb-1 mt-sm-0 mt-3">
-                                    <li class="mr-1"><a routerLink="#"><b>Already Registered User? Click here to login</b></a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </form> -->
-                        <div class="login-social-media border pl-4 pr-4 pb-4 pt-0 rounded">
-                            <div class="mb-4 d-block text-center"><b class="bg-white pl-2 pr-2 mt-3 d-block">Login or
-                                    Sign in with</b></div>
-                            <!-- <form class="row">
-                                <div class="col-sm-6">
-                                    <a class="btn facebook-bg social-bg-hover d-block mb-3" routerLink="#"><span><i
-                                                class="fab fa-facebook-f"></i>Login with Facebook</span></a>
-                                </div>
-                                <div class="col-sm-6">
-                                    <a class="btn twitter-bg social-bg-hover d-block mb-3" routerLink="#"><span><i
-                                                class="fab fa-twitter"></i>Login with Twitter</span></a>
-                                </div>
-                                <div class="col-sm-6">
-                                    <a class="btn google-bg social-bg-hover d-block mb-3 mb-sm-0" routerLink="#"><span><i
-                                                class="fab fa-google"></i>Login with Google</span></a>
-                                </div>
-                                <div class="col-sm-6">
-                                    <a class="btn linkedin-bg social-bg-hover d-block" routerLink="#"><span><i
-                                                class="fab fa-linkedin-in"></i>Login with Linkedin</span></a>
-                                </div>
-                            </form> -->
-                        </div>
-                    </div>
-                    <div class="tab-pane fade" id="register" role="tabpanel" aria-labelledby="register-tab">
-                        <!-- <form class="form-row mt-4 mb-5 align-items-center" [FormGroup]="registerForm">
-                            <div class="form-group col-sm-12">
-                                <input type="text" class="form-control" placeholder="Username">
-                            </div>
-                            <div class="form-group col-sm-12">
-                                <input type="email" class="form-control" placeholder="Email Address">
-                            </div>
-                            <div class="form-group col-sm-12">
-                                <input type="Password" class="form-control" placeholder="Password">
-                            </div>
-                            <div class="form-group col-sm-12">
-                                <input type="Password" class="form-control" placeholder="Confirm Password">
-                            </div>
-                            <div class="col-sm-6">
-                                <button type="submit" class="btn btn-primary btn-block">Sign up</button>
-                            </div>
-                            <div class="col-sm-6">
-                                <ul class="list-unstyled d-flex mb-1 mt-sm-0 mt-3">
-                                    <li class="mr-1"><a routerLink="#"><b>Already Registered User? Click here to login</b></a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </form> -->
-                        <div class="login-social-media border pl-4 pr-4 pb-4 pt-0 rounded">
-                            <div class="mb-4 d-block text-center"><b class="bg-white pl-2 pr-2 mt-3 d-block">Login or
-                                    Sign in with</b></div>
-                            <!-- <form class="row">
-                                <div class="col-sm-6">
-                                    <a class="btn facebook-bg social-bg-hover d-block mb-3" routerLink="#"><span><i
-                                                class="fab fa-facebook-f"></i>Login with Facebook</span></a>
-                                </div>
-                                <div class="col-sm-6">
-                                    <a class="btn twitter-bg social-bg-hover d-block mb-3" routerLink="#"><span><i
-                                                class="fab fa-twitter"></i>Login with Twitter</span></a>
-                                </div>
-                                <div class="col-sm-6">
-                                    <a class="btn google-bg social-bg-hover d-block mb-3 mb-sm-0" routerLink="#"><span><i
-                                                class="fab fa-google"></i>Login with Google</span></a>
-                                </div>
-                                <div class="col-sm-6">
-                                    <a class="btn linkedin-bg social-bg-hover d-block" routerLink="#"><span><i
-                                                class="fab fa-linkedin-in"></i>Login with Linkedin</span></a>
-                                </div>
-                            </form> -->
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-<!--=================================
-  Modal login -->

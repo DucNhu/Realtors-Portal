@@ -26,7 +26,6 @@ export class BrowseCategoryComponent implements OnInit {
     this.homePageService.getCategoryActive().subscribe(
       data => {
         this.containData = data;
-        console.log(this.containData);
 
         this.containData.forEach(e => {
           e.ImageBannerSrc = this.getImageBannerSrc;

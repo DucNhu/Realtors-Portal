@@ -10,10 +10,10 @@ export class DashboardComponent implements OnInit {
 
   countaccActiveNotAd;
   listAccAgentActive;
-
+  listAccSellerActive;
   countProductActive; countProductSold;
 
-  listAccSellerActive;
+  
   countpackagePurchased;
 
 
@@ -84,7 +84,6 @@ export class DashboardComponent implements OnInit {
         let contain;
         contain = data;
         contain.forEach(e => {
-          console.log(e);
           
           this.countProductActive = e.countProductActive
         });
@@ -96,7 +95,6 @@ export class DashboardComponent implements OnInit {
         let contain;
         contain = data;
         contain.forEach(e => {
-          console.log(e);
 
           this.countProductSold = e.countProductSold
         });

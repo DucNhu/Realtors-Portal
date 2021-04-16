@@ -7,7 +7,6 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AngularFileUploaderModule } from "angular-file-uploader";
 import { MaterialModule } from './material/material.module';
 import { ChartsModule } from "@rinminase/ng-charts";
-import { NgxMasonryModule } from 'ngx-masonry';
 
 import { NavigationComponent } from './component/navigation/navigation.component';
 import { ProjectControllComponent } from './dashboard/project-controll/project-controll.component';
@@ -34,7 +33,6 @@ import { NgxPaginationModule } from 'ngx-pagination';
     AngularFileUploaderModule,
     MaterialModule,
     NgxPaginationModule,
-    NgxMasonryModule,
     ChartsModule
   ]
 })

@@ -26,9 +26,6 @@ button:focus > .fa-ellipsis-h {
     bottom: 0;
 }
 
-.mb-3 {
-    padding-top: 36px;
-}
 
 .mb-4 {
     padding-top: 8px;
@@ -101,6 +98,13 @@ button.edit:hover + .list-group {
     flex-direction: row;
     top: -140%;
     position: absolute;
+}
+
+.btn i {
+  padding: 0
+}
+.box-action button {
+  padding: 0
 }
 /*  ===============
       END  fORM
