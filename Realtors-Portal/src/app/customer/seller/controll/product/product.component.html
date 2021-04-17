@@ -53,7 +53,8 @@
                 <td>{{ p.ProjectName }}</td>
                 <td>
                     <div class="angular-property-image bg-overlay-gradient-04">
-                        <img [src]="p.ImageBannerSrc + p.ImageBannerName" [alt]="p.ImageBannerName" class="img-fluid" routerLink="property-detail/id/{{ p.ID }}">
+                        <img [src]="p.ImageBannerSrc + p.ImageBannerName" [alt]="p.ImageBannerName" class="img-fluid"
+                            routerLink="property-detail/id/{{ p.ID }}">
                     </div>
                 </td>
                 <td><a routerLink="property-detail/id/{{ p.ID }}">{{ p.CategoryName }}</a></td>
@@ -90,7 +91,8 @@
                                     data-target="#modal-form-AddEdit" (click)="GetDataCheckisAddorEdit(false,p)">
                                     <i class="far fa-lg fa-fw me-2 fa-edit"></i>
                                 </button> -->
-                                <button class="dropdown-item detail" type="button" routerLink="product-edit/id/{{ p.ID }}">
+                                <button class="dropdown-item detail" type="button"
+                                    routerLink="product-edit/id/{{ p.ID }}">
                                     <i class="far fa-lg fa-fw me-2 fa-edit"></i>
                                 </button>
                                 <button class="dropdown-item delete" type="button" (click)="DeleteEmPloyee(p.ID)">
@@ -106,20 +108,17 @@
 
 
     <div class="d-flex justify-content-center">
-      <pagination-controls
-        responsive="true"
-        previousLabel="Prev"
-        nextLabel="Next"
-        (pageChange)="onTableDataChange($event)">
-      </pagination-controls>
-     </div>
+        <pagination-controls responsive="true" previousLabel="Prev" nextLabel="Next"
+            (pageChange)="onTableDataChange($event)">
+        </pagination-controls>
+    </div>
 
 </div>
 
 
 
 <!-- Form Add / Edit -->
-<div class="modal fade col-sm-12" id="modal-form-AddEdit" [class]="isAddProjectForm ? 'd-block opacity-10' : ''" >
+<div class="modal fade col-sm-12" id="modal-form-AddEdit" [class]="isAddProjectForm ? 'd-block opacity-10' : ''">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -165,10 +164,13 @@
                                             </div>
 
                                             <div class="overflow-auto row list-image__Lib">
-                                                <div class="text-center w-100"><label for="ImageFeature">Select feature Image</label></div>
+                                                <div class="text-center w-100"><label for="ImageFeature">Select feature
+                                                        Image</label></div>
                                                 <div class="col-3 image__Lib" *ngFor="let feature of ArrayCRDFeature">
-                                                    <img [src]="feature.url + feature.Name" [alt]="feature.Name"
-                                                        class="img-fluid">
+                                                    <div class="angular-property-image">
+                                                        <img [src]="feature.url + feature.Name" [alt]="feature.Name"
+                                                            class="img-fluid" />
+                                                    </div>
 
                                                     <span class="fas fa-times-circle"
                                                         (click)="deleteAnfeature(feature)">

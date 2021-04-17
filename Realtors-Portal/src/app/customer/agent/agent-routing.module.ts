@@ -9,7 +9,7 @@ import { EditProductComponent } from '../seller/controll/product/edit-product/ed
 import { AgentComponent } from './agent.component';
 import { ProductComponent } from './../seller/controll/product/product.component';
 import { ProductDetailComponent } from 'src/app/page/product-detail/product-detail.component';
-import { EditProfileComponent } from '../seller/controll/profile/edit-profile/edit-profile.component';
+import { EditProfileComponent } from './../seller/controll/profile/edit-profile/edit-profile.component';
 const routes: Routes = [
     {
         path: '', component: AgentComponent,

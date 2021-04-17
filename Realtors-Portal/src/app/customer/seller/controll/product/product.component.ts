@@ -91,7 +91,7 @@ export class ProductComponent implements OnInit {
   listProject = [];
   InforUser;
   containData;
-  getIDLast = 0;
+  getIDByProductLast = 0;
   returnUrl = this.ActivatedRoute.snapshot.queryParams['returnUrl'] || '/';
   // Get All project
   getAllProjectandInforByID(id) {
@@ -101,7 +101,8 @@ export class ProductComponent implements OnInit {
         this.containData.forEach(e => {
           e.ImageBannerSrc = this.getImageBannerSrc;
           this.listProject.unshift(e);
-        });
+        }); 
+        this.getIDByProductLast = this.listProject[length].ID;
       }
     );
 
@@ -138,6 +139,7 @@ export class ProductComponent implements OnInit {
   dataImage;
   selectedFile: File = null;
   disabled = false;
+  firstCreate = false;
   CreateProject(data) {
     this.disabled = true;
     data.ID = 0;
@@ -146,8 +148,8 @@ export class ProductComponent implements OnInit {
     if (this.upPhoto() && this.upPhotoImageFeature()) {        // this.upPhoto(); // Insert Image
       data.ImageBannerName = this.DataFormProjectEdit.ImageBannerName;
       // let getIDLast = this.listProject[length].ID;
-      let getIDLast = 0;
-      try { getIDLast = this.listProject[length].ID; } catch { getIDLast = 0; }
+      let getIDLast = 0; // Id dùg cho mảng, khi nó chưa tạp proudct tì k set đc id, nên phải set id bằng 0
+      try { getIDLast = this.listProject[length].ID; this.firstCreate = false} catch { getIDLast = 0; this.firstCreate = true;}
       // let getIDImageLibLast = this.listImageFeature[length].ID;
       let getIDImageLibLast = 0;
       try { getIDImageLibLast = this.listImageFeature[length].ID; } catch { getIDImageLibLast = 0; }
@@ -156,7 +158,7 @@ export class ProductComponent implements OnInit {
           this.upPhoto(); // Insert Image
 
           // Insert Image in table ImageLib trog sql
-          let idlastofProduct = getIDLast;
+          let idlastofProduct = this.getIDByProductLast;
           this.ArrayCRDFeature.forEach(e => {
 
             let dataImageLib = {
@@ -215,6 +217,11 @@ export class ProductComponent implements OnInit {
           getIDLast++;
           getIDImageLibLast++;
 
+          if (this.firstCreate) {
+            if (this.upPhotoImageFeature()) {
+              window.location.reload();
+            }
+          }
         });
       this.isAddProjectForm = false;
       this.disabled = false;
@@ -286,7 +293,6 @@ export class ProductComponent implements OnInit {
         this.ArrayCRDFeature.push({ Name: event.target.result, url: '', NameinSert: dateNow.getTime() + this.DataFeature.name });
 
         // }
-        console.log(this.ArrayCRDFeature);
 
       }
     }

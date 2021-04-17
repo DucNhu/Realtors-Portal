@@ -53,10 +53,12 @@
                                 </div>
 
                                 <div class="overflow-auto row list-image__Lib">
-                                    <div class="text-center w-100"><label for="ImageFeature">Select feature Image</label></div>
+                                    <div class="text-center w-100"><label for="ImageFeature">Select feature
+                                            Image</label></div>
                                     <div class="col-4 image__Lib" *ngFor="let feature of ArrayCRDFeature">
                                         <div class="angular-property-image">
-                                            <img [src]="feature.url + feature.Name" [alt]="feature.Name" class="img-fluid" />
+                                            <img [src]="feature.url + feature.Name" [alt]="feature.Name"
+                                                class="img-fluid" />
                                         </div>
 
                                         <span class="fas fa-times-circle" (click)="deleteAnfeature(feature)">

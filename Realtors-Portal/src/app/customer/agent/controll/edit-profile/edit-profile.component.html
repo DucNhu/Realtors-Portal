@@ -15,9 +15,10 @@ My profile -->
                     </div>
                 </div>
                 <h2>Product Manager</h2>
-                <div class="profile-sidebar bg-holder bg-overlay-black-70 mb-2" style="background-image: url(assets/page/images/banner-01.jpg);">
-                    <div class="d-sm-flex py-5 position-relative">
-                        <div class="profile-avatar p-0">
+                <div class="profile-sidebar bg-holder bg-overlay-black-70 mb-2"
+                    style="background-image: url(assets/page/images/banner-01.jpg);">
+                    <div class="d-sm-flex align-items-center position-relative">
+                        <div class="profile-avatar">
                             <img class="img-fluid" [src]="AvatarSrc + UserInfor.Avatar" [alt]="UserInfor.Avatar">
                             <label for="SelectAvatar"><i class="fas fa-sync-alt"></i></label>
                             <input type="file" class="d-none" id="SelectAvatar" (change)="onSelectFile($event)" />
@@ -55,11 +56,14 @@ My profile -->
                                     <span class="form-file-text">Location</span>
                                 </label>
                                 <mat-form-field class="example-full-width d-block">
-                                    <input matInput aria-label="Location" [matAutocomplete]="Location" formControlName="Location" id="location">
+                                    <input matInput aria-label="Location" [matAutocomplete]="Location"
+                                        formControlName="Location" id="location">
                                     <mat-autocomplete #Location="matAutocomplete">
-                                        <mat-option *ngFor="let Location of listLocation" [value]="Location.LocationName">
-                                            <img style="vertical-align:middle;" aria-hidden src="{{imgsrcLocation + Location.Avatar}}" height="25"
-                                                width="25" alt="{{ Location.Avatar }}" />
+                                        <mat-option *ngFor="let Location of listLocation"
+                                            [value]="Location.LocationName">
+                                            <img style="vertical-align:middle;" aria-hidden
+                                                src="{{imgsrcLocation + Location.Avatar}}" height="25" width="25"
+                                                alt="{{ Location.Avatar }}" />
                                             <span class="ml-2">{{ Location.LocationName }}</span>
                                         </mat-option>
                                     </mat-autocomplete>
@@ -75,11 +79,13 @@ My profile -->
                                                                 </option>
                                                             </select> -->
                                 <mat-form-field class="example-full-width d-block">
-                                    <input matInput aria-label="Country" [matAutocomplete]="Country" formControlName="Country" id="Country" />
+                                    <input matInput aria-label="Country" [matAutocomplete]="Country"
+                                        formControlName="Country" id="Country" />
                                     <mat-autocomplete #Country="matAutocomplete">
                                         <mat-option *ngFor="let Country of listCountry" [value]="Country.CountryName">
-                                            <img style="vertical-align:middle;" aria-hidden src="{{imgsrcCountry + Country.Avatar}}" height="25"
-                                                width="25" alt="{{ Country.Avatar }}" />
+                                            <img style="vertical-align:middle;" aria-hidden
+                                                src="{{imgsrcCountry + Country.Avatar}}" height="25" width="25"
+                                                alt="{{ Country.Avatar }}" />
                                             <span class="ml-2">{{ Country.CountryName }}</span>
                                         </mat-option>
                                     </mat-autocomplete>
@@ -89,11 +95,13 @@ My profile -->
                             <div class="col">
                                 <label for="City">City</label>
                                 <mat-form-field class="example-full-width d-block">
-                                    <input matInput aria-label="City" [matAutocomplete]="City" formControlName="City" id="City" />
+                                    <input matInput aria-label="City" [matAutocomplete]="City" formControlName="City"
+                                        id="City" />
                                     <mat-autocomplete #City="matAutocomplete">
                                         <mat-option *ngFor="let City of listCity;let i = index" [value]="City.CityName">
-                                            <img style="vertical-align:middle;" aria-hidden src="{{imgsrcCity + City.Avatar}}" height="25"
-                                                width="25" alt="{{ City.Avatar }}" />
+                                            <img style="vertical-align:middle;" aria-hidden
+                                                src="{{imgsrcCity + City.Avatar}}" height="25" width="25"
+                                                alt="{{ City.Avatar }}" />
                                             <span class="ml-2">{{ City.CityName }}</span>
                                         </mat-option>
                                     </mat-autocomplete>
@@ -103,11 +111,14 @@ My profile -->
                             <div class="col">
                                 <label for="District">District</label>
                                 <mat-form-field class="example-full-width d-block">
-                                    <input matInput aria-label="District" [matAutocomplete]="District" formControlName="District" id="District" />
+                                    <input matInput aria-label="District" [matAutocomplete]="District"
+                                        formControlName="District" id="District" />
                                     <mat-autocomplete #District="matAutocomplete">
-                                        <mat-option *ngFor="let District of listDistrict;let i = index" [value]="District.DistrictName">
-                                            <img style="vertical-align:middle;" aria-hidden src="{{imgsrcDistrict + District.Avatar}}" height="25"
-                                                width="25" alt="{{ District.Avatar }}" />
+                                        <mat-option *ngFor="let District of listDistrict;let i = index"
+                                            [value]="District.DistrictName">
+                                            <img style="vertical-align:middle;" aria-hidden
+                                                src="{{imgsrcDistrict + District.Avatar}}" height="25" width="25"
+                                                alt="{{ District.Avatar }}" />
                                             <span class="ml-2">{{ District.DistrictName }}</span>
                                         </mat-option>
                                     </mat-autocomplete>
@@ -116,7 +127,7 @@ My profile -->
                             <!-- Are  -->
                             <div class="col">
                                 <label for="Are">Are</label>
-                            
+
                                 <!-- <select class="form-select form-control" formControlName="Are">
                                                                 <option *ngFor="let Are of listAre" [value]="Are.AreID"
                                                                     [selected]="Are.AreID == formValidator.controls.Are.value">
@@ -124,10 +135,12 @@ My profile -->
                                                                 </option>
                                                             </select> -->
                                 <mat-form-field class="example-full-width d-block">
-                                    <input matInput aria-label="Are" [matAutocomplete]="Are" formControlName="Are" id="Are" />
+                                    <input matInput aria-label="Are" [matAutocomplete]="Are" formControlName="Are"
+                                        id="Are" />
                                     <mat-autocomplete #Are="matAutocomplete">
                                         <mat-option *ngFor="let Are of listAre;let i = index" [value]="Are.AreName">
-                                            <img style="vertical-align:middle;" aria-hidden src="{{imgsrcAre + Are.Avatar}}" height="25" width="25"
+                                            <img style="vertical-align:middle;" aria-hidden
+                                                src="{{imgsrcAre + Are.Avatar}}" height="25" width="25"
                                                 alt="{{ Are.Avatar }}" />
                                             <span class="ml-2">{{ Are.AreName }}</span>
                                         </mat-option>
@@ -142,7 +155,7 @@ My profile -->
                         <!-- End Link Face -->
                         <div class="form-group col-md-12">
                             <label>Description Infor</label>
-                            <textarea class="form-control" rows="4"  formControlName="Description"></textarea>
+                            <textarea class="form-control" rows="4" formControlName="Description"></textarea>
                         </div>
 
                         <div class="col-md-12">
