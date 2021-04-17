@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { environment } from './../../../../../@core/models/Environment';
-import { AuthenticationService } from './../../../../../@core/mock/Authentication.Service';
 import { UserService } from 'src/app/@core/mock/Customer/user.service';
 import { CategoryService } from 'src/app/@core/mock/category.service';
 import { ProjectService } from 'src/app/@core/mock/project.service';
+import { AuthenticationService } from 'src/app/@core/mock/Authentication.Service';
+import { environment } from 'src/app/@core/models/Environment';
 
 @Component({
   selector: 'app-edit-profile',
@@ -12,6 +12,7 @@ import { ProjectService } from 'src/app/@core/mock/project.service';
   styleUrls: ['./edit-profile.component.css']
 })
 export class EditProfileComponent implements OnInit {
+
 
   InforUser;
   userEmail = this.authenticationService.currentUserValue.Infor.Email;
