@@ -10,7 +10,8 @@ export class User {
     Infor: {
         ID: number,
         PackageID: number;
-        User_type: string
+        User_type: string;
+        Email: string
     }
 }
 

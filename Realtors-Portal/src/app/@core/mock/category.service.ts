@@ -10,7 +10,9 @@ export class CategoryService {
   constructor(
     private http: HttpClient
   ) { }
-
+  getTest() {
+    return this.http.get('http://localhost:9091/api/category/2')
+  }
   getAllCategory() {
     return this.http.get(environment.apiUrl + 'Categories')
   }

@@ -90,7 +90,7 @@
                                     data-target="#modal-form-AddEdit" (click)="GetDataCheckisAddorEdit(false,p)">
                                     <i class="far fa-lg fa-fw me-2 fa-edit"></i>
                                 </button> -->
-                                <button class="dropdown-item detail" type="button" routerLink="edit/id/{{ p.ID }}">
+                                <button class="dropdown-item detail" type="button" routerLink="product-edit/id/{{ p.ID }}">
                                     <i class="far fa-lg fa-fw me-2 fa-edit"></i>
                                 </button>
                                 <button class="dropdown-item delete" type="button" (click)="DeleteEmPloyee(p.ID)">
@@ -128,8 +128,6 @@
                 </button>
             </div>
             <div class="modal-body p-0">
-
-
                 <div class="row text-left">
                     <div class="col-12 mb-4">
                         <div class="card border-light shadow-sm components-section">

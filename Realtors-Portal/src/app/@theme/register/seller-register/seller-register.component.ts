@@ -56,7 +56,7 @@ export class SellerRegisterComponent implements OnInit {
       "ppID": 0,
       "Title": "Company Seller",
       "Description": "What is the exact sequence of events that will take you to where you want to be? Have a think consciously of what you need to do. Every outcome begins with the first step. When you decide you want to have a romantic meal for two, there are many steps that you need.Success isn’t really that difficult.There is a significant portion of the population here in North America, that actually want and need success to be hard! Why? So they then have a built-in excuse when things don’t go their way! Pretty sad situation, to say the least.Have some fun and hypnotize yourself to be your very own “Ghost of Christmas future” and see what the future holds for you.",
-      "NetWorkID": "null",
+      "NetWorkID": 0,
       "Location": "null",
       "Country": "null",
       "City": "null",

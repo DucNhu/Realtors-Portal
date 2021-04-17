@@ -53,6 +53,10 @@ input::-webkit-calendar-picker-indicator {
 .property-agent .property-agent-image .img-fluid {
     transform: scale(1) !important;
 }
+
+.fa-times-circle {
+    cursor: pointer;
+}
 /* END  Frame + imge */
 
 td {

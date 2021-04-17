@@ -49,7 +49,6 @@ export class BannerComponent implements OnInit {
         this.ArrmaxSqftmaxPrice = data;
         this.maxPrice = this.ArrmaxSqftmaxPrice[0].maxPrice
         this.formValidator.controls.priceMax.patchValue(this.maxPrice);
-
       }
     )
     this.ValidatorForm();

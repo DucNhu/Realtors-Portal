@@ -1,3 +1,6 @@
 .pricing-price {
     font-size: 14px !important;
 }
+.before-done::after {
+        content: 'Using';
+}

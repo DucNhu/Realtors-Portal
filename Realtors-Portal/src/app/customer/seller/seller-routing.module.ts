@@ -10,6 +10,7 @@ import { ProductDetailComponent } from 'src/app/page/product-detail/product-deta
 import { NotfoundComponent } from '../../@theme/notfound/notfound.component';
 import { EditProductComponent } from './controll/product/edit-product/edit-product.component';
 import { ProductComponent } from './controll/product/product.component';
+import { EditProfileComponent } from './controll/profile/edit-profile/edit-profile.component';
 import { SellerComponent } from './seller.component';
 
 const routes: Routes = [
@@ -29,10 +30,13 @@ const routes: Routes = [
                 path: 'detail/id/:id', component: DeltailUserComponent
             },
             {
-                path: 'product/edit/id/:id', component: EditProductComponent
+                path: 'product/product-edit/id/:id', component: EditProductComponent
             },
             {
-                path: 'edit/id/:id', component: EditProductComponent
+                path: 'product-edit/id/:id', component: EditProductComponent
+            },
+            {
+                path: 'profile-edit', component: EditProfileComponent
             },
             {
                 path: 'property-detail/id/:id', component: ProductDetailComponent,

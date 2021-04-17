@@ -114,7 +114,8 @@ export class EditProductComponent implements OnInit {
     this.userService.getUserbyId(this.authenticationService.currentUserValue.Infor.ID).subscribe(
       data => {
         this.InforUser = data;
-
+        console.log(this.InforUser);
+        
         if (this.InforUser.PackageID > 0) { // xác đjnh mua gói chưa
           this.checkBuyPackage = true;
 
@@ -294,7 +295,7 @@ export class EditProductComponent implements OnInit {
   UpdateProject(data) {
     this.disabled = true;
     data.ImageBannerName = this.DataFormProjectEdit.ImageBannerName;
-    if (this.upPhoto() && this.upPhotoImageFeature) {        // this.upPhoto(); // Insert Image
+    if (this.upPhoto() && this.upPhotoImageFeature()) {        // this.upPhoto(); // Insert Image
       this._ProjectService.UpdateProj(data.ID, data).subscribe(
         val => {
           if (this.newImage == true) {
@@ -315,16 +316,20 @@ export class EditProductComponent implements OnInit {
             })
           });
           if (this.InforUser.User_type == 'agent') {
-            if (this.upPhotoImageFeature) {
-              window.location.assign(this.returnUrl + "profile-agent/product");
+            if (this.upPhotoImageFeature()) {
+              this.route.navigate(['/profile-agent'])
+              // setTimeout(() => {
+                // window.location.assign(this.returnUrl + "profile-agent/product");
+              // }, 2000);
             }
           }
 
           else if (this.InforUser.User_type == 'seller') {
-            if (this.upPhotoImageFeature) {
-              setTimeout(() => {
-                window.location.assign(this.returnUrl + "profile-seller/product");
-              }, 2000);
+            if (this.upPhotoImageFeature()) {
+              this.route.navigate(['/profile-seller'])
+              // setTimeout(() => {
+                // window.location.assign(this.returnUrl + "profile-seller/product");
+              // }, 2000);
             }
           }
           this.EditByIdInArray(data);

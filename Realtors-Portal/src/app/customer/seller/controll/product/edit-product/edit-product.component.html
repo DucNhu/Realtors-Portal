@@ -54,8 +54,10 @@
 
                                 <div class="overflow-auto row list-image__Lib">
                                     <div class="text-center w-100"><label for="ImageFeature">Select feature Image</label></div>
-                                    <div class="col-3 image__Lib" *ngFor="let feature of ArrayCRDFeature">
-                                        <img [src]="feature.url + feature.Name" [alt]="feature.Name" class="img-fluid">
+                                    <div class="col-4 image__Lib" *ngFor="let feature of ArrayCRDFeature">
+                                        <div class="angular-property-image">
+                                            <img [src]="feature.url + feature.Name" [alt]="feature.Name" class="img-fluid" />
+                                        </div>
 
                                         <span class="fas fa-times-circle" (click)="deleteAnfeature(feature)">
                                         </span>
@@ -78,11 +80,11 @@
                             <div class="col-lg-4 col-sm-6">
 
                                 <div class="form-file mb-3 mb-4">
-                                    <label class="form-file-label position-relative" for="phone">
+                                    <label class="form-file-label position-relative" for="location">
                                         <span class="form-file-text">Location</span>
                                     </label>
 
-                                    <select class="form-select form-control" formControlName="Location"
+                                    <select class="form-select form-control" formControlName="Location" id="location"
                                         (change)="selectByLocation()">
                                         <option *ngFor="let Location of listLocation" [value]="Location.LocationID"
                                             [selected]="Location.LocationID == formValidator.controls.Location.value">

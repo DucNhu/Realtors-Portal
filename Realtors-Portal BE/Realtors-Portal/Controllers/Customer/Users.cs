@@ -364,6 +364,35 @@ INNER JOIN [User] ON [User].ID = project.UserID
             return new JsonResult(table);
         }
 
+
+        // Upgrade Infor 
+        [Route("upgradeInforUser/id/{id}")]
+        [HttpPut]
+        public JsonResult putUserForAdmin(int id, User user)
+        {
+            string query = @"
+UPDATE [User] SET Name = '" + user.Name + @"', Title = '" + user.Title + @"', Description = '" + user.Description + @"', Phone = '" + user.Phone+ 
+@"', Avatar = '" + user.Avatar + @"', 
+Location = '" + user.Location + @"', Country = '" + user.Country + @"', City = '" + user.City + 
+@"', District = '" + user.District + @"', Are = '" + user.Are + @"'
+where id = " + id;
+
+            DataTable table = new DataTable();
+            string sqlDataSource = _configuration.GetConnectionString("RealtorsConnect");
+            SqlDataReader myRender;
+            using (SqlConnection myCon = new SqlConnection(sqlDataSource))
+            {
+                myCon.Open();
+                using (SqlCommand myCommand = new SqlCommand(query, myCon))
+                {
+                    myRender = myCommand.ExecuteReader();
+                    table.Load(myRender);
+                    myRender.Close(); myCon.Close();
+                }
+            }
+            return new JsonResult(table);
+        }
+
         // =============== (ADMIN) 
         // Upgrade Active or Role 
         [Route("putUserForAdmin")]
@@ -387,6 +416,7 @@ INNER JOIN [User] ON [User].ID = project.UserID
             }
             return new JsonResult(table);
         }
+
 
 
         // Upgrade all action: Active

@@ -34,7 +34,7 @@ export class CategoryControlComponent implements OnInit {
     private FormBuilder: FormBuilder,
     private categoryService: CategoryService,
     private http: HttpClient
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.getAllCategory();
@@ -127,6 +127,7 @@ export class CategoryControlComponent implements OnInit {
   UpdateCategory(data) {
     data.Active = data.Active == true ? 1 : 0;
     data.Avatar = this.DataFormCategoryEdit.Avatar;
+    console.log(data);
 
     this.categoryService.UpdateCategory(data).subscribe(
       (val) => {
@@ -141,6 +142,7 @@ export class CategoryControlComponent implements OnInit {
   }
 
   EditByIdInArray(val) {
+    console.log(val);
 
     let i = -1;
     this.listCategory.forEach((element) => {
@@ -214,8 +216,18 @@ export class CategoryControlComponent implements OnInit {
   }
 
   GetDataEditorAdd(val) {
+    console.log(val);
+    this.DefaultandNewAvatar = (val.Avatar.indexOf(this.getImageBannerSrc) > -1 ? '' : this.getImageBannerSrc) + val.Avatar;
+    if (val.Avatar.indexOf("base64") > -1) {
+      this.getImageBannerSrc = '';
+      this.DefaultandNewAvatar = val.Avatar;
+    }
+    else {
+      // this.getImageBannerSrc = ;
+      this.DefaultandNewAvatar = environment.ImageUrl + 'categories/' + val.Avatar;
+    }
 
-    this.DefaultandNewAvatar = this.getImageBannerSrc + val.Avatar;
+    
     this.formValidator.controls.CategoryName.patchValue(val.CategoryName);
     this.formValidator.controls.CategoryID.patchValue(val.CategoryID);
 

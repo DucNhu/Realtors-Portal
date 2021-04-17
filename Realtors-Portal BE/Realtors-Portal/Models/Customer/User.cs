@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-
+using Microsoft.AspNetCore.Http;
 namespace Realtors_Portal.Models.Customer
 {
     public class User
@@ -28,7 +28,7 @@ namespace Realtors_Portal.Models.Customer
         //[Required]
         public string Country { get; set; }
 
-        //[Required]
+        //[Required]  
         public string City { get; set; }
 
         //[Required]

@@ -21,7 +21,12 @@ import { PackageppService } from 'src/app/@core/mock/Package/packagepp.service';
 export class ProductComponent implements OnInit {
   // Khai bao bien
   getImageBannerSrc = environment.ImageProductUrl + 'banner/';
-
+  imgsrcLocation = environment.ImageAddressUrl + 'Locations/';
+  imgsrcCountry = environment.ImageAddressUrl + 'Countries/';
+  imgsrcCity = environment.ImageAddressUrl + 'Cities/';
+  imgsrcDistrict = environment.ImageAddressUrl + 'Districts/';
+  imgsrcAre = environment.ImageAddressUrl + 'Ares/';
+  
   listCategies;
   listLevelActive = [
     {
@@ -64,9 +69,9 @@ export class ProductComponent implements OnInit {
   // END khai bao bien
   constructor(
     private FormBuilder: FormBuilder,
-    private _CategoryService: CategoryService,
+    private categoryService: CategoryService,
     private imageLibService: ImageLibService,
-    private _ProjectService: ProjectService,
+    private projectService: ProjectService,
     private userService: UserService,
     private http: HttpClient,
     private authenticationService: AuthenticationService,
@@ -138,7 +143,7 @@ export class ProductComponent implements OnInit {
     data.ID = 0;
     data.UserID = this.authenticationService.currentUserValue.Infor.ID;
 
-    if (this.upPhoto() && this.upPhotoImageFeature) {        // this.upPhoto(); // Insert Image
+    if (this.upPhoto() && this.upPhotoImageFeature()) {        // this.upPhoto(); // Insert Image
       data.ImageBannerName = this.DataFormProjectEdit.ImageBannerName;
       // let getIDLast = this.listProject[length].ID;
       let getIDLast = 0;
@@ -146,7 +151,7 @@ export class ProductComponent implements OnInit {
       // let getIDImageLibLast = this.listImageFeature[length].ID;
       let getIDImageLibLast = 0;
       try { getIDImageLibLast = this.listImageFeature[length].ID; } catch { getIDImageLibLast = 0; }
-      this._ProjectService.CreateProj(data)
+      this.projectService.CreateProj(data)
         .subscribe(res => {
           this.upPhoto(); // Insert Image
 
@@ -249,7 +254,7 @@ export class ProductComponent implements OnInit {
 
     try {
       formData.append('ImageFile', this.dataImage, this.DataFormProjectEdit.ImageBannerName);
-      this._ProjectService.UpdatePhotoBanner(formData).subscribe(() => {
+      this.projectService.UpdatePhotoBanner(formData).subscribe(() => {
       });
     }
     catch (e) {
@@ -330,7 +335,7 @@ export class ProductComponent implements OnInit {
   upgrade = false;
   UpdateProject(data) {
     data.ImageBannerName = this.DataFormProjectEdit.ImageBannerName;
-    this._ProjectService.UpdateProj(data.ID, data).subscribe(
+    this.projectService.UpdateProj(data.ID, data).subscribe(
       val => {
         if (this.newImage == true) {
           this.upPhoto();
@@ -395,7 +400,7 @@ export class ProductComponent implements OnInit {
   // function CreateEmployee:
   DeleteEmPloyee(id) {
     if (confirm("Are your ok?")) {
-      this._ProjectService.deleteProj(id).subscribe(
+      this.projectService.deleteProj(id).subscribe(
         data => {
           this.Alert_successFunction("Success Delete");
           this.FindIdToDelete(id);
@@ -456,7 +461,7 @@ export class ProductComponent implements OnInit {
 
       Title: [null, [Validators.required]],
       ImageBannerName: ['ImageBannerName'],
-      ImageFile: ['']
+      // ImageFile: ['']
     })
   }
 
@@ -494,7 +499,7 @@ export class ProductComponent implements OnInit {
 
 
     this.formValidator.controls.ID.patchValue(val.ID);
-    this.formValidator.controls.ImageFile.patchValue(val.ImageFile);
+    // this.formValidator.controls.ImageFile.patchValue(val.ImageFile);
 
     this.formValidator.controls.Price.patchValue(val.Price);
     this.formValidator.controls.UserID.patchValue(this.authenticationService.currentUserValue.Infor.ID);
@@ -564,7 +569,7 @@ export class ProductComponent implements OnInit {
 
   // Funciton get all value in category in service
   getsetAllCategory() {
-    this._CategoryService.getAllCategory().subscribe(data => {
+    this.categoryService.getCategoryActive().subscribe(data => {
       this.listCategies = data;
     })
   }
@@ -580,29 +585,30 @@ export class ProductComponent implements OnInit {
 
   listImageFeature;
   // areInDistrict
+  
   getsetAllAddress() {
     // ADDRESS
     // listLocation
-    this._ProjectService.getAllLocationActive().subscribe(data => {
+    this.projectService.getAllLocationActive().subscribe(data => {
       this.listLocation = data;
 
     })
     // listCountry
-    this._ProjectService.getAllCountryByLocationIDActive().subscribe(data => {
+    this.projectService.getAllCountryByLocationIDActive().subscribe(data => {
       this.countryInLocation = data;
 
     })
     // listCity
-    this._ProjectService.getAllCityByCountryIDActive().subscribe(data => {
+    this.projectService.getAllCityByCountryIDActive().subscribe(data => {
       this.cityInCountry = data;
     })
     // listDistrict
-    this._ProjectService.getAllDistrictByCityIDActive().subscribe(data => {
+    this.projectService.getAllDistrictByCityIDActive().subscribe(data => {
       this.districtInCity = data;
 
     })
     // listAre
-    this._ProjectService.getAreByDistrictIDActive().subscribe(data => {
+    this.projectService.getAreByDistrictIDActive().subscribe(data => {
       this.areInDistrict = data;
     })
   }

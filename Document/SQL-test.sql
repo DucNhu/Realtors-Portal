@@ -385,7 +385,10 @@ from PackagePurchased inner join Package on PackagePurchased.PackageID = Package
 group by Package.PackageID, Package.PackageName
 
 
-
+UPDATE [User] SET Name ='', Title = '', Description = '', Phone = '', Avatar = '', 
+Location = '', Country = '', City = '', District = '', Are = ''
+where id = 
+select * from [User]
 
 select DISTINCT count(PackagePurchased.PackageID) as 'CountPackagePurchased', 
 Package.PackageID, Package.PackageName, Package.Price
@@ -393,7 +396,10 @@ Package.PackageID, Package.PackageName, Package.Price
 from PackagePurchased inner join Package on PackagePurchased.PackageID = Package.PackageID
 group by Package.PackageID, Package.PackageName, Package.Price
 
-
+ALTER DATABASE
+    realtors01
+    CHARACTER SET = utf8mb4
+    COLLATE = utf8mb4_unicode_ci;
 
 use realtors01 
 

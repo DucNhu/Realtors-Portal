@@ -39,7 +39,12 @@ export class HeaderComponent implements OnInit {
 
     this.getAllCategory();
     this.OnpreviewImg('AvatarDefault.jpg')
-
+    this.categoryService.getTest().subscribe(
+      data => {
+        console.log(data);
+        
+      }
+    )
   }
   logout() {
     this.isLogin = false;

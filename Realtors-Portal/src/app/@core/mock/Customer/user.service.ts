@@ -14,6 +14,10 @@ export class UserService {
     return this.http.get(environment.apiUrl + `Users/${id}`)
   }
 
+  UpgradeInforUser(data) {
+    return this.http.put(environment.apiUrl + `Users/upgradeInforUser/id/${data.ID}`, data)
+  }
+
   register(val) {
     return this.http.post(environment.apiUrl + 'Users/register', val)
   }
