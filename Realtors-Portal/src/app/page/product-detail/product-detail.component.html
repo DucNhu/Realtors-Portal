@@ -40,7 +40,7 @@ Breadcrumb -->
                         <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
                             <div class="carousel-inner">
                                 <div class="carousel-item" *ngFor="let item of listImageFeature; let i = index"
-                                    [class]="i == 1 ? 'active' : ''">
+                                    [class]="i == 0 ? 'active' : ''">
                                     <div class="angular-property-image">
                                         <img [src]="ImageFeatureSrc + item.Name" class="img-fluid w-100" [alt]="item.Name">
                                     </div>

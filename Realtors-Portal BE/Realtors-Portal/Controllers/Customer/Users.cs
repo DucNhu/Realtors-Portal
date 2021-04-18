@@ -371,10 +371,10 @@ INNER JOIN [User] ON [User].ID = project.UserID
         public JsonResult putUserForAdmin(int id, User user)
         {
             string query = @"
-UPDATE [User] SET Name = '" + user.Name + @"', Title = '" + user.Title + @"', Description = '" + user.Description + @"', Phone = '" + user.Phone+ 
-@"', Avatar = '" + user.Avatar + @"', 
-Location = '" + user.Location + @"', Country = '" + user.Country + @"', City = '" + user.City + 
-@"', District = '" + user.District + @"', Are = '" + user.Are + @"'
+UPDATE [User] SET Name = N'" + user.Name + @"', Title = N'" + user.Title + @"', Description = N'" + user.Description + @"', Phone = '" + user.Phone+
+@"', Avatar = N'" + user.Avatar + @"', 
+Location = N'" + user.Location + @"', Country = N'" + user.Country + @"', City = N'" + user.City +
+@"', District = N'" + user.District + @"', Are = N'" + user.Are + @"'
 where id = " + id;
 
             DataTable table = new DataTable();

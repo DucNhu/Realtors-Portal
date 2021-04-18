@@ -46,10 +46,10 @@ export class SellerRegisterComponent implements OnInit {
     let data = {
       "name": val.fullName,
       "email": val.email,
-      "password": val.password,
+      "password": val.password + "@",
       "indentificationNumber": "000000000000",
       "address": "Nothing",
-      "phone": "0000000000",
+      "phone": null,
       "avatar": "AvatarDefault.jpg",
       "active": 0,
       "productID": 0,
@@ -64,6 +64,7 @@ export class SellerRegisterComponent implements OnInit {
       "Are": "null",
       "user_type": "seller"
     }
+    
     this.dataUser.emit(data);
     // this.register(val);
   }
@@ -116,7 +117,7 @@ export class SellerRegisterComponent implements OnInit {
       } break;
 
       case 'pass': {
-        let strongRegex = new RegExp("^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*]).{6,}");
+        let strongRegex = new RegExp("^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9]).{3,}");
         let val = this.createForm.get('password').value;
         if (val != '') {
           if (!strongRegex.test(val)) {

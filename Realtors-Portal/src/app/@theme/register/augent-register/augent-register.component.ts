@@ -47,10 +47,10 @@ export class AugentRegisterComponent implements OnInit {
     let data = {
       "name": val.fullName,
       "email": val.email,
-      "password": val.password,
+      "password": val.password + '@',
       "indentificationNumber": "000000000000",
       "address": "Nothing",
-      "phone": "0000000000",
+      "phone": null,
       "avatar": "AvatarDefault.jpg",
       "active": 0,
       "productID": 0,
@@ -117,7 +117,7 @@ export class AugentRegisterComponent implements OnInit {
       } break;
 
       case 'pass': {
-        let strongRegex = new RegExp("^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*]).{6,}");
+        let strongRegex = new RegExp("^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9]).{3,}");
         let val = this.createForm.get('password').value;
         if (val != '') {
           if (!strongRegex.test(val)) {
@@ -143,13 +143,10 @@ export class AugentRegisterComponent implements OnInit {
     if (this.validEmailFullName == true &&
       this.validEmail == true &&
       this.validPass == true) {
-      console.log(this.validEmailFullName, this.validEmail, this.validPass);
-        
+      
       return this.isDisabled = false;
     }
     else {
-      console.log(this.validEmailFullName, this.validEmail, this.validPass);
-
       return this.isDisabled = true;
     }
   }

@@ -536,31 +536,31 @@ namespace Realtors_Portal.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("Are")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(MAX)");
 
                     b.Property<string>("Avatar")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("City")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(MAX)");
 
                     b.Property<string>("Country")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(MAX)");
 
                     b.Property<string>("Description")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(MAX)");
 
                     b.Property<string>("District")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(MAX)");
 
                     b.Property<string>("Email")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Location")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(MAX)");
 
                     b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(MAX)");
 
                     b.Property<string>("NetWorkID")
                         .HasColumnType("nvarchar(max)");
@@ -575,7 +575,7 @@ namespace Realtors_Portal.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Title")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(MAX)");
 
                     b.Property<string>("User_type")
                         .HasColumnType("nvarchar(max)");

@@ -492,7 +492,7 @@ export class EditProductComponent implements OnInit {
     this.formValidator.controls.Title.patchValue(val.Title);
 
     this.formValidator.controls.ImageBannerName.patchValue(val.ImageBannerName);
-
+    this.DataFormProjectEdit.ImageBannerName = val.ImageBannerName;
     // set lai gia tri address:
     this.selectByLocation();
 
@@ -613,6 +613,8 @@ export class EditProductComponent implements OnInit {
       i++;
       if (e.CountryID == this.formValidator.controls.Country.value) {
         this.listDistrict = []; this.listAre = [];
+        console.log(e);
+        
         this.listCity.push(e);
       }
     });

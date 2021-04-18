@@ -29,32 +29,37 @@
             </tr>
             <tr>
                 <td colspan="3">
-                    <input class="form-control" type="text" />
+                    <input class="form-control" type="text" #data (keyup)="searchByInput(data.value)" />
                 </td>
                 <td colspan="2">
-                    <select class="form-select form-control">
+                    <select class="form-select form-control" #dataSelect (change)="searchByOption(dataSelect.value); data.value = ''">
+                        <option></option>
                         <option *ngFor="let Roles of ListRoles">
                             {{Roles.UserType}}
                         </option>
                     </select>
                 </td>
-                <td class="text-center">
+                <!-- <td class="text-center">
                     <div class="mb-4">
-                        <!-- <label for="">Active</label>
-                        <input type="checkbox" /> -->
-                        <!-- <label for="Active">Active</label>
+                        <label for="">Active</label>
+                        <input type="checkbox" />
+                        <label for="Active">Active</label>
                           <mat-slide-toggle
                             class="example-margin"
                             formControlName="Active"
                             id="Active">
-                          </mat-slide-toggle> -->
+                          </mat-slide-toggle>
                     </div>
-                </td>
-                <td class="text-center">
-                    <div class="box-action">
-                        <button class="dropdown-item detail d-flex align-baseline m-auto" type="button" (click)="ActiveAllAccout()">
+                </td> -->
+                <td class="text-center" colspan="2">
+                    <div class="box-action d-flex align-baseline justify-content-between">
+                        <button class="dropdown-item detail m-auto d-flex" type="button" (click)="reset_ListDataBySearch()">
+                            <i class="fas fa-sync mr-2"></i>
+                            <span style="margin-top: -3px">Reset</span>
+                        </button>
+                        <button class="dropdown-item detail m-auto d-flex" type="button" (click)="ActiveAllAccout()">
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                                class="bi bi-list-check fa-lg fa-fw" viewBox="0 0 16 16">
+                                class="bi bi-list-check fa-lg fa-fw mr-2" viewBox="0 0 16 16">
                                 <path fill-rule="evenodd"
                                     d="M5 11.5a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5zM3.854 2.146a.5.5 0 0 1 0 .708l-1.5 1.5a.5.5 0 0 1-.708 0l-.5-.5a.5.5 0 1 1 .708-.708L2 3.293l1.146-1.147a.5.5 0 0 1 .708 0zm0 4a.5.5 0 0 1 0 .708l-1.5 1.5a.5.5 0 0 1-.708 0l-.5-.5a.5.5 0 1 1 .708-.708L2 7.293l1.146-1.147a.5.5 0 0 1 .708 0zm0 4a.5.5 0 0 1 0 .708l-1.5 1.5a.5.5 0 0 1-.708 0l-.5-.5a.5.5 0 0 1 .708-.708l.146.147 1.146-1.147a.5.5 0 0 1 .708 0z" />
                             </svg>
@@ -73,7 +78,7 @@
                 <th class="text-center">Action</th>
             </tr>
         </thead>
-        <tbody>
+        <tbody *ngIf="ListDataBySearch.length == 0">
             <tr *ngFor="let c of listSeller | paginate : {
               itemsPerPage: tableSize,
               currentPage: page,
@@ -116,6 +121,48 @@
             </tr>
 
         </tbody>
+        <!-- SHow Customer by Search -->
+        <tbody *ngIf="ListDataBySearch.length != 0">
+            <tr *ngFor="let c of ListDataBySearch | paginate : {
+                      itemsPerPage: tableSize,
+                      currentPage: page,
+                      totalItems: count}">
+                <td>{{ c.ID }}</td>
+                <td>
+                    <div class="angular-property-image bg-overlay-gradient-04">
+                        <img [src]="c.ImageBannerSrc + c.Avatar" [alt]="c.Avatar" class="img-fluid" width="50" height="50">
+                    </div>
+                </td>
+                <td>{{ c.Name }}</td>
+                <th class="font-weight-normal">{{ c.Email }}</th>
+                <td>{{ c.User_type }}</td>
+                <th class="th-active text-center">
+                    <div [ngSwitch]="c.Active" class="box-active">
+                        <div *ngSwitchCase="false">
+                            <span class="suspended rounded">Suspended</span>
+                        </div>
+                        <div *ngSwitchCase="true"><span class="active">Active</span></div>
+                        <div *ngSwitchDefault><span class="suspended">{{c.Active }}</span></div>
+                    </div>
+                </th>
+                <!-- Action BOX-->
+                <td>
+                    <span class="dropdown">
+                        <!-- <span class="dropdown-menu p-0" aria-labelledby="dropdownMenu2"> -->
+                        <span class="d-flex box-action">
+                            <button class="dropdown-item detail" type="button" routerLink="user-detail/id/{{ c.ID }}">
+                                <i class="far fa-lg fa-fw me-2 fa-eye"></i>
+                            </button>
+                            <button class="dropdown-item detail" type="button" data-toggle="modal"
+                                data-target="#modal-form-AddEdit" (click)="GetDataCheckisAddorEdit(false,c)">
+                                <i class="far fa-lg fa-fw me-2 fa-edit"></i>
+                            </button>
+                        </span>
+                    </span>
+                </td>
+            </tr>
+        
+        </tbody>
     </table>
 
     <div class="d-flex justify-content-center">
@@ -143,7 +190,7 @@
                 <div class="py-4">
                     <div class="d-flex justify-content-between w-100 flex-wrap">
                         <div class="mb-3 mb-lg-0">
-                            <h2 class="Title pl-4">Edit by ...?...</h2>
+                            <h2 class="Title pl-4">Edit for {{ NameWhenEdit }}</h2>
                         </div>
                     </div>
                 </div>

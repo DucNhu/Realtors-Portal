@@ -64,20 +64,26 @@ export class CategoryControlComponent implements OnInit {
     data.CategoryID = 0;
     data.Active = data.Active == true ? 1 : 0;
     data.Avatar = this.DataFormCategoryEdit.Avatar;
-    this.categoryService.CreateCategory(data).subscribe((res) => {
-      this.upPhoto(); // Insert Image
-      let CategoryID = 0;
-      try {
-        CategoryID = this.listCategory[length].CategoryID;
-      } catch {
-        CategoryID = 0;
-      }
-      data.ImageBannerSrc = '';
-      data.Avatar = this.DefaultandNewAvatar;
-      this.listCategory.unshift(data);
-      this.resetImageArray();
-      this.Alert_successFunction('Created done');
-    });
+    if (this.upPhoto()) // Insert Image 
+    {
+      this.categoryService.CreateCategory(data).subscribe((res) => {
+        let CategoryID = 0;
+        try {
+          CategoryID = this.listCategory[length].CategoryID;
+        } catch {
+          CategoryID = 0;
+        }
+        data.ImageBannerSrc = '';
+        data.Avatar = this.DefaultandNewAvatar;
+        this.listCategory.unshift(data);
+        this.resetImageArray();
+        this.Alert_successFunction('Created done');
+      });
+    }
+    else {
+      this.Alert_dangerFunction("Select Image, pls")
+    }
+
   }
   resetImageArray() {
     // because update in array
@@ -109,17 +115,20 @@ export class CategoryControlComponent implements OnInit {
   }
   upPhoto() {
     const formData: FormData = new FormData();
+    try {
+      formData.append(
+        'ImageFile',
+        this.dataImage,
+        this.DataFormCategoryEdit.Avatar
+      );
 
-    formData.append(
-      'ImageFile',
-      this.dataImage,
-      this.DataFormCategoryEdit.Avatar
-    );
-
-    this.categoryService.UpdateAvatar(formData).subscribe(() => {
-      // console.log(data);
-      // this.myInfor.Avatar = data
-    });
+      this.categoryService.UpdateAvatar(formData).subscribe(() => {
+      });
+    }
+    catch (e) {
+      return false;
+    }
+    return true;
   }
 
   // Function Edit Project
@@ -227,7 +236,7 @@ export class CategoryControlComponent implements OnInit {
       this.DefaultandNewAvatar = environment.ImageUrl + 'categories/' + val.Avatar;
     }
 
-    
+
     this.formValidator.controls.CategoryName.patchValue(val.CategoryName);
     this.formValidator.controls.CategoryID.patchValue(val.CategoryID);
 
@@ -243,18 +252,13 @@ export class CategoryControlComponent implements OnInit {
   alert_Text;
   alert_success = false;
   alert_danger = false;
-  alert_warn = false;
   // Function show alert
 
   AlertFunction(success) {
     if (success) {
       setTimeout(() => {
         this.alert_success = !this.alert_success;
-      }, 800);
-    } else if (success == 0) {
-      setTimeout(() => {
-        this.alert_warn = !this.alert_warn;
-      }, 1000);
+      }, 2000);
     } else {
       setTimeout(() => {
         this.alert_danger = !this.alert_danger;
@@ -273,13 +277,6 @@ export class CategoryControlComponent implements OnInit {
 
     // call function set alert_danger = true
     this.AlertFunction(false);
-  }
-  Alert_warnFunction(value) {
-    this.alert_Text = value;
-    this.alert_warn = true;
-
-    // call function set alert_warn = 0
-    this.AlertFunction(0);
   }
   // END Function show alert
 

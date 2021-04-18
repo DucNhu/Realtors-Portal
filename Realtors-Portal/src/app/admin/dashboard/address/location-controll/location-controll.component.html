@@ -14,7 +14,6 @@
                 <div class="d-none" [class]="alert_danger ? 'd-block alert alert-danger' : ''">
                     {{ alert_Text }}
                 </div>
-
             </div>
         </div>
     </div>
@@ -141,6 +140,12 @@
                                                 <input type="text" class="form-control" maxlength="1" formControlName="LocationLetter"
                                                     (blur)="checkValidForm('LocationLetter')">
                                             </div> -->
+                                            <!-- Active -->
+                                            <div class="mt-4">
+                                                <label for="Active">Active</label>
+                                                <mat-slide-toggle class="example-margin" formControlName="Active" id="Active">
+                                                </mat-slide-toggle>
+                                            </div>
                                         </div>
                                         <!-- Select Avatar Location -->
                                         <div class="mb-3 select-img">
@@ -154,15 +159,7 @@
                                             </div>
                                         </div>
 
-                                        <!-- Active -->
-                                        <div class="mt-4">
-                                          <label for="Active">Active</label>
-                                          <mat-slide-toggle
-                                          class="example-margin"
-                                          formControlName="Active"
-                                          id="Active">
-                                          </mat-slide-toggle>
-                                        </div>
+                                        
                                         <!-- footer form -->
                                         <div class="col-12">
                                             <button type="submit"

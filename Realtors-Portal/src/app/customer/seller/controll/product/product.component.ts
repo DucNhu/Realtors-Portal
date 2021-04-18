@@ -13,6 +13,7 @@ import { ImageLibService } from 'src/app/@core/mock/product/image-lib.service';
 import { AuthenticationService } from '../../../../@core/mock/Authentication.Service';
 import { UserService } from 'src/app/@core/mock/Customer/user.service';
 import { PackageppService } from 'src/app/@core/mock/Package/packagepp.service';
+import { HomePageService } from 'src/app/@core/mock/Home/home-page.service';
 @Component({
   selector: 'app-product',
   templateUrl: './product.component.html',
@@ -77,6 +78,7 @@ export class ProductComponent implements OnInit {
     private authenticationService: AuthenticationService,
     private packageppService: PackageppService,
     private ActivatedRoute: ActivatedRoute,
+    private homePageService: HomePageService
   ) { }
 
   ngOnInit(): void {
@@ -85,6 +87,12 @@ export class ProductComponent implements OnInit {
     this.ValidatorForm();
 
     this.getsetAllAddress(); // call function set data address
+    this.homePageService.getMaxPrice().subscribe(
+      data => {
+        let ArrmaxSqftmaxPrice = data;
+        this.maxPrice = ArrmaxSqftmaxPrice[0].maxPrice;
+      }
+    )
   }
 
   // ======== CRUD ============
@@ -560,6 +568,34 @@ export class ProductComponent implements OnInit {
   }
 
   // END Function show alert
+
+
+  ListProduct_search = [];
+  maxPrice = 0;
+  listCategory; imgsrcCategory = environment.ImageUrl + 'Categories/';
+
+
+  SearchByAddress(data) {
+    this.ListProduct_search = [];// reset chanh + don
+    this.listProject.forEach(e => {      
+      if (
+        e.CategoryName.indexOf(data) > -1 ||
+        e.LocationName.indexOf(data) > -1 ||
+        e.CountryName.indexOf(data) > -1 ||
+        e.CityName.indexOf(data) > -1 ||
+        e.DistrictName.indexOf(data) > -1 ||
+        e.AreName.indexOf(data) > -1 ||
+        e.Price >= data ||
+        e.ProjectName.indexOf(data) > -1
+      ) {
+        this.ListProduct_search.push(e)
+      }
+
+    })
+
+  }
+
+
 
 
   // checkValidForm

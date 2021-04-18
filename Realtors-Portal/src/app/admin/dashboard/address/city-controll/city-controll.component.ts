@@ -88,7 +88,7 @@ export class CityControllComponent implements OnInit {
         });
     }
     else {
-      this.Alert_dangerFunction("Try again, pls")
+      this.Alert_dangerFunction("Select Image, pls")
     }
 
   }
@@ -261,7 +261,7 @@ export class CityControllComponent implements OnInit {
     if (success) {
       setTimeout(() => {
         this.alert_success = !this.alert_success;
-      }, 800);
+      }, 2000);
     }
     else {
       setTimeout(() => {

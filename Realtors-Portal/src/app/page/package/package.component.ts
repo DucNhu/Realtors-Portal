@@ -26,13 +26,18 @@ export class PackageComponent implements OnInit {
     this.getPackageActiveAndInforUser();
 
   }
+  NowTime = new Date();
+  StartTime = `${this.NowTime.getFullYear()}-${this.NowTime.getMonth() + 1}-${this.NowTime.getDate()}`
+
 
   contain;
   getPackageActiveAndInforUser() {
     this.packageService.getPackageActive().subscribe(
       data => {
-        this.listPackage = data;
+        this.listPackage = data;        
         this.listPackage.forEach(e => {
+          console.log(e);
+          
           paypal.Buttons({
             style: {
               color: 'blue'
@@ -87,8 +92,6 @@ export class PackageComponent implements OnInit {
       }
     )
   }
-  NowTime = new Date();
-  StartTime = `${this.NowTime.getFullYear()}-${this.NowTime.getMonth()}-${this.NowTime.getDate()}`
 
 
 
@@ -109,31 +112,31 @@ export class PackageComponent implements OnInit {
   }
 
    // panigate ( phân trang )
-   page = 1;
-   count = 0;
-   tableSize = 8;
-   tableSizes = [3, 6, 9, 12];
+  //  page = 1;
+  //  count = 0;
+  //  tableSize = 8;
+  //  tableSizes = [3, 6, 9, 12];
 
-   fetchPosts(): void {
-     this.packageService.getPackageActive().subscribe(
-       (response) => {
-         this.contain = response;
-       },
-       (error) => {
-         console.log(error);
-       }
-     );
-   }
+  //  fetchPosts(): void {
+  //    this.packageService.getPackageActive().subscribe(
+  //      (response) => {
+  //        this.contain = response;
+  //      },
+  //      (error) => {
+  //        console.log(error);
+  //      }
+  //    );
+  //  }
 
-   onTableDataChange(event) {
-     this.page = event;
-     this.fetchPosts();
-   }
+  //  onTableDataChange(event) {
+  //    this.page = event;
+  //    this.fetchPosts();
+  //  }
 
-   onTableSizeChange(event): void {
-     this.tableSize = event.target.value;
-     this.page = 1;
-     this.fetchPosts();
-   }
+  //  onTableSizeChange(event): void {
+  //    this.tableSize = event.target.value;
+  //    this.page = 1;
+  //    this.fetchPosts();
+  //  }
 
 }

@@ -19,7 +19,8 @@ export class EditProfileComponent implements OnInit {
   UserInfor = {
     Avatar: "AvatarDefault.jpg",
     FullName: "Default",
-    Email: 'email@example.com'
+    Email: 'email@example.com',
+    Phone: null
   }
   AvatarSrc = environment.ImageUrl + 'Customer/';
   //  Adress
@@ -43,6 +44,7 @@ export class EditProfileComponent implements OnInit {
   imgsrcDistrict = environment.ImageAddressUrl + 'Districts/';
   imgsrcAre = environment.ImageAddressUrl + 'Ares/';
 
+  formValid = true;
   // Alert variable
   alert_Text;
   alert_success = false; alert_danger = false; alert_warn = false;
@@ -55,11 +57,13 @@ export class EditProfileComponent implements OnInit {
     private projectService: ProjectService,
   ) { }
 
+  PhoneisNull = true;
   ngOnInit(): void {
     this.getInforById();
     this.ValidatorForm();
 
     this.getsetAllAddress();
+
   }
 
 
@@ -68,11 +72,20 @@ export class EditProfileComponent implements OnInit {
       data => {
         let contain = data;
         this.InforUser = contain;
+        console.log(this.InforUser);
 
         this.UserInfor.Avatar = this.InforUser.Avatar;
         this.UserInfor.FullName = this.InforUser.Name;
         this.UserInfor.Email = this.InforUser.Email;
         this.SetDataForEditorForm();
+        if (this.InforUser.Phone == null) {
+          this.formValid = true;  
+          this.PhoneisNull = true;
+        }
+        else {
+          this.formValid = false; 
+          this.PhoneisNull = false;         
+        }
       }
     )
   }
@@ -90,7 +103,7 @@ export class EditProfileComponent implements OnInit {
       District: ['', [Validators.required]],
       ID: [0],
       Name: ['', [Validators.required]],
-      Phone: [0, [Validators.required, Validators.min(0)]],
+      Phone: [0, [Validators.required, Validators.minLength(10)]],
 
       Title: ['', [Validators.required, Validators.maxLength(72)]],
       Description: ['', [Validators.required]],
@@ -102,6 +115,12 @@ export class EditProfileComponent implements OnInit {
   }
 
   SetDataForEditorForm() {
+
+    if (this.InforUser.Phone == null) {
+      this.PhoneisNull = true;
+    }
+    else { this.PhoneisNull = false; }
+
     this.formValidator.controls.Avatar.patchValue(this.InforUser.Avatar);
 
     this.formValidator.controls.ID.patchValue(this.InforUser.ID);
@@ -211,7 +230,24 @@ export class EditProfileComponent implements OnInit {
   }
 
 
+  // checkValidForm
+  errorAlert;
 
+
+  checkValidForm(val) {
+    switch (val) {
+
+      case "phone":
+        if (this.formValidator.controls.Phone.value.toString().length < 10) {
+          this.formValid = true;
+        }
+        else {
+          this.formValid = false;
+        };
+        break;
+    }
+  }
+  // END checkValidForm
 
 
   // Function show alert

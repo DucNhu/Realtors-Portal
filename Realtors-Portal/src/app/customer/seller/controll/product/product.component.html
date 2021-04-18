@@ -33,6 +33,107 @@
     <table class="table table-hover">
         <thead class="angular-thead">
             <tr>
+                <th colspan="2">Name</th>
+            
+                <th>Category</th>
+                <th>Location</th>
+                <th>Country</th>
+                <th>City</th>
+            
+                <th>District</th>
+                <th>Are</th>
+                <th colspan="3">Price</th>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    <input class="form-control" #NameSearch (keyup)="SearchByAddress(NameSearch.value)" />
+                </td>
+                <td>
+                    <mat-form-field class="example-full-width">
+                        <input matInput aria-label="Category" [matAutocomplete]="category" #CategorySearch
+                            (keypress)="SearchByAddress(CategorySearch.value)" (blur)="SearchByAddress(CategorySearch.value)">
+                        <mat-autocomplete #category="matAutocomplete">
+                            <mat-option *ngFor="let category of listCategies " [value]="category.CategoryName">
+                                <img style="vertical-align:middle;" aria-hidden src="{{imgsrcCategory + category.Avatar}}"
+                                    height="25" width="25" alt="{{ category.Avatar }}" />
+                                <span class="ml-2">{{ category.CategoryName }}</span>
+                            </mat-option>
+                        </mat-autocomplete>
+                    </mat-form-field>
+                </td>
+                <td>
+                    <mat-form-field class="example-full-width">
+                        <input matInput aria-label="Location" [matAutocomplete]="Location" #locationSearch
+                            (keypress)="SearchByAddress(locationSearch.value)" (blur)="SearchByAddress(locationSearch.value)">
+                        <mat-autocomplete #Location="matAutocomplete">
+                            <mat-option *ngFor="let Location of listLocation" [value]="Location.LocationName">
+                                <img style="vertical-align:middle;" aria-hidden src="{{imgsrcLocation + Location.Avatar}}"
+                                    height="25" width="25" alt="{{ Location.Avatar }}" />
+                                <span class="ml-2">{{ Location.LocationName }}</span>
+                            </mat-option>
+                        </mat-autocomplete>
+                    </mat-form-field>
+                </td>
+            
+                <td>
+                    <mat-form-field class="example-full-width">
+                        <input matInput aria-label="Country" [matAutocomplete]="Country" #CountrySearch
+                            (keypress)="SearchByAddress(CountrySearch.value)" (blur)="SearchByAddress(CountrySearch.value)">
+                        <mat-autocomplete #Country="matAutocomplete">
+                            <mat-option *ngFor="let Country of countryInLocation" [value]="Country.CountryName">
+                                <img style="vertical-align:middle;" aria-hidden src="{{imgsrcCountry + Country.Avatar}}" height="25"
+                                    width="25" alt="{{ Country.Avatar }}" />
+                                <span class="ml-2">{{ Country.CountryName }}</span>
+                            </mat-option>
+                        </mat-autocomplete>
+                    </mat-form-field>
+                </td>
+                <td>
+                    <mat-form-field class="example-full-width">
+                        <input matInput aria-label="City" [matAutocomplete]="City" #CitySearch
+                            (keypress)="SearchByAddress(CitySearch.value)" (blur)="SearchByAddress(CitySearch.value)">
+                        <mat-autocomplete #City="matAutocomplete">
+                            <mat-option *ngFor="let City of cityInCountry" [value]="City.CityName">
+                                <img style="vertical-align:middle;" aria-hidden src="{{imgsrcCity + City.Avatar}}" height="25"
+                                    width="25" alt="{{ City.Avatar }}" />
+                                <span class="ml-2">{{ City.CityName }}</span>
+                            </mat-option>
+                        </mat-autocomplete>
+                    </mat-form-field>
+                </td>
+                <td>
+                    <mat-form-field class="example-full-width">
+                        <input matInput aria-label="District" [matAutocomplete]="District" #DistrictSearch
+                            (keypress)="SearchByAddress(DistrictSearch.value)" (blur)="SearchByAddress(DistrictSearch.value)">
+                        <mat-autocomplete #District="matAutocomplete">
+                            <mat-option *ngFor="let District of districtInCity" [value]="District.DistrictName">
+                                <img style="vertical-align:middle;" aria-hidden src="{{imgsrcDistrict + District.Avatar}}"
+                                    height="25" width="25" alt="{{ District.Avatar }}" />
+                                <span class="ml-2">{{ District.DistrictName }}</span>
+                            </mat-option>
+                        </mat-autocomplete>
+                    </mat-form-field>
+                </td>
+                <td>
+                    <mat-form-field class="example-full-width">
+                        <input matInput aria-label="Are" [matAutocomplete]="Are" #AreSearch
+                            (keypress)="SearchByAddress(AreSearch.value)" (blur)="SearchByAddress(AreSearch.value)">
+                        <mat-autocomplete #Are="matAutocomplete">
+                            <mat-option *ngFor="let Are of areInDistrict" [value]="Are.AreName">
+                                <img style="vertical-align:middle;" aria-hidden src="{{imgsrcAre + Are.Avatar}}" height="25"
+                                    width="25" alt="{{ Are.Avatar }}" />
+                                <span class="ml-2">{{ Are.AreName }}</span>
+                            </mat-option>
+                        </mat-autocomplete>
+                    </mat-form-field>
+                </td>
+                <td colspan="3">
+                    <mat-slider class="d-block example-margin" [max]="maxPrice" min="0" [thumbLabel]="true" #priceSlide
+                        (keypress)="SearchByAddress(priceSlide.value)" (blur)="SearchByAddress(priceSlide.value)">
+                    </mat-slider>
+                </td>
+            </tr>
+            <tr>
                 <th>Name</th>
                 <th>Image</th>
                 <th>Category</th>
@@ -45,7 +146,7 @@
                 <th>Action</th>
             </tr>
         </thead>
-        <tbody>
+        <tbody *ngIf="ListProduct_search.length == 0">
             <tr *ngFor="let p of listProject | paginate : {
               itemsPerPage: tableSize,
               currentPage: page,
@@ -93,6 +194,64 @@
                                 </button> -->
                                 <button class="dropdown-item detail" type="button"
                                     routerLink="product-edit/id/{{ p.ID }}">
+                                    <i class="far fa-lg fa-fw me-2 fa-edit"></i>
+                                </button>
+                                <button class="dropdown-item delete" type="button" (click)="DeleteEmPloyee(p.ID)">
+                                    <i class="far fa-lg fa-fw  fa-trash-alt"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+        <tbody *ngIf="ListProduct_search.length != 0">
+            <tr *ngFor="let p of ListProduct_search | paginate : {
+                      itemsPerPage: tableSize,
+                      currentPage: page,
+                      totalItems: count}">
+                <td>{{ p.ProjectName }}</td>
+                <td>
+                    <div class="angular-property-image bg-overlay-gradient-04">
+                        <img [src]="p.ImageBannerSrc + p.ImageBannerName" [alt]="p.ImageBannerName" class="img-fluid"
+                            routerLink="property-detail/id/{{ p.ID }}">
+                    </div>
+                </td>
+                <td><a routerLink="property-detail/id/{{ p.ID }}">{{ p.CategoryName }}</a></td>
+                <td>{{ p.LocationName }}</td>
+                <td>{{ p.CountryName }}</td>
+        
+                <td>{{ p.CityName }}</td>
+                <!-- <td>{{ p.DistrictName }}</td> -->
+        
+                <td>{{p.Price}}</td>
+                <td class="th-active" colspan="2">
+                    <div [ngSwitch]="p.LevelActive" class="box-active">
+                        <div *ngSwitchCase="0">
+                            <span class="suspended rounded">Suspended</span>
+                        </div>
+                        <div *ngSwitchCase="1"><span class="active">Active</span></div>
+                        <div *ngSwitchCase="2"><span class="viewhome">View Home</span></div>
+                        <div *ngSwitchDefault><span class="suspended">Error</span></div>
+                    </div>
+                </td>
+                <!-- Action BOX-->
+                <td>
+                    <div class="dropdown">
+                        <button class="btn p-0 dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown"
+                            aria-haspopup="true" aria-expanded="false">
+                            <i class="fas fa-lg fa-fw me-2 fa-ellipsis-h"></i>
+                        </button>
+                        <div class="dropdown-menu p-0" aria-labelledby="dropdownMenu2">
+                            <div class="d-flex box-action justify-content-around">
+                                <!-- <button class="dropdown-item view" type="button">
+                                            <i class="far fa-eye"></i>
+                                        </button> -->
+                                <!-- <button class="dropdown-item detail" type="button" data-toggle="modal"
+                                            data-target="#modal-form-AddEdit" (click)="GetDataCheckisAddorEdit(false,p)">
+                                            <i class="far fa-lg fa-fw me-2 fa-edit"></i>
+                                        </button> -->
+                                <button class="dropdown-item detail" type="button" routerLink="product-edit/id/{{ p.ID }}">
                                     <i class="far fa-lg fa-fw me-2 fa-edit"></i>
                                 </button>
                                 <button class="dropdown-item delete" type="button" (click)="DeleteEmPloyee(p.ID)">

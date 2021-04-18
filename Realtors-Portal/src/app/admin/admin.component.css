@@ -156,6 +156,8 @@ input[type="number"]::-webkit-outer-spin-button {
     position: fixed;
     right: 0;
     z-index: 99;
+        opacity: 1 !important;
+
 }
 .alert-group > div {
     color: white;
@@ -167,7 +169,7 @@ input[type="number"]::-webkit-outer-spin-button {
 }
 @keyframes alertAnimation {
     0% {
-        opacity: 0.8;
+        opacity: 1 !important;
     }
     100% {
         opacity: 0;
