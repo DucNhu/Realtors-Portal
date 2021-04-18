@@ -8679,23 +8679,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Pc\\.nuget\\packages\\": {},
-    "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
+    "C:\\Users\\ACER\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Pc\\Documents\\GitHub\\ProjectIII\\Realtors-Portal\\Realtors-Portal BE\\Realtors-Portal\\Realtors-Portal.csproj",
+      "projectUniqueName": "D:\\Project-SEM3 API\\Realtors-Portal\\Realtors-Portal BE\\Realtors-Portal\\Realtors-Portal.csproj",
       "projectName": "Realtors-Portal",
-      "projectPath": "C:\\Users\\Pc\\Documents\\GitHub\\ProjectIII\\Realtors-Portal\\Realtors-Portal BE\\Realtors-Portal\\Realtors-Portal.csproj",
-      "packagesPath": "C:\\Users\\Pc\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Pc\\Documents\\GitHub\\ProjectIII\\Realtors-Portal\\Realtors-Portal BE\\Realtors-Portal\\obj\\",
+      "projectPath": "D:\\Project-SEM3 API\\Realtors-Portal\\Realtors-Portal BE\\Realtors-Portal\\Realtors-Portal.csproj",
+      "packagesPath": "C:\\Users\\ACER\\.nuget\\packages\\",
+      "outputPath": "D:\\Project-SEM3 API\\Realtors-Portal\\Realtors-Portal BE\\Realtors-Portal\\obj\\",
       "projectStyle": "PackageReference",
-      "fallbackFolders": [
-        "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
-      ],
       "configFilePaths": [
-        "C:\\Users\\Pc\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\ACER\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
