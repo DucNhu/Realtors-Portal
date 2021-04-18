@@ -50,7 +50,7 @@ export class UserRegisterComponent implements OnInit {
       "password": val.password,
       "indentificationNumber": "000000000000",
       "address": "Nothing",
-      "phone": "0000000000",
+      "phone": null,
       "avatar": "AvatarDefault.jpg",
       "active": 0,
       "productID": 0,

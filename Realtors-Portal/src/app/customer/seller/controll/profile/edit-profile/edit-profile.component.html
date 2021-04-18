@@ -42,7 +42,8 @@ My profile -->
                         </div>
                         <div class="form-group col-md-6">
                             <label>Phone number</label>
-                            <input type="number" class="form-control" formControlName="Phone">
+                            <input type="number" class="form-control" formControlName="Phone" #phone (keyup)="checkValidForm('phone')"  >
+                            <p class="alert-danger" *ngIf="PhoneisNull">Pls eneter your phone</p>
                         </div>
                         <div class="form-group col-md-6">
                             <label>Title</label>
@@ -147,7 +148,7 @@ My profile -->
 
                         <div class="col-md-12">
                             <button class="btn btn-primary" type="submit"
-                                [disabled]="formValidator.status == 'INVALID'">Save Changes</button>
+                                [disabled]="formValidator.status == 'INVALID' || formValid == true">Save Changes</button>
                         </div>
                     </div>
                 </form>

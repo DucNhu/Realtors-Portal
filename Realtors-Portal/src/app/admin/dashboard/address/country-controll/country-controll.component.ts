@@ -87,7 +87,7 @@ export class CountryControllComponent implements OnInit {
         });
     }
     else {
-      this.Alert_dangerFunction("Try again, pls")
+      this.Alert_dangerFunction("Select Image, pls")
     }
 
   }
@@ -257,7 +257,7 @@ export class CountryControllComponent implements OnInit {
     if (success) {
       setTimeout(() => {
         this.alert_success = !this.alert_success;
-      }, 800);
+      }, 2000);
     }
     else {
       setTimeout(() => {

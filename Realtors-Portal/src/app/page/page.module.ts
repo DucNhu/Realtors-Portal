@@ -16,7 +16,7 @@ import { BrowseCategoryComponent } from './mainpages/browse-category/browse-cate
 import { DealsComponent } from './mainpages/deals/deals.component';
 import { AboutusComponent } from './aboutUs/aboutus/aboutus.component';
 import { PropertyListComponent } from './mainpages/property-list/property-list.component';
-import { BuyPackageComponent } from './package/buy-package/buy-package.component';
+
 import { DeltailUserComponent } from './deltail-user/deltail-user.component';
 import { ProductDetailComponent } from './product-detail/product-detail.component';
 import { ResultBySearchComponent } from './result-by-search/result-by-search.component';
@@ -39,7 +39,7 @@ import { FaqsComponent } from './faqs/faqs.component';
     DealsComponent,
     AboutusComponent,
     PropertyListComponent,
-    BuyPackageComponent,
+
     DeltailUserComponent,
     ProductDetailComponent,
     ResultBySearchComponent,

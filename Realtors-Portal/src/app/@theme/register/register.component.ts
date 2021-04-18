@@ -50,7 +50,7 @@ export class RegisterComponent implements OnInit {
   error = '';
   alertSuccess
   register(val) {
-    // console.log(val);
+    console.log(val);
     this.userService.register(val).subscribe(
       data => {
         this.error = ''; // reset error;
@@ -59,6 +59,8 @@ export class RegisterComponent implements OnInit {
       },
 
       err => {
+        console.log(err);
+        
         this.error = err.error.Errors;
         this.alertSuccess = undefined;
       }

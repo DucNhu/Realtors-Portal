@@ -146,7 +146,9 @@ export class CustomerComponent implements OnInit {
   }
   get UserName() { return this.formValidator.get('UserName') }
 
+  NameWhenEdit = '';
   GetDataEditorAdd(val) {
+    this.NameWhenEdit = val.Name;
     this.formValidator.controls.User_type.patchValue(val.User_type);
     this.formValidator.controls.ID.patchValue(val.ID);
 
@@ -189,7 +191,7 @@ export class CustomerComponent implements OnInit {
   // panigate ( phân trang )
   page = 1;
   count = 0;
-  tableSize = 5;
+  tableSize = 2;
   tableSizes = [3, 6, 9, 12];
 
   fetchPosts(): void {
@@ -213,7 +215,38 @@ export class CustomerComponent implements OnInit {
     this.page = 1;
     this.fetchPosts();
   }
+  // END panigate ( phân trang )  
 
+  // Search
+  ListDataBySearch = []; dataBySearchWithSelect; dataBySearchWithInput;
+  searchByInput(data) {
+    this.dataBySearchWithInput = data;
+    this.ListDataBySearch = []; // reset chanh + don
+    this.listSeller.forEach(e => {
+      if (e.Email.indexOf(data) > -1 || e.Name.indexOf(data) > -1)  {
+        this.ListDataBySearch.push(e)
+      }
+    })
+  }
+
+  
+  searchByOption(data) {
+    this.ListDataBySearch = []; // reset chanh + don
+
+    this.dataBySearchWithSelect = data;
+    this.listSeller.forEach(e => {
+      if (e.User_type.indexOf(this.dataBySearchWithSelect) > -1) {
+        this.ListDataBySearch.push(e)
+      }
+    })
+  }
+
+
+  reset_ListDataBySearch() {
+    this.listSeller = [];
+    this.getAllUser();
+    return this.ListDataBySearch = [];
+  }
 
   // END Function show alert
 

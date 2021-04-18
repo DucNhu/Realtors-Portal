@@ -32,8 +32,8 @@ export class LoginComponent implements OnInit {
 
   ngOnInit(): void {
     this.loginForm = this.formBuilder.group({
-      username: ['seller@gmail.com', Validators.required],
-      password: ['Ducnhu2k1!', Validators.required]
+      username: ['admin@gmail.com', Validators.required],
+      password: ['RealVilla123', Validators.required]
     });
 
     this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
@@ -51,7 +51,7 @@ export class LoginComponent implements OnInit {
     }
 
     this.loading = true;
-    this.authenticationService.login(this.f.username.value, this.f.password.value)
+    this.authenticationService.login(this.f.username.value, this.f.password.value + "@")
       .pipe(first())
       .subscribe(
         data => {
@@ -62,11 +62,24 @@ export class LoginComponent implements OnInit {
                 window.location.assign(this.returnUrl + "admin"); break;
               case 'seller':
                 // this.router.navigate([this.returnUrl]);
-                window.location.assign(this.returnUrl);
+                if (data.Infor.Phone == null) {                  
+                  window.location.assign(this.returnUrl + 'profile-seller/profile-edit');
+                }
+                else {
+                  window.location.assign(this.returnUrl);
+                }
+                // window.location.assign(this.returnUrl);
                 break;
               case 'agent':
                 // this.router.navigate([this.returnUrl]);
-                window.location.assign(this.returnUrl);
+                // console.log(data.Infor.User_type);
+                if (data.Infor.Phone == null) {
+                  window.location.assign(this.returnUrl + 'profile-agent/profile-edit');
+                }
+                else {
+                  window.location.assign(this.returnUrl);
+                }
+                // window.location.assign(this.returnUrl);
                 break;
               default:
                 window.location.assign(this.returnUrl); break;

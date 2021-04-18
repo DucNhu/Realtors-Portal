@@ -24,6 +24,7 @@ import { ListCustomerComponent } from './dashboard/customer/list-customer.compon
 import { DashboardComponent } from './dashboard/dashboard/dashboard.component';
 import { NgxPaginationModule } from 'ngx-pagination';
 
+
 @NgModule({
   declarations: [AdminComponent, NavigationComponent, ProjectControllComponent, HeaderComponent, CategoryControlComponent, LocationControllComponent, CountryControllComponent, CityControllComponent, DistrictControllComponent, AreControllComponent, AddressComponent, PackageControllComponent, CustomerComponent, ListCustomerComponent, DashboardComponent],
   imports: [

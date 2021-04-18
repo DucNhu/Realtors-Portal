@@ -128,7 +128,7 @@ export class LocationControllComponent implements OnInit {
         this.EditByIdInArray(data);
       },
       error => {
-        this.Alert_dangerFunction("Error Update")
+        this.Alert_dangerFunction("Insert Image, pls")
       }
     );
   }
@@ -230,7 +230,7 @@ export class LocationControllComponent implements OnInit {
     if (success) {
       setTimeout(() => {
         this.alert_success = !this.alert_success;
-      }, 800);
+      }, 2000);
     }
     else {
       setTimeout(() => {

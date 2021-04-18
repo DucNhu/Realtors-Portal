@@ -24,6 +24,8 @@ export class PackageppService {
   }
 
   CreatePackage(val) {
+    console.log(val);
+    
     return this.http.post(environment.apiUrl + 'PackagePurchaseds', val)
   }
 

@@ -95,7 +95,7 @@ export class AreControllComponent implements OnInit {
         });
     }
     else {
-      this.Alert_dangerFunction("Try again, pls")
+      this.Alert_dangerFunction("Select Image, pls")
     }
 
   }
@@ -128,8 +128,6 @@ export class AreControllComponent implements OnInit {
   }
   upPhoto() {
     const formData: FormData = new FormData();
-    console.log(this.dataImage);
-    console.log(this.DataFormAreEdit.Avatar);
 
     try {
       formData.append('ImageFile', this.dataImage, this.DataFormAreEdit.Avatar);
@@ -266,7 +264,7 @@ export class AreControllComponent implements OnInit {
     if (success) {
       setTimeout(() => {
         this.alert_success = !this.alert_success;
-      }, 800);
+      }, 2000);
     }
     else {
       setTimeout(() => {

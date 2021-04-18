@@ -8,6 +8,7 @@ import { environment } from '../../../@core/models/Environment';
 import { CategoryService } from 'src/app/@core/mock/category.service';
 import { ImageLibService } from 'src/app/@core/mock/product/image-lib.service';
 import { AdminService } from 'src/app/@core/mock/Customer/admin.service';
+import { HomePageService } from 'src/app/@core/mock/Home/home-page.service';
 
 
 @Component({
@@ -71,7 +72,7 @@ export class ProjectControllComponent implements OnInit {
     private http: HttpClient,
 
     private admin: AdminService,
-    // private _countryService: CountryService,
+    private homePageService: HomePageService,
     // private _cityService: CityService,
     // private _districtService: DistrictService,
     // private _areService: AreService,
@@ -82,6 +83,13 @@ export class ProjectControllComponent implements OnInit {
     this.ValidatorForm();
 
     this.getsetAllAddress(); // call function set data address
+
+    this.homePageService.getMaxPrice().subscribe(
+      data => {
+        let ArrmaxSqftmaxPrice = data;
+        this.maxPrice = ArrmaxSqftmaxPrice[0].maxPrice;
+      }
+    )
   }
 
   // ======== CRUD ============
@@ -109,7 +117,7 @@ export class ProjectControllComponent implements OnInit {
 
   upgradeLevelActive(ProductID, LevelActive, data) {
     console.log(ProductID, LevelActive, data);
-    if(confirm("Are you ok?")) {
+    if (confirm("Are you ok?")) {
       let val = {
         ProductID: ProductID, LevelActive: LevelActive
       }
@@ -509,6 +517,36 @@ export class ProjectControllComponent implements OnInit {
     this.selectByCity();
   }
 
+  ListProduct_search = [];
+  maxPrice = 0;
+  listCategory; imgsrcCategory = environment.ImageUrl + 'Categories/';
+
+  imgsrcLocation = environment.ImageAddressUrl + 'Locations/';
+  imgsrcCountry = environment.ImageAddressUrl + 'Countries/';
+  imgsrcCity = environment.ImageAddressUrl + 'Cities/';
+  imgsrcDistrict = environment.ImageAddressUrl + 'Districts/';
+  imgsrcAre = environment.ImageAddressUrl + 'Ares/';
+
+  SearchByAddress(data) {
+
+    this.ListProduct_search = [];// reset chanh + don
+    this.listProject.forEach(e => {
+      if (
+        e.CategoryName.indexOf(data) > -1 ||
+        e.LocationName.indexOf(data) > -1 ||
+        e.CountryName.indexOf(data) > -1 ||
+        e.CityName.indexOf(data) > -1 ||
+        e.DistrictName.indexOf(data) > -1 ||
+        e.AreName.indexOf(data) > -1 ||
+        e.Price >= data ||
+        e.ProjectName.indexOf(data) > -1
+      ) {
+        this.ListProduct_search.push(e)
+      }
+
+    })
+
+  }
 
   // Alert variable
   alert_Text;
@@ -652,33 +690,33 @@ export class ProjectControllComponent implements OnInit {
     });
   }
 
-    // panigate ( phân trang )
-    page = 1;
-    count = 0;
-    tableSize = 5;
-    tableSizes = [3, 6, 9, 12];
+  // panigate ( phân trang )
+  page = 1;
+  count = 0;
+  tableSize = 5;
+  tableSizes = [3, 6, 9, 12];
 
-    fetchPosts(): void {
-      this._ProjectService.getProjectByFK().subscribe(
-        (response) => {
-          this.containData = response;
-        },
-        (error) => {
-          console.log(error);
-        }
-      );
-    }
+  fetchPosts(): void {
+    this._ProjectService.getProjectByFK().subscribe(
+      (response) => {
+        this.containData = response;
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
+  }
 
-    onTableDataChange(event) {
-      this.page = event;
-      this.fetchPosts();
-    }
+  onTableDataChange(event) {
+    this.page = event;
+    this.fetchPosts();
+  }
 
-    onTableSizeChange(event): void {
-      this.tableSize = event.target.value;
-      this.page = 1;
-      this.fetchPosts();
-    }
+  onTableSizeChange(event): void {
+    this.tableSize = event.target.value;
+    this.page = 1;
+    this.fetchPosts();
+  }
 
 }
 
@@ -691,6 +729,7 @@ export class ProjectControllComponent implements OnInit {
  * Update Image Banner 179
  * Update Image feature
  * Set value edit form (SetDataForEditorForm)
+ * Search
  * Alert Success, errorr...
  * checkValidForm
  * handFileInput

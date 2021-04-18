@@ -9,6 +9,7 @@ namespace Realtors_Portal.Models.Customer
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int ID { get; set; }
 
+        [Column(TypeName = "nvarchar(MAX)")]
         public string Name { get; set; }
 
         [EmailAddress(ErrorMessage = "pass is required")]
@@ -16,25 +17,31 @@ namespace Realtors_Portal.Models.Customer
 
         public string Password { get; set; }
 
+        [Column(TypeName = "nvarchar(MAX)")]
         public string Title { get; set; }
-
+        [Column(TypeName = "nvarchar(MAX)")]
         public string Description { get; set; }
 
         public string NetWorkID { get; set; }
 
         //[Required]
+        [Column(TypeName = "nvarchar(MAX)")]
         public string Location { get; set; }
 
         //[Required]
+        [Column(TypeName = "nvarchar(MAX)")]
         public string Country { get; set; }
 
         //[Required]  
+        [Column(TypeName = "nvarchar(MAX)")]
         public string City { get; set; }
 
         //[Required]
+        [Column(TypeName = "nvarchar(MAX)")]
         public string District { get; set; }
 
         //[Required]
+        [Column(TypeName = "nvarchar(MAX)")]
         public string Are { get; set; }
 
         [Phone]

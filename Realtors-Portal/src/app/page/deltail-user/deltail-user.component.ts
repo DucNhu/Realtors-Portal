@@ -44,6 +44,8 @@ export class DeltailUserComponent implements OnInit {
         let contain;
         contain = data;
         this.listProductOfUser = contain;
+        console.log(this.listProductOfUser);
+        
         this.TotalPrice = this.listProductOfUser[0].Price;
       }
     )
