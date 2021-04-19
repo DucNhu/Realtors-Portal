@@ -47,7 +47,7 @@ export class AugentRegisterComponent implements OnInit {
     let data = {
       "name": val.fullName,
       "email": val.email,
-      "password": val.password + '@',
+      "password": val.password + '!',
       "indentificationNumber": "000000000000",
       "address": "Nothing",
       "phone": null,
