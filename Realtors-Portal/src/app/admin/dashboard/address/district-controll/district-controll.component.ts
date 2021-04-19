@@ -233,7 +233,7 @@ export class DistrictControllComponent implements OnInit {
   get DistrictName() { return this.formValidator.get('DistrictName') }
   GetDataEditorAdd(val) {
     console.log(val);
-
+    this.DataFormDistrictEdit.Avatar = val.Avatar;
     this.DefaultandNewAvatar = (val.Avatar.indexOf(this.getImageAvatarSrc) > -1 ? '' : this.getImageAvatarSrc) + val.Avatar;
     if (val.Avatar.indexOf("base64") > -1) {
       this.DefaultandNewAvatar = val.Avatar;

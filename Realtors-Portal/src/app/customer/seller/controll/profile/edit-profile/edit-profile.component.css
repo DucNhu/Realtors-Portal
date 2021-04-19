@@ -1,3 +1,7 @@
 .profile-avatar {
     position: relative;
 }
+
+.alert-group {
+    z-index: 90;
+}

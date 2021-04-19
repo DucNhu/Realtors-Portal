@@ -57,14 +57,11 @@ export class PackageComponent implements OnInit {
               return actions.order.capture().then((details) =>  {
                 // This function shows a transaction success message to your buyer.
                 let PackagePurchased = {
-                  ppID: 0,
-                  PackageID: e.PackageID,
                   UserID: this.idUser,
-                  StartDate: this.StartTime,
-                  EndDate: `${this.NowTime.getFullYear()}-${this.NowTime.getMonth() + 1}-${this.NowTime.getDate() + e.Duration}`
+                  Duration: e.Duration
                 }
 
-                this.packagePP.CreatePackage(PackagePurchased).subscribe(
+                this.packagePP.CreatePackagePP(PackagePurchased).subscribe(
                   data => {
                   }
                 );
@@ -72,7 +69,7 @@ export class PackageComponent implements OnInit {
                 this.userService.putUserUpgradePackageID(this.idUser, e.PackageID).subscribe(
                   data => {
                     alert(`Thank ${details.payer.name.given_name} for supporting the site, you have ${e.Duration} days free`);
-                    window.location.reload();
+                    // window.location.reload();
                   }
                 );
 

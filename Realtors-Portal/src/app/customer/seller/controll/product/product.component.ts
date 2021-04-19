@@ -149,11 +149,14 @@ export class ProductComponent implements OnInit {
   disabled = false;
   firstCreate = false;
   CreateProject(data) {
+    console.log(data);
+    
     this.disabled = true;
     data.ID = 0;
     data.UserID = this.authenticationService.currentUserValue.Infor.ID;
 
     if (this.upPhoto() && this.upPhotoImageFeature()) {        // this.upPhoto(); // Insert Image
+      console.log(data);
       data.ImageBannerName = this.DataFormProjectEdit.ImageBannerName;
       // let getIDLast = this.listProject[length].ID;
       let getIDLast = 0; // Id dùg cho mảng, khi nó chưa tạp proudct tì k set đc id, nên phải set id bằng 0
@@ -484,56 +487,7 @@ export class ProductComponent implements OnInit {
   // END du lieu test
   get ProjectName() { return this.formValidator.get('ProjectName') }
 
-  SetDataForEditorForm(val) {
-
-    this.DefaultandNewAvatar = (val.ImageBannerName.indexOf(this.getImageBannerSrc) > -1 ? '' : this.getImageBannerSrc) + val.ImageBannerName;
-    if (val.ImageBannerName.indexOf("base64") > -1) {
-      this.DefaultandNewAvatar = val.ImageBannerName;
-    }
-
-    this.ArrayCRDFeature = []; // return 0 array
-    this.listImageFeature.forEach(e => {
-      if (e.ProductID == val.ID) {
-        e.url = environment.ImageProductUrl + 'ImageLibs/';
-        this.ArrayCRDFeature.push(e);
-      }
-    });
-
-    // this.ArrayCRDFeature = this.listImageFeature;
-
-    // this.DefaultandNewAvatar = environment.Imageurl + val.ImageBannerName;
-    this.formValidator.controls.ProjectName.patchValue(val.ProjectName);
-    this.formValidator.controls.CategoryID.patchValue(val.CategoryID);
-
-    this.formValidator.controls.Location.patchValue(val.LocationID);
-    this.formValidator.controls.City.patchValue(val.City);
-    this.formValidator.controls.Country.patchValue(val.Country);
-    this.formValidator.controls.District.patchValue(val.District);
-    this.formValidator.controls.Are.patchValue(val.Are);
-
-
-    this.formValidator.controls.ID.patchValue(val.ID);
-    // this.formValidator.controls.ImageFile.patchValue(val.ImageFile);
-
-    this.formValidator.controls.Price.patchValue(val.Price);
-    this.formValidator.controls.UserID.patchValue(this.authenticationService.currentUserValue.Infor.ID);
-    this.formValidator.controls.Sqft.patchValue(val.Sqft);
-
-    this.formValidator.controls.Description.patchValue(val.Description);
-    this.formValidator.controls.LevelActive.patchValue(val.LevelActive);
-    this.formValidator.controls.Title.patchValue(val.Title);
-
-    this.formValidator.controls.ImageBannerName.patchValue(val.ImageBannerName);
-
-    // set lai gia tri address:
-    this.selectByLocation();
-
-    this.selectByCountry();
-    this.selectByDistrict();
-
-    this.selectByCity();
-  }
-
+ 
 
   // Alert variable
   alert_Text;
@@ -624,6 +578,7 @@ export class ProductComponent implements OnInit {
   listCity;
   listCountry;
   listDistrict;
+  districtInCity;
 
   listImageFeature;
   // areInDistrict
@@ -680,26 +635,24 @@ export class ProductComponent implements OnInit {
     });
   }
 
-  districtInCity;
   selectByCity() {
-    let i = -1;
-    this.listDistrict = [];
     this.districtInCity.forEach(e => {
-      i++;
 
       if (e.CityID == this.formValidator.controls.City.value) {
-        this.listAre = [];
-        this.listDistrict.push(e);
+        this.listAre = []; 
+        this.listDistrict.push(e);        
+      }
+      else {
+
       }
     });
   }
 
   areInDistrict;
   selectByDistrict() {
-    let i = -1;
-    this.listAre = [];
+    console.log(this.formValidator.controls.District.value);
+    
     this.areInDistrict.forEach(e => {
-      i++;
       if (e.DistrictID == this.formValidator.controls.District.value) {
         this.listAre.push(e);
       }

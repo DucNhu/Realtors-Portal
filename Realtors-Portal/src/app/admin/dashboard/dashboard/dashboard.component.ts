@@ -116,8 +116,10 @@ export class DashboardComponent implements OnInit {
     this.obs.NameCategoryAndCountProductByThisCategory().subscribe(
       data => {
         this.listNameCategoryAndCountProductByThisCategory = data;
+        console.log(this.listNameCategoryAndCountProductByThisCategory);
         
         this.listNameCategoryAndCountProductByThisCategory.forEach(e => {
+          console.log(e);
           
           this.listNameCategoryAndCountProductByThisCategory_Bg.push('#' + Math.floor(Math.random() * 16777215).toString(16))
           this.listNameCategoryAndCountProductByThisCategory_BgList = [{ backgroundColor: this.listNameCategoryAndCountProductByThisCategory_Bg}]; // random bg

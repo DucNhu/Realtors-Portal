@@ -138,17 +138,29 @@ from PackagePurchased where UserID = " + id + @"))";
             return NoContent();
         }
 
-        // POST: api/PackagePurchaseds
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
+        [Route("PostPackagePurchased/user/{id}/{duration}")]
         [HttpPost]
-        public async Task<ActionResult<PackagePurchased>> PostPackagePurchased(PackagePurchased packagePurchased)
+        public JsonResult PostPackagePurchased(int id, int duration)
         {
-            _context.PackagePurchased.Add(packagePurchased);
-            await _context.SaveChangesAsync();
+            string query = @"
+insert into PackagePurchased values
+(1, " + id + @", GETDATE(), GETDATE() + " + duration + @")";
 
-            return CreatedAtAction("GetPackagePurchased", new { id = packagePurchased.ppID }, packagePurchased);
+            DataTable table = new DataTable();
+            string sqlDataSource = _configuration.GetConnectionString("RealtorsConnect");
+            SqlDataReader myRender;
+            using (SqlConnection myCon = new SqlConnection(sqlDataSource))
+            {
+                myCon.Open();
+                using (SqlCommand myCommand = new SqlCommand(query, myCon))
+                {
+                    myRender = myCommand.ExecuteReader();
+                    table.Load(myRender);
+                    myRender.Close(); myCon.Close();
+                }
+            }
+            return new JsonResult(table);
         }
-
         // DELETE: api/PackagePurchaseds/5
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeletePackagePurchased(int id)

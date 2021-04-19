@@ -234,6 +234,7 @@ export class CountryControllComponent implements OnInit {
   get CountryName() { return this.formValidator.get('CountryName') }
   GetDataEditorAdd(val) {
     // console.log(val);
+    this.DataFormCountryEdit.Avatar = val.Avatar;
 
     this.DefaultandNewAvatar = (val.Avatar.indexOf(this.getImageAvatarSrc) > -1 ? '' : this.getImageAvatarSrc) + val.Avatar;
     if (val.Avatar.indexOf("base64") > -1) {

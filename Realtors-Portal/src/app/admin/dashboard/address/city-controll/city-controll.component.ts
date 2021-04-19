@@ -235,6 +235,7 @@ export class CityControllComponent implements OnInit {
   get CityName() { return this.formValidator.get('CityName') }
   GetDataEditorAdd(val) {
     // console.log(val);
+    this.DataFormCityEdit.Avatar = val.Avatar;
 
     this.DefaultandNewAvatar = (val.Avatar.indexOf(this.getImageAvatarSrc) > -1 ? '' : this.getImageAvatarSrc) + val.Avatar;
     if (val.Avatar.indexOf("base64") > -1) {

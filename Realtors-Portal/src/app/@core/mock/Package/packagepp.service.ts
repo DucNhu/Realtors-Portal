@@ -23,10 +23,10 @@ export class PackageppService {
     return this.http.get(environment.apiUrl + `PackagePurchaseds/DayMaxOfMonthMaxOfYearMax/user/${id}`)
   }
 
-  CreatePackage(val) {
-    console.log(val);
-    
-    return this.http.post(environment.apiUrl + 'PackagePurchaseds', val)
+  CreatePackagePP(val) {  
+    console.log(environment.apiUrl + `PackagePurchaseds/PostPackagePurchased/user/${val.UserID}/${val.Duration}`);
+      
+    return this.http.post(environment.apiUrl + `PackagePurchaseds/PostPackagePurchased/user/${val.UserID}/${val.Duration}`, val)
   }
 
   // UpdateAvatar(val) {

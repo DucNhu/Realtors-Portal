@@ -388,7 +388,7 @@ group by Package.PackageID, Package.PackageName
 UPDATE [User] SET Name ='', Title = '', Description = '', Phone = '', Avatar = '', 
 Location = '', Country = '', City = '', District = '', Are = ''
 where id = 
-select * from [User]
+
 
 select DISTINCT count(PackagePurchased.PackageID) as 'CountPackagePurchased', 
 Package.PackageID, Package.PackageName, Package.Price
@@ -396,10 +396,29 @@ Package.PackageID, Package.PackageName, Package.Price
 from PackagePurchased inner join Package on PackagePurchased.PackageID = Package.PackageID
 group by Package.PackageID, Package.PackageName, Package.Price
 
-ALTER DATABASE
-    realtors01
-    CHARACTER SET = utf8
-    COLLATE = utf8_unicode_ci;
+
+select * from PackagePurchased
+
+drop table PackagePurchased
+
+create table PackagePurchased ( ppID int identity(1,1), PackageID int , UserID int, StartDate DATE, EndDate DATE)
+
+insert into PackagePurchased values
+(1, 1, GETDATE(), GETDATE() + 10),
+(1, 1, GETDATE(), GETDATE() + 30)
+
+
+
+select DISTINCT count(PackagePurchased.PackageID) as 'CountPackagePurchased', 
+Package.PackageID, Package.PackageName, Package.Price
+
+from PackagePurchased inner join Package on PackagePurchased.PackageID = Package.PackageID
+group by Package.PackageID, Package.PackageName, Package.Price
+
+select DISTINCT count(project.CategoryID) as 'productCount',  Category.CategoryName as 'categoryCount' from project inner join Category on Category.CategoryID = project.CategoryID
+
+                                group by Category.CategoryName
+
 
 use realtors01 
 

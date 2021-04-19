@@ -240,6 +240,7 @@ export class AreControllComponent implements OnInit {
   get AreName() { return this.formValidator.get('AreName') }
   GetDataEditorAdd(val) {
     console.log(val);
+    this.DataFormAreEdit.Avatar = val.Avatar;
 
     this.DefaultandNewAvatar = (val.Avatar.indexOf(this.getImageAvatarSrc) > -1 ? '' : this.getImageAvatarSrc) + val.Avatar;
     if (val.Avatar.indexOf("base64") > -1) {

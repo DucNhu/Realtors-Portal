@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Realtors_Portal.Migrations
 {
-    public partial class realtors01 : Migration
+    public partial class ppupdatedb3 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -31,7 +31,6 @@ namespace Realtors_Portal.Migrations
                 {
                     ID = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    NameAgent = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     SellerID = table.Column<int>(type: "int", nullable: false),
                     UserID = table.Column<int>(type: "int", nullable: false)
                 },
@@ -201,12 +200,9 @@ namespace Realtors_Portal.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     PackageName = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Price = table.Column<int>(type: "int", nullable: false),
-                    PromotionPrice = table.Column<int>(type: "int", nullable: false),
                     PackageTitle = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     PackageDesciption = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    NumberOfAds = table.Column<int>(type: "int", nullable: false),
                     Duration = table.Column<int>(type: "int", nullable: false),
-                    PackageAvatar = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Active = table.Column<int>(type: "int", nullable: false),
                     TypeDuration = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
@@ -238,7 +234,7 @@ namespace Realtors_Portal.Migrations
                     ID = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     CategoryID = table.Column<int>(type: "int", nullable: false),
-                    SellerID = table.Column<int>(type: "int", nullable: false),
+                    UserID = table.Column<int>(type: "int", nullable: false),
                     ProjectName = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: true),
                     Title = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
@@ -258,13 +254,26 @@ namespace Realtors_Portal.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Roles",
+                columns: table => new
+                {
+                    ID = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    UserType = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    title = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Roles", x => x.ID);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Seller",
                 columns: table => new
                 {
                     ID = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    ActiveAgent = table.Column<int>(type: "int", nullable: false),
+                    ActiveAgent = table.Column<bool>(type: "bit", nullable: false),
                     AgentID = table.Column<int>(type: "int", nullable: false),
                     UserID = table.Column<int>(type: "int", nullable: false)
                 },
@@ -277,30 +286,29 @@ namespace Realtors_Portal.Migrations
                 name: "User",
                 columns: table => new
                 {
-                    id = table.Column<int>(type: "int", nullable: false)
+                    ID = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Email = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Password = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Title = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Name = table.Column<string>(type: "nvarchar(MAX)", nullable: true),
+                    Email = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Password = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Title = table.Column<string>(type: "nvarchar(MAX)", nullable: true),
+                    Description = table.Column<string>(type: "nvarchar(MAX)", nullable: true),
                     NetWorkID = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    LocationID = table.Column<int>(type: "int", nullable: false),
-                    CountryID = table.Column<int>(type: "int", nullable: false),
-                    CityID = table.Column<int>(type: "int", nullable: false),
-                    DistrictID = table.Column<int>(type: "int", nullable: false),
-                    AreID = table.Column<int>(type: "int", nullable: false),
+                    Location = table.Column<string>(type: "nvarchar(MAX)", nullable: true),
+                    Country = table.Column<string>(type: "nvarchar(MAX)", nullable: true),
+                    City = table.Column<string>(type: "nvarchar(MAX)", nullable: true),
+                    District = table.Column<string>(type: "nvarchar(MAX)", nullable: true),
+                    Are = table.Column<string>(type: "nvarchar(MAX)", nullable: true),
                     Phone = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Avatar = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Active = table.Column<int>(type: "int", nullable: false),
-                    ProductID = table.Column<int>(type: "int", nullable: false),
                     PackageID = table.Column<int>(type: "int", nullable: false),
                     ppID = table.Column<int>(type: "int", nullable: false),
                     User_type = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_User", x => x.id);
+                    table.PrimaryKey("PK_User", x => x.ID);
                 });
 
             migrationBuilder.CreateTable(
@@ -501,6 +509,9 @@ namespace Realtors_Portal.Migrations
 
             migrationBuilder.DropTable(
                 name: "project");
+
+            migrationBuilder.DropTable(
+                name: "Roles");
 
             migrationBuilder.DropTable(
                 name: "Seller");

@@ -443,11 +443,11 @@ where id = " + id;
         }
 
         // Upgrade Package ID 
-        [Route("putUserUpgradePackageID/user/{UserID}")]
+        [Route("putUserUpgradePackageID/user/{id}/{PackageID}")]
         [HttpPut]
-        public JsonResult putAllUserActiveForAdmin(int UserID, Package PackageID)
+        public JsonResult putAllUserActiveForAdmin(int id, int PackageID)
         {
-            string query = @"UPDATE [User] SET [User].PackageID = " + PackageID.PackageID + " where id = " + UserID;
+            string query = @"UPDATE [User] SET [User].PackageID = " + PackageID + " where id = " + id;
 
             DataTable table = new DataTable();
             string sqlDataSource = _configuration.GetConnectionString("RealtorsConnect");

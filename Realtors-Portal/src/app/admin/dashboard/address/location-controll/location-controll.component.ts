@@ -211,6 +211,8 @@ export class LocationControllComponent implements OnInit {
      if (val.Avatar.indexOf("base64") > -1) {
       this.DefaultandNewAvatar = val.Avatar;
     }
+
+    this.DataFormLocationEdit.Avatar = val.Avatar;
     this.formValidator.controls.LocationName.patchValue(val.LocationName);
     this.formValidator.controls.LocationID.patchValue(val.LocationID);
 

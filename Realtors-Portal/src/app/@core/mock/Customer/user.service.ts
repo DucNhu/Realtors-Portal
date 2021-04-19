@@ -35,14 +35,14 @@ export class UserService {
     return this.http.put(environment.apiUrl + 'Users/putAllUserActiveForAdmin', val)
   }
 
-  putUserUpgradePackageID(idUser, PackageID) {
+  putUserUpgradePackageID(id, PackageID) {
     let val = {
-      UserID: idUser,
+      UserID: id,
       PackageID: PackageID
     }
     console.log(val);
     
-    return this.http.put(environment.apiUrl + 'Users/putUserUpgradePackageID/user/' + idUser, val)
+    return this.http.put(environment.apiUrl + `Users/putUserUpgradePackageID/user/${val.UserID}/${val.PackageID}`, val)
 
   }
   // User
