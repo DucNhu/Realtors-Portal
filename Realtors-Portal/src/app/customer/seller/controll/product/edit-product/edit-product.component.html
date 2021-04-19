@@ -121,13 +121,24 @@
                                 <div class="mb-4">
                                     <label for="District">District</label>
 
-                                    <select class="form-select form-control" formControlName="District"
+                                    <!-- <select class="form-select form-control" formControlName="District"
                                         (change)="selectByDistrict()">
                                         <option *ngFor="let District of listDistrict" [value]="District.DistrictID"
                                             [selected]="District.DistrictName == formValidator.controls.District.value">
                                             {{ District.DistrictName }}
                                         </option>
-                                    </select>
+                                    </select> -->
+                                    <!-- <mat-form-field class="example-full-width form-control">
+                                        <input matInput aria-label="District" [matAutocomplete]="DistrictForm" formControlName="District"
+                                            (change)="selectByDistrict()" (blur)="selectByDistrict()">
+                                        <mat-autocomplete #DistrictForm="matAutocomplete">
+                                            <mat-option *ngFor="let District of listDistrict" [value]="District.DistrictID">
+                                                <img style="vertical-align:middle;" aria-hidden src="{{imgsrcDistrict + District.Avatar}}" height="25"
+                                                    width="25" alt="{{ District.Avatar }}" />
+                                                <span class="ml-2">{{ District.DistrictName }}</span>
+                                            </mat-option>
+                                        </mat-autocomplete>
+                                    </mat-form-field> -->
                                 </div>
                                 <!-- Are  -->
                                 <div class="mb-4">

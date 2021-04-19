@@ -224,7 +224,7 @@ group by Package.PackageID, Package.PackageName, Package.Price
         public JsonResult getDataDashBoardNameCategoryAndCountProductByThisCategory()
         {
 
-            string query = @"select DISTINCT count(project.CategoryID) as 'productCount',  Category.CategoryName as 'categoryCount' from project inner join Category on Category.CategoryID = project.CategoryID
+            string query = @";select DISTINCT count(project.CategoryID) as 'productCount',  Category.CategoryName as 'categoryCount' from project inner join Category on Category.CategoryID = project.CategoryID
 
                                 group by Category.CategoryName";
 

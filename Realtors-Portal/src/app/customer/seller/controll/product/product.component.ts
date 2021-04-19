@@ -27,7 +27,7 @@ export class ProductComponent implements OnInit {
   imgsrcCity = environment.ImageAddressUrl + 'Cities/';
   imgsrcDistrict = environment.ImageAddressUrl + 'Districts/';
   imgsrcAre = environment.ImageAddressUrl + 'Ares/';
-  
+
   listCategies;
   listLevelActive = [
     {
@@ -109,7 +109,7 @@ export class ProductComponent implements OnInit {
         this.containData.forEach(e => {
           e.ImageBannerSrc = this.getImageBannerSrc;
           this.listProject.unshift(e);
-        }); 
+        });
         this.getIDByProductLast = this.listProject[length].ID;
       }
     );
@@ -150,7 +150,7 @@ export class ProductComponent implements OnInit {
   firstCreate = false;
   CreateProject(data) {
     console.log(data);
-    
+
     this.disabled = true;
     data.ID = 0;
     data.UserID = this.authenticationService.currentUserValue.Infor.ID;
@@ -158,9 +158,20 @@ export class ProductComponent implements OnInit {
     if (this.upPhoto() && this.upPhotoImageFeature()) {        // this.upPhoto(); // Insert Image
       console.log(data);
       data.ImageBannerName = this.DataFormProjectEdit.ImageBannerName;
+      this.listDistrict.forEach(e => {
+        if (e.DistrictName == data.District) {
+          data.District = e.DistrictID;
+        }
+      });
+      this.listAre.forEach(e => {
+        if (e.AreName == data.Are) {
+          data.Are = e.AreID;
+        }
+      });
+
       // let getIDLast = this.listProject[length].ID;
       let getIDLast = 0; // Id dùg cho mảng, khi nó chưa tạp proudct tì k set đc id, nên phải set id bằng 0
-      try { getIDLast = this.listProject[length].ID; this.firstCreate = false} catch { getIDLast = 0; this.firstCreate = true;}
+      try { getIDLast = this.listProject[length].ID; this.firstCreate = false } catch { getIDLast = 0; this.firstCreate = true; }
       // let getIDImageLibLast = this.listImageFeature[length].ID;
       let getIDImageLibLast = 0;
       try { getIDImageLibLast = this.listImageFeature[length].ID; } catch { getIDImageLibLast = 0; }
@@ -222,9 +233,9 @@ export class ProductComponent implements OnInit {
           });
 
           this.listProject.unshift(data);
-          
+
           this.Alert_successFunction("Create done");
-          
+
           getIDLast++;
           getIDImageLibLast++;
 
@@ -487,7 +498,7 @@ export class ProductComponent implements OnInit {
   // END du lieu test
   get ProjectName() { return this.formValidator.get('ProjectName') }
 
- 
+
 
   // Alert variable
   alert_Text;
@@ -531,7 +542,7 @@ export class ProductComponent implements OnInit {
 
   SearchByAddress(data) {
     this.ListProduct_search = [];// reset chanh + don
-    this.listProject.forEach(e => {      
+    this.listProject.forEach(e => {
       if (
         e.CategoryName.indexOf(data) > -1 ||
         e.LocationName.indexOf(data) > -1 ||
@@ -582,7 +593,7 @@ export class ProductComponent implements OnInit {
 
   listImageFeature;
   // areInDistrict
-  
+
   getsetAllAddress() {
     // ADDRESS
     // listLocation
@@ -636,11 +647,12 @@ export class ProductComponent implements OnInit {
   }
 
   selectByCity() {
+    this.listDistrict = [];
     this.districtInCity.forEach(e => {
 
       if (e.CityID == this.formValidator.controls.City.value) {
-        this.listAre = []; 
-        this.listDistrict.push(e);        
+        this.listAre = [];
+        this.listDistrict.push(e);
       }
       else {
 
@@ -651,7 +663,7 @@ export class ProductComponent implements OnInit {
   areInDistrict;
   selectByDistrict() {
     console.log(this.formValidator.controls.District.value);
-    
+    this.listAre = [];
     this.areInDistrict.forEach(e => {
       if (e.DistrictID == this.formValidator.controls.District.value) {
         this.listAre.push(e);

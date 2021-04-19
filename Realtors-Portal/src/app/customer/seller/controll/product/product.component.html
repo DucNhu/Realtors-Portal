@@ -403,14 +403,14 @@
                                             <!-- District  -->
                                             <div class="mb-4">
                                                 <label for="District">District</label>
-                                                <!-- <input  #inputDistrict formControlName="District"
-                                                    (change)="selectByDistrict()" (blur)="selectByDistrict()" class="d-block form-control">
-                                <select class="form-select form-control" #selectDistrict formControlName="District" (change)="inputDistrict.value = selectDistrict.value">
-                                    <option *ngFor="let District of listDistrict" [value]="District.DistrictID" [selected]="District.DistrictID == formValidator.controls.District.value">
-                                        {{ District.DistrictName }}
-                                    </option>
-                                </select> -->
-                                                <mat-form-field class="example-full-width form-control">
+                                                <select class="form-select form-control" formControlName="District">
+                                                    <option *ngFor="let District of listDistrict"
+                                                        [value]="District.DistrictID"
+                                                        [selected]="District.DistrictID == formValidator.controls.District.value">
+                                                        {{ District.DistrictName }}
+                                                    </option>
+                                                </select>
+                                                <!-- <mat-form-field class="example-full-width form-control">
                                                     <input matInput aria-label="District"
                                                         [matAutocomplete]="DistrictForm" formControlName="District"
                                                         (change)="selectByDistrict()" (blur)="selectByDistrict()">
@@ -423,19 +423,19 @@
                                                             <span class="ml-2">{{ District.DistrictName }}</span>
                                                         </mat-option>
                                                     </mat-autocomplete>
-                                                </mat-form-field>
+                                                </mat-form-field> -->
                                             </div>
                                             <!-- Are  -->
                                             <div class="mb-4">
                                                 <label for="Are">Are</label>
 
-                                                <!-- <select class="form-select form-control" formControlName="Are">
+                                                <select class="form-select form-control" formControlName="Are">
                                                     <option *ngFor="let Are of listAre" [value]="Are.AreID"
                                                         [selected]="Are.AreID == formValidator.controls.Are.value">
                                                         {{ Are.AreName }}
                                                     </option>
-                                                </select> -->
-                                                <mat-form-field class="example-full-width form-control">
+                                                </select>
+                                                <!-- <mat-form-field class="example-full-width form-control">
                                                     <input matInput aria-label="Are" [matAutocomplete]="AreForm"
                                                         formControlName="Are">
                                                     <mat-autocomplete #AreForm="matAutocomplete">
@@ -446,7 +446,7 @@
                                                             <span class="ml-2">{{ Are.AreName }}</span>
                                                         </mat-option>
                                                     </mat-autocomplete>
-                                                </mat-form-field>
+                                                </mat-form-field> -->
                                             </div>
                                         </div>
                                         <!-- END Adress -->
