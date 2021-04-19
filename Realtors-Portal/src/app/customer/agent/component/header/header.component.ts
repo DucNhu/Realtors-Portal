@@ -15,7 +15,6 @@ import { Router } from '@angular/router';
 })
 export class HeaderComponent implements OnInit {
 
-
   // Khai bao bien
   idLength;
   getImageBannerSrc = environment.ImageUrl + "Customer/";
@@ -34,12 +33,22 @@ export class HeaderComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.infor = this.authenticationService.currentUserValue.Infor;
-    this.infor.src = environment.ImageUrl + 'Customer/';
-    console.log(this.infor);
+    // this.infor = this.authenticationService.currentUserValue.Infor;
 
+    this.getInforById();
   }
 
+  InforUser;
+  getInforById() {
+    this.userService.getUserbyId(this.authenticationService.currentUserValue.Infor.ID).subscribe(
+      data => {
+        let contain = data;
+        this.infor = contain;
+        this.infor.src = environment.ImageUrl + 'Customer/';
+
+      }
+    )
+  }
 
   // Update Image when select change
   dataImage; Avatar;
@@ -76,6 +85,7 @@ export class HeaderComponent implements OnInit {
 
   logout() {
     this.authenticationService.logout();
+    // this.router.navigate(['/']);
     window.location.assign('/');
   }
 
