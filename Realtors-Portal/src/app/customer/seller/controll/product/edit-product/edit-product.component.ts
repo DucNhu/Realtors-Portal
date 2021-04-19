@@ -431,11 +431,11 @@ export class EditProductComponent implements OnInit {
 
       Location: [null, [Validators.required]],
 
-      Price: [null, [Validators.required]],
+      Price: [null, [Validators.required, Validators.min(0)]],
       UserID: [0],
 
       ProjectName: [null, [Validators.required]],
-      Sqft: [null, [Validators.required]],
+      Sqft: [null, [Validators.required, Validators.min(0)]],
 
       Description: [null, [Validators.required]],
       LevelActive: [null, [Validators.required]],

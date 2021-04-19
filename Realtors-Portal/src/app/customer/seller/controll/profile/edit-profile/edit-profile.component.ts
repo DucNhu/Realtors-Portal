@@ -139,12 +139,11 @@ export class EditProfileComponent implements OnInit {
   }
 
   UpgradeFile(data) {
-    console.log(data);
     if (this.newImage == true) {
       if (this.upPhoto()) {
         this.userService.UpgradeInforUser(data).subscribe(
           data => {
-            this.Alert_successFunction("Edit Success");
+            window.location.reload();
           }
         )
       }
@@ -156,7 +155,7 @@ export class EditProfileComponent implements OnInit {
     else {
       this.userService.UpgradeInforUser(data).subscribe(
         data => {
-          this.Alert_successFunction("Edit Success");
+          window.location.reload();
         }
       )
     }

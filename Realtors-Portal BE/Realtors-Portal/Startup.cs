@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
+﻿using MailKit;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
@@ -12,9 +13,12 @@ using Microsoft.OpenApi.Models;
 using Newtonsoft.Json.Serialization;
 using Realtors_Portal.Configuration;
 using Realtors_Portal.Data;
+
 using System;
+using Realtors_Portal.Services;
 using System.IO;
 using System.Text;
+using Realtors_Portal.Settings;
 
 namespace Realtors_Portal
 {
@@ -78,31 +82,17 @@ namespace Realtors_Portal
             services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
                         .AddEntityFrameworkStores<Realtors_PortalContext>();
 
+            services.Configure<MailSettings>(Configuration.GetSection("MailSettings"));
+            //services.AddTransient<IMailService, Services.MailService>();
+
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Realtors_Portal", Version = "v1" });
             });
-       
 
 
-            //Connect DB
-            //services.AddDbContext<Realtors_PortalContext>(options =>
-            //        options.UseSqlServer(Configuration.GetConnectionString("RealtorsConnect")));
-            // Adding Jwt Bearer
-            //.AddJwtBearer(options =>
-            //{
-            //    options.SaveToken = true;
-            //    options.RequireHttpsMetadata = false;
-            //    options.TokenValidationParameters = new TokenValidationParameters()
-            //    {
-            //        ValidateIssuer = true,
-            //        ValidateAudience = true,
-            //        ValidAudience = Configuration["JWT:ValidAudience"],
-            //        ValidIssuer = Configuration["JWT:ValidIssuer"],
-            //        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["JWT:Secret"]))
-            //    };
-            //});
+            
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

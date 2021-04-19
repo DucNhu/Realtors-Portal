@@ -704,3 +704,6 @@ D:\Project-SEM3 API\Realtors-Portal\Realtors-Portal BE\Realtors-Portal\obj\Debug
 D:\Project-SEM3 API\Realtors-Portal\Realtors-Portal BE\Realtors-Portal\obj\Debug\net5.0\ref\Realtors-Portal.dll
 D:\Project-SEM3 API\Realtors-Portal\Realtors-Portal BE\Realtors-Portal\obj\Debug\net5.0\Realtors-Portal.pdb
 D:\Project-SEM3 API\Realtors-Portal\Realtors-Portal BE\Realtors-Portal\obj\Debug\net5.0\Realtors-Portal.genruntimeconfig.cache
+C:\Users\Pc\Documents\GitHub\ProjectIII\Realtors-Portal\Realtors-Portal BE\Realtors-Portal\bin\Debug\net5.0\MailKit.dll
+C:\Users\Pc\Documents\GitHub\ProjectIII\Realtors-Portal\Realtors-Portal BE\Realtors-Portal\bin\Debug\net5.0\MimeKit.dll
+C:\Users\Pc\Documents\GitHub\ProjectIII\Realtors-Portal\Realtors-Portal BE\Realtors-Portal\bin\Debug\net5.0\BouncyCastle.Crypto.dll

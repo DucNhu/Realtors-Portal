@@ -5,6 +5,7 @@ import { map } from "rxjs/operators";
 import { AuthenticationService } from '../../../@core/mock/Authentication.Service';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import { CategoryService } from 'src/app/@core/mock/category.service';
+import { UserService } from 'src/app/@core/mock/Customer/user.service';
 
 @Component({
   selector: 'app-header',
@@ -26,6 +27,7 @@ export class HeaderComponent implements OnInit {
     private authenticationService: AuthenticationService,
     private router: Router,
     private categoryService: CategoryService,
+    private userService: UserService,
   ) {
     this.currentUser = this.authenticationService.currentUserValue;
   }
@@ -41,8 +43,25 @@ export class HeaderComponent implements OnInit {
     this.OnpreviewImg('AvatarDefault.jpg')
     this.categoryService.getTest().subscribe(
       data => {
-        console.log(data);
         
+      }
+    )
+
+    this.getInforById();
+  }
+
+  InforUser; UserInfor;
+  getInforById() {
+    // this.UserInfor.Avatar = 'AvatarDefault.jpg'
+    this.userService.getUserbyId(this.authenticationService.currentUserValue.Infor.ID).subscribe(
+      data => {
+        let contain = data;
+        this.UserInfor = contain;
+
+        // this.UserInfor.Avatar = this.InforUser.Avatar;
+        // this.UserInfor.FullName = this.InforUser.Name;
+        // this.UserInfor.Email = this.InforUser.Email;
+      
       }
     )
   }
