@@ -58,18 +58,19 @@ namespace Realtors_Portal.Controllers
         [HttpGet]
         public JsonResult getProductViewHome(int id)
         {
-            string query = @"SELECT [User].ProjectName, [User].ID, [User].ImageBannerName, [User].LevelActive,
-  [User].Description, [User].Title, [User].Sqft, [User].Price,
+            string query = @"
+SELECT project.ProjectName, project.ID, project.ImageBannerName, project.LevelActive,
+  project.Description, project.Title, project.Sqft, project.Price,
   
   Location.LocationName, Country.CountryName , City.CityName, District.DistrictName, Are.AreName,
   Category.CategoryName
-  FROM [User]
-  INNER JOIN Location ON Location.LocationID = [User].Location
-  INNER JOIN Country ON Country.CountryID = [User].Country
-    INNER JOIN City ON City.CityID = [User].City
-	  INNER JOIN District ON District.DistrictID = [User].District
-	  INNER JOIN Are ON Are.AreID = [User].Are
-	    INNER JOIN Category ON Category.CategoryID = [User].CategoryID where [User].ID = " + id;
+  FROM project
+  INNER JOIN Location ON Location.LocationID = project.Location
+  INNER JOIN Country ON Country.CountryID = project.Country
+    INNER JOIN City ON City.CityID = project.City
+	  INNER JOIN District ON District.DistrictID = project.District
+	  INNER JOIN Are ON Are.AreID = project.Are
+	    INNER JOIN Category ON Category.CategoryID = project.CategoryID where project.ID =" + id;
 
             DataTable table = new DataTable();
             string sqlDataSource = _configuration.GetConnectionString("RealtorsConnect");
@@ -94,9 +95,35 @@ namespace Realtors_Portal.Controllers
         public JsonResult getUserActive()
         {
             string query = @"
-select [User].ID, [User].Name, [User].Email, [User].Title, [User].Description, [User].Phone, [User].Email,[User].User_type, [User].Avatar, [User].Active, [User].PackageID
+select [User].ID, [User].Name, [User].Email, [User].Title, [User].Description, [User].Phone,[User].User_type, [User].Avatar, [User].Active, [User].PackageID
 from [User]
 where [User].User_type not like 'admin' and [User].Active = 1";
+
+            DataTable table = new DataTable();
+            string sqlDataSource = _configuration.GetConnectionString("RealtorsConnect");
+            SqlDataReader myRender;
+            using (SqlConnection myCon = new SqlConnection(sqlDataSource))
+            {
+                myCon.Open();
+                using (SqlCommand myCommand = new SqlCommand(query, myCon))
+                {
+                    myRender = myCommand.ExecuteReader();
+                    table.Load(myRender);
+                    myRender.Close(); myCon.Close();
+                }
+            }
+            return new JsonResult(table);
+        }
+
+        //Get User Not Active in Admin page
+        [Route("getUserNotActive")]
+        [HttpGet]
+        public JsonResult getUserNotActive()
+        {
+            string query = @"
+select [User].ID, [User].Name, [User].Email, [User].Password, [User].Title, [User].Description, [User].Phone,[User].User_type, [User].Avatar, [User].Active, [User].PackageID
+from [User]
+where [User].User_type not like 'admin' and [User].Active = 0";
 
             DataTable table = new DataTable();
             string sqlDataSource = _configuration.GetConnectionString("RealtorsConnect");
@@ -399,7 +426,7 @@ where id = " + id;
         [HttpPut]
         public JsonResult putUserForAdmin(User user)
         {
-            string query = @"UPDATE [User] SET User_type = '" + user.User_type + "', Active = +" + user.Active + " WHERE ID = " + user.ID;
+            string query = @"UPDATE [User] SET User_type = '" + user.User_type + "', Active = " + user.Active + " WHERE ID = " + user.ID;
 
             DataTable table = new DataTable();
             string sqlDataSource = _configuration.GetConnectionString("RealtorsConnect");
@@ -417,6 +444,29 @@ where id = " + id;
             return new JsonResult(table);
         }
 
+
+        //  Active ACC
+        [Route("ActiveAcc/{id}")]
+        [HttpPut]
+        public JsonResult ActiveAcc(int id)
+        {
+            string query = @"UPDATE [User] SET Active = 1 WHERE ID = " + id;
+
+            DataTable table = new DataTable();
+            string sqlDataSource = _configuration.GetConnectionString("RealtorsConnect");
+            SqlDataReader myRender;
+            using (SqlConnection myCon = new SqlConnection(sqlDataSource))
+            {
+                myCon.Open();
+                using (SqlCommand myCommand = new SqlCommand(query, myCon))
+                {
+                    myRender = myCommand.ExecuteReader();
+                    table.Load(myRender);
+                    myRender.Close(); myCon.Close();
+                }
+            }
+            return new JsonResult(table);
+        }
 
 
         // Upgrade all action: Active

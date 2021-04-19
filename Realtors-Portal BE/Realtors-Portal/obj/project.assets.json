@@ -8838,19 +8838,23 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\ACER\\.nuget\\packages\\": {}
+    "C:\\Users\\Pc\\.nuget\\packages\\": {},
+    "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\Project-SEM3 API\\Realtors-Portal\\Realtors-Portal BE\\Realtors-Portal\\Realtors-Portal.csproj",
+      "projectUniqueName": "C:\\Users\\Pc\\Documents\\GitHub\\ProjectIII\\Realtors-Portal\\Realtors-Portal BE\\Realtors-Portal\\Realtors-Portal.csproj",
       "projectName": "Realtors-Portal",
-      "projectPath": "D:\\Project-SEM3 API\\Realtors-Portal\\Realtors-Portal BE\\Realtors-Portal\\Realtors-Portal.csproj",
-      "packagesPath": "C:\\Users\\ACER\\.nuget\\packages\\",
-      "outputPath": "D:\\Project-SEM3 API\\Realtors-Portal\\Realtors-Portal BE\\Realtors-Portal\\obj\\",
+      "projectPath": "C:\\Users\\Pc\\Documents\\GitHub\\ProjectIII\\Realtors-Portal\\Realtors-Portal BE\\Realtors-Portal\\Realtors-Portal.csproj",
+      "packagesPath": "C:\\Users\\Pc\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\Pc\\Documents\\GitHub\\ProjectIII\\Realtors-Portal\\Realtors-Portal BE\\Realtors-Portal\\obj\\",
       "projectStyle": "PackageReference",
+      "fallbackFolders": [
+        "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+      ],
       "configFilePaths": [
-        "C:\\Users\\ACER\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\Pc\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -8962,13 +8966,5 @@
         "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.101\\RuntimeIdentifierGraph.json"
       }
     }
-  },
-  "logs": [
-    {
-      "code": "Undefined",
-      "level": "Warning",
-      "warningLevel": 1,
-      "message": "Problem reading the cache file D:\\Project-SEM3 API\\Realtors-Portal\\Realtors-Portal BE\\Realtors-Portal\\obj\\project.nuget.cache : Invalid property identifier character: <. Path 'version', line 3, position 0."
-    }
-  ]
+  }
 }

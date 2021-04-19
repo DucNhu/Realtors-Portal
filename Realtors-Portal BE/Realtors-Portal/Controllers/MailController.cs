@@ -1,12 +1,10 @@
-﻿using MailKit;
-using Microsoft.AspNetCore.Mvc;
-using Realtors_Portal.Models.DTOs.Requests;
+﻿using Microsoft.AspNetCore.Mvc;
+using Realtors_Portal.Models;
 using System;
 using System.Threading.Tasks;
 using Realtors_Portal.Services;
-using IMailService = Realtors_Portal.Services.IMailService;
 
-namespace Realtors_Portal.Controllers.System
+namespace Realtors_Portal.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
@@ -18,7 +16,7 @@ namespace Realtors_Portal.Controllers.System
             this.mailService = mailService;
         }
         [HttpPost("send")]
-        public async Task<IActionResult> SendMail([FromForm] MailRequest request)
+        public async Task<IActionResult> SendMail( MailRequest request)
         {
             try
             {

@@ -26,10 +26,22 @@ export class UserService {
   getAllUser() {
     return this.http.get(environment.apiUrl + 'Users/getUserActive')
   }
+
   //  ADMIN
+
+  getUserNotActive() {
+    return this.http.get(environment.apiUrl + 'Users/getUserNotActive')
+  }
   putUserForAdmin(val) {
     return this.http.put(environment.apiUrl + 'Users/putUserForAdmin', val)
   }
+
+  SendMail(val) {
+    console.log(val);
+    
+    return this.http.post(environment.apiUrl + 'Mail/send', val)
+  }
+
 
   putAllUserActiveForAdmin(val) {
     return this.http.put(environment.apiUrl + 'Users/putAllUserActiveForAdmin', val)
@@ -40,7 +52,6 @@ export class UserService {
       UserID: id,
       PackageID: PackageID
     }
-    console.log(val);
     
     return this.http.put(environment.apiUrl + `Users/putUserUpgradePackageID/user/${val.UserID}/${val.PackageID}`, val)
 
