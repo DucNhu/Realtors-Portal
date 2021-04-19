@@ -1,7 +1,4 @@
-﻿using Realtors_Portal.Models.DTOs.Requests;
-using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using Realtors_Portal.Models;
 using System.Threading.Tasks;
 
 namespace Realtors_Portal.Services

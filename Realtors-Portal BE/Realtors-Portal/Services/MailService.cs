@@ -1,17 +1,11 @@
 ﻿using MailKit.Security;
 using Microsoft.Extensions.Options;
 using MimeKit;
-using Realtors_Portal.Models.DTOs.Requests;
-using System;
-using System.Collections.Generic;
-using System.IO;
-using MailKit.Net.Smtp;
-
-using System.Linq;
-using System.Net.Mail;
-using System.Threading.Tasks;
+using Realtors_Portal.Models;
 using Realtors_Portal.Settings;
-using SmtpClient = MailKit.Net.Smtp.SmtpClient;
+using System.IO;
+using System.Threading.Tasks;
+using MailKit.Net.Smtp;
 
 namespace Realtors_Portal.Services
 {

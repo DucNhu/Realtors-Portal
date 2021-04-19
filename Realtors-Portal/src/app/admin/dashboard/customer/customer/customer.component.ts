@@ -30,6 +30,7 @@ export class CustomerComponent implements OnInit {
 
   ngOnInit(): void {
     this.getAllUser();
+    this.getUserNotActive();
     this.getRoles();
     this.ValidatorForm();
   }
@@ -44,14 +45,73 @@ export class CustomerComponent implements OnInit {
     this.adminService.getAllUser().subscribe(
       data => {
         this.containData = data;
-        console.log(data);
-
         this.containData.forEach(e => {
           e.ImageBannerSrc = this.getImageBannerSrc;
           this.listSeller.unshift(e);
         });
       }
     )
+  }
+  listuserNotActive
+  getUserNotActive() {
+    this.userService.getUserNotActive().subscribe( 
+      data => {
+        this.listuserNotActive = data;
+      }
+    )
+  }
+
+  sendMaillAllAccNotActive() {
+    this.listuserNotActive.forEach(e => {
+      let pass = e.Password.substring(0, e.Password.length - 1);   // Loại đi dấu !    
+      let val = {
+        "ToEmail": `${e.Email}`,
+        "Body": `
+        <h1 style='color:#26ae61'>Congratulations on successful account registration</h1>
+        <p>
+        Hello Mr.${e.Name} <br>
+        Our admin has confirmed you are a ${e.User_type}, you can now login with your account: <br>
+        Nik name: <span style='color: green'>${e.Email}<span> <br>
+        Password: <span style='color: green'>${pass}<span> <br>
+        You can login using the link below <br>
+        </p>
+        <a href='http://localhost:4200/login'>http://localhost:4200/login</a>
+        `,
+        "Subject": "Welcome Realtors Portal"
+      }
+      this.userService.SendMail(val).subscribe(
+        data => {
+          console.log("Ok send mail");
+        }
+      )
+    });
+  }
+  
+  sendMaillaAccNotActive(e) {
+    if(e.Active == 0) {
+      let pass = e.Password.substring(0, e.Password.length - 1);   // Loại đi dấu !    
+      let val = {
+        "ToEmail": `${e.Email}`,
+        "Body": `
+        <h1 style='color:#26ae61'>Congratulations on successful account registration</h1>
+        <p>
+        Hello Mr.${e.Name} <br>
+        Our admin has confirmed you are a ${e.User_type}, you can now login with your account: <br>
+        Nik name: <span style='color: green'>${e.Email}</span> <br>
+        Password: <span style='color: green'>${pass}</span> <br>
+        You can login using the link below <br>
+        </p>
+        <a href='http://localhost:4200/login'>http://localhost:4200/login</a>
+        `,
+        "Subject": "Welcome Realtors Portal"
+      }
+      this.userService.SendMail(val).subscribe(
+        data => {
+          console.log("Ok send mail");
+        }
+      )
+    }
+      
   }
 
   getRoles() {
@@ -147,7 +207,10 @@ export class CustomerComponent implements OnInit {
   get UserName() { return this.formValidator.get('UserName') }
 
   NameWhenEdit = '';
+  dataDataEdit;
   GetDataEditorAdd(val) {
+    this.dataDataEdit = val;
+    
     this.NameWhenEdit = val.Name;
     this.formValidator.controls.User_type.patchValue(val.User_type);
     this.formValidator.controls.ID.patchValue(val.ID);

@@ -19,6 +19,7 @@ using Realtors_Portal.Services;
 using System.IO;
 using System.Text;
 using Realtors_Portal.Settings;
+using IMailService = Realtors_Portal.Services.IMailService;
 
 namespace Realtors_Portal
 {
@@ -83,7 +84,7 @@ namespace Realtors_Portal
                         .AddEntityFrameworkStores<Realtors_PortalContext>();
 
             services.Configure<MailSettings>(Configuration.GetSection("MailSettings"));
-            //services.AddTransient<IMailService, Services.MailService>();
+            services.AddTransient<IMailService, Services.MailService>();
 
             services.AddControllers();
             services.AddSwaggerGen(c =>

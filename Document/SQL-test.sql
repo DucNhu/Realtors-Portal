@@ -419,6 +419,10 @@ select DISTINCT count(project.CategoryID) as 'productCount',  Category.CategoryN
 
                                 group by Category.CategoryName
 
+								select [User].ID, [User].Name, [User].Email, [User].Title, [User].Description, [User].Phone,[User].User_type, [User].Avatar, [User].Active, [User].PackageID
+from [User]
+where [User].User_type not like 'admin' and [User].Active = 0
+
 
 use realtors01 
 
