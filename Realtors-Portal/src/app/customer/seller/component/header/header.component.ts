@@ -33,11 +33,23 @@ export class HeaderComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.infor = this.authenticationService.currentUserValue.Infor;
-    this.infor.src = environment.ImageUrl + 'Customer/';
+    // this.infor = this.authenticationService.currentUserValue.Infor;
+
+    this.getInforById();
   }
-  
-  
+
+  InforUser;
+  getInforById() {
+    this.userService.getUserbyId(this.authenticationService.currentUserValue.Infor.ID).subscribe(
+      data => {
+        let contain = data;
+        this.infor = contain; 
+        this.infor.src = environment.ImageUrl + 'Customer/';
+
+      }
+    )
+  }
+
   // Update Image when select change
   dataImage; Avatar;
   onSelectFile(e) {
@@ -62,7 +74,7 @@ export class HeaderComponent implements OnInit {
     try {
       formData.append('ImageFile', this.dataImage, this.Avatar);
       this.userService.UpdateAvatar(formData).subscribe(() => {
-        this.userService.UpdateAvatarInDb(idAndNameImage).subscribe(() => {})
+        this.userService.UpdateAvatarInDb(idAndNameImage).subscribe(() => { })
       });
     }
     catch (e) {

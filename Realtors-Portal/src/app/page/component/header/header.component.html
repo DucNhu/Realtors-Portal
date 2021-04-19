@@ -35,10 +35,10 @@ header -->
                                     <button class="btn p-0 dropdown-toggle" type="button" id="dropdowlistactionuser"
                                         data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                         <!-- {{currentUser.Infor.Name}} -->
-                                        <img class="img-fluid" [src]="imgSrc + currentUser.Infor.Avatar"
-                                            [alt]="currentUser.Infor.Avatar" width="30" height="30"
+                                        <img class="img-fluid" [src]="imgSrc + UserInfor.Avatar"
+                                            [alt]="UserInfor.Avatar" width="30" height="30"
                                             class="rounded-circle mr-3">
-                                        <span class="text-white">{{ currentUser.Infor.Name }}</span>
+                                        <span class="text-white">{{ UserInfor.Name }}</span>
                                     </button>
                                     <div class="dropdown-menu" aria-labelledby="dropdowlistactionuser">
                                         <a class="dropdown-item" routerLink="profile-seller"
@@ -90,8 +90,8 @@ header -->
                             <div class="row">
                                 <div class="col-sm-6 box-list__category">
                                     <h6 class="mb-3 nav-title text-center">List Category</h6>
-                                    <ul class="list-unstyled mt-lg-3 row">
-                                        <li class="col-12 col-sm-4" *ngFor="let c of listCategory | paginate : {
+                                    <ul class="list-unstyled mt-lg-3 row h-100">
+                                        <li class="col-12 col-sm-3" *ngFor="let c of listCategory | paginate : {
                                                           itemsPerPage: tableSize,
                                                           currentPage: page,
                                                           totalItems: count}" (mouseover)="OnpreviewImg(c.Avatar)">

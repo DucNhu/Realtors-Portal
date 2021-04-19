@@ -403,7 +403,8 @@
                                             <!-- District  -->
                                             <div class="mb-4">
                                                 <label for="District">District</label>
-                                                <select class="form-select form-control" formControlName="District">
+                                                <select class="form-select form-control" formControlName="District"
+                                                (change)="selectByDistrict()">
                                                     <option *ngFor="let District of listDistrict"
                                                         [value]="District.DistrictID"
                                                         [selected]="District.DistrictID == formValidator.controls.District.value">

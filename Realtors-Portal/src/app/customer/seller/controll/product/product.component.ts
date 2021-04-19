@@ -478,11 +478,11 @@ export class ProductComponent implements OnInit {
 
       Location: [null, [Validators.required]],
 
-      Price: [null, [Validators.required]],
+      Price: [null, [Validators.required, Validators.min(0)]],
       UserID: [0],
 
       ProjectName: [null, [Validators.required]],
-      Sqft: [null, [Validators.required]],
+      Sqft: [null, [Validators.required, Validators.min(0)]],
 
       Description: [null, [Validators.required]],
       LevelActive: [null, [Validators.required]],
@@ -565,11 +565,11 @@ export class ProductComponent implements OnInit {
 
   // checkValidForm
   checkValidForm(val) {
-    // switch (val) {
-    //   case "Price":
-    //      console.log(this.formValidator.controls.Price);
+    switch (val) {
+      case "Price":
+         console.log(this.formValidator.controls.Price);
 
-    // }
+    }
   }
   // END checkValidForm
 
@@ -664,6 +664,8 @@ export class ProductComponent implements OnInit {
   selectByDistrict() {
     console.log(this.formValidator.controls.District.value);
     this.listAre = [];
+    console.log(this.areInDistrict);
+    
     this.areInDistrict.forEach(e => {
       if (e.DistrictID == this.formValidator.controls.District.value) {
         this.listAre.push(e);
