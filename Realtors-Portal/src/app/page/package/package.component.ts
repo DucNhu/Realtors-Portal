@@ -69,7 +69,7 @@ export class PackageComponent implements OnInit {
                 this.userService.putUserUpgradePackageID(this.idUser, e.PackageID).subscribe(
                   data => {
                     alert(`Thank ${details.payer.name.given_name} for supporting the site, you have ${e.Duration} days free`);
-                    // window.location.reload();
+                    window.location.reload();
                   }
                 );
 
